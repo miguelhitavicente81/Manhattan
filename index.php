@@ -11,7 +11,7 @@
     <title>Inscribirse - Perspectiva Alemania</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet">
@@ -27,8 +27,8 @@
   </head>
 
   <body>
-
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="top-page-color"></div>
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -43,11 +43,11 @@
         </div>
         <div class="navbar-collapse collapse">
           <form class="navbar-form navbar-right" role="form">
-            <div class="form-group">
-              <input type="text" placeholder="E-Mail" class="form-control">
+            <div class="form-group tooltip-demo">
+              <input type="text" placeholder="E-Mail" class="form-control" data-toggle="tooltip" data-placement="bottom" title="Introduce tu e-mail de acceso">
             </div>
-            <div class="form-group">
-              <input type="password" placeholder="Contraseña" class="form-control">
+            <div class="form-group tooltip-demo">
+              <input type="password" placeholder="Contraseña" class="form-control" data-toggle="tooltip" data-placement="bottom" title="Introduce la contraseña">
             </div>
             <button type="submit" class="btn btn-primary">Iniciar sesión</button>
           </form>
@@ -56,10 +56,12 @@
     </div>
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
+    <!-- ¿Incluir carrousel? -->
     <div class="jumbotron">
       <div class="container">
-        <h1>¡Inscríbete ahora!</h1>
-        <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+        <h1 id="inscripcion" class="page-header">¡Inscríbete ahora!</h1>
+        <p>Integra tu curriculum en nuestra base de datos a través de un proceso on-line rápido, fácil y 100% seguro.</p>
+        <p class="small">Todos vuestros datos personales serán tratados con la más absoluta confidencialidad y en cumplimiento estricto de la normativa vigente de protección de datos de carácter personal.</p>
         <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
       </div>
     </div>
@@ -67,20 +69,21 @@
     <div class="container">
       <!-- Example row of columns -->
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-4 tooltip-demo">
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <p><a href="#" data-toggle="tooltip" title="first tooltip">Hover over me</a></p>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 tooltip-demo">
           <h2>Heading</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
           <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <button type="button" class="btn btn-default muted" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
        </div>
-        <div class="col-md-4">
+       <div class="col-md-4">
           <h2>Heading</h2>
-          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <p>That's all, folks!!!</p>
         </div>
       </div>
 
@@ -97,5 +100,8 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bootstrap/docs-assets/js/holder.js"></script>
+    <script src="bootstrap/docs-assets/js/application.js"></script>
   </body>
 </html>
+
