@@ -59,10 +59,18 @@
     <!-- ¿Incluir carrousel? -->
     <div class="jumbotron">
       <div class="container">
-        <h1 id="inscripcion" class="page-header">¡Inscríbete ahora!</h1>
-        <p>Integra tu curriculum en nuestra base de datos a través de un proceso on-line rápido, fácil y 100% seguro.</p>
-        <p class="small">Todos vuestros datos personales serán tratados con la más absoluta confidencialidad y en cumplimiento estricto de la normativa vigente de protección de datos de carácter personal.</p>
-        <p><a class="btn btn-primary btn-lg" role="button">Learn more &raquo;</a></p>
+        <div class="row">
+          <div class="col-md-8">
+            <h1 id="inscripcion" class="page-header">¡Inscríbete ahora!</h1>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <p>Integra tu curriculum en nuestra base de datos a través de un proceso on-line rápido, fácil y 100% seguro.</p>
+            <h4><p class="small">Todos tus datos personales serán tratados con la más absoluta confidencialidad y en cumplimiento estricto de la normativa vigente de protección de datos de carácter personal.</p></h4>
+          </div>
+        </div>
+        <p><a class="btn btn-primary btn-lg" role="button">Registrarse &raquo;</a></p>
       </div>
     </div>
 
@@ -90,10 +98,15 @@
       <hr>
 
       <footer>
-        <p>&copy; Perspectiva Alemania, S.L.</p>
+
       </footer>
     </div> <!-- /container -->
 
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted">&copy; Perspectiva Alemania, S.L.</p>
+      </div>
+    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
