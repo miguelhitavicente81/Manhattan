@@ -27,22 +27,30 @@ body {
 
 /* Set the fixed height of the footer here */
 #footer {
-  height: 60px;
-  background: url(./body-bg-32b.png) bottom center repeat;
+  height: 40px;
+  position: fixed;
+  bottom: 0;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  width: 100%;
+
   background-color: #f5f5f5;
+
+}
+
+/* Fixing some display issues for footer bars */
+#footer .container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 1px 1px 0;
+  margin-left: 20px;
+}
+#footer .container .text-muted {
+  margin: 0 0 1px 0;
 }
 
 
 /* Custom page CSS
 -------------------------------------------------- */
-/* Not required for template or sticky footer method. */
 
-#footer .container {
-  width: auto;
-  max-width: 680px;
-  padding: 0 15px;
-  margin-left: 20px;
-}
-#footer .container .text-muted {
-  margin: 20px 0;
-}
+
