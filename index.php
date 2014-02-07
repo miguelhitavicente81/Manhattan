@@ -16,6 +16,21 @@
     <!-- Custom styles for this template -->
     <link href="jumbotron.css" rel="stylesheet">
 
+    <!-- Using the same favicon from perspectiva-alemania.com site -->
+    <link rel="shortcut icon" href="http://www.perspectiva-alemania.com/wp-content/themes/perspectiva2013/bilder/favicon.png">
+    <!-- This is the traditional favicon.
+       - size: 16x16 or 32x32
+       - transparency is OK
+       - see wikipedia for info on browser support: http://mky.be/favicon/ -->
+     
+    <link rel="apple-touch-icon" href="http://www.perspectiva-alemania.com/wp-content/themes/perspectiva2013/_/img/apple-touch-icon.png">
+    <!-- The is the icon for iOS's Web Clip.
+       - size: 57x57 for older iPhones, 72x72 for iPads, 114x114 for iPhone4's retina display (IMHO, just go ahead and use the biggest one)
+       - To prevent iOS from applying its styles to the icon name it thusly: apple-touch-icon-precomposed.png
+       - Transparency is not recommended (iOS will put a black BG behind the icon) -->
+
+
+
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -41,7 +56,7 @@
             <img src="./logo.png" alt="Perspectiva Alemania">
           </a>
         </div>
-        <div class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse">       
           <form class="navbar-form navbar-right" role="form">
             <div class="form-group tooltip-demo">
               <input type="text" placeholder="E-Mail" class="form-control" data-toggle="tooltip" data-placement="bottom" title="Introduce tu e-mail de acceso">
@@ -57,7 +72,7 @@
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
     <!-- ¿Incluir carrousel? -->
-    <div class="jumbotron">
+    <div class="jumbotron" id="Jumbotron">
       <div class="container">
         <div class="row">
           <div class="col-md-8">
@@ -74,24 +89,22 @@
       </div>
     </div>
 
-    <div class="container">
+    <div class="container" id="Descripciones">
       <!-- Example row of columns -->
       <div class="row">
         <div class="col-md-4 tooltip-demo">
-          <h2>Heading</h2>
+          <h2>On-Line</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+          <p><a class="btn btn-default" href="#" role="button">Más información &raquo;</a></p>
           <p><a href="#" data-toggle="tooltip" title="first tooltip">Hover over me</a></p>
         </div>
         <div class="col-md-4 tooltip-demo">
-          <h2>Heading</h2>
+          <h2>Fácil</h2>
           <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-          <button type="button" class="btn btn-default muted" data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom">Tooltip on bottom</button>
        </div>
        <div class="col-md-4">
-          <h2>Heading</h2>
-          <p>That's all, folks!!!</p>
+          <h2>100% Seguro</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
         </div>
       </div>
 
