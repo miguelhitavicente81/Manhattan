@@ -6,6 +6,13 @@
 
 /*! normalize.css v2.1.3 | MIT License | git.io/normalize */
 
+/* Fonts family imports
+-------------------------------------------------- */
+/*! Standard fonts */
+@import url(http://fonts.googleapis.com/css?family=Ubuntu|Roboto);
+/*! Monospaced fonts */
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono|Roboto+Slab);
+
 article,
 aside,
 details,
@@ -38,7 +45,8 @@ template {
 }
 
 html {
-  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
+  /*font-family: Helvetica, Arial, "Lucida Grande", sans-serif;*/
+  font-family: 'Roboto', sans-serif;
   -webkit-text-size-adjust: 100%;
       -ms-text-size-adjust: 100%;
 }
@@ -303,7 +311,8 @@ html {
 }
 
 body {
-  font-family: Helvetica, Arial, "Lucida Grande", sans-serif; 
+  /*font-family: Helvetica, Arial, "Lucida Grande", sans-serif; */
+  font-family: 'Roboto', sans-serif; 
   font-size: 14px;
   line-height: 1.428571429;
   color: #333333;
@@ -397,8 +406,9 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 500;
+  /*font-family: Helvetica, Arial, "Lucida Grande", sans-serif;*/
+  font-family: 'Roboto Bold', sans-serif;
+  font-weight: 700;
   line-height: 1.1;
   color: inherit;
 }
@@ -741,7 +751,8 @@ code,
 kbd,
 pre,
 samp {
-  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  /*font-family: Menlo, Monaco, Consolas, "Courier New", monospace;*/
+  font-family: 'Ubuntu Mono', monospace;
 }
 
 code {
@@ -1933,6 +1944,8 @@ output {
   height: 34px;
   padding: 6px 12px;
   font-size: 14px;
+  /*font-family: Menlo, Monaco, Consolas, "Courier New", monospace;*/
+  font-family: 'Ubuntu Mono', monospace;
   line-height: 1.428571429;
   color: #555555;
   vertical-align: middle;
@@ -4805,7 +4818,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
   border-color: #080808;*/
   background-color:#222;
   border-color:#3C8DC5;
-  background: url(../../../body-bg-3.png) 50% 0 repeat;
+  background: url(../../../img/body-bg-3.png) 50% 0 repeat;
 }
 
 .navbar-inverse .navbar-brand {

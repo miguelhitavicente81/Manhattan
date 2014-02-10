@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
+    <!-- <link rel="shortcut icon" href="../../assets/ico/favicon.ico">  -->
 
     <title>Inscribirse - Perspectiva Alemania</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <link href="common/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="jumbotron.css" rel="stylesheet">
+    <link href="common/css/jumbotron.css" rel="stylesheet">
 
     <!-- Using the same favicon from perspectiva-alemania.com site -->
     <link rel="shortcut icon" href="http://www.perspectiva-alemania.com/wp-content/themes/perspectiva2013/bilder/favicon.png">
@@ -53,7 +53,7 @@
             <span class="icon-bar"></span>
           </button>
           <a href="http://www.perspectiva-alemania.com/" title="Perspectiva Alemania">
-            <img src="./logo.png" alt="Perspectiva Alemania">
+            <img src="common/img/logo.png" alt="Perspectiva Alemania">
           </a>
         </div>
         <div class="navbar-collapse collapse">       
@@ -125,9 +125,9 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="bootstrap/docs-assets/js/holder.js"></script>
-    <script src="bootstrap/docs-assets/js/application.js"></script>
+    <script src="common/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="common/bootstrap/docs-assets/js/holder.js"></script>
+    <script src="common/bootstrap/docs-assets/js/application.js"></script>
   </body>
 </html>
 

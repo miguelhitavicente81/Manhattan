@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"Slab",
+				"Slab"
+			],
+			[
 				"c",
 				"class	Attr"
 			],
@@ -83,7 +87,31 @@
 			"file": "index.php",
 			"settings":
 			{
-				"buffer_size": 6297,
+				"buffer_size": 6355,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "es/home.php",
+			"settings":
+			{
+				"buffer_size": 6168,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "es/frontentry.html",
+			"settings":
+			{
+				"buffer_size": 1012,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "common/css/jumbotron.css",
+			"settings":
+			{
+				"buffer_size": 1100,
 				"line_ending": "Windows"
 			}
 		},
@@ -91,39 +119,47 @@
 			"file": "index.html",
 			"settings":
 			{
-				"buffer_size": 6287,
+				"buffer_size": 6347,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "bootstrap/dist/js/bootstrap.js",
+			"file": "Login.html",
 			"settings":
 			{
-				"buffer_size": 58533,
+				"buffer_size": 7460,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "jumbotron.css",
+			"file": "es/validatefront.php",
 			"settings":
 			{
-				"buffer_size": 1095,
+				"buffer_size": 4419,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "common/css/signin.css",
+			"settings":
+			{
+				"buffer_size": 2086,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "bootstrap/dist/css/bootstrap.css",
+			"file": "common/css/styles.css",
 			"settings":
 			{
-				"buffer_size": 123132,
+				"buffer_size": 40007,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"contents": "/*   \nTheme Name: perspectiva-alemania 2013\nTheme URI: http://www.perspectiva-alemania.com\nAuthor: Lene Saile\nAuthor URI: http://lenesaile.com\nVersion: 2.0\n*/\n\n/*\n	HTML5 Reset Wordpress Theme :: style.css\n	----------------------------------------------------------\n	We have learned much from/been inspired by/taken code where offered from:\n	\n	Eric Meyer					:: http://ericmeyer.com\n	HTML5 Doctor				:: http://html5doctor.com\n	and the HTML5 Boilerplate	:: http://html5boilerplate.com\n	\n	Special thanks: The Wordpress theme owes its start to an empty theme authored \n		by Chris Coyier & Jeff Starr: http://digwp.com\n	\n-------------------------------------------------------------------------------*/\n\n/* Let's default this puppy out\n-------------------------------------------------------------------------------*/\n\nhtml, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {\n	margin: 0;\n	padding: 0;\n	border: 0;\n	outline: 0;\n	font-size: 100%;\n	vertical-align: baseline;\n	background: transparent;\n}									\n\narticle, aside, figure, footer, header, hgroup, nav, section {display: block;}\n\n/* Responsive images and other embedded objects\n   Note: keeping IMG here will cause problems if you're using foreground images as sprites, like, say for Google Maps custom placemarkers. \n   There has been a report of problems with standard Google maps as well, but we haven't been able to duplicate or diagnose the issue. */\nimg,\nobject,\nembed {max-width: 100%;}\n\n/* force a vertical scrollbar to prevent a jumpy page */\nhtml {overflow-y: scroll;}\n\n/* we use a lot of ULs that aren't bulleted. \n	don't forget to restore the bullets within content. */\nul {list-style: none;}\n\nblockquote, q {quotes: none;}\n\nblockquote:before, \nblockquote:after, \nq:before, \nq:after {content: ''; content: none;}\n\na {margin: 0; padding: 0; font-size: 100%; vertical-align: baseline; background: transparent;}\n\ndel {text-decoration: line-through;}\n\nabbr[title], dfn[title] {border-bottom: 1px dotted #000; cursor: help;}\n\n/* tables still need cellspacing=\"0\" in the markup */\ntable {border-collapse: collapse; border-spacing: 0;}\nth {font-weight: bold; vertical-align: bottom;}\ntd {font-weight: normal; vertical-align: top;}\n\nhr {display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0;}\n\ninput, select {vertical-align: middle;}\n\npre {\n	white-space: pre; /* CSS2 */\n	white-space: pre-wrap; /* CSS 2.1 */\n	white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */\n	word-wrap: break-word; /* IE */\n}\n\ninput[type=\"radio\"] {vertical-align: text-bottom;}\ninput[type=\"checkbox\"] {vertical-align: bottom; *vertical-align: baseline;}\n.ie6 input {vertical-align: text-bottom;}\n\nselect, input, textarea {font: 99% sans-serif;}\n\ntable {font-size: inherit; font: 100%;}\n \n/* Accessible focus treatment\n	people.opera.com/patrickl/experiments/keyboard/test */\na:hover, a:active {outline: none;}\n\nsmall {font-size: 85%;}\n\nstrong, th {font-weight: bold;}\n\ntd, td img {vertical-align: top;} \n\n/* Make sure sup and sub don't screw with your line-heights\n	gist.github.com/413930 */\nsub, sup {font-size: 75%; line-height: 0; position: relative;}\nsup {top: -0.5em;}\nsub {bottom: -0.25em;}\n\n/* standardize any monospaced elements */\npre, code, kbd, samp {font-family: monospace, sans-serif;}\n\n/* hand cursor on clickable elements */\n.clickable,\nlabel, \ninput[type=button], \ninput[type=submit], \nbutton {cursor: pointer;}\n\n/* Webkit browsers add a 2px margin outside the chrome of form elements */\nbutton, input, select, textarea {margin: 0;}\n\n/* make buttons play nice in IE */\nbutton {width: auto; overflow: visible;}\n \n/* scale images in IE7 more attractively */\n.ie7 img {-ms-interpolation-mode: bicubic;}\n\n/* prevent BG image flicker upon hover */\n.ie6 html {filter: expression(document.execCommand(\"BackgroundImageCache\", false, true));}\n\n/* let's clear some floats */\n.clearfix:before, .clearfix:after { content: \"\\0020\"; display: block; height: 0; overflow: hidden; }  \n.clearfix:after { clear: both; }  \n.clearfix { zoom: 1; }  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhtml, body, div, span, applet, object, iframe,\nh1, h2, h3, h4, h5, h6, p, blockquote, pre,\na, abbr, acronym, address, big, cite, code,\ndel, dfn, em, font, img, ins, kbd, q, s, samp,\nsmall, strike, strong, sub, sup, tt, var,\ndl, dt, dd, ol, ul, li,\nfieldset, form, label, legend,\ntable, video, object, caption, tbody, tfoot, thead, tr, th, td, hr {\n	margin: 0;\n	padding: 0;\n	border: 0;\n	outline: 0;\n	font-weight: inherit;\n	font-style: inherit;\n	font-size: 100%;\n	font-family: Helvetica, Arial, \"Lucida Grande\", sans-serif;\n	vertical-align: baseline;\n}\n\n:focus {\n  outline: 0; }\n\nbody {\n  font-size: 13px;\n  font-family: Helvetica, Arial, \"Lucida Grande\", sans-serif;\n  color: #666666;\n  font-weight: normal;\n  line-height: 20px; }\n\n#main-wrapper, #main-wrapper-narrow {\n  background: #fff;\n  background-position: 0 5px;\n  width: 100%;\n  margin: 0 auto; }\n\n#main-wrapper-narrow {\n  width: 980px;\n  margin: 0 auto; }\n\n.wrapper {\n	width: 940px;\n	margin: 0 auto;\n}\n\n#content {\n  margin-bottom: 20px;\n  padding: 0;\n  height: auto;\n  overflow: auto;\n  margin-top: -10px; }\n  #content .first-content {\n    padding: 0px 20px 0px 20px; }\n  #content .wrapper {\n    overflow: hidden; }\n  \np {\n	font-family: Helvetica, Arial, \"Lucida Grande\", sans-serif;\n	font-size: 13px;\n	line-height: 20px;\n	margin: 0 0 20px 0;\n	color: #333;\n\n}\n\n\n\nstrong {\n  line-height: 20px;\n  font-weight: bold; }\n\na {\n  text-decoration: none;\n  line-height: 10px;\n  /*color: #3C8DC6;*/\n  color: #666; }\n  a:hover {\n	color: #3C8DC5;\n	cursor: pointer;\n}\n\np a {\n  display: inline; }\n\nh1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a {\n  line-height: inherit; }\n\nh1, h2, h3, h4, h5, h6 {\n	font-family: Helvetica, Arial, \"Lucida Grande\", sans-serif;\n	font-weight: normal;\n	color: #000000;\n}\n\nh1 {\n  font-size: 18px;\n  line-height: 20px;\n  padding-top: 8px;\n  margin-bottom: 20px; }\n\nh2 {\n  font-size: 18px;\n  line-height: 20px;\n  padding-top: 8px;\n  margin-bottom: 20px; }\n\nh3 {\n  font-size: 18px;\n  line-height: 20px;\n  padding-top: 8px;\n  margin-bottom: 12px; }\n\nh4 {\n  font-size: 18px;\n  line-height: 20px;\n  padding-top: 8px;\n  margin-bottom: 12px; }\n\nh5 {\n  font-size: 13px;\n  font-weight: bold;\n  line-height: 20px;\n  padding-top: 10px;\n  margin-bottom: 10px; }\n\nh6 {\n  font-size: 16px;\n  line-height: 20px;\n  padding-top: 10px;\n  margin-bottom: 10px;\n    font-weight: bold;}\n\nmark {\n  padding: 0px 3px 2px 3px;\n  border-radius: 5px; }\n\nmark.red {\n  background: #c50000;\n  color: #fff; }\n\nmark.orange {\n  background: #df6900;\n  color: #fff; }\n\nmark.green {\n  background: #24aa0e;\n  color: #fff; }\n\nmark.blue {\n  background: #0175ce;\n  color: #fff; }\n\nmark.purple {\n  background: #6400c2;\n  color: #fff; }\n\nhr {\n  height: 20px;\n  margin-bottom: 10px;\n  width: 100%; }\n\n\nblockquote {\n  background: url(../bilder/quote.png) right bottom no-repeat;\n  padding: 0px 60px 0  0px;\n  margin: 0px 0 16px 0;\n  overflow: hidden; }\n\nblockquote p {\n  background-position: 1px  4px;\n  font-size: 18px;\n  text-align: right;\n  padding: 14px 0 0 50px;\n  margin: 0;\n  line-height: 20px;\n  color: #000; }\n\nblockquote p.strong, blockquote.left-align p.strong {\n  background: transparent;\n  font-style: normal;\n  font-weight: normal;\n  font-family: Helvetica, Arial, \"Lucida Grande\", sans-serif;\n  font-size: 13px;\n  text-align: right;\n  padding: 0 0 4px 0;\n  margin-top: 6px;\n  line-height: 20px;\n  color: #6a6a6a; }\n\nul {\n  margin: 0 0 30px 30px; }\n\nul li {\n  padding: 0;\n  margin: 0 0 0px 0;\n  padding-left: 0px;\n  line-height: 20px; }\n\n/*ul { margin: 0 0 30px 0; }\n\nul li { padding:0; margin:0 0 10px 0; list-style: none; padding-left:20px; line-height: 20px; }\n\n*/\n.right {\n  clear: both;\n  float: right; }\n\n.left {\n  clear: both;\n  float: left; }\n\n.clear {\n  clear: both; }\n\n/*-------------------------------\n	2. page header\n-------------------------------*/\n.top-page-color, .bottom-page-color {\n	height: 5px;\n	width: 100%;\n	background: #3C8DC5;\n}\n\n.page-template-tmpl-area-php .top-page-color, .page-template-tmpl-area-php .bottom-page-color,\n.page-template-tmpl-area-start-php .top-page-color, .page-template-tmpl-area-start-php .bottom-page-color\n\n{\n	height: 5px;\n	width: 100%;\n	background: #3dc597;\n}\n\n.logo-menu-container {\n	height: 120px;\n	width: 100%;\n	background: url(../bilder/patterns/body-bg-3.png) 50% 0 repeat;\n	border-bottom: 1px solid #DFDFDF;\n}\n  .logo-menu-container #logo {\n    float: left;\n    margin: 30px 0 0 0;\n    padding: 0;\n    margin-left: 0px;\n    margin-bottom: 10px; }\n  .logo-menu-container .head-info {\n	float: right;\n	margin-top: 15px;\n	overflow: visible;\n	height: 35px;\n	width: 300px;\n}\n  .logo-menu-container #nav {\n	clear: right;\n	margin-top: 17px;\n	float: right;\n	height: auto;\n	list-style: none;\n	margin-right: -15px;\n	border-bottom: 1px #DFDFDF solid;\n}\n  .logo-menu-container #nav li {\n    float: left; }\n\n.page-header {\n	width: 100%;\n	background: url(../bilder/patterns/body-bg-32.png);\n	border-bottom: 1px solid #dcdcdc;\n}\n  .page-header .wrapper {\n    padding-top: 20px; }\n\n.home-page-header {\n	width: 100%;\n}\n  .home-page-header .home-page-header-bg {\n	height: auto;\n	width: 100%;\n	background: url(../bilder/patterns/body-bg-32.png) repeat;\n	border-bottom: 1px solid #DFDFDF;\n}\n  .home-page-header .wrapper {\n	padding-top: 20px;\n}\n\n.invent-home-page-header-decoration, .home-page-header-decoration, .page-header-decoration {\n	background: url(../bilder/schatten.png) 50% -1px no-repeat;\n	border-top: 1px solid #e1e1e1;\n	height: 40px;\n	width: 100%;\n}\n\n.justified {text-align: justify;}\n\n/*-------------------------------\n	4. buttons\n-------------------------------*/\n\n.button-big-theme-color {\n  display: block;\n  line-height: 40px;\n  margin-left: 5px;\n  margin-bottom: 20px;\n  background-position: top right;\n  color: #fff;\n  height: 40px; }\n\n.button-big-theme-color span {\n  background-position: 0 -40px;\n  display: block;\n  margin-left: -5px;\n  text-align: center;\n  padding: 0px 30px;\n  font-size: 16px;\n  font-weight: bold;\n  height: 39px;\n  padding-top: 1px;\n  /* base-line height fix */ }\n\n@-moz-document url-prefix() {\n.button-big-theme-color span {\n    height: 40px;\n    padding-top: 0px; } }\n\n.button-big-theme-color:hover {\n  background-position: 100% -80px; }\n\n.button-big-theme-color span:hover {\n  background-position: 0 -120px;\n  color: #fff; }\n\n\n.button-small-theme-color {\n	display: block;\n	line-height: 27px;\n	margin-left: 0px;\n	margin-bottom: 23px;\n	background-position: top right;\n	color: #fff;\n	height: 27px;\n}\n\n.button-small-theme-color span {\n	background-position: 0 -27px;\n	display: block;\n	margin-left: 0px;\n	text-align: center;\n	padding: 0px 18px;\n	font-size: 13px;\n	height: 27px;\n}\n\n.button-small-theme-color:hover {\n  background-position: 100% -54px; }\n\n.button-small-theme-color span:hover {\n  background-position: 0 -81px;\n  color: #fff; }\n\n\n\n.button-0 {\n  display: block;\n  line-height: 28px;\n  margin-left: 42px;\n  margin-bottom: 41px;\n  background-position: top right;\n  color: #535353;\n  height: 39px; }\n\n\n.button-0 span {\n  background-position: 0 -39px;\n  display: block;\n  margin-left: -42px;\n  text-align: center;\n  padding: 0px 36px;\n  font-size: 14px;\n  height: 39px; }\n\n/*-------------------------------\n	5. columns\n-------------------------------*/\n.column-1-2, .column-1-3, .column-2-3, .column-1-4, .column-3-4, .column-1-6 {\n  margin: 0 20px 0 0;\n  float: left;\n  height: auto; }\n\n.column-1-2 {\n  width: 460px; }\n\n.column-1-4 {\n  width: 220px; }\n\n.column-1-6 {\n  width: 140px; }\n\n.column-3-4 {\n  width: 700px; }\n\n.column-1-3 {\n  width: 300px; }\n\n.column-2-3 {\n  width: 620px; }\n\n.column-last {\n  margin-right: 0; }\n\n/* columns-for-accordions */\n.invent-accordion .column-1-2, .toggle .column-1-2 {\n  width: 445px; }\n\n.invent-accordion .column-1-4, .toggle .column-1-4 {\n  width: 212px; }\n\n.invent-accordion .column-1-6, .toggle .column-1-6 {\n  width: 135px; }\n\n.invent-accordion .column-3-4, .toggle .column-3-4 {\n  width: 658px; }\n\n.invent-accordion .column-1-3, .toggle .column-1-3 {\n  width: 290px; }\n\n.invent-accordion .column-2-3, .toggle .column-2-3 {\n  width: 600px; }\n\n.column-1-2 .invent-accordion .column-1-4, .column-1-2 .toggle .column-1-4 {\n  width: 205px; }\n\n.column-3-4 .invent-accordion .column-1-2, .column-3-4 .toggle .column-1-2 {\n  width: 440px; }\n\n.column-3-4 .invent-accordion .column-1-4, .column-3-4 .toggle .column-1-4 {\n  width: 210px; }\n\n.column-1-3 .invent-accordion .column-1-6, .column-1-3 .toggle .column-1-6 {\n  width: 125px; }\n\n.column-2-3 .invent-accordion .column-1-3, .column-2-3 .toggle .column-1-3 {\n  width: 285px; }\n\n.column-2-3 .invent-accordion .column-1-6, .column-2-3 .toggle .column-1-6 {\n  width: 132px; }\n\n.invent-accordion .column-last, .toggle .column-last {\n  margin-right: 0; }\n\n.column-1-2 .invent-tabs .column-1-2 {\n  width: 200px; }\n\n.invent-tabs .column-last {\n  margin-right: 0; }\n\n/*-------------------------------\n	6. dropcaps\n-------------------------------*/\n.dropcaps2 {\n  color: #676767;\n  font-size: 41px;\n  line-height: 40px;\n  float: left;\n  width: auto;\n  height: 40px;\n  padding: 0 8px;\n  text-align: center; }\n\n.dropcaps1::first-letter {\n  color: #676767;\n  font-size: 41px;\n  line-height: 40px;\n  float: left;\n  width: 32px;\n  height: 40px;\n  padding: 0 8px;\n  text-align: center; }\n\n@-moz-document url-prefix() {\n  .dropcaps1::first-letter {\n    padding-top: 6px; } }\n\n.dropcaps {\n  color: #6a6a6a;\n  font-size: 31px;\n  line-height: 42px;\n  float: left;\n  height: 42px;\n  width: 42px;\n  text-align: center;\n  background: transparent;\n  border: 2px #6a6a6a solid;\n  background-position: 0 7px;\n  border-radius: 24px;\n  margin: 8px 9px 0 9px; }\n\n/*-------------------------------\n	7. icons\n-------------------------------*/\n.icon {\n  float: left;\n  padding: 7px 14px 13px 14px; }\n\np .icon {\n  padding: 6px 10px 4px 10px; }\n\nh5 .icon {\n  float: left;\n  padding: 0px 14px 0px 14px;\n  margin-top: -4px; }\n\nh6 .icon {\n  padding: 6px 14px 4px 14px; }\n\nh5.big-icon-title {\n  text-align: center;\n  font-family: Helvetica, Arial, \"Lucida Grande\", sans-serif; }\n  h5.big-icon-title .big-icon {\n    margin: 0px auto 24px;\n    display: block; }\n\nh2 .icon {\n  float: left;\n  padding: 0px 14px 0px 14px;\n  margin-top: -4px; }\n\n\nh2.big-icon-title {\n  text-align: center;\n  font-family: Helvetica, Arial, \"Lucida Grande\", sans-serif; }\n  h2.big-icon-title .big-icon {\n    margin: 0px auto 24px;\n    display: block; }\n  h2.big-icon-title .big-icon-frage, h2.big-icon-title .big-icon-training, h2.big-icon-title .big-icon-vermittlung,\n  \n   h2.big-icon-title .big-icon-area-login, h2.big-icon-title .big-icon-area-jobs, h2.big-icon-title .big-icon-area-opinion\n  {\n	height: 70px;\n	display: block;\n}\n\nh2.big-icon-title .big-icon-frage {\n  background: url(\"../bilder/icons/fragebogen.png\") center top no-repeat; }\n\nh2.big-icon-title .big-icon-training {\n  background: url(\"../bilder/icons/training.png\") center top no-repeat; }\n\nh2.big-icon-title .big-icon-vermittlung {\n  background: url(\"../bilder/icons/vermittlung.png\") center top no-repeat; }\n\nh2.big-icon-title .big-icon-area-login {\n  background: url(\"../bilder/icons/area-login.png\") center top no-repeat; }\n\nh2.big-icon-title .big-icon-area-jobs {\n  background: url(\"../bilder/icons/area-jobs.png\") center top no-repeat; }\n\nh2.big-icon-title .big-icon-area-opinion {\n  background: url(\"../bilder/icons/area-opinion.png\") center top no-repeat; }\n\n\n\n.icon-headline {\n  margin-bottom: 20px;\n  height: auto;\n  width: 100%; }\n\n.icon-title {\n  margin-bottom: 21px;\n  min-height: 40px; }\n\n.icon-desc {\n  font-family: Helvetica, Arial, \"Lucida Grande\", sans-serif;\n  font-size: 11px;\n  line-height: 20px;\n  display: block;\n  padding-top: 1px;\n  margin-bottom: -1px; }\n\n/* only in demo mode*/\n.icon-list-demo {\n  padding: 0;\n  margin: 0;\n  list-style: none; }\n\n.icon-list-demo li {\n  width: 60px;\n  float: left;\n  margin: 0 0 30px 20px;\n  padding: 0; }\n\n.icon-list-demo li:first-child {\n  margin-left: 0; }\n\n/* end-only in demo mode*/\n.list-icon-demo {\n  float: left;\n  padding: 3px 14px 4px 0px; }\n\n\n/*-------------------------------\n	9. image and video frames\n-------------------------------*/\n.image-container {\n  display: block; }\n\nspan.clear {\n  display: block; }\n\n.image-left {\n  float: left;\n  margin-left: 0px;\n  margin-right: 20px; }\n\n.image-right {\n  float: right;\n  margin-left: 20px;\n  margin-right: 0px; }\n\n.image-center {\n  display: block;\n  margin: 0 auto;\n  text-align: center; }\n\n.image-decoration a, .video-decoration object, .video-decoration iframe, .video-decoration video, .map-decoration .map-canvas {\n  border: 5px #fff solid;\n  box-shadow: 0px 0px 8px #d6d6d6;\n  display: block; }\n\n.image-no-decoration {\n  padding-top: 15px;\n  margin-bottom: 15px;\n  display: block; }\n  .image-no-decoration a {\n    display: block; }\n\n.image-decoration, .video-decoration, .map-decoration, .accordion-decoration, .tabs-decoration, .lof-decoration {\n  padding-bottom: 20px;\n  display: block;\n  margin-top: 15px;\n  position: relative; }\n\n.accordion-decoration, .lof-decoration {\n  margin-top: -10px; }\n\n.tabs-decoration {\n  margin-top: 0px;\n  margin-bottom: 19px; }\n\n.image-decoration {\n  margin-bottom: 5px; }\n\n.map-decoration {\n  margin-bottom: 0px;\n  margin-top: 0px; }\n\n\n.image-decoration a.no-link, a.no-link * {\n  cursor: default; }\n\n.video-decoration {\n  padding-bottom: 20px;\n  margin-top: 0px;\n  margin-bottom: 0px; }\n\n.html5-video {\n  padding-bottom: 20px; }\n\nvideo {\n  background-color: black;\n  position: relative; }\n\n@-moz-document url-prefix() {\n  .you-tube {\n    padding-bottom: 14px; } }\n\n.image-hover {\n  position: absolute;\n  background: #f5f5f5;\n  opacity: 0.0;\n  width: 100%;\n  height: 100%;\n  z-index: 2;\n  cursor: pointer; }\n\n\n\n  \ntable {\n	width: 100%;\n	padding: 0px;\n	border-style: solid;\n	line-height: 20px;\n	text-align: left;\n	margin-bottom: 24px;\n	border: 1px #ccc solid;\n	border-collapse: collapse;\n	background: #fff;\n}\n\nth {\n	font-weight: normal;\n	font-size: 15px;\n	padding: 10px;\n	color: #333;\n	background-color: #DCDCDC;\n	border-left: #fff 1px inset;\n}\n\nth:first-child {\n  border-left: none; }\n\ntbody tr {\n  background-color: #FAFAFA; }\n\ntbody tr:nth-child(even) {\n  background-color: #FDFDFD; }\n\ntbody tr:hover {\n  background-color: #FAFAFA; }\n\ntd {\n  font-weight: lighter;\n  line-height: 20px;\n  color: #4e4e4e;\n  padding: 9px 0px 10px 0px;\n  border-left: #ddd 1px inset;\n  border-top: #ddd 1px inset;\n  	padding: 10px;}\n\ntbody tr:first-child {\n  padding-top: 10px; }\n\ntr:last-child td {\n  border-bottom: none; }\n\ntbody tr td:first-child {\n  border-left: none; }\n\ntbody tr:first-child td {\n  border-top: none; }\n\ntable.orange th {\n  background-color: #f7910c; }\n\ntable.blue th {\n  background-color: #25aeec; }\n\ntable.green th {\n  background-color: #38bd2a; }\n\ntable.red th {\n  background-color: #f94141; }\n\ntable.custom th {\n  background-color: #9e7238; }\n\n.table-border {\n  width: 100%;\n  height: auto;\n  background: blue; }\n\n/*-------------------------------\n	13. tabs\n-------------------------------*/\n.invent-tabs {\n  position: relative;\n  padding: 0; }\n\n/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as \"fixed\") */\n.invent-tabs > ul {\n  height: 40px;\n  margin: 0;\n  padding: 0; }\n\n.invent-tabs > ul li {\n  overflow: visible;\n  padding: 0;\n  margin: 0;\n  padding-top: 1px;\n  height: 38px;\n  list-style: none;\n  border-right: 1px solid #d6d6d6;\n  float: left;\n  border-top: 1px solid #d6d6d6;\n  position: relative;\n  border-bottom: 0 !important;\n  white-space: nowrap; }\n\n.invent-tabs > ul li:first-child {\n  border-left: 1px solid #d6d6d6; }\n\n.invent-tabs > ul li a {\n  float: left;\n  text-decoration: none; }\n\n.invent-tabs > ul li a.current {\n  cursor: text;\n  position: relative;\n  z-index: 99; }\n\n.invent-tabs > ul li a {\n  line-height: 39px;\n  height: 39px;\n  cursor: pointer; }\n\n/* first selector in group seems obsolete, but required to overcome bug in Opera applying cursor: text overall if defined elsewhere... */\n.tab-style3 {\n  list-style: none;\n  margin: 0 0 0 0; }\n\n.tab-style3 ul li a.current, .tab-style3 li a:hover {\n  color: #0399f9;\n  background: #fff; }\n\n.tab-style3 ul a {\n  color: #828282;\n  text-shadow: #fff 0 1px 0px;\n  font-size: 13px;\n  margin: 0;\n  padding: 0 15px 0 15px;\n  line-height: 39px;\n  cursor: pointer; }\n\n.tab-style3 .invent-panes {\n  border: #d6d6d6 1px solid;\n  padding: 0; }\n\n.tab-style1, .tab-style2 {\n  list-style: none;\n  margin: 0 0 10px 0; }\n\n.tab-style1 ul li a.current, .tab-style1 li a:hover {\n  background: #e0e0e0; }\n\n.tab-style2 ul li a.current, .tab-style2 li a:hover {\n  color: #fff;\n  text-shadow: #424242 0 1px 0px; }\n\n.tab-style1 ul a {\n  text-shadow: #fff 0 1px 0px;\n  font-size: 18px;\n  background: #f2f2f2;\n  margin: 0;\n  padding: 0 15px 0 15px;\n  line-height: 39px;\n  cursor: pointer; }\n\n.tab-style2 ul a {\n  color: #4f4f4f;\n  text-shadow: #fff 0 1px 0px;\n  font-size: 18px;\n  background: #e0e0e0;\n  margin: 0px;\n  padding: 0 15px 0 15px;\n  line-height: 39px;\n  cursor: pointer; }\n\n.tab-style1 .invent-panes {\n  border: #f2f2f2 1px solid;\n  padding: 14px 10px 4px 10px; }\n\n.tab-style2 .invent-panes {\n  border: #e0e0e0 1px solid;\n  padding: 14px 10px 4px 10px; }\n\n.invent-tabs .invent-panes {\n  position: relative;\n  height: auto;\n  padding-top: 19px; }\n\n.invent-tabs .invent-panes > div {\n  position: absolute;\n  opacity: 0;\n  padding: 10px 19px 0px 19px; }\n\n.no-left-margin {\n  margin-left: 0; }\n\n\n  \n.contact-list {\n  list-style: none;\n  margin-left: 0px; }\n  .contact-list .icon, .contact-list li {\n    padding-left: 0px;\n    margin-bottom: 10px; }\n\nform p {\n  margin: 0;\n  padding: 0; }\n\n.contact-form-header {\n  margin-bottom: 22px; }\n\n#contact-form-container {\n  	/*input{\n  		margin: 0px 0px 10px 0px;\n  	}\n  \n  	textarea {\n  		margin: 0px 0px 20px 0px;\n  	}*/ }\n  #contact-form-container > p {\n    padding: 0px; }\n  #contact-form-container p {\n    margin: 0;\n    padding: 0; }\n  #contact-form-container p.logged-in-as {\n    margin-bottom: 20px; }\n  #contact-form-container p.logged-in-as a:last-child {\n    color: red; }\n  #contact-form-container .contact-input-block {\n    float: left;\n    width: 310px;\n    overflow: auto; }\n  #contact-form-container input, #contact-form-container textarea {\n    padding: 0 12px;\n    font-family: Helvetica, sans-serif;\n    margin: 0px 0px 10px 0px;\n    border: 2px solid #e8e8e8;\n    color: #6a6a6a; }\n  #contact-form-container input {\n    width: 276px;\n    height: 31px;\n    float: left;\n    line-height: 20px;\n    display: inline; }\n  #contact-form-container input.email {\n    float: right; }\n  #contact-form-container textarea {\n    clear: both;\n    width: 592px;\n    resize: none;\n    height: 81px;\n    padding-top: 10px;\n    margin-bottom: 20px; }\n  #contact-form-container input:focus, #contact-form-container #submit-button:hover, #contact-form-container input[type=\"submit\"]:hover {\n    background: #f9f9f9; }\n  #contact-form-container textarea:focus {\n    background: #f9f9f9; }\n  #contact-form-container input#submit-button, #contact-form-container input[type=\"submit\"] {\n    background: #fff;\n    width: 100px;\n    float: right;\n    font-size: 12px;\n    height: 30px;\n    /*margin-bottom: 20px;*/\n    margin-top: 0; }\n  #contact-form-container #submit-button:hover, #contact-form-container input[type=\"submit\"]:hover {\n    cursor: pointer; }\n  #contact-form-container .err-name, #contact-form-container .err-mail, #contact-form-container .err-message {\n    color: red;\n    font-size: 11px;\n    margin: -20px 0 20px 3px;\n    float: left; }\n  #contact-form-container .err-mail {\n    margin-left: 13px; }\n  #contact-form-container .err-message {\n    margin-top: -25px; }\n\n/*-------------------------------\n	16. widget container\n-------------------------------*/\n#widgets-container {\n  height: auto;\n  width: 100%;\n }\n  #widgets-container .widgets-container-bg {\n	height: auto;\n	width: 100%;\n	background: url(../bilder/patterns/body-bg-3.png) 50% 0 repeat;\n	border-top: 1px solid #dcdcdc;\n	border-bottom: 1px solid #dcdcdc;\n  }\n  #widgets-container  {\n	color: #333;\n}\n\n\n	\n.widget_text\n\n{\n	margin-top: 0px;\n	padding-bottom: 10px;\n}\n\n\n  #widgets-container p {\n    margin-bottom: 10px; }\n  #widgets-container a, #widgets-container a * {\n    line-height: 20px;\n    color: #000; }\n    #widgets-container a:hover, #widgets-container a:hover *, #widgets-container a *:hover, #widgets-container a *:hover * {\n      color: #fd4b30; }\n      #widgets-container a:hover img, #widgets-container a:hover * img, #widgets-container a *:hover img, #widgets-container a *:hover * img {\n        opacity: 0.8; }\n  #widgets-container ul li {\n    padding-left: 0px; }\n  #widgets-container .wrapper {\n    /*background: transparent;*/\n    padding-bottom: 30px; }\n  #widgets-container .textwidget {\n    padding-left: 6px; }\n    #widgets-container .textwidget p {\n      font-size: 12px; }\n    #widgets-container .textwidget .icon {\n      padding-left: 0; }\n  #widgets-container .widget-title {\n	margin-top: 30px;\n	padding-bottom: 10px;\n	background-position: bottom center;\n	background-repeat: no-repeat;\n	margin-bottom: 20px;\n	color: #000;\n}\n	\n\n\n	\n  #widgets-container .widget_popular_posts {\n	padding-right: 0;\n	width: 460px;\n}\n    #widgets-container .widget_popular_posts ul {\n      margin: 0; }\n    #widgets-container .widget_popular_posts li {\n      clear: both;\n      overflow: visible;\n      display: block;\n      margin-bottom: 20px; }\n    #widgets-container .widget_popular_posts a {\n	height: 100%;\n	overflow: visible;\n	margin-bottom: 10px;\n	display: inline;\n	font-size: 13px;\n}\n\n\n  #widgets-container .widget_popular_posts h5, #widgets-container .widget_text h5 {\n  font-size: 13px;\n  font-weight: bold;\n  line-height: 20px;\n  padding-top: 0px;\n  margin-bottom: 10px; }\n\n\n    #widgets-container .widget_popular_posts .post-thumb {\n	display: block;\n	height: 100px;\n	width: 100px;\n	float: left;\n	overflow: visible;\n	margin-right: 20px;\n}\n      #widgets-container .widget_popular_posts .post-thumb img {\n	height: 100px;\n	width: 100px;\n	border: 1px solid #dcdcdc;\n}\n    #widgets-container .widget_popular_posts .invent-data {\n	padding-left: 20px;\n	background: url(\"../bilder/icons/kalender2.png\") left center no-repeat;\n	margin-bottom: 7px;\n	display: block;\n	padding-bottom: 5px;\n}\n\n\n#widgets-container .widget_archive ul, #widgets-container .widget_categories ul {\n  list-style: none;\n  margin-left: 0px; }\n#widgets-container .widget_archive li, #widgets-container .widget_categories li {\n  border-bottom: 1px solid #e1e1e1;\n  margin-bottom: 4px; }\n#widgets-container .widget_archive li a, #widgets-container .widget_categories li a {\n  height: 25px;\n  padding-left: 25px;\n\n  background-position: 2px 4px;\n  display: block; }\n  #widgets-container .widget_archive li a:hover, #widgets-container .widget_categories li a:hover {\n    color: #000;\n}\n\n#widgets-container .widget_categories li a {\n}\n  #widgets-container .widget_categories li a:hover {\n    color: #000;\n}\n\n#widgets-container #widget-contact-form .contact-input-block {\n  width: 220px; }\n#widgets-container #widget-contact-form input {\n  width: 192px;\n  float: none;\n  margin: 0 0 10px 0;\n  height: 26px; }\n#widgets-container #widget-contact-form textarea {\n  height: 86px;\n  width: 192px;\n  margin: 0 0 15px 0; }\n#widgets-container #widget-contact-form input#widget-contact-submit {\n  width: 96px;\n  height: 30px; }\n  #widgets-container #widget-contact-form input#widget-contact-submit:hover {\n    font-weight: bold;\n    color: #000; }\n\n/* twitter-widget */\n#widgets-container .widget_twitter .twitter-widget-carousel-top {\n	height: 10px;\n	width: 220px;\n	border-top: 1px solid #dcdcdc;\n	border-left: 1px solid #dcdcdc;\n	border-right: 1px solid #dcdcdc;\n	background: #fff;\n	margin-top: 20px;\n}\n#widgets-container .widget_twitter .twitter-carousel-center {\n	height: auto;\n	width: 165px;\n	padding: 0px 25px 20px 30px;\n	background: #fff;\n	border-right: 1px solid #dcdcdc;\n	border-left: 1px solid #dcdcdc;\n	border-top: 1px solid #dcdcdc;\n	margin-top: 30px;\n}\n  #widgets-container .widget_twitter .twitter-carousel-center ul {\n    margin-left: 0px;\n    list-style: none; }\n  #widgets-container .widget_twitter .twitter-carousel-center p {\n    padding: 0px 0px 10px 0px;\n    margin: 0; }\n  #widgets-container .widget_twitter .twitter-carousel-center a {\n    color: #fd4b30; }\n    #widgets-container .widget_twitter .twitter-carousel-center a:hover {\n      text-decoration: underline; }\n#widgets-container .widget_twitter .twitter-widget-carousel-bottom {\n  background: url(\"../bilder/icons/twitter.png\");\n  height: 50px;\n  width: 220px;\n  margin-bottom: 20px; }\n  #widgets-container .widget_twitter .twitter-widget-carousel-bottom .fade-carousel-controls {\n    padding-top: 24px;\n    margin: 0 0 0 121px; }\n    #widgets-container .widget_twitter .twitter-widget-carousel-bottom .fade-carousel-controls a {\n      float: left;\n      margin-left: 7px;\n      height: 13px;\n      width: 13px;\n      display: block; }\n      #widgets-container .widget_twitter .twitter-widget-carousel-bottom .fade-carousel-controls a:hover, #widgets-container .widget_twitter .twitter-widget-carousel-bottom .fade-carousel-controls a.actual {\n        background-position: 0px -13px; }\n#widgets-container .widget_twitter a.all-tweets {\n  text-align: center;\n  width: 220px;\n  display: block; }\n\n/*-------------------------------\n	17. page footer\n-------------------------------*/\n#page-bottom {\n	padding-top: 20px;\n	margin-bottom: 0px;\n	height: auto;\n	overflow: auto;\n}\n\n#copyright {\n	float: left;\n	width: 620px;\n}\n\n#bottom-social-contener {\n	float: left;\n	width: 290px;\n}\n\n  #copyright p, #bottom-social-contener p {\n    font-size: 11px; }\n  #copyright a:hover, #bottom-social-contener a:hover {\n    text-decoration: underline; }\n\n#page-bottom .scrolltop {\n	float: left;\n	background: url(\"../bilder/icons/pfeil.png\") no-repeat;\n	width: 27px;\n	height: 14px;\n	margin-top: 0px;\n	text-indent: -9999px;\n}\n  #page-bottom .scrolltop:hover {\n    background-position: 0 -14px; }\n\n#page-bottom .scrolltop:hover {\n  cursor: pointer; }\n\n#bottom-social-contener {\n	margin-top: 0px;\n}\n\n#social, #social-top {\n	list-style: none;\n	float: left;\n	padding: 0;\n	margin-bottom: 0;\n	margin-right: 10px;\n}\n\n#social li, #social-top li {\n  float: left;\n  padding: 0 0 0 10px;\n  margin: 0;\n  overflow: hidden; }\n  #social li a, #social-top li a {\n    display: block;\n    background: red;\n    height: 20px;\n    width: 20px; }\n	\n\n  #social li a.linkedin, #social-top li a.linkedin {\n    background: url(\"../bilder/social/linked.png\"); }\n  #social li a.twitter, #social-top li a.twitter {\n    background: url(\"../bilder/social/twitter.png\"); }\n  #social li a.facebook, #social-top li a.facebook {\n    background: url(\"../bilder/social/face.png\"); }\n  #social li a.skype, #social-top li a.skype {\n    background: url(\"../bilder/social/skype.png\"); }\n  #social li a.rss, #social-top li a.rss {\n    background: url(\"../bilder/social/rss.png\"); }\n  #social li a.xing, #social-top li a.xing {\n    background: url(\"../bilder/social/xing.png\"); }\n  #social li a.google, #social-top li a.google {\n    background: url(\"../bilder/social/google.png\"); }\n  #social li a:hover, #social-top li a:hover {\n    background-position: 0px -20px; }\n	\n	\n	\n\n/*-------------------------------\n	18. blog\n-------------------------------*/\n.post:first-child {\n	padding-top: 10px;\n	padding-bottom: 10px;\n}\n\n\n.blog hr {\n  margin: 10px 0 20px 0; }\n\n.post .post-image-title {\n  margin: -5px 0 10px 0; }\n  .post .post-image-title a {\n    min-height: 100px; }\n\n.single-post:first-child {\n  padding-top: 20px; }\n  .single-post:first-child .post-image-title {\n    margin-top: 0px; }\n    .single-post:first-child .post-image-title a {\n      min-height: 100px; }\n\n.post .entry-title {\n  margin-bottom: 22px; }\n\n.post .entry-content .image-decoration {\n  margin-top: 15px; }\n\n.post-info {\n	list-style: none;\n	padding: 11px 0 9px 10px;\n	height: 20px;\n	font-size: 11px;\n	margin-bottom: 20px;\n	margin-left: 0px;\n	border-top: 1px solid #dcdcdc;\n	border-bottom: 1px solid #dcdcdc;\n}\n\n  .entry ul.post-info li { list-style: none;\n}\n\n  .post-info li {\n    padding: 0 0 0 18px;\n    float: left;\n    margin: 0 30px 0 0; };\n\n    .post-info li.post-info-social {\n      float: right;\n      margin: 0 5px 0 0;\n      padding: 0; }\n      .post-info li.post-info-social strong {\n        margin-right: 10px; }\n      .post-info li.post-info-social img {\n        margin-top: -3px; }\n    \n  .post-info a {\n    font-weight: normal;\n    display: inline;\n    color: #3C8DC6; }\n    .post-info a:first-child {\n      padding-left: 5px; }\n    .post-info a:hover {\n      text-decoration: none;\n      color: #000; }\n\n\n\n\n\n.job-info {\n	list-style: none;\n	padding: 0;\n	height: 20px;\n	font-size: 12px;\n	margin-bottom: 40px;\n	margin-left: 0px;\n	color: #333;\n\n}\n\n\n\n\n.entry ul.job-info li {\n	padding: 2px 10px;\n	float: left;\n	margin-right: 18px;\n	border: 1px solid #dcdcdc;\n	list-style:none;\n	\n}\n\n\n\n  ul.job-info li.readmore \n  {\n	background: #3DC597;\n	padding: 2px 10px;\n	margin-right: 18px;\n	color:#fff;\n	border: none;\n	float:right;\n	margin: 1px;\n\npadding: 3px 10px;\ncursor: pointer;\nposition: relative;\n\n}\n    \n	\n	\n	 .job-info li.readmore a {\n	color:#fff; }\n	\n  .job-info a {\n    font-weight: normal;\n    display: inline;\n    color: #3C8DC6; }\n    .job-info a:first-child {\n      padding-left: 5px; }\n    .job-info a:hover {\n      text-decoration: none;\n      color: #000; }\n\n\n\n\n\n\n.entry-title a {\n  color: #000;\n  margin-bottom: 22px; }\n\n.single-post {\n	padding-top: 0px;\n}\n\n.post-read-more span.arrow-right {\n  height: 90%;\n  width: 1px;\n\n  padding-right: 0px;\n  padding-left: 16px;\n  float: right;\n  margin: 0px; }\n\n/*-------------------------------\n	19. sidebar\n-------------------------------*/\n#sidebar .sidebar-top {\n	height: 40px;\n}\n\n.page-content {\n\n  overflow: visible;\n  position: relative; }\n\n.sidebar-widget-container {\n	padding-bottom: 70px;\n	padding-left: 20px;\n	margin-top: 20px;\n	border-left: 1px solid #dcdcdc;\n}\n\n.sidebar-bottom {\n\n  height: 70px;\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  width: 220px; }\n\n#sidebar .widget-title {\n  font-size: 18px;\n  line-height: 30px;\n  padding-top: 10px;\n  margin-bottom: 11px;\n  margin-left: 2px;\n  color: #000; }\n#sidebar .widget_recent_entries a, #sidebar .widget_categories a, #sidebar .widget_archives a, #sidebar .widget_recent_comments a, #sidebar .widget_flickr a, #sidebar .widget_social a, #sidebar .widget_newsletter a, #sidebar .widget_search a, #sidebar .widget_tag_cloud a {\n  line-height: 20px;\n  color: #000; }\n#sidebar .widget_recent_entries p, #sidebar .widget_categories p, #sidebar .widget_archives p, #sidebar .widget_recent_comments p, #sidebar .widget_flickr p, #sidebar .widget_social p, #sidebar .widget_newsletter p, #sidebar .widget_search p {\n  font-size: 11px;\n  line-height: 20px; }\n#sidebar .widget_recent_entries ul, #sidebar .widget_categories ul, #sidebar .widget_archives ul, #sidebar .widget_recent_comments ul, #sidebar .widget_flickr ul, #sidebar .widget_social ul, #sidebar .widget_newsletter ul, #sidebar .widget_search ul{\n  padding-bottom: 20px;\n\n  background-position: 2px bottom;\n  margin-bottom: 27px;\n  list-style: none; }\n#sidebar .widget_recent_entries li, #sidebar .widget_categories li, #sidebar .widget_archives li, #sidebar .widget_recent_comments li, #sidebar .widget_flickr li, #sidebar .widget_social li, #sidebar .widget_newsletter li, #sidebar .widget_search li {\n  line-height: 20px;\n  font-size: 13px;\n  padding-left: 20px; }\n  #sidebar .widget_recent_entries li a, #sidebar .widget_categories li a, #sidebar .widget_archives li a, #sidebar .widget_recent_comments li a, #sidebar .widget_flickr li a, #sidebar .widget_social li a, #sidebar .widget_newsletter li a, #sidebar .widget_search li a {\n    font-size: 13px; }\n  #sidebar .widget_recent_entries li:hover a, #sidebar .widget_categories li:hover a, #sidebar .widget_archives li:hover a, #sidebar .widget_recent_comments li:hover a, #sidebar .widget_flickr li:hover a, #sidebar .widget_social li:hover a, #sidebar .widget_newsletter li:hover a, #sidebar .widget_search li:hover a , #sidebar .widget_tag_cloud a:hover {\n    color: #0399f9; }\n#sidebar .hr220 {\n  height: 10px;\n  overflow: auto; }\n#sidebar .widget-container {\n  padding-left: 20px;\n}\n\n/************* sidebar-widgets *************/\n/**recent-posts**/\n#sidebar .widget_recent_entries .post-thumb {\n  display: block;\n  padding: 0;\n  margin: 0px 10px 0 0;\n  float: left; }\n#sidebar .widget_recent_entries ul {\n	padding-bottom: 0px;\n	padding-left: 0px;\n	margin-left: 0px;\n}\n#sidebar .widget_recent_entries li {\n	clear: both;\n	padding: 10px 0 5px 0px;\n	overflow: visible;\n	margin: 0;\n	width: 180px;\n	display: block;\n	border-bottom: 1px solid #dcdcdc;\n}\n  #sidebar .widget_recent_entries li:hover {\n}\n#sidebar .widget_recent_entries .attachment-invent-widget-small {\n  border: 2px #fff solid;\n  box-shadow: 0px 0px 8px #d6d6d6; }\n#sidebar .widget_recent_entries .date {\n  margin-top: 12px;\n  padding-left: 20px;\n  display: block;\n  color: #ababab;\n  float: left;\n  line-height: 15px;\n}\n#sidebar .widget_recent_entries a {\n	height: 100%;\n	overflow: visible;\n	margin-bottom: 5px;\n	display: block;\n	font-size: 14px;\n	line-height: 20px;\n}\n#sidebar .widget_recent_entries li:hover * img {\n  opacity: 0.8; }\n\n/**categories and comments**/\n#sidebar .widget_categories ul, #sidebar .widget_recent_comments ul, #sidebar .widget_archives ul {\n	padding-left: 0;\n	padding-bottom: 0;\n	margin-left: 0px;\n	list-style: none;\n}\n#sidebar .widget_categories li, #sidebar .widget_recent_comments li, #sidebar .widget_archives li {\n  margin: 0;\n  min-height: 30px;\n}\n  #sidebar .widget_categories li:hover, #sidebar .widget_recent_comments li:hover, #sidebar .widget_archives li:hover {\n }\n\n#sidebar .widget_categories li a {\n\n  padding: 5px 0px 5px 24px;\n  width: 166px; }\n\n#sidebar .widget_recent_comments li div {\n\n  padding: 5px 0px 5px 24px;\n  width: 166px; }\n\n#sidebar .widget_archives li a {\n\n  padding: 5px 0px 5px 24px;\n  width: 166px; }\n\n#sidebar .widget_categories li a, #sidebar .widget_recent_comments li div, #sidebar .widget_archives li a {\n  line-height: 20px;\n  background-position: 2px 8px; }\n\n#sidebar .widget_categories li a, #sidebar .widget_archives li a {\n  line-height: 30px; }\n\n#sidebar .widget_recent_comments li a {\n  display: inline;\n  line-height: 20px; }\n\n/*newsletter-widget*/\n#sidebar .widget_newsletter {\n  margin-bottom: 30px;\n  overflow: auto; }\n#sidebar .widget_newsletter p, #sidebar .widget_search p {\n  font-size: 11px;\n  color: #858585;\n  margin-bottom: 4px;\n  margin-top: -5px; }\n#sidebar form p, #sidebar .widget_newsletter form p {\n  padding: 10px 0 0 0px;\n  clear: both; }\n#sidebar form input, #sidebar .widget_newsletter form input {\n  font-family: 'Times New Roman';\n  margin: 0px 0px 17px 0px;\n  border: 2px solid #e9e9e9;\n  font-style: italic;\n  color: #6a6a6a;\n  width: 131px;\n  height: 26px;\n  float: left;\n  line-height: 26px;\n  display: inline;\n  padding: 0 0 0 10px; }\n#sidebar form input:focus .widget_newsletter form input:focus {\n  border: 2px solid #6a6a6a;\n  color: #000; }\n#sidebar form #submit-button, #sidebar .widget_newsletter form #submit-newsletter-button {\n  border: 2px solid #E8E8E8;\n  color: #6A6A6A;\n  padding: 0 5px;\n  width: 35px;\n  margin-left: 5px;\n  font-size: 12px;\n  height: 30px;\n  background: #fff;\n  font-style: normal;\n  font-family: Helvetica, Arial, \"Lucida Grande\", sans-serif; }\n#sidebar form #submit-button:hover, #sidebar .widget_newsletter form #submit-newsletter-button:hover {\n  cursor: pointer;\n  background: #F9F9F9; }\n\n/*search-widget*/\n.widget_search {\n  margin-bottom: 30px;\n  overflow: auto; }\n\n#sidebar .widget_search form input {\n  width: 100px; }\n\n#sidebar .widget_search form #submit-button {\n  width: 65px; }\n\n/*twitter-widget*/\n#sidebar .widget_twitter {\n  padding-left: 0px; }\n\n#sidebar .widget_twitter .widget-title {\n  padding-left: 20px; }\n\n#sidebar .twitter-sidebar {\n  width: 198px;\n  border: 1px #d7d7d7 solid;\n  background: #f4f4f4; }\n\n#sidebar ul.twitter-list {\n  padding-bottom: 5px; \n  margin-left: 0; }\n\n#sidebar ul.twitter-list li {\n  line-height: 10px;\n  margin-bottom: 10px;\n  padding-left: 20px; }\n\n#sidebar ul.twitter-list li p {\n  margin: 0px 0 0 0;\n  padding: 9px 0 11px 39px;\n\n  background-position: 8px 15px;\n  overflow: hidden;\n  line-height: 20px; }\n\n#sidebar ul.twitter-list li p a {\n  color: #828282;\n  font-weight: bold; }\n\n#sidebar ul.twitter-list li p a:hover {\n  color: #0399f9; }\n\n#sidebar .twitter-sidebar-corner {\n  height: 20px;\n  width: 200px;\n\n  background-position: 170px 0px;\n  margin-top: -1px; }\n\n#sidebar ul.social {\n  list-style: none;\n  height: 37px;\n  padding: 0px;\n  margin-left: -20px;\n  padding-left: 15px;\n  margin-top: 0; }\n  #sidebar ul.social li {\n    float: left;\n    padding: 0 0 0 10px;\n    margin: 0;\n    overflow: hidden; }\n    #sidebar ul.social li a {\n      display: block;\n      height: 20px;\n      width: 20px; }\n\n      #sidebar ul.social li a:hover {\n        background-position: 0px -20px; }\n\n/*tagcloud-widget*/\n#sidebar .widget_tag_cloud {\n  margin-bottom: 30px;\n  padding-bottom: 20px; }\n\n#sidebar .tagcloud {\n  padding-bottom: 0px; }\n\n#sidebar .tagcloud a {\n  display: inline;\n  padding-right: 2px; }\n\n/*#sidebar .tagcloud a:hover {\n  color: #0399f9; }*/\n\n/*-------------------------------\n	20. page wrapper style2\n-------------------------------*/\n.shadow-area {\n	display: block;\n	overflow: auto;\n	margin: 0 0 0 0;\n	padding-top: 0px;\n}\n  .shadow-area .wrapper {\n    margin: 20px auto 0 auto; }\n  .shadow-area p.post-read-more {\n    margin-bottom: 10px; }\n\n.shadow-area-bottom {\n	margin: 0 auto;\n	height: 40px;\n}\n\n.blockquote-style2 {\n  overflow: auto;\n  width: 100%;\n  margin-bottom: 30px;\n  margin-top: 0px; }\n\n.blockquote-style2 blockquote {\n  font-size: 30px;\n  line-height: 40px;\n  text-align: center;\n  height: auto;\n  margin: 0px;\n  padding: 0px;}\n\n\n/*-------------------------------\n	24. Pagination\n-------------------------------*/\n\n\n.wp-pagenavi {\n	clear: both;\n}\n\n.wp-pagenavi a, .wp-pagenavi span {\n	text-decoration: none;\n	border: 1px solid #dcdcdc;\n	padding: 4px 6px;\n	margin: 4px;\n}\n\n.wp-pagenavi a:hover, .wp-pagenavi span.current {\n	border-color: #333;\n}\n\n.wp-pagenavi span.current {\n	font-weight: bold;\n}\n\n\n/*Font color and highlight */\na, .color, span.color, .tab-style3 ul li a.current, .tab-style3 li a:hover,\n#sidebar .widget_tag_cloud a:hover, #sidebar .widget_archives li:hover a, #sidebar .widget_recent_entries li:hover a, #sidebar .widget_categories li:hover a, #sidebar .widget_recent_comments li:hover a, #sidebar .widget_flickr li:hover a, #sidebar .widget_social li:hover a,\n.entry-title:hover a, #widgets-container a:hover, #widgets-container a:hover *, #widgets-container a :hover, #widgets-container a :hover *,\n#widgets-container .widget_twitter .twitter-carousel-center a, .post-info a {\n  color: #3C8DC6; }\n\n.home-page-header .nivoSlider-decoration, .home-page-header .image-decoration a, .home-page-header .video-decoration object, .home-page-header .video-decoration iframe, .home-page-header .video-decoration video, .home-page-header .map-decoration .map-canvas {\n  box-shadow: 0px 0px 10px #d6d6d6; }\n\n\n\n.button-big-theme-color, .button-big-theme-color span {\n	background: #3C8DC6;\ncolor: #fff; }\n\n.button-small-theme-color, .button-small-theme-color span {\n	background: #3C8DC5;\n	color: #fff;\n	border:none;\n}\n\n.page-template-tmpl-area-php .button-small-theme-color, \n.page-template-tmpl-area-start-php .button-small-theme-color span,\n.page-template-tmpl-area-php .button-small-theme-color, \n.page-template-tmpl-area-start-php .button-small-theme-color span {\n	background: #3dc597;\n	color: #fff;\n	border:none;\n}\n\n\n#widgets-container .widget_archive a, #widgets-container .widget_categories a {\n  color: #3C8DC6; }\n\n\n.entry {\n	height: auto;\n	display: inline;\n}\n\n.entry img.left {\n	float:left;\n	margin-right:20px;\n	margin-bottom: 10px;\n	background:#fff;\n	background:#fff;\n	border:1px solid #dcdcdc;\n}\n.entry img.right {\n	float:right;\n	margin-left:25px;\n	margin-bottom: 10px;\n	background:#fff;\n	border:1px solid #dcdcdc;\n\n}\n\n.entry img.alignright {\n	float:right;\n	margin-left:25px;\n	margin-bottom: 10px;\n	background:#fff;\n	border:1px solid #dcdcdc;\n	margin-top: 0px;\n\n}\n.entry img.alignleft {\n	float:left;\n	margin-right:20px;\n	margin-bottom: 10px;\n	background:#fff;\n	background:#fff;\n	border:1px solid #dcdcdc;\n	margin-top: 5px;\n\n}\n\n\n.entry img.aligncenter {\n	float:none;\n	margin-right:20px;\n	margin-bottom: 10px;\n	background:#fff;\n	background:#fff;\n	border:1px solid #dcdcdc;\n\n}\n\n\n.textwidget img.right {float:right;\npadding:0 5px;}\n.textwidget img.left {float:left;\npadding:0 5px;}\n\n\n.entry ul {\n  margin: 0 0 30px 15px; }\n\n.entry ul.post-info {\n  margin: 0 0 30px 0px; }\n\n\n\n.entry ul li {\n	color:#333;\n	list-style:disc;\n  padding-left: 5px;\n  margin: 0;\n  padding-left: 0px;\n  line-height: 20px; }\n\n\n\n.blog-thumb {\nmargin-bottom: 20px;}\n\n.blog-thumb img {border:1px solid #dcdcdc;}\n\n.start-page-header-bg {\n	height: auto;\n	width: 100%;\n	background: url(../bilder/patterns/body-bg-32b.png) bottom center repeat;\n	padding: 10px 0;\n}\n  .start-page-header .wrapper {\n	padding-top: 20px;\n	padding-bottom: 20px;\n}\n\n.start-page-header h1 {\n	font-size: 18px;\n	line-height: 20px;\n	padding-top: 0px;\n	margin-bottom: 20px;\n	margin-top: 0px;\n}\n\n\n/* twitter widget */\n\n.widget_twitter div {\n	padding:0;\n	font-size:13px;\n	color:#333;\n}\n\n.widget_twitter .twitterwidget-title {\n	color:#333;\n	display: inline;\n	height: 10px;\n	text-indent: 0px;\n	font-size:13px;\n	font-weight:bold; /** from Twitter ressources */\n	padding-top: 0px;\n	margin-bottom: 0px;\n	padding-bottom: 0px;\n}\n\n\n\n\n.widget_twitter ul li {\n    margin-bottom:5px;\n}\n\n.widget_twitter .follow-button,\n.widget_twitter .xavisys-link {\n    margin:0 10px 10px 25px;\n}\n\n.widget_twitter .entry-content {\n	display:block;\n	font-size:100%;\n	border-bottom: 1px dashed #ddd;\n	margin: 5px 0;\n	padding:5px 0;\n	color: #333;\n}\n\n.widget_twitter .from-meta {font-size:14px;}\n\n.widget_twitter .entry-meta {\n    display:block;\n    font-size:100%;\n}\n\n.widget_twitter .twitter-user {\n    color: #999;\n\n}\n\n.widget_twitter a {\n    color: #F05800;\n\n}\n\n.widget_twitter a:hover {\n    color: #8B591E;\n\n}\n\n.widget_twitter .intent-meta a {\n    background: url(../bilder/everything-spritev2.png); /** from Twitter ressources */\n    display: inline-block;\n    height: 16px;\n    text-indent: -9999px;\n    width: 16px;\n}\n.widget_twitter .intent-meta a.in-reply-to {\n    background-position: 0 center;\n}\n.widget_twitter .intent-meta a:hover.in-reply-to {\n    background-position: -16px center;\n}\n.widget_twitter .intent-meta a.favorite {\n    background-position: -32px center;\n}\n.widget_twitter .intent-meta a:hover.favorite {\n    background-position: -48px center;\n}\n.widget_twitter .intent-meta a.retweet {\n    background-position: -80px center;\n}\n.widget_twitter .intent-meta a:hover.retweet {\n    background-position: -96px center;\n}\n\n\n\n\n#language {\n  list-style: none;\n  float: right;\n  padding: 5px 0;\n  margin-bottom: 0;\n  margin-left: 10px; }\n\n\n#language ul {\n	display:block;\n	float: left;\n\n}\n\n#language ul li {\n	margin-left:10px;\n	float: left;\n\n}\n\n.seperator {\n	height:2px;\n	border-top: 1px solid #dcdcdc;\n	padding: 5px;\n	margin-bottom: 10px;\n}\n\n.child-thumb {\n	width:150px;\n	float:left;\n	margin-right: 15px;\n	border: 1px solid #dcdcdc;\n	padding: 10px;\n	margin-bottom: 15px;\nmin-height:250px;\nheight:auto !important;  /* für moderne Browser */\nheight:250px;  /*für den IE */\n}\n\n.child-thumb img {\nmargin-bottom:5px;\nborder:1px solid #eee;\n}\n\n.child-thumb h4 {\nfont-weight:bold;\nfont-size: 13px;\npadding-bottom:5px;\nborder-bottom: 1px solid #eee;\n}\n\n.child-thumb p {\n	font-family: Helvetica, Arial, \"Lucida Grande\", sans-serif;\n	font-size: 13px;\n	line-height: 20px;\n	margin-top: -5px;\n	color: #666;\n}\n\n\n\n\n.teilnehmer  #pic {\n	float: right;\n	margin: -10px 30px 0 0;\n}\n       .teilnehmer  h1 {\n	margin: 0 0 16px 0;\n	padding: 0 0 16px 0;\n	font-size: 18px;\n	font-weight: normal;\n	border-bottom: 1px solid #dcdcdc;\n}\n       .teilnehmer  h2 {\n	font-size: 18px;\n	margin: 0px 0 6px 0;\n	position: relative;\n	padding-top: 0px;\n}\n       .teilnehmer  h2 span { position: absolute; bottom: 0; right: 0; font-style: italic; font-family: Georgia, Serif; font-size: 16px; color: #999; font-weight: normal; }\n       .teilnehmer  p { margin: 0 0 16px 0; }\n       .teilnehmer  a { color: #999; text-decoration: none; border-bottom: 1px dotted #999; }\n       .teilnehmer  a:hover { border-bottom-style: solid; color: black; }\n       .teilnehmer  ul { margin: 0 0 32px 17px; }\n       .teilnehmer  #objective { width: 500px; float: left; }\n       .teilnehmer  #objective p {\n	font-style: italic;\n	color: #666;\n}\n       .teilnehmer  dt {\n	font-style: italic;\n	font-weight: normal;\n	font-size: 18px;\n	text-align: right;\n	padding: 0 26px 0 0;\n	width: 150px;\n	float: left;\n	height: 100px;\n	border-right: 1px solid #dcdcdc;\n}\n       .teilnehmer  dd {\n	width: 730px;\n	float: right;\n}\n       .teilnehmer  dd.clear { float: none; margin: 0; height: 15px; }\n\n.protected-post-form {line-height:20px;}\n\n.password-button {\n	background:#fff;\n	width:90px;\n	padding:5px;\n	margin: 0 0 0 10px;\n	font-size:13px;\n	border:1px solid #dcdcdc!important;\n}\n\n.pass-label {margin-top:10px;}\n\n\n\n.box-rotate {\n	margin: 5px 0 15px 0;\n	padding: 10px;\n	border: solid 1px #DFDFDF;\n	height: 150px;\n	-moz-border-radius: 15px;\n	border-radius: 15px;\n	background: #F2F2F2;\n	background-image: url(../bilder/boxbg.png);\n}\n\n.box-rotate h3, .box-unternehmen h3,\n.box-stellen h3, .box-schwer h3\n {\n	text-align: center;\n	color: #eee;\n	line-height: 20px;\n	padding-top: 2px;\n	margin-bottom: 15px;\n}\n  \n  .box-unternehmen {\n	padding: 5px 10px;\n	border: solid 1px #DFDFDF;\n	height: 120px;\n	-moz-border-radius: 15px;\n	border-radius: 15px;\n	background: #F2F2F2;\n	background-image: url(../bilder/unternehmenboxbg-klein.png);\n	margin-bottom: 20px;\n	margin-left: 0;\n	margin-right: 0;\n	margin-top: 40px;\n}\n\n  .box-stellen {\n	padding: 5px 10px;\n	border: solid 1px #DFDFDF;\n	height: 120px;\n	-moz-border-radius: 15px;\n	border-radius: 15px;\n	background: #F2F2F2;\n	background-image: url(../bilder/stellenboxbg-klein.png);\n	margin-bottom: 20px;\n	margin-left: 0;\n	margin-right: 0;\n	margin-top: 90px;\n}\n\n  .box-schwer {\n	margin: 5px 0 20px 0;\n	padding: 10px;\n	border: solid 1px #DFDFDF;\n	height: 150px;\n	-moz-border-radius: 15px;\n	border-radius: 15px;\n	background: #F2F2F2;\n	background-image: url(../bilder/schwerboxbg.png);\n}\n",
+			"file": "common/bootstrap/dist/css/bootstrap.css",
 			"settings":
 			{
-				"buffer_size": 50671,
+				"buffer_size": 123690,
 				"line_ending": "Windows"
 			}
 		}
@@ -131,16 +167,36 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 127.0,
+		"height": 81.0,
 		"selected_items":
 		[
 			[
-				"install",
-				"Package Control: Install Package"
+				"comm",
+				"Toggle Block Comment"
+			],
+			[
+				"comme",
+				"Toggle Comment"
+			],
+			[
+				"comment",
+				"Toggle Block Comment"
+			],
+			[
+				"commen",
+				"Toggle Block Comment"
 			],
 			[
 				"ident",
-				"Indentation: Reindent Lines"
+				"Auto indent"
+			],
+			[
+				"com",
+				"Toggle Block Comment"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
 			],
 			[
 				"insta",
@@ -197,10 +253,6 @@
 			[
 				"sst bas",
 				"Set Syntax: Shell Script (Bash)"
-			],
-			[
-				"comm",
-				"Toggle Comment"
 			],
 			[
 				"reide",
@@ -411,11 +463,16 @@
 	},
 	"file_history":
 	[
+		"/C/Documents and Settings/miguelfito/Mis documentos/GitHub/Manhattan/common/bootstrap/dist/css/bootstrap.css",
+		"/C/Documents and Settings/miguelfito/Mis documentos/GitHub/Manhattan/.project",
+		"/C/Documents and Settings/miguelfito/Mis documentos/GitHub/Manhattan/.buildpath",
+		"/C/Documents and Settings/miguelfito/Mis documentos/GitHub/Manhattan/bootstrap/dist/js/bootstrap.js",
+		"/C/Documents and Settings/miguelfito/Mis documentos/GitHub/Manhattan/bootstrap/dist/css/bootstrap.css",
+		"/C/Documents and Settings/miguelfito/Mis documentos/GitHub/Manhattan/jumbotron.css",
 		"/C/Documents and Settings/miguelfito/Mis documentos/Altran/[2009 - X] Soporte Live! y Terceros/Passwords.txt",
 		"/C/Documents and Settings/miguelfito/Mis documentos/GitHub/Manhattan/bootstrap/dist/css/bootstrap.min.css",
 		"/C/Documents and Settings/miguelfito/Mis documentos/GitHub/Manhattan/Manhattan.sublime-project",
 		"/C/Documents and Settings/miguelfito/Mis documentos/GitHub/Manhattan/index.php",
-		"/C/Documents and Settings/miguelfito/Mis documentos/GitHub/Manhattan/jumbotron.css",
 		"/C/Documents and Settings/miguelfito/Mis documentos/Downloads/blankform.php",
 		"/C/oracle/ora92/network/ADMIN/tnsnames.ora",
 		"/C/Documents and Settings/miguelfito/Mis documentos/GitHub/Manhattan/Index.php",
@@ -533,12 +590,7 @@
 		"/C/Documents and Settings/miguelfito/Mis documentos/Altran/[2009 - X] Soporte Live! y Terceros/Consultas SQL/Logs/SQLDeveloper_20130425091937.log",
 		"/C/Archivos de programa/Oracle/SQL Developer/sqldeveloper/bin/logging-debug.conf",
 		"/C/Archivos de programa/Oracle/SQL Developer/sqldeveloper/bin/sqldeveloper-nondebug.conf",
-		"/C/Documents and Settings/miguelfito/Mis documentos/Altran/[2009 - X] Soporte Live! y Terceros/Consultas SQL/Logs/SQLDeveloper_20130425091000.log",
-		"/C/Archivos de programa/Oracle/SQL Developer/sqldeveloper/bin/sqldeveloper.conf",
-		"/C/Archivos de programa/Oracle/SQL Developer/sqldeveloper/bin/sqldeveloper-debug.conf",
-		"/C/Documents and Settings/miguelfito/Escritorio/ScriptsSQL/comandos_salida_sql_DAR_DE_BAJA9.sql",
-		"/C/Documents and Settings/miguelfito/Escritorio/ScriptsSQL/comandos_salida_sql_DAR_DE_BAJA8.sql",
-		"/C/Documents and Settings/miguelfito/Escritorio/ScriptsSQL/comandos_salida_sql_DAR_DE_BAJA7.sql"
+		"/C/Documents and Settings/miguelfito/Mis documentos/Altran/[2009 - X] Soporte Live! y Terceros/Consultas SQL/Logs/SQLDeveloper_20130425091000.log"
 	],
 	"find":
 	{
@@ -557,6 +609,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Roboto Sl",
+			"Ubuntu",
+			"Roboto",
+			"Menlo",
+			"Helvet",
+			"consolas",
+			"common/styles.css",
 			"^\\t*\\n",
 			"^\\n",
 			"=\"",
@@ -677,14 +736,7 @@
 			"movifijo",
 			"mp",
 			"offer",
-			"jber",
-			"omcorreo",
-			"webfem",
-			"system",
-			"soporte",
-			"drutt",
-			"userprod",
-			"\""
+			"jber"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -692,6 +744,7 @@
 		"regex": true,
 		"replace_history":
 		[
+			"common/css/styles.css",
 			"",
 			"-rf\n",
 			"\n",
@@ -734,7 +787,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 5,
 			"sheets":
 			[
 				{
@@ -743,15 +796,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6297,
+						"buffer_size": 6355,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2727,
-								2727
+								6285,
+								6285
 							]
 						],
 						"settings":
@@ -759,26 +812,18 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
@@ -791,17 +836,393 @@
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close"
+							],
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "es/home.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6168,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								460,
+								460
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
 								"bh_angle",
 								"bh_angle_center",
 								"bh_angle_open",
 								"bh_angle_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
-								"bh_unmatched_close"
+								"bh_unmatched_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close"
 							],
 							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "es/frontentry.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1012,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								111,
+								111
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close"
+							],
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "common/css/jumbotron.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1100,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								316,
+								1023
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close"
+							],
+							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 270.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6347,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1526,
+								623
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close"
+							],
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Login.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7460,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								358,
+								358
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close"
+							],
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
@@ -812,20 +1233,20 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "index.html",
+					"buffer": 6,
+					"file": "es/validatefront.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6287,
+						"buffer_size": 4419,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								6287,
-								6287
+								451,
+								451
 							]
 						],
 						"settings":
@@ -833,26 +1254,18 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
@@ -865,41 +1278,48 @@
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
-								"bh_unmatched_close"
+								"bh_unmatched_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close"
 							],
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/PHP/PHP.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 686.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "bootstrap/dist/js/bootstrap.js",
+					"buffer": 7,
+					"file": "common/css/signin.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 58533,
+						"buffer_size": 2086,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								33709,
-								33709
+								1160,
+								1160
 							]
 						],
 						"settings":
@@ -907,26 +1327,18 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
@@ -939,160 +1351,22 @@
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close"
-							],
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 16481.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "jumbotron.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1095,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1095,
-								1095
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
 								"bh_tag",
 								"bh_tag_center",
 								"bh_tag_open",
 								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close"
-							],
-							"syntax": "Packages/CSS/CSS.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 386.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "bootstrap/dist/css/bootstrap.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 123132,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								436,
-								436
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
 								"bh_square",
 								"bh_square_center",
 								"bh_square_open",
 								"bh_square_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
-								"bh_unmatched_close"
+								"bh_unmatched_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close"
 							],
 							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"tab_size": 2,
@@ -1102,23 +1376,24 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
-					"buffer": 5,
+					"buffer": 8,
+					"file": "common/css/styles.css",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 50671,
+						"buffer_size": 40007,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9341,
-								9348
+								62,
+								62
 							]
 						],
 						"settings":
@@ -1126,26 +1401,18 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
 								"bh_double_quote",
 								"bh_double_quote_center",
 								"bh_double_quote_open",
 								"bh_double_quote_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
 								"bh_regex",
 								"bh_regex_center",
 								"bh_regex_open",
@@ -1158,23 +1425,105 @@
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
-								"bh_unmatched_close"
+								"bh_unmatched_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close"
 							],
 							"syntax": "Packages/CSS/CSS.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 6694.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "common/bootstrap/dist/css/bootstrap.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 123690,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5727,
+								5727
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close"
+							],
+							"syntax": "Packages/CSS/CSS.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 6001.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
@@ -1256,7 +1605,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 225.0,
+	"side_bar_width": 237.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

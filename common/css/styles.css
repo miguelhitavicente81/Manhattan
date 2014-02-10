@@ -15,7 +15,14 @@
 
 /* Estilos de elementos HTML */
 
-html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+html { 
+	/* Move down content because we have a fixed topbar */
+	padding-top: 50px; 
+
+	font-size: 100%; 
+	-webkit-text-size-adjust: 100%; 
+	-ms-text-size-adjust: 100%; 
+}
 
 body { margin: 0px ; overflow-y: hidden; height: 100%; line-height: 1.231; background-color: #FFFFFF; }
 
