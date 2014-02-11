@@ -10,6 +10,11 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono|Roboto+Slab);
 
 
+/* Bootstrap core CSS
+-------------------------------------------------- */
+@import url(../bootstrap/dist/css/bootstrap.css);
+
+
 /* Document body settings
 -------------------------------------------------- */
 body {
