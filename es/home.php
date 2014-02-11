@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Inicio</title>
-	
+
 	<!-- Custom styles for this template -->
 	<link href="../common/css/styles.css" rel="stylesheet">
 	<link href="../common/css/design.css" rel="stylesheet">
@@ -41,25 +41,42 @@
 		require_once './library/functions.php';
 		?>
 
-		<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+
+		<!-- Static navbar -->
+		<div class="navbar navbar-default navbar-fixed-top" role="navigation">
 			<div class="top-page-color"></div>
-			<div class="container">
+			<div class="container-fluid">
 				<div class="navbar-header">
 					<a href="http://www.perspectiva-alemania.com/" title="Perspectiva Alemania">
 						<img src="../common/img/logo.png" alt="Perspectiva Alemania">
 					</a>
-					<!-- <a style="float:right">Conectado como: <?php echo $_SESSION['loglogin']; ?></a>
-					<a style="float:left;" href="#">Opciones</a> -->
-					<a href="endsession.php" style="float:right">Salir</a>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
 				</div>
-			</div>
-		</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Menú <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li class="dropdown-header">Conectado como: <?php echo $_SESSION['loglogin']; ?></li>
+								<li class="divider"></li>
+								<li><a href="#">Configuración</a></li>
+								<li><a href="#">Abrir incidencia</a></li>
+								<li><a href="#">Revisar Curriculum</a></li>
+								<li class="divider"></li>
+								<li><a href="endsession.php">Salir</a></li>
+							</ul>
+						</li>
+					</ul>
+				</div><!--/.nav-collapse -->
+			</div><!--/.container-fluid -->
+		</div>	
 
-<!-- 		<div id="topbar" class="azul">
-			<a style="float:left;" href="#">Opciones</a>
-			<a style="float:center">Conectado como: <?php echo $_SESSION['loglogin']; ?></a>
-			<a href="endsession.php" style="float:right">Salir</a>
-		</div> -->
+
 		<?php 
 
 /* En $myFile guardo el nombre del fichero php que WC está tratando en ese instante. Necesario para mostrar
@@ -186,6 +203,27 @@ foreach($mainKeysRow as $i){
 
 ?>
 
-<script src="../common/js/functions.js" type="text/javascript"></script>
+
+<!-- Footer bar & info
+	================================================== -->
+	<div id="footer">
+		<div class="container">
+			<p class="text-muted">&copy; Perspectiva Alemania, S.L.</p>
+		</div>
+	</div>
+
+
+<!-- Scripts. Placed at the end of the document so the pages load faster.
+	================================================== -->
+	<!-- Bootstrap core JavaScript -->
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+	<!-- Site own functions -->
+	<script src="../common/js/functions.js"></script>
+
+	<!-- Do you wanna use tooltips or validation instead of? -->
+	<!-- <script src="../common/js/application.js"></script> -->
+
 </body>
 </html>

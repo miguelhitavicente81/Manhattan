@@ -352,7 +352,7 @@ a:visited {
 	margin-left: 10px;
 	margin-bottom: 10px;
 	height: 90%;
-	background-color: #FFF;
+	/* background-color: #FFF; */
 	position: relative;
 	overflow: auto;
 }
