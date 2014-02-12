@@ -1,20 +1,23 @@
-<? session_start(); ?>
-<html>
+<?php session_start(); ?>
+<html lang="es">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	
+	<title>Inicio</title>
+
+	<!-- Custom styles for this template -->
+	<link href="../common/css/styles.css" rel="stylesheet">
+	<link href="../common/css/design.css" rel="stylesheet">
 
 	<!-- Using the same favicon from perspectiva-alemania.com site -->
 	<link rel="shortcut icon" href="http://www.perspectiva-alemania.com/wp-content/themes/perspectiva2013/bilder/favicon.png">
 	<!-- Using the favicon for touch-devices shortcut -->
 	<link rel="apple-touch-icon" href="../common/img/apple-touch-icon.png">
 
-	<title>Inicio</title>
-
-	<!-- Custom styles for this template -->
-	<link href="../common/css/styles.css" rel="stylesheet">
-	<link href="../common/css/design.css" rel="stylesheet">
 
 </head>
 
@@ -27,7 +30,7 @@
 		</script>
 		<?php
 	}
-	else{
+	else {
 		$lastUpdate = $_SESSION['lastupdate'];
 		$curUpdate = date('Y-n-j H:i:s');
 		$elapsedTime = (strtotime($curUpdate)-strtotime($lastUpdate));
@@ -88,15 +91,17 @@
 		* el resto de menús de nivel 1 cuando navegue por ellos, y saber cuál es el activo (id='onlink')
 		*/ -->
 		<?php
-		$myFile = 'home';
-		$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+			$myFile = 'home';
+			$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
 		?>
 
 
 
 
-<div class="workspace">
 
+	<div class="workspace">
+
+		<!-- Tabbed navbar inside Workspace -->
 		<div id="navbar" role="navigation">
 			<ul class="nav nav-tabs">
 				<?php 
@@ -117,24 +122,27 @@
 				}
 				?>
 			</ul>
-		</div>
+		</div> <!-- Tabbed navbar --> 
 
+		<!-- Main view inside Workspace -->
+		<div class="panel panel-default transparent">
 
-		<div class="panel panel-default" id="mainContent">
-			<div class="panel-body" id="mainContent">
-				<div class="leftbox">
-					<div class="css-treeview">
-						<ul>
-							<?php
+			<!-- Panel inside Workspace -->
+			<div class="panel-body sidebar-parent scrollable no-padding"> 
+
+				
+				<div class="col-sm-3 col-md-2 sidebar transparent">
+					<ul class="nav nav-sidebar">
+						<?php
 							$namesTable = $myFile.'Names';
 							$numCols = getDBnumcolumns($myFile);
 							$myFileProfileRow = getDBrow($myFile, 'profile', $userRow['profile']);
-							for($j=3;$j<$numCols;$j++){
+							for($j=3;$j<$numCols;$j++) {
 								$colNamej = getDBcolumnname($myFile, $j);
-								if(($myFileProfileRow[$j] == 1) && ($subLevelMenu = getDBsinglefield2('esName', $namesTable, 'key', $colNamej, 'level', '2'))){
+								if(($myFileProfileRow[$j] == 1) && ($subLevelMenu = getDBsinglefield2('esName', $namesTable, 'key', $colNamej, 'level', '2'))) {
 									if(!getDBsinglefield2('esName', $namesTable, 'fatherKey', $colNamej, 'level', '3')){
 										$level2File = getDBsinglefield('key', $namesTable, 'esName', $subLevelMenu);
-										echo "<li><a href=home/$level2File.php>" . utf8_encode($subLevelMenu) . "</a></li>";
+										echo "<li><a href=home/$level2File.php>" . $subLevelMenu . "</a></li>";
 									}
 									else{
 										$arrayKeys = array();
@@ -152,54 +160,185 @@
 												}
 											}
 										}
-										echo "<li><a href=home/$level3File.php>" . utf8_encode($subLevelMenu) . "</a></li>";
+										echo "<li><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
 									}
 								}
 							}
-							?>
-						</ul>
-					</div>
-				</div> <!-- "leftbox" -->
+						?>
+					</ul>
+				</div> <!-- col-sm-3 col-md-2 sidebar -->
+				
 
-				<div class="rightbox">
+				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-					<!-- SI ES LA PRIMERA VEZ QUE SE CONECTA UN CANDIDATO, O LE VUELVEN A DAR ACCESO PARA RELLENAR OTRO CV, LE MANDAMOS DIRECTAMENTE AL FORMULARIO -->
+					<h1 class="page-header">Noticias</span></h1>
 
 					<?php 
-					echo "<p><span id='leftmsg'>Noticias</span></p><hr>";
 
-					if(($userRow['profile'] == 'Administrador') || ($userRow['profile'] == 'SuperAdmin')){
-						if((getDBrowsnumber('cVitaes') == 0) || ($numPendingCVs = count($cvIDs = getDBcolumnvalue('id', 'cVitaes', 'cvStatus', 'pending')))){
-							echo "No existen CVs por clasificar.";
+						if(($userRow['profile'] == 'Administrador') || ($userRow['profile'] == 'SuperAdmin')){
+							if((getDBrowsnumber('cVitaes') == 0) || ($numPendingCVs = count($cvIDs = getDBcolumnvalue('id', 'cVitaes', 'cvStatus', 'pending')))){
+								echo "No existen CVs por clasificar.";
+							}
+							else{
+								echo "Existen <a href=./home/pendingCVs.php>" . $numPendingCVs . " </a> CVs por clasificar.";
+							}
+						}
+						elseif($userRow['profile'] == 'Lector'){
+							echo "-- DEFINIR SE SE QUIERE O NO QUE UN PERFIL \"Lector\" PUEDA REVISAR CVs --";
+							if((getDBrowsnumber('cVitaes') == 0) || ($numPendingCVs = count($cvIDs = getDBcolumnvalue('id', 'cVitaes', 'cvStatus', 'pending')))){
+								echo "No existen CVs por clasificar.";
+							}
+							else{
+								echo "Existen <a href=./home/pendingCVs.php>" . $numPendingCVs . " </a> CVs por clasificar.";
+							}
 						}
 						else{
-							echo "Existen <a href=./home/pendingCVs.php>" . $numPendingCVs . " </a> CVs por clasificar.";
-						}
-					}
-					elseif($userRow['profile'] == 'Lector'){
-						echo "-- DEFINIR SE SE QUIERE O NO QUE UN PERFIL \"Lector\" PUEDA REVISAR CVs --";
-						if((getDBrowsnumber('cVitaes') == 0) || ($numPendingCVs = count($cvIDs = getDBcolumnvalue('id', 'cVitaes', 'cvStatus', 'pending')))){
-							echo "No existen CVs por clasificar.";
-						}
-						else{
-							echo "Existen <a href=./home/pendingCVs.php>" . $numPendingCVs . " </a> CVs por clasificar.";
-						}
-					}
-					else{
-						echo "-- SE ENTIENDE QUE SI UN \"\" TIENE ACCESO A LA ZONA PRIVADA DE LA PAGINA ES PORQUE SE LE HA CONCEDIDO PARA RELLENAR OTRO CV --";
-						include 'blankform.php';
+							echo "-- SE ENTIENDE QUE SI UN \"\" TIENE ACCESO A LA ZONA PRIVADA DE LA PAGINA ES PORQUE SE LE HA CONCEDIDO PARA RELLENAR OTRO CV --";
+							include 'blankform.php';
 
-					}
+						}
 					?>
-				</div> <!-- "rightbox" -->
-			</div> <!-- "panel-body" -->
-		</div>
-</div>
-<?php
 
-}//del "else" de $_SESSION.
+					<h2 class="sub-header">Section title</h2>
 
-?>
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Header</th>
+									<th>Header</th>
+									<th>Header</th>
+									<th>Header</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>1,001</td>
+									<td>Lorem</td>
+									<td>ipsum</td>
+									<td>dolor</td>
+									<td>sit</td>
+								</tr>
+								<tr>
+									<td>1,002</td>
+									<td>amet</td>
+									<td>consectetur</td>
+									<td>adipiscing</td>
+									<td>elit</td>
+								</tr>
+								<tr>
+									<td>1,003</td>
+									<td>Integer</td>
+									<td>nec</td>
+									<td>odio</td>
+									<td>Praesent</td>
+								</tr>
+								<tr>
+									<td>1,003</td>
+									<td>libero</td>
+									<td>Sed</td>
+									<td>cursus</td>
+									<td>ante</td>
+								</tr>
+								<tr>
+									<td>1,004</td>
+									<td>dapibus</td>
+									<td>diam</td>
+									<td>Sed</td>
+									<td>nisi</td>
+								</tr>
+								<tr>
+									<td>1,005</td>
+									<td>Nulla</td>
+									<td>quis</td>
+									<td>sem</td>
+									<td>at</td>
+								</tr>
+								<tr>
+									<td>1,006</td>
+									<td>nibh</td>
+									<td>elementum</td>
+									<td>imperdiet</td>
+									<td>Duis</td>
+								</tr>
+								<tr>
+									<td>1,007</td>
+									<td>sagittis</td>
+									<td>ipsum</td>
+									<td>Praesent</td>
+									<td>mauris</td>
+								</tr>
+								<tr>
+									<td>1,008</td>
+									<td>Fusce</td>
+									<td>nec</td>
+									<td>tellus</td>
+									<td>sed</td>
+								</tr>
+								<tr>
+									<td>1,009</td>
+									<td>augue</td>
+									<td>semper</td>
+									<td>porta</td>
+									<td>Mauris</td>
+								</tr>
+								<tr>
+									<td>1,010</td>
+									<td>massa</td>
+									<td>Vestibulum</td>
+									<td>lacinia</td>
+									<td>arcu</td>
+								</tr>
+								<tr>
+									<td>1,011</td>
+									<td>eget</td>
+									<td>nulla</td>
+									<td>Class</td>
+									<td>aptent</td>
+								</tr>
+								<tr>
+									<td>1,012</td>
+									<td>taciti</td>
+									<td>sociosqu</td>
+									<td>ad</td>
+									<td>litora</td>
+								</tr>
+								<tr>
+									<td>1,013</td>
+									<td>torquent</td>
+									<td>per</td>
+									<td>conubia</td>
+									<td>nostra</td>
+								</tr>
+								<tr>
+									<td>1,014</td>
+									<td>per</td>
+									<td>inceptos</td>
+									<td>himenaeos</td>
+									<td>Curabitur</td>
+								</tr>
+								<tr>
+									<td>1,015</td>
+									<td>sodales</td>
+									<td>ligula</td>
+									<td>in</td>
+									<td>libero</td>
+								</tr>
+							</tbody>
+						</table>
+					</div> <!-- table-responsive -->
+				</div> <!-- col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main -->
+			
+			</div> <!-- panel-body --> 
+		</div> <!-- panel -->
+	</div> <!-- workspace -->
+
+	<?php
+
+	} //del "else" de $_SESSION.
+
+	?>
 
 
 <!-- Footer bar & info
