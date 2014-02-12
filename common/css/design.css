@@ -47,6 +47,23 @@ body {
 }
 
 
+/* Navbar Tabbed redefinitions
+-------------------------------------------------- */
+.nav-tabs {
+	border-bottom: 0px;
+}
+
+div#mainContent.panel {
+	height: 90%;
+	padding: 0px;
+}
+
+div#mainContent.panel-body {
+	height: 100%;
+	padding: 0px;
+}
+
+
 /* Forms style
 -------------------------------------------------- */
 .form-signin {
