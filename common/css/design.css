@@ -22,11 +22,17 @@
 /* Document body settings
 -------------------------------------------------- */
 body {
-	font-family: 'Roboto', sans-serif;
-	padding-top: 40px;
+	font-family: 'Helvetica Neue','Roboto', sans-serif;
+	padding-top: 100px;
 	padding-bottom: 40px;
 	background-color: initial;
 	background: url(../img/body-bg-32b.png) bottom center repeat;
+}
+
+@media (min-width: 768px) {
+	body {
+		padding-top: 50px;
+	}
 }
 
 
@@ -51,8 +57,9 @@ body {
 	vertical-align: bottom;
 }
 
-
-
+.always-visible {
+	display: block;
+}
 
 
 /* Tabbed navbar redefinitions
@@ -60,17 +67,6 @@ body {
 .nav-tabs {
 	border-bottom: 0px;
 }
-
-
-/*div#mainContent.panel {
-	height: 90%;
-	padding: 0px;
-}
-
-div#mainContent.panel-body {
-	height: 100%;
-	padding: 0px;
-}*/
 
 
 
@@ -190,7 +186,8 @@ div#mainContent.panel-body {
 	z-index: 2;
 }
 .form-signin input {
-	font-family: 'Ubuntu Mono', monospaced;
+	/* font-family: 'Ubuntu Mono', monospace;*/
+	font-family: Menlo,Monaco,Consolas,'Ubuntu Mono',monospace;
 }
 .form-signin input[type="login"] {
 	margin-bottom: -1px;
@@ -239,11 +236,13 @@ div#mainContent.panel-body {
 
 /* Fixing some display issues for footer bars */
 #footer .container {
+	display: block;
 	width: auto;
 	max-width: 680px;
 	padding: 0 1px 1px 0;
 	margin-left: 20px;
 }
+
 #footer .container .text-muted {
 	margin: 0 0 1px 0;
 }
