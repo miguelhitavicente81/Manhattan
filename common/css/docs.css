@@ -53,16 +53,16 @@ body {
 
 /* Outline button for use within the docs */
 .btn-outline {
-  color: #563d7c;
+  color: #3C8DC5;
   background-color: transparent;
-  border-color: #563d7c;
+  border-color: #3C8DC5;
 }
 .btn-outline:hover,
 .btn-outline:focus,
 .btn-outline:active {
   color: #fff;
-  background-color: #563d7c;
-  border-color: #563d7c;
+  background-color: #3C8DC5;
+  border-color: #3C8DC5;
 }
 
 /* Inverted outline button (white on dark) */
@@ -74,7 +74,7 @@ body {
 .btn-outline-inverse:hover,
 .btn-outline-inverse:focus,
 .btn-outline-inverse:active {
-  color: #563d7c;
+  color: #3C8DC5;
   text-shadow: none;
   background-color: #fff;
   border-color: #fff;
@@ -85,7 +85,7 @@ body {
   display: block;
   font-weight: 500;
   color: #fff;
-  background-color: #563d7c;
+  background-color: #3C8DC5;
   border-radius: 15%;
   cursor: default;
   text-align: center;
@@ -103,7 +103,7 @@ body {
   line-height: 140px;
 }
 .bs-booticon-inverse {
-  color: #563d7c;
+  color: #3C8DC5;
   background-color: #fff;
 }
 .bs-booticon-outline {
@@ -128,7 +128,7 @@ body {
 }
 .bs-docs-nav .navbar-brand,
 .bs-docs-nav .navbar-nav > li > a {
-  color: #563d7c;
+  color: #3C8DC5;
   font-weight: 500;
 }
 .bs-docs-nav .navbar-nav > li > a:hover,
@@ -138,7 +138,7 @@ body {
   background-color: #f9f9f9;
 }
 .bs-docs-nav .navbar-toggle .icon-bar {
-  background-color: #563d7c;
+  background-color: #3C8DC5;
 }
 .bs-docs-nav .navbar-header .navbar-toggle {
   border-color: #fff;
@@ -233,10 +233,10 @@ body {
   text-align: center;
   text-shadow: 0 1px 0 rgba(0,0,0,.1);
   background-color: #6f5499;
-  background-image: -webkit-linear-gradient(top, #563d7c 0%, #6f5499 100%);
-  background-image: linear-gradient(to bottom, #563d7c 0%, #6f5499 100%);
+  background-image: -webkit-linear-gradient(top, #3C8DC5 0%, #6f5499 100%);
+  background-image: linear-gradient(to bottom, #3C8DC5 0%, #6f5499 100%);
   background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#563d7c', endColorstr='#6F5499', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3C8DC5', endColorstr='#6F5499', GradientType=0);
 }
 
  /* Masthead (headings and download button) */
@@ -539,19 +539,19 @@ body {
 .bs-sidebar .nav > li > a:hover,
 .bs-sidebar .nav > li > a:focus {
   padding-left: 19px;
-  color: #563d7c;
+  color: #3C8DC5;
   text-decoration: none;
   background-color: transparent;
-  border-left: 1px solid #563d7c;
+  border-left: 1px solid #3C8DC5;
 }
 .bs-sidebar .nav > .active > a,
 .bs-sidebar .nav > .active:hover > a,
 .bs-sidebar .nav > .active:focus > a {
   padding-left: 18px;
   font-weight: bold;
-  color: #563d7c;
+  color: #3C8DC5;
   background-color: transparent;
-  border-left: 2px solid #563d7c;
+  border-left: 2px solid #3C8DC5;
 }
 
 /* Nav: second level (shown on .active) */
@@ -716,7 +716,7 @@ h1[id] {
 .color-swatches .brand-info    { background-color: #5bc0de; }
 
 /* Docs colors */
-.color-swatches .bs-purple          { background-color: #563d7c; }
+.color-swatches .bs-purple          { background-color: #3C8DC5; }
 .color-swatches .bs-purple-light    { background-color: #c7bfd3; }
 .color-swatches .bs-purple-lighter  { background-color: #e5e1ea; }
 .color-swatches .bs-gray            { background-color: #f9f9f9; }
@@ -1190,7 +1190,7 @@ h1[id] {
 }
 .bs-glyphicons li:hover {
   color: #fff;
-  background-color: #563d7c;
+  background-color: #3C8DC5;
 }
 
 @media (min-width: 768px) {
@@ -1310,7 +1310,7 @@ h1[id] {
   width: 100%;
   margin-bottom: 15px;
   overflow: hidden;
-  color: #563d7c;
+  color: #3C8DC5;
   background-color: #f9f9f9;
   border-radius: 4px;
 }
@@ -1325,7 +1325,7 @@ h1[id] {
 }
 .bs-brand-logos .inverse {
   color: #fff;
-  background-color: #563d7c;
+  background-color: #3C8DC5;
 }
 
 /* Heading content within */

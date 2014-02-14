@@ -145,7 +145,7 @@
 									}
 
 									else{
-										echo "<li><a href=$i.php>" . $mainNamesRow[$j] . "</a></li>";
+										echo "<li><a href=$i.php>" . $mainNamesRow[$j] . "ITER$j </a></li>";
 										$j++;
 									}
 								}
@@ -173,7 +173,7 @@
 
 	<?php
 
-	} //del "else" de $_SESSION.
+		} //del "else" de $_SESSION.
 
 	?>
 
