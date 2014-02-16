@@ -76,13 +76,33 @@
 								<li><a href="#">Abrir incidencia</a></li>
 								<li><a href="#">Revisar Curriculum</a></li>
 								<li class="divider"></li>
-								<li><a href="endsession.php">Salir</a></li>
+								<li><a data-toggle="modal" data-target="#exitRequest">Salir</a></li>
 							</ul>
 						</li>
 					</div>
 				<!-- </div><!--/.nav-collapse -->
 			</div><!--/.container-fluid -->
 		</div>	<!--/Static navbar -->
+
+
+		<!-- exitRequest Modal -->
+		<div id="exitRequest" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exitRequestLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<form class="modal-content" action="endsession.php">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="exitRequestLabel">Cerrar sesión</h4>
+					</div>
+					<div class="modal-body">
+						¿Estás seguro de que quieres salir?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary">Sí, cerrar sesión</button>
+					</div>
+				</form>
+			</div>
+		</div>
 
 
 		<?php 
