@@ -10,10 +10,10 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono|Roboto+Slab);
 
 
-/* Bootstrap core CSS (v3.1.0)
+/* Bootstrap core CSS (v3.1.1)
 -------------------------------------------------- */
-@import url(http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css);
-@import url(http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css);
+@import url(http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css);
+@import url(http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css);
 
 
 
@@ -246,6 +246,24 @@ body {
 #footer .container .text-muted {
 	margin: 0 0 1px 0;
 	font-weight: 200;
+}
+
+
+
+
+
+/* Bootstrap Alerts styles
+-------------------------------------------------- */
+
+.top-alert-container {
+	position: fixed;
+	top: 0;
+	padding: 20px;
+	width: 100%;
+}
+
+.top-alert {
+	position: relative;
 }
 
 
