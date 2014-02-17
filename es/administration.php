@@ -5,14 +5,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
-	<meta name="author" content="">
+	<meta name="author" content="David Alfonso Ginés Prieto, Miguel Hita Vicente y Miguel Ángel Melón Pérez">
 	
 	<title>Administración</title>
 
 	<!-- Custom styles for this template -->
-	<link href="../common/css/styles.css" rel="stylesheet">
 	<link href="../common/css/design.css" rel="stylesheet">
-	<link href="../common/css/docs.css" rel="stylesheet">
+	<!-- <link href="../common/css/styles.css" rel="stylesheet">
+	<link href="../common/css/docs.css" rel="stylesheet"> -->
 
 	<!-- Using the same favicon from perspectiva-alemania.com site -->
 	<link rel="shortcut icon" href="http://www.perspectiva-alemania.com/wp-content/themes/perspectiva2013/bilder/favicon.png">
@@ -136,7 +136,7 @@
 											if(($myFileProfileRow[$k] == 1) && ($subLevelMenu = getDBsinglefield2('esName', $namesTable, 'key', $colNamej, 'level', '2'))) {
 												if(!getDBsinglefield2('esName', $namesTable, 'fatherKey', $colNamej, 'level', '3')){
 													$level2File = getDBsinglefield('key', $namesTable, 'esName', $subLevelMenu);
-													echo "<li><a href=home/$level2File.php>" . $subLevelMenu . "</a></li>";
+													echo "<li><span class='badge'>$k</span><a href=home/$level2File.php>" . $subLevelMenu . "</a></li>";
 												}
 												else{
 													$arrayKeys = array();
@@ -154,7 +154,7 @@
 															}
 														}
 													}
-													echo "<li><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
+													echo "<li><span class='badge'>$k</span><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
 												}
 											}
 										}
@@ -179,6 +179,46 @@
 					<div class="bs-docs-section">
 
 						<h1 class="page-header">Administración &amp; Configuración</span></h1>
+							<p class="lead">
+							En este menú puede ajustar la configuración de Web Central,
+							así como añadir, eliminar o modificar elementos ya existentes</p>
+							<hr class="long">
+							<p>Podría incluso tener enlaces a todo el árbol de directorio (Como
+							sucede en la consola de <code>Weblogic</code>) o a "Secciones frecuentes"</p>
+
+						<h2 class="page-header">Administración &amp; Configuración</span></h2>
+							<p class="lead">
+							En este menú puede ajustar la configuración de Web Central,
+							así como añadir, eliminar o modificar elementos ya existentes</p>
+							<hr class="long">
+							<p>Podría incluso tener enlaces a todo el árbol de directorio (Como
+							sucede en la consola de <code>Weblogic</code>) o a "Secciones frecuentes"</p>
+
+						<h3 class="page-header">Administración &amp; Configuración</span></h3>
+							<p class="lead">
+							En este menú puede ajustar la configuración de Web Central,
+							así como añadir, eliminar o modificar elementos ya existentes</p>
+							<hr class="long">
+							<p>Podría incluso tener enlaces a todo el árbol de directorio (Como
+							sucede en la consola de <code>Weblogic</code>) o a "Secciones frecuentes"</p>
+
+						<h4 class="page-header">Administración &amp; Configuración</span></h4>
+							<p class="lead">
+							En este menú puede ajustar la configuración de Web Central,
+							así como añadir, eliminar o modificar elementos ya existentes</p>
+							<hr class="long">
+							<p>Podría incluso tener enlaces a todo el árbol de directorio (Como
+							sucede en la consola de <code>Weblogic</code>) o a "Secciones frecuentes"</p>
+
+						<h5 class="page-header">Administración &amp; Configuración</span></h5>
+							<p class="lead">
+							En este menú puede ajustar la configuración de Web Central,
+							así como añadir, eliminar o modificar elementos ya existentes</p>
+							<hr class="long">
+							<p>Podría incluso tener enlaces a todo el árbol de directorio (Como
+							sucede en la consola de <code>Weblogic</code>) o a "Secciones frecuentes"</p>
+
+						<h6 class="page-header">Administración &amp; Configuración</span></h6>
 							<p class="lead">
 							En este menú puede ajustar la configuración de Web Central,
 							así como añadir, eliminar o modificar elementos ya existentes</p>

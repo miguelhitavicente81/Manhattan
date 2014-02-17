@@ -1,13 +1,25 @@
-<? session_start(); ?>
-<html>
+<?php session_start(); ?>
+<html lang="es">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<!-- 
-	<title>OMC - Login</title>	
-	<link href="./css/teststyle.css" rel="stylesheet" type="text/css">
-	-->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="David Alfonso Ginés Prieto, Miguel Hita Vicente y Miguel Ángel Melón Pérez">
 	
-	<script src="../common/js/functions.js" type="text/javascript"></script>
+	<title>Gestión de contraseña</title>
+
+	<!-- Custom styles for this template -->
+	<link href="../common/css/design.css" rel="stylesheet">
+	<!-- <link href="../common/css/styles.css" rel="stylesheet">
+	<link href="../common/css/docs.css" rel="stylesheet"> -->
+
+	<!-- Using the same favicon from perspectiva-alemania.com site -->
+	<link rel="shortcut icon" href="http://www.perspectiva-alemania.com/wp-content/themes/perspectiva2013/bilder/favicon.png">
+	<!-- Using the favicon for touch-devices shortcut -->
+	<link rel="apple-touch-icon" href="../common/img/apple-touch-icon.png">
+
+
 </head>
 
 <body>
@@ -155,7 +167,8 @@
 					else{
 					*/
 					//But it still lasts to check whether the user needs change his/her password
-					echo 'el2';
+					echo "<div class='bs-example'><div class='progress progress-striped active'><div class='bar' style='width: 60%;'><span class='sr-only'>Cargando …</span></div></div></div>";
+
 					/*
 					$_SESSION['lastupdate'] = date('Y-n-j H:i:s');
 					$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
@@ -230,5 +243,26 @@
 		<!-- <input type="button" style="text-align: center" value="Volver al inicio" onclick="window.location='./Login.html'"/> -->
 		</div>
 	</fieldset>
+
+<!-- Footer bar & info
+	================================================== -->
+	<div id="footer" class="hidden-xs hidden-sm" >
+		<div class="container">
+			<p class="text-muted">&copy; Perspectiva Alemania, S.L.</p>
+		</div>
+	</div>
+
+
+<!-- Scripts. Placed at the end of the document so the pages load faster.
+	================================================== -->
+	<!-- Bootstrap core JavaScript -->
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+	<!-- Site own functions -->
+	<script src="../common/js/functions.js"></script>
+	<script src="../common/js/application.js"></script>
+	<script src="../common/js/docs.min.js"></script>
+
 </body>
 </html>

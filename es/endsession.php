@@ -11,9 +11,9 @@
 	<title>Inicio</title>
 
 	<!-- Custom styles for this template -->
-	<link href="../common/css/styles.css" rel="stylesheet">
 	<link href="../common/css/design.css" rel="stylesheet">
-	<link href="../common/css/docs.css" rel="stylesheet">
+	<!-- <link href="../common/css/styles.css" rel="stylesheet">
+	<link href="../common/css/docs.css" rel="stylesheet"> -->
 
 	<!-- Using the same favicon from perspectiva-alemania.com site -->
 	<link rel="shortcut icon" href="http://www.perspectiva-alemania.com/wp-content/themes/perspectiva2013/bilder/favicon.png">
@@ -53,7 +53,7 @@
 
 <!-- Footer bar & info
 	================================================== -->
-	<div id="footer" class="hidden-xs hidden-sm" >
+	<div id="footer" >
 		<div class="container">
 			<p class="text-muted">&copy; Perspectiva Alemania, S.L.</p>
 		</div>
