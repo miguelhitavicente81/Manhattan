@@ -136,7 +136,7 @@
 											if(($myFileProfileRow[$k] == 1) && ($subLevelMenu = getDBsinglefield2('esName', $namesTable, 'key', $colNamej, 'level', '2'))) {
 												if(!getDBsinglefield2('esName', $namesTable, 'fatherKey', $colNamej, 'level', '3')){
 													$level2File = getDBsinglefield('key', $namesTable, 'esName', $subLevelMenu);
-													echo "<li><span class='badge'>$k</span><a href=home/$level2File.php>" . $subLevelMenu . "</a></li>";
+													echo "<li><span class='badge'>$k</span><a href=administration/$level2File.php>" . $subLevelMenu . "</a></li>";
 												}
 												else{
 													$arrayKeys = array();
@@ -154,7 +154,7 @@
 															}
 														}
 													}
-													echo "<li><span class='badge'>$k</span><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
+													echo "<li><span class='badge'>$k</span><a href=administration/$level3File.php>" . $subLevelMenu . "</a></li>";
 												}
 											}
 										}
