@@ -13,7 +13,13 @@
  * Exit: Connection instance
  */
 function connectDB(){
-	$connection = mysqli_connect('mysql.hostinger.es','u548400664_root','fOr3v3r', 'u548400664_alema') or die('MySQL connection error. Please contact administrator');
+	
+	// Set connection to remote Database
+	//$connection = mysqli_connect('mysql.hostinger.es','u548400664_root','fOr3v3r', 'u548400664_alema') or die('MySQL connection error. Please contact administrator');
+
+	// Set connection to local Database
+	$connection = mysqli_connect('localhost','root','') or die('MySQL connection error. Please contact administrator');
+	mysqli_select_db($connection, 'PRJ2014001') or die('There was a problem connecting to DDBB. Please contact administrator');
 
 	return $connection;
 }
