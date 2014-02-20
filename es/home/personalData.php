@@ -1,179 +1,323 @@
 <? session_start(); ?>
-<html>
+<html lang="es">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic,700italic|Ubuntu:300,400,500,700,300italic,400italic,500italic,700italic|Ubuntu+Condensed&
-subset=latin,latin-ext' rel='stylesheet' type='text/css'>
-	<title>Inicio</title>
-	<link href="../../common/css/styles.css" rel="stylesheet" type="text/css">
-	<script src="../../common/js/functions.js" type="text/javascript"></script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="David Alfonso Ginés Prieto, Miguel Hita Vicente y Miguel Ángel Melón Pérez">
+	
+	<title>Mis Datos</title>
+
+	<!-- Custom styles for this template -->
+	<link href="../../common/css/design.css" rel="stylesheet">
+	<!-- <link href="../../common/css/styles.css" rel="stylesheet"> -->
+	<!-- <link href="../common/css/docs.css" rel="stylesheet"> -->
+
+	<!-- Using the same favicon from perspectiva-alemania.com site -->
+	<link rel="shortcut icon" href="http://www.perspectiva-alemania.com/wp-content/themes/perspectiva2013/bilder/favicon.png">
+	<!-- Using the favicon for touch-devices shortcut -->
+	<link rel="apple-touch-icon" href="../../common/img/apple-touch-icon.png">
+
+
 </head>
 
 <body>
-<?php
-if (!$_SESSION['loglogin']){
-	 ?>
-	<script type="text/javascript">
-		window.location.href='../index.html';
-	</script>
 	<?php
-}
-else{
-	$lastUpdate = $_SESSION['lastupdate'];
-	$curUpdate = date('Y-n-j H:i:s');
-	$elapsedTime = (strtotime($curUpdate)-strtotime($lastUpdate));
-	if($elapsedTime > $_SESSION['sessionexpiration']){
+	if (!$_SESSION['loglogin']){
 		?>
 		<script type="text/javascript">
-			window.location.href='../endsession.php';
+			window.location.href='index.html';
 		</script>
 		<?php
 	}
-	else{
-		$_SESSION['lastupdate'] = $curUpdate;
-		unset($lastUpdate);
-		unset($curUpdate);
-		unset($elapsedTime);
-	}
-	require_once '../library/functions.php';
-	?>
-	<div id="topbar" class="azul">
-		<a style="float:left;" href="#">Opciones</a>
-		<a style="float:center">Conectado como: <?php echo $_SESSION['loglogin']; ?></a>
-		<a href="../endsession.php" style="float:right">Salir</a>
-	</div>
-	<?php 
-	$myFile = 'home';
-	$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
-	?>
-	<div id="mainmenu">
-	<ul class="navbar1">
-		<?php 
-		$mainKeysRow = getDBcompletecolumnID('key', 'mainNames', 'id');
-		$mainNamesRow = getDBcompletecolumnID('esName', 'mainNames', 'id');
-		$j = 0;
-		foreach($mainKeysRow as $i){
-			if(getDBsinglefield('active', $i, 'profile', $userRow['profile'])){
-				if($myFile == $i){
-					echo "<li><a href=../$i.php id='onlink'>" . utf8_encode($mainNamesRow[$j]) . "</a></li>";
-					$j++;
-				}
-				else{
-					echo "<li><a href=../$i.php>" . utf8_encode($mainNamesRow[$j]) . "</a></li>";
-					$j++;
-				}
-			}
-		}
-		?>
-	</ul>
-	</div>
-
-	<div class="workspace">
-		<div class="leftbox">
-			<!-- Este 'class' sirve para mostrar los submenús alineados a la izquierda en el nivel 2 -->
-			<ul>
+	else {
+		$lastUpdate = $_SESSION['lastupdate'];
+		$curUpdate = date('Y-n-j H:i:s');
+		$elapsedTime = (strtotime($curUpdate)-strtotime($lastUpdate));
+		if($elapsedTime > $_SESSION['sessionexpiration']){
+			?>
+			<script type="text/javascript">
+				window.location.href='endsession.php';
+			</script>
 			<?php
-			$namesTable = $myFile.'Names';
-			$numCols = getDBnumcolumns($myFile);
-			$myFileProfileRow = getDBrow($myFile, 'profile', $userRow['profile']);
-			for($j=3;$j<$numCols;$j++){
-				$colNamej = getDBcolumnname($myFile, $j);
-				if(($myFileProfileRow[$j] == 1) && ($subLevelMenu = getDBsinglefield2('esName', $namesTable, 'key', $colNamej, 'level', '2'))){
-					if(!getDBsinglefield2('esName', $namesTable, 'fatherKey', $colNamej, 'level', '3')){
-						$level2File = getDBsinglefield('key', $namesTable, 'esName', $subLevelMenu);
-						echo "<li><a href=./$level2File.php>" . $subLevelMenu . "</a></li>";
-					}
-					else{
-						$arrayKeys = array();
-						$arrayKeys = getDBcolumnvalue('key', $namesTable, 'fatherKey', $colNamej);
-						$checkFinished = 0;
-						$l = 1;
-						foreach($arrayKeys as $k){
-							if($checkFinished == 0){
-								if(($myFileProfileRow[$j+$l] == 1) && (getDBsinglefield($k, $myFile, 'profile', $userRow['profile']))){
-									$level3File = $k;
-									$checkFinished = 1;
+		}
+		else{
+			$_SESSION['lastupdate'] = $curUpdate;
+			unset($lastUpdate);
+			unset($curUpdate);
+			unset($elapsedTime);
+		}
+		require_once '../library/functions.php';
+		?>
+
+
+		<!-- Static navbar -->
+		<div id="header" class="navbar navbar-default navbar-fixed-top" role="navigation" id="fixed-top-bar">
+			<div id="top_line" class="top-page-color"></div>
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a href="http://www.perspectiva-alemania.com/" title="Perspectiva Alemania">
+						<img src="../../common/img/logo.png" alt="Perspectiva Alemania">
+					</a>
+				</div>
+				<!-- <div class="navbar-collapse collapse"> -->
+				<div class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<button type="button" class="navbar-toggle always-visible" data-toggle="dropdown">
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li class="dropdown-header">Conectado como: <?php echo $_SESSION['loglogin']; ?></li>
+							<li class="divider"></li>
+							<li><a href="../administration.php">Configuración</a></li>
+							<li><a href="#">Abrir incidencia</a></li>
+							<li><a href="#">Revisar Curriculum</a></li>
+							<li class="divider"></li>
+							<li><a data-toggle="modal" data-target="#exitRequest" href="#exitRequest">Salir</a></li>
+						</ul>
+					</li>
+				</div>
+				<!-- </div><!--/.nav-collapse -->
+			</div><!--/.container-fluid -->
+		</div>	<!--/Static navbar -->
+
+
+		<!-- exitRequest Modal -->
+		<div id="exitRequest" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exitRequestLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<form class="modal-content" action="../endsession.php">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title" id="exitRequestLabel">Cerrar sesión</h4>
+					</div>
+					<div class="modal-body">
+						¿Estás seguro de que quieres salir?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary">Sí, cerrar sesión</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+
+
+		<!-- /* En $myFile guardo el nombre del fichero php que WC está tratando en ese instante. Necesario para mostrar
+		* el resto de menús de nivel 1 cuando navegue por ellos, y saber cuál es el activo (id='onlink')
+		*/ -->
+		<?php
+		$myFile = 'home';
+		$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+		?>
+
+
+		<div id="main-content" class="container bs-docs-container">
+			<div class="row">
+				<div class="col-md-3">
+					<div id="sidebar-navigation-list" class="bs-sidebar hidden-print affix-top" role="complementary">
+						<ul class="nav bs-sidenav">
+							<?php 
+							$mainKeysRow = getDBcompletecolumnID('key', 'mainNames', 'id');
+							$mainNamesRow = getDBcompletecolumnID('esName', 'mainNames', 'id');
+							$j = 0;
+							foreach($mainKeysRow as $i){
+								if(getDBsinglefield('active', $i, 'profile', $userRow['profile'])){
+									if($myFile == $i){
+										echo "<li class='active'><a href=../$i.php id='onlink'>" . $mainNamesRow[$j] . "</a>";
+										$j++;
+
+										echo "<ul class='nav'>";
+
+										$namesTable = $myFile.'Names';
+										$numCols = getDBnumcolumns($myFile);
+										$myFileProfileRow = getDBrow($myFile, 'profile', $userRow['profile']);
+										for($k=3;$k<$numCols;$k++) {
+											$colNamej = getDBcolumnname($myFile, $k);
+											if(($myFileProfileRow[$k] == 1) && ($subLevelMenu = getDBsinglefield2('esName', $namesTable, 'key', $colNamej, 'level', '2'))) {
+												if(!getDBsinglefield2('esName', $namesTable, 'fatherKey', $colNamej, 'level', '3')){
+													$level2File = getDBsinglefield('key', $namesTable, 'esName', $subLevelMenu);
+													// Because the file we are is a level 2 file, we do this comparision to make active element in list if it's this same file
+													if ($level2File == basename(__FILE__, '.php'))
+														echo "<li class='active'><span class='badge'>$k</span><a href=$level2File.php>" . $subLevelMenu . "</a></li>";
+													else
+														echo "<li><span class='badge'>$k</span><a href=$level2File.php>" . $subLevelMenu . "</a></li>";
+												}
+												else{
+													$arrayKeys = array();
+													$arrayKeys = getDBcolumnvalue('key', $namesTable, 'fatherKey', $colNamej);
+													$checkFinished = 0;
+													$l = 1;
+													foreach($arrayKeys as $key){
+														if($checkFinished == 0){
+															if(($myFileProfileRow[$j+$l] == 1) && (getDBsinglefield($key, $myFile, 'profile', $userRow['profile']))){
+																$level3File = $key;
+																$checkFinished = 1;
+															}
+															else{
+																$l++;
+															}
+														}
+													}
+													echo "<li><span class='badge'>$k</span><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
+												}
+											}
+										}
+
+										echo "</ul> <!-- class='nav' -->";
+										echo "</li> <!-- class='active' -->";
+
+									}
+
+									else{
+										echo "<li><a href=../$i.php>" . $mainNamesRow[$j] . "</a></li>";
+										$j++;
+									}
+								}
+							}
+							?>
+						</ul> <!-- class="nav bs-sidenav" -->
+					</div> <!-- id="sidebar-navigation-list"  -->
+				</div> <!-- col-md-3 -->
+
+				<div class="col-md-9 scrollable" role="main"> 
+					<div class="bs-docs-section">
+
+						<h2 class="page-header">Mis datos</h2>
+
+						</span>
+
+						<?php
+
+
+
+
+						if(isset($_POST['changePassword'])){
+							if($_POST['newPassword'] != $_POST['confirmNewPassword']){
+								?>
+								<script type="text/javascript">
+									alert('Ambas contraseñas deben ser iguales.');
+									window.location.href='personalData.php';
+								</script>
+								<?php 
+							}
+							elseif(!checkPassword($_POST['newPassword'], $keyError)){
+								?>
+								<script type="text/javascript">
+									alert('<?php echo $keyError; ?>');
+									window.location.href='personalData.php';
+								</script>
+								<?php 
+							}
+							//That's when system generates new Blowfish password
+							else{
+								$newCryptedPass = blowfishCrypt($_POST['newPassword']);
+								if(!executeDBquery("UPDATE `users` SET `pass`='".$newCryptedPass."', `needPass`='0' WHERE `login`='".$_SESSION['loglogin']."'")){
+								//session_destroy(); DEBERIA DESTRUIR LA SESSION
+									?>
+									<script type="text/javascript">
+										alert('No fue posible actualizar su contraseña.');
+										window.location.href='personalData.php';
+									</script>
+									<?php 
 								}
 								else{
-									$l++;
+									$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+									$_SESSION['logprofile'] = $userRow['profile'];
+									$_SESSION['lastupdate'] = date('Y-n-j H:i:s');
+									$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
+									?>
+									<script type="text/javascript">
+										window.location.href='personalData.php';
+									</script>
+									<?php 
 								}
 							}
 						}
-						echo "<li><a href=./$level3File.php>" . $subLevelMenu . "</a></li>";
-					}
-				}
-			}
-			?>
-			</ul>
-		</div>
 
-		<div class="rightbox">
-			<?php
-			//DEBO HACER UNA FUNCION JAVASCRIPT checkPassword EN LUGAR DE ESTO, ASI EVITARE HACER CAMBIOS EN VARIOS SITIOS SI CAMBIAN LAS CONDICIONES
-			if(isset($_POST['pdChange'])){
-				if (isset($_POST['pdpass1']) && !empty($_POST['pdpass1']) && isset($_POST['pdpass2']) && !empty($_POST['pdpass2']) && ($_POST['pdpass1'] == $_POST['pdpass2'])){
-					/*
-					if(getDBsinglefield('pass', 'users', 'login', $_POST['pdpass1'])){
-						?>
-						<script type="text/javascript">
-							alert('La nueva contraseña debe ser diferente a la última');
-							window.location.href='personalData.php';
-						</script>
-						<?php
-					}
-					elseif($_POST['pdpass1'] != $_POST['pdpass2']){
-						?>
-						<script type="text/javascript">
-							alert('Las contraseñas introducidas no coinciden');
-							window.location.href='personalData.php';
-						</script>
-						<?php
-					}
-					elseif(strlen($_POST['pdpass1']) < 6 || strpos(trim($_POST['pdpass2']), " ") > 0){
-						?>
-						<script type="text/javascript">
-							alert('La contraseña no puede contener espacios y debe tener, al menos, 6 caracteres');
-							window.location.href='personalData.php';
-						</script>
-						<?php
-					}
-					*/
-					if(checkPassword('pdpass1', $foundError)){
-						executeDBquery("UPDATE `users` SET `pass`='".$_POST['pdpass1']."' WHERE `login`='".$userRow['login']."'");
-					}
-					else{
-						?>
-						<script type="text/javascript">
-							alert('<?php echo $foundError; ?>');
-							window.location.href='personalData.php';
-						</script>
-						<?php
-					}
-				}
-			}
-			?>
-			<div id="data">
-				<!-- EL BUZON DE SUGERENCIAS PUEDE ABRIR UN FORMULARIO QUE PERMITA ENVIAR UN CORREO AL ADMINISTRADOR -->
-				<h3>Mis datos</h3>
-				<hr class="long">
-				<br/>
-				<div id="stylized" class="myform">
-					<form id="form" name="form" action="personalData.php" method="post" onsubmit="return equalPassword(pdpass1, pdpass2)">
-						<h1>Cambio de contraseña</h1>
-						<label>Nueva contraseña</label><input type="password" name="pdpass1" id="pdpass1" size="35"><br>
-						<label>Repita contraseña</label><input type="password" name="pdpass2" id="pdpass2" size="35"><br>
-						<input type="submit" value="Cambiar" name="pdChange"><br/>
-						<br/>
-					</form>
-				</div> <!-- del "stylized" -->
-				<br>
-			</div>
-		</div><!-- Fin del "rightbox" -->
-	</div><!-- Fin del "workspace" -->
+
+/*						if(isset($_POST['changePassword'])){
+							if (isset($_POST['newPassword']) && !empty($_POST['newPassword']) && isset($_POST['confirmNewPassword']) && !empty($_POST['confirmNewPassword']) && ($_POST['newPassword'] == $_POST['confirmNewPassword'])){
+
+							if(checkPassword($_POST['newPassword'], $foundError)){
+								executeDBquery("UPDATE `users` SET `pass`='".$_POST['newPassword']."' WHERE `login`='".$userRow['login']."'");
+							}
+							else{
+								?>
+								<script type="text/javascript">
+									alert('<?php echo $foundError; ?>');
+									window.location.href='personalData.php';
+								</script>
+								<?php
+							}
+						}
+					}*/
+					?>
+
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h2 class="panel-title">Cambio de contraseña</h2>
+							</div>
+							<div class="panel-body">
+								<form id="changePasswordForm" name="changePasswordForm" class="form-horizontal" action="personalData.php" method="post" onsubmit="return equalPassword(newPassword, confirmNewPassword)">
+									<div class="form-group">
+										<label for="newPassword" class="control-label col-xs-3">Nueva contraseña</label>
+										<div class="col-xs-9">
+											<input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="" required data-toggle="tooltip" title="Introduce la nueva contraseña" autocapitalize="off">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="confirmNewPassword" class="control-label col-xs-3">Password</label>
+										<div class="col-xs-9">
+											<input type="password" class="form-control" name="confirmNewPassword" id="confirmNewPassword" placeholder="" required data-toggle="tooltip" title="Confirma la nueva contraseña" autocapitalize="off">
+										</div>
+									</div>
+									<div class="form-group">
+										<div class="col-xs-offset-10 col-xs-2">
+											<button type="submit" class="btn btn-primary" name="changePassword">Cambiar</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div> <!-- bs-docs-section -->
+				</div> <!-- col-md-9 scrollable role=main -->
+			</div> <!-- row -->
+		</div> <!-- class="container bs-docs-container" -->
+
+
+
 	<?php
-}//del "else" de $_SESSION.
 
-?>
+		} //del "else" de $_SESSION.
+
+	?>
+
+
+<!-- Footer bar & info
+	================================================== -->
+	<div id="footer" class="hidden-xs hidden-sm" >
+		<div class="container">
+			<p class="text-muted">&copy; Perspectiva Alemania, S.L.</p>
+		</div>
+	</div>
+
+
+<!-- Scripts. Placed at the end of the document so the pages load faster.
+	================================================== -->
+	<!-- Bootstrap core JavaScript -->
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+	<!-- Site own functions -->
+	<script src="../../common/js/functions.js"></script>
+	<script src="../../common/js/application.js"></script>
+	<script src="../../common/js/docs.min.js"></script>
 
 </body>
+</html>
+
 </html>

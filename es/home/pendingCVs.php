@@ -7,7 +7,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="David Alfonso Ginés Prieto, Miguel Hita Vicente y Miguel Ángel Melón Pérez">
 	
-	<title>CVs pendientes</title>
+	<title>CVs Pendientes</title>
 
 	<!-- Custom styles for this template -->
 	<link href="../../common/css/design.css" rel="stylesheet">
