@@ -28,7 +28,7 @@
 
 		<?php if(!$_SESSION['loglogin']) { ?>
 		
-		<div class="alert alert-danger alert-error top-alert">
+		<div class="alert alert-danger alert-error top-alert fade in">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Opssss!</strong> Ha ocurrido un error mientras se cerraba la sesión.
 		</div>
@@ -40,7 +40,7 @@
 		session_destroy();
 		?>
 
-		<div class="alert alert-success top-alert">
+		<div class="alert alert-success top-alert fade in">
 			<a href="#" class="close" data-dismiss="alert">&times;</a>
 			<strong>Éxito!</strong> Se ha cerrado la sesión correctamente.
 		</div>
@@ -74,6 +74,8 @@
 	<!-- Go to index.html when alert closed -->
 	<script type="text/javascript">
 		$(document).ready(function(){
+			// Close the alert after 2 seconds.
+			window.setTimeout(function() { $(".alert").alert('close'); }, 2000);
 			$(".alert").bind('closed.bs.alert', function(){
 				window.location.href='index.html';
 			});

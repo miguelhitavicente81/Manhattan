@@ -8,6 +8,12 @@
 @import url(http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css);
 
 
+/* Some others CSS used in the site
+-------------------------------------------------- */
+/*@import url(styles.css);*/
+@import url(docs.css);
+
+
 /* Fonts family imports
 -------------------------------------------------- */
 /* Standard fonts */
@@ -15,13 +21,6 @@
 /* Monospaced fonts */
 @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono|Roboto+Slab);
 
-
-
-
-/* Some others CSS used in the site
--------------------------------------------------- */
-/*@import url(styles.css);*/
-@import url(docs.css);
 
 
 

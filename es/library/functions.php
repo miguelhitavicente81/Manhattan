@@ -21,6 +21,8 @@ function connectDB(){
 	$connection = mysqli_connect('localhost','root','') or die('MySQL connection error. Please contact administrator');
 	mysqli_select_db($connection, 'PRJ2014001') or die('There was a problem connecting to DDBB. Please contact administrator');
 
+	$connection->query("SET NAMES 'utf8'");
+
 	return $connection;
 }
 
@@ -328,6 +330,28 @@ function checkPassword($clave,&$error_clave){
    }
    $error_clave = "";
    return true;
+}
+
+
+
+/* Changes a given date to format "Y-m-d" (YYYY-MM-DD)
+ * Entry (oldDate): String that includes the old format date
+ * Exit (endDate): Date in format "YYYY-MM-DD"
+ */
+function dateFormatToDB($oldDate){
+ $endDate = date('Y-m-d', strtotime($oldDate));
+ return $endDate;
+}
+
+
+
+/* Changes a given date (usually in DB) to format "d-m-Y" (DD-MM-YYYY). A common one to spanish people
+ * Entry (oldDate): String that includes the old format date
+ * Exit (endDate): Date in format "DD-MM-YYYY"
+ */
+function dateToSpanishFormat($oldDate){
+ $endDate = date('d-m-Y', strtotime($oldDate));
+ return $endDate;
 }
 
 
