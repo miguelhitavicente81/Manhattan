@@ -139,8 +139,11 @@ else{
 				//$newProfile = stripAccents($newProfile);
 				//$newProfile = normalizeString($newProfile);
 				//$newProfile =stripSpecialChars($newProfile);
+				//New profile is registrated in every table where necessary (profiles, administration and home)
 				$newProfile = dropAccents($newProfile);
-				if(!executeDBquery("INSERT INTO `profiles` (`id`, `name`, `active`, `created`) VALUES (NULL, '".$newProfile."', '1', CURRENT_TIMESTAMP)")){
+				if((!executeDBquery("INSERT INTO `profiles` (`id`, `name`, `active`, `created`) VALUES (NULL, '".$newProfile."', '1', CURRENT_TIMESTAMP)")) || 
+				(!executeDBquery("INSERT INTO `home` (`id`, `profile`, `active`, `pendingCVs`, `checkedCVs`, `searchCVs`, `personalData`) VALUES (NULL, '".$newProfile."', '1', '0', '0', '0', '0')")) ||
+				(!executeDBquery("INSERT INTO `administration` (`id`, `profile`, `active`, `admGenOptions`, `profiles`, `admCurProfiles`, `admNewProfile`, `users`, `admCurUsers`, `admNewUser`) VALUES (NULL, '".$newProfile."', '0', '0', '0', '0', '0', '0', '0', '0')"))){
 					?>
 					<script type="text/javascript">
 						alert('Error al insertar el nuevo perfil');

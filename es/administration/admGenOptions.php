@@ -330,6 +330,10 @@ else{
 			<!-- EN ESTA TABLA DE OPCIONES GENERALES TAMBIÉN HABRÁ QUE INCLUIR ALGUNOS DATOS MÁS, COMO... 
 					Tiempo de antelación con el que se avisará al usuario de que su contraseña va a expirar
 					-->
+			<?php 
+			//Ñapa para que no vean la tabla siguiente...
+			if($_SESSION['loglogin'] == 'super'){
+			?>
 			<table class="tabla1">
 				<tr>
 					<th>Id</th>
@@ -356,6 +360,9 @@ else{
 				EN LA TABLA SUPERIOR DEBO INCLUIR:<br/>
 				- QUE AL PINCHAR SOBRE CADA VALOR SEA POSIBLE MODIFICARLO, RESTRINGIENDO LOS DATOS INTRODUCIDOS (SI ES UN NÚMERO NO ME DEBE DEJAR INTRODUCIR LETRAS)<br/>
 			</p>
+			<?php 
+			}
+			?>
 		</div><!-- Fin del "rightbox" -->
 	</div><!-- Fin del "workspace" -->
 	<?php

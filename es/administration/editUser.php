@@ -331,6 +331,10 @@ else{
 					else{
 						echo "Perfil: <input type='text' name='eUprofile' value='" . utf8_encode($editedUserRow['profile']) . "' size='20' disabled /><br/>";
 					}
+					//If user has profile "Candidato" will show his/her NIE
+					if($editedUserRow['profile'] == "Candidato"){
+						echo "NIE: <input type='text' name='eUuser' value='" . getDBsinglefield('nie', 'cVitaes', 'userLogin', $editedUserRow['login']) . "' size='20' disabled /><br/>";
+					}
 					//ES MUY POSIBLE QUE ACABE QUITANDO LO DE EMPLEADO
 					echo "<label>Empleado: </label>";
 					if($editedUserRow['employee'] == 0){
