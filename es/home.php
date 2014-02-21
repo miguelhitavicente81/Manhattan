@@ -206,9 +206,9 @@
 								}
 							}
 							else{
-								echo "-- SE ENTIENDE QUE SI UN \"\" TIENE ACCESO A LA ZONA PRIVADA DE LA PAGINA ES PORQUE SE LE HA CONCEDIDO PARA RELLENAR OTRO CV --";
-								include 'blankform.php';
-
+								echo "-- SE ENTIENDE QUE SI UN \"Candidato\" TIENE ACCESO A LA ZONA PRIVADA DE LA PAGINA ES PORQUE SE LE HA CONCEDIDO PARA RELLENAR OTRO CV --";
+								//include 'blankform.php';
+								include 'upload.php';
 							}
 						?>
 						</small></span></h1>

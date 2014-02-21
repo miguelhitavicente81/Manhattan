@@ -177,7 +177,7 @@
 					//SI FUNCIONA LA SIGUIENTE COMPARACION NO NECESITARE LA LINEA ANTERIOR NI EL CAMPO "needPass" EN LA TABLA "users"
 					//"needPass" se usa cuando un usuario recién creado entra por 1ª vez
 					//if($userRow['passExpiration'] <= date('Y-n-j')){
-					if(($userRow['passExpiration'] <= date('Y-n-j')) || ($userRow['needPass'])){
+					if(($userRow['passExpiration'] <= date('Y-m-j')) || ($userRow['needPass'])){
 						echo 'el3';
 						?>
 						<div id="data">
