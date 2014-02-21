@@ -1,0 +1,214 @@
+body {background: #FFFFFF ;
+        color: #004d9c;
+        font-family: Verdana,Arial,Helvetica,sans-serif; }
+
+.partesuperior { border: #004d9c 1px solid; padding: 4px; background: rgb(4, 136, 175);}
+#tabla
+{
+
+width:100%;
+border-collapse:collapse;
+}
+#flotante
+        {
+                position: absolute;
+                display:none;
+                font-family:Arial;
+                font-size:0.8em;
+                width:280px;
+                border:1px solid #808080;
+                background-color:#f1f1f1;
+                padding:5px;
+        }
+#tabla td
+{
+text-align:center;
+font-size:0.59em;
+border:1px solid #004d9c;
+
+}
+#tabla th
+{
+font-size:1.1em;
+text-align:left;
+padding:3px 7px 2px 7px;adding-bottom:4px;
+background-color:rgb(4, 136, 175);
+color:#ffffff;
+}
+#tabla tr.alt td
+{
+text-align:center;
+color:#000000;
+background-color:#EAF2D3;
+
+}
+
+
+#tabla1
+{
+
+width:80%;
+border-collapse:collapse;
+}
+#tabla1 td
+{
+text-align:left;
+font-size:1.1em;
+}
+#tabla1 th
+{
+font-size:1.1em;
+text-align:center;
+padding:3px 7px 2px 7px;adding-bottom:4px;
+color:#ffffff;
+}
+#tabla1 tr.alt
+{
+text-align:center;
+color:#000000;
+background-color:#EAF2D3;
+}
+
+
+#tabla2
+{
+width:100%;
+border-collapse:collapse;
+}
+#tabla2 td
+{
+text-align:left;
+border:1px solid #004d9c;
+}
+#tabla2 th
+{
+font-size:1.1em;
+text-align:left;
+padding:3px 7px 2px 7px;adding-bottom:4px;
+background-color:rgb(4, 136, 175);
+color:#ffffff;
+}
+#tabla2 tr.alt td
+{
+text-align:left;
+color:#000000;
+background-color:#EAF2D3;
+
+}
+
+
+
+
+#tabla3
+{
+
+border-collapse:collapse;
+}
+#tabla3 td
+{
+text-align:center;
+font-size:0.59em;
+border:1px solid #004d9c;
+width:50px;
+}
+#tabla3 th
+{
+font-size:1.1em;
+text-align:left;
+padding:3px 7px 2px 7px;adding-bottom:4px;
+background-color:rgb(4, 136, 175);
+color:#ffffff;
+}
+#tabla3 tr.alt td
+{
+text-align:center;
+color:#000000;
+background-color:#EAF2D3;
+width:50px;
+}
+.tabsmenuclass ul{
+overflow: hidden;
+width: auto;
+margin: 0;
+padding: 0;
+list-style-type: none;
+}
+
+.tabsmenuclass li{
+float: left;
+}
+
+.tabsmenuclass a{
+display: block;
+padding: 5px 7px;
+background: #E8E8E8;
+color: #004d9c;
+margin-right: 1px;
+text-decoration: none;
+font: bold 13px Arial;
+}
+
+.tabsmenuclass a:hover, .tabsmenuclass a.selected{
+background: black;
+color: white;
+}
+
+/* ######### CSS for sub menu container below ######### */
+
+.tabsmenucontentclass{
+clear: left;
+background: #E8E8E8;
+width: 100%;
+height: 24px;
+padding: 5px;
+border: 1px solid silver;
+}
+
+.tabsmenucontentclass ul{
+margin: 0;
+padding: 0;
+list-style-type: none;
+}
+
+.tabsmenucontentclass li{
+float: left;
+margin-right: 1em;
+}
+
+#tabla4
+{
+
+border-collapse:collapse;
+}
+#tabla4 td
+{
+text-align:center;
+font-size:1.59em;
+border:1px solid #004d9c;
+width:50px;
+}
+#tabla4 th
+{
+font-size:2.1em;
+text-align:left;
+padding:3px 7px 2px 7px;adding-bottom:4px;
+background-color:rgb(4, 136, 175);
+color:#ffffff;
+}
+#tabla4 tr.alt td
+{
+text-align:center;
+color:#000000;
+background-color:#EAF2D3;
+width:450px;
+}
+
+#texto
+{
+text-align:left;
+color:#cc0033a;
+background-color:#EAF200;
+font:comic-sans;
+width:50%;
+border:1px solid #999999;
+}
