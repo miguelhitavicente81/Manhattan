@@ -13,18 +13,14 @@
  * Exit: Connection instance
  */
 function connectDB(){
-	
-	// Set connection to remote Database
-	//$connection = mysqli_connect('mysql.hostinger.es','u548400664_root','fOr3v3r', 'u548400664_alema') or die('MySQL connection error. Please contact administrator');
-
-	// Set connection to local Database
-	$connection = mysqli_connect('localhost','root','') or die('MySQL connection error. Please contact administrator');
-	mysqli_select_db($connection, 'PRJ2014001') or die('There was a problem connecting to DDBB. Please contact administrator');
+	$connection = mysqli_connect('localhost','root','', 'PRJ2014001') or die('MySQL connection error. Please contact administrator');
+	//mysqli_select_db($conexion, 'PRJ2014001') or die('There was a problem connecting to DDBB. Please contact administrator');
 
 	$connection->query("SET NAMES 'utf8'");
 
 	return $connection;
 }
+
 
 
 /* Delete 1 registry from a given table
@@ -38,7 +34,6 @@ function deleteDBrow($dbtable, $primaryname, $primaryvalue){
 
 	$query = "DELETE FROM `$dbtable` WHERE `$primaryname`='$primaryvalue'";
 
-	//if(mysqli_query($query, $conexion) or die("Error al borrar registro de BD: ".mysqli_error())){
 	if(mysqli_query($conexion, $query) or die("Error al borrar registro de BD: ".mysqli_error())){
 		mysqli_close($conexion);
 		return 1;
@@ -56,8 +51,9 @@ function deleteDBrow($dbtable, $primaryname, $primaryvalue){
  */
 function executeDBquery($query){
 	$conexion = connectDB();
+	echo $query;
+	
 
-	//if(mysqli_query($query, $conexion) or die("Error en la llamada de BD: ".mysqli_error())){
 	if(mysqli_query($conexion, $query) or die("Error en la llamada de BD: ".mysqli_error())){
 		mysqli_close($conexion);
 		return 1;
@@ -74,6 +70,7 @@ function executeDBquery($query){
  * Exit (cname): Array with name
  */
 function getDBcolumnname($dbtable, $column){
+	//$connection = mysqli_connect("localhost", "root", "", "PRJ2014001") or die("Error " .mysqli_error($connection));
 	$connection = connectDB();
 	$query = "SELECT * FROM `$dbtable` LIMIT 1";
 	if($result = mysqli_query($connection, $query)){
@@ -89,6 +86,8 @@ function getDBcolumnname($dbtable, $column){
 	mysqli_close($connection);
 	return $colName;
 }
+
+
 
 
 /* Returns Array (if succeded) with all matched values in one given column
@@ -161,6 +160,7 @@ function getDBnumcolumns($dbtable){
 }
 
 
+
 /* Gets a complete row from DB for supported data
  * Entry (dbtable): Name for the table where row must be get
  * Entry (fieldsupported): Name for column used to select uniquely the row
@@ -169,11 +169,8 @@ function getDBnumcolumns($dbtable){
  */
 function getDBrow($dbtable, $fieldsupported, $infosupported){
 	$conexion = connectDB();
-	//$result = mysqli_query($conexion, "SELECT * FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error en getDBrow: ".mysqli_error());
-	//$result = mysqli_query($conexion, "SELECT * FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error buscando el registro: ".mysqli_error());
 	$result = mysqli_query($conexion, "SELECT * FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error buscando el registro: ".mysqli_error());
-	//if(mysqli_num_rows($result) <= 0 ){
-	if(mysqli_num_rows($result) <= 0){
+	if(mysqli_num_rows($result) <= 0 ){
 		mysqli_free_result($result);
 		mysqli_close($conexion);
 		return 0;
@@ -339,8 +336,8 @@ function checkPassword($clave,&$error_clave){
  * Exit (endDate): Date in format "YYYY-MM-DD"
  */
 function dateFormatToDB($oldDate){
- $endDate = date('Y-m-d', strtotime($oldDate));
- return $endDate;
+	$endDate = date('Y-m-d', strtotime($oldDate));
+	return $endDate;
 }
 
 
@@ -350,50 +347,11 @@ function dateFormatToDB($oldDate){
  * Exit (endDate): Date in format "DD-MM-YYYY"
  */
 function dateToSpanishFormat($oldDate){
- $endDate = date('d-m-Y', strtotime($oldDate));
- return $endDate;
+	$endDate = date('d-m-Y', strtotime($oldDate));
+	return $endDate;
 }
 
 
-/*
-function normalizeString($string){
-	$charset = 'UTF-8';
-	$str = iconv($charset, 'ASCII//TRANSLIT', $str);
-	$final = preg_replace("/[^A-Za-z0-9 ]/", '', $str);
-	return $final;
-}
-
-
-/ * Erases/Strips/Removes any character in a string which contains any non-supported type of accent (if necessary)
- * Entry (string): String with accents
- * Exit: String without accents
- * /
-function stripAccents($string){
-	return strtr($string,'àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ', 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY');
-}
-
-
-//function limpiar_caracteres_especiales($s) {
-function stripSpecialChars($string){
-	$s = ereg_replace("[áàâãªä@]","a",$s);
-	$s = ereg_replace("[ÁÀÂÃÄ]","A",$s);
-	$s = ereg_replace("[éèêë]","e",$s);
-	$s = ereg_replace("[ÉÈÊË]","E",$s);
-	$s = ereg_replace("[íìîï]","i",$s);
-	$s = ereg_replace("[ÍÌÎÏ]","I",$s);
-	$s = ereg_replace("[óòôõºö]","o",$s);
-	$s = ereg_replace("[ÓÒÔÕÖ]","O",$s);
-	$s = ereg_replace("[úùûü]","u",$s);
-	$s = ereg_replace("[ÚÙÛÜ]","U",$s);
-	$s = str_replace("[¿?\]","_",$s);
-	$s = str_replace(" ","-",$s);
-	$s = str_replace("ñ","n",$s);
-	$s = str_replace("Ñ","N",$s);
-//para ampliar los caracteres a reemplazar agregar lineas de este tipo:
-//$s = str_replace("caracter-que-queremos-cambiar","caracter-por-el-cual-lo-vamos-a-cambiar",$s);
-return $s;
-}
-*/
 
 /* Erases/Strips/Removes any character in a string which contains any non-supported type of accent (if necessary)
  * Entry (incoming_string): String with accents
@@ -407,24 +365,12 @@ function dropAccents($incoming_string){
 
 
 
-
 function getRandomPass(){
-	//$str = "_-$%&/()=?¿¡!ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-	//$str = "_-$%&/()=¿¡!ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-	//$str = "_-$%&/()=¡!ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-	//$str = "_-$%&/()=¿!ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-	//$str = "_-$%&/()=!ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
 	$str = "_-$%&/()=?!ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-	//se ven bien: %_!/$-(=)&
-	//mal: ¿¡
 	$cad = "";
 	$passLen = 8;
 	for($i=0;$i<$passLen;$i++){
 		$cad .= substr($str,rand(0,62),1);
-		/* EN LUGAR DE LA UNICA LINEA DE ARRIBA, PUEDO USAR ESTAS 2:
-		$pos = rand(0, $passLen-1);
-		$cad .= substr($str,rand(0,62),1);
-		*/
 	}
 	return $cad;
 }
