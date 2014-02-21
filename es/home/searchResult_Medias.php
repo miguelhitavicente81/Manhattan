@@ -123,73 +123,82 @@ else{
 			$this->__construct($p, $o,'none',array());
 		}
 	}
-
+/*
 $enlace = mysqli_connect("localhost", "root", "", "PRJ2014001");
 
 if (mysqli_connect_errno()) {
     printf("Fall la conexin: %s\n", mysqli_connect_error());
     exit();
 }
-
-//$consulta = "SELECT * from cVitaes";
-/*
-$consulta = "SELECT * FROM `cVitaes` where `nie` like '%$_POST[blanknie]%' and `nationalities` like '%$_POST[blanknationality]%' and `sex` like '%$_POST[blanksex] %' and 
-`drivingType` like '%$_POST[drivingtype]%' and `marital` like '%$_POST[civil]%' and `sons` like '%$_POST[sons]%' and `language` like '%$_POST[languages]%' and `occupation` like '%$_POST[job]%';";
 */
-$consulta = "SELECT * FROM `cvitaes` where `nie` like '%$_POST[blanknie]%' and `nationalities` like '%$_POST[blanknationality]%' and `sex` like '%$_POST[blanksex]%' and 
-`drivingType` like '%$_POST[drivingtype]%' and `marital` like '%$_POST[civil]%' and `sons` like '%$_POST[sons]%' and `language` like '%$_POST[languages]%' and `occupation` like '%$_POST[job]%';";
-
-
-if ($resultado = mysqli_query($enlace, $consulta)) {
-
-/* Obtener la informacin de campo de todas las columnas */
-$info_campo = mysqli_fetch_fields($resultado);
-$j=0;
-$info_campo = mysqli_fetch_fields($resultado);
-echo "<table id=tabla3>";
-echo "<tr class=alt>";
-foreach ($info_campo as $valor) {
-if (($valor->name == id) || ($valor->name == nie) || ($valor->name == name) || ($valor->name == surname)||($valor->name == occupation) )
-echo "<td>$valor->name</td>";
-}
-echo "</tr></table>";
- while ($fila = $resultado->fetch_row()) {
-$pdf = new Cezpdf('A4'); //seleccionamos tipo de hoja
-$pdf->selectFont('fonts/Helvetica.afm'); //seleccionamos fuente a utilizar
-$info_campo = mysqli_fetch_fields($resultado);
-$i=0;
-//$npdf=$npdf."_".$fila[4]."_".$fila[5];
-$npdf=$npdf."_".$fila[3]."_".$fila[4];
-foreach ($info_campo as $valor) {
-chop($valor->name);
-if ($valor->name == id){$id[$fila[$i]]=$fila[++$i];}
-$pdf->ezText("<b>$valor->name</b> $fila[$i]");
-$i++;
-}
-echo "<table id=tabla3>";
-if ($j%2==0){
-echo "<tr><td>";
-}
-else{
-echo "<tr class=alt><td>";
-}
-//echo "$fila[0]</td><td><a href=visualizacv.php?id_b=$fila[0] target=_blank>$fila[1]</a></td><td>$fila[4]</td><td>$fila[5]</td><td>$fila[21]</td></tr>";
-echo "$fila[0]</td><td><a href=viewCV.php?id_b=$fila[0] target=_blank>$fila[1]</a></td><td>$fila[4]</td><td>$fila[5]</td><td>$fila[21]</td></tr>";
-
-echo "</table>";
-#$pdf->ezStream();
-
-$documento_pdf = $pdf->ezOutput();
-$nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$npdf.pdf";
-$fichero = fopen("$nf",'wb');
-fwrite ($fichero, $documento_pdf);
-fclose ($fichero);
-$nf="";
-$npdf="";
-$j++;
-}
-    mysqli_free_result($resultado);
-}
+	$consulta = "SELECT * from cVitaes";
+	
+//if ($resultado = mysqli_query($enlace, $consulta)) {
+	if($queryResult = executeDBquery($consulta)){
+		$j = 0;
+		echo "<table id=tabla3>";
+			echo "<tr class=alt>";
+				echo "<th colspan='6'>Nivel de Idiomas</th>";
+			echo "</tr>";
+			echo "<tr class=alt>";
+				echo "<th>Id</th>";
+				echo "<th>NIE</th>";
+				echo "<th>Name</th>";
+				echo "<th>Surname</th>";
+				echo "<th>Occupation</th>";
+			echo "</tr>";
+			
+			while ($fila = $queryResult->fetch_row()) {
+				$pdf = new Cezpdf('A4'); //seleccionamos tipo de hoja
+				$pdf->selectFont('fonts/Helvetica.afm'); //seleccionamos fuente a utilizar
+				$info_campo = mysqli_fetch_fields($queryResult);
+				$i=0;
+				//$npdf=$npdf."_".$fila[4]."_".$fila[5];
+				$npdf=$npdf."_".$fila[3]."_".$fila[4];
+				foreach ($info_campo as $valor){
+					chop($valor->name);
+					if ($valor->name == id){$id[$fila[$i]]=$fila[++$i];}
+					$pdf->ezText("<b>$valor->name</b> $fila[$i]");
+					$i++;
+				}
+				//echo "<table id=tabla3>";
+				if ($j%2==0){
+					echo "<tr><td>";
+				}
+				else{
+					echo "<tr class=alt><td>";
+				}
+				//echo "$fila[0]</td><td><a href=visualizacv.php?id_b=$fila[0] target=_blank>$fila[1]</a></td><td>$fila[4]</td><td>$fila[5]</td><td>$fila[21]</td></tr>";
+				echo "$fila[0]</td><td><a href=viewCV.php?id_b=$fila[0] target=_blank>$fila[1]</a></td><td>$fila[4]</td><td>$fila[5]</td><td>$fila[21]</td></tr>";
+				
+				//echo "</table>";
+				#$pdf->ezStream();
+				
+				$documento_pdf = $pdf->ezOutput();
+				$nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$npdf.pdf";
+				$fichero = fopen("$nf",'wb');
+				fwrite ($fichero, $documento_pdf);
+				fclose ($fichero);
+				$nf="";
+				$npdf="";
+				$j++;
+			}
+		echo "</table>";
+			/*
+				$langLevelNumRows = getDBrowsnumber('languageLevel');
+				for($i=1;$i<=$langLevelNumRows;$i++){
+					$langLevelRow = getDBrow('languageLevel', 'id', $i);
+					echo "<tr>";
+					echo "<td>" . $langLevelRow['id'] . "</td>";
+					echo "<td>" . utf8_encode($langLevelRow['key']) . "</td>";
+					echo "<td>" . utf8_encode($langLevelRow['enName']) . "</td>";
+					echo "<td>" . utf8_encode($langLevelRow['esName']) . "</td>";
+					echo "<td>" . utf8_encode($langLevelRow['deName']) . "</td>";
+					echo "<td>Borrar</td>";
+					echo "</tr>";
+					*/
+	    mysqli_free_result($resultado);
+	}
 $numero=rand();
 `cd /Applications/XAMPP/xamppfiles/temp/cvs/ && tar cf cvs$numero.tar *.pdf`;
 `rm -rf /Applications/XAMPP/xamppfiles/temp/cvs/*.pdf`;
