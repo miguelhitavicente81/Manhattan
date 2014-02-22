@@ -1,5 +1,4 @@
 <?php session_start(); ?>
-<!—- David se caga en tu padre —->
 <html lang="es">
 <head>
 	<meta charset="utf-8">
