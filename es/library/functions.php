@@ -17,7 +17,7 @@ function connectDB(){
 	//mysqli_select_db($conexion, 'PRJ2014001') or die('There was a problem connecting to DDBB. Please contact administrator');
 
 	$connection->query("SET NAMES 'utf8'");
-
+	
 	return $connection;
 }
 
@@ -51,8 +51,6 @@ function deleteDBrow($dbtable, $primaryname, $primaryvalue){
  */
 function executeDBquery($query){
 	$conexion = connectDB();
-	echo $query;
-	
 
 	if(mysqli_query($conexion, $query) or die("Error en la llamada de BD: ".mysqli_error())){
 		mysqli_close($conexion);
@@ -274,6 +272,12 @@ function addMonthsToDate($monthsNumber){
 }
 
 
+
+/******************************************************
+ * **********  PASSWORD RELATED FUNCTIONS  ********** *
+ ******************************************************/
+
+
 /* Generates a Hash key using Blowfish Algorithm to create after it a password
  * Entry (password): String wanted to be hashed
  * Exit (crypt): Hash key
@@ -304,6 +308,7 @@ function blowfishCrypt($password, $rounds = 7){
  * Entry (keypass): 
  */
 //function validar_clave($clave,&$error_clave){
+/*
 function checkPassword($clave,&$error_clave){
    if(strlen($clave) < 6){
       $error_clave = "La clave debe tener al menos 6 caracteres";
@@ -327,6 +332,44 @@ function checkPassword($clave,&$error_clave){
    }
    $error_clave = "";
    return true;
+}
+*/
+
+
+
+//HAY UNA VERSION JAVASCRIPT DE ESTA FUNCION YA
+/* Checks whether a given password is strong enough (and properly written) when changed for a new one
+ * Entry (key1): String where passed 1st password attempt
+ * Entry (key2): String where passed 2nd password attempt
+ * Exit (keyError): String with the error when needed (or void)
+ */
+function checkPassChange($key1, $key2, &$keyError){
+	if($key1 != $key2){
+		$keyError = "Ambas contraseñas deben ser iguales";
+		return false;
+	}
+	if(strlen($key1) < 6){
+		$keyError = "La clave debe tener al menos 6 caracteres";
+		return false;
+	}
+	if(strlen($key1) > 16){
+		$keyError = "La clave no puede tener más de 16 caracteres";
+		return false;
+	}
+	if (!preg_match('`[a-z]`',$key1)){
+		$keyError = "La clave debe tener al menos una letra minúscula";
+		return false;
+	}
+	if (!preg_match('`[A-Z]`',$key1)){
+		$keyError = "La clave debe tener al menos una letra mayúscula";
+		return false;
+	}
+	if (!preg_match('`[0-9]`',$key1)){
+		$keyError = "La clave debe tener al menos un caracter numérico";
+		return false;
+	}
+	$keyError = "";
+	return true;
 }
 
 

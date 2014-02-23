@@ -48,7 +48,7 @@ subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 		for (var i=0;i<x.length;i++){
 			texto = texto + x.elements[i].name + "<br>";
 		}
-		alert(texto);
+		
 	}
 	</script>
 	
@@ -320,7 +320,7 @@ else{
 						<td>Carné de Conducir</td>
 						<td>
 							<select name="drivingtype">
-								<option value="0"> Tipo </option>
+								<option selected disabled value=''>Tipo</option>
 								<option value="1">AM</option>
 								<option value="2">A</option>
 								<option value="3">A1</option>
@@ -342,7 +342,7 @@ else{
 						<td>Nacionalidad</td>
 						<td>
 							<select name="blanknationality">
-								<option selected disabled hidden value=''></option>"
+								<option selected disabled value=''></option>
 								
                                 <option value="Afghanistan"> Afghanistan </option>
                                 <option value="Albania"> Albania </option>
@@ -595,7 +595,7 @@ else{
 						<td>Estado Civil</td>
 						<td>
 							<select name="civil">
-								<option value="0">-- Estado --</option>
+								<option selected disabled value="">-- Estado --</option>
 								<option value="1">Soltero/a</option>
 								<option value="2">Casado/a</option>
 								<option value="3">Divorciado/a</option>
@@ -624,19 +624,20 @@ else{
                                         <td>Nivel de Idiomas</td>
                                         <td>
                                         <select name="languages">
-                                                <option value="0">Alemán</option>
-                                                <option value="1">Inglés</option>
-                                                <option value="2">Español</option>
-                                                <option value="3">Francés</option>
-                                                <option value="4">Portugués</option>
-                                                <option value="5">Italiano</option>
+                                        		<option selected disabled value=''>Idioma</option>
+                                                <option value="german">Alemán</option>
+                                                <option value="english">Inglés</option>
+                                                <option value="spanish">Español</option>
+                                                <option value="french">Francés</option>
+                                                <option value="portuguese">Portugués</option>
+                                                <option value="italian">Italiano</option>
                                         </select>
                                         <select name="languagelevel">
-                                                <option value="0">Sin conocimientos</option>
-                                                <option value="1">Básico hablado y escrito</option>
-                                                <option value="2">Medio hablado y escrito</option>
-                                                <option value="3">Alto hablado y escrito</option>
-                                                <option value="4">Bilingüe</option>
+                                                <option selected disabled value="">Sin conocimientos</option>
+                                                <option value="basic">Básico hablado y escrito</option>
+                                                <option value="medium">Medio hablado y escrito</option>
+                                                <option value="high">Alto hablado y escrito</option>
+                                                <option value="bilingual">Bilingüe</option>
                                         </select>
                                         </td>
 
@@ -650,7 +651,7 @@ else{
                                         <td>Formación</td>
                                         <td>
                                         <select name="tittletype">
-                                                <option value="0">Sin estudios</option>
+                                                <option selected disabled value="">Sin estudios</option>
                                                 <option value="1">Educación obligatoria</option>
                                                 <option value="2">Bachillerato</option>
                                                 <option value="3">Formación profesional</option>

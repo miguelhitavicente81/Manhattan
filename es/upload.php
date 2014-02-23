@@ -15,45 +15,32 @@
 		addCampo = function () { 
 			//Creamos un nuevo div para que contenga el nuevo campo
 			nDiv = document.createElement('div');
-			
 			//Con esto se establece la clase de la div 
 			nDiv.className = 'archivo';
-			
 			//Este es el id de la div, aqui la utilidad de la variable numero nos permite darle un id unico 
 			nDiv.id = 'file' + (++numero);
-			
 			//Creamos el input para el formulario: 
 			nCampo = document.createElement('input');
-			
 			//Le damos un nombre, es importante que lo nombren como vector, pues todos los campos compartiran el nombre en un arreglo, asi es mas facil procesar posteriormente con php 
 			nCampo.name = 'archivos[]';
-			
 			//Establecemos el tipo de campo
 			nCampo.type = 'file';
-			
 			//Ahora creamos un link para poder eliminar un campo que ya no deseemos 
 			a = document.createElement('a');
-			
 			//El link debe tener el mismo nombre de la div padre, para efectos de localizarla y eliminarla 
 			a.name = nDiv.id;
-			
 			//Este link no debe ir a ningun lado
 			a.href = '#';
-			
 			//Establecemos que dispare esta funcion al pincharse sobre ella 
 			a.onclick = elimCamp;
-			
 			//Con esto ponemos el texto del link
 			//a.innerHTML = 'Eliminar';
 			//a.innerHTML = '&minus;';
 			a.innerHTML = '&otimes;';
-			
 			//Ahora se integra lo que hemos creado al documento, para ello la función appendChild se usa para añadir el campo file nuevo 
 			nDiv.appendChild(nCampo);
-			
 			//Y justo aquí añadimos el Link 
 			nDiv.appendChild(a);
-			
 			//Ahora si recuerdan, en el html hay una div cuyo id es 'adjuntos', bien con esta función obtenemos una referencia a ella para usar de nuevo appendChild 
 			//y añadir la div que hemos creado, la cual contiene el campo file con su link de eliminación:
 			container = document.getElementById('adjuntos');
@@ -75,106 +62,139 @@
 	</script>
 	
 	
-	  <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-  <script src="//code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css">
-  <script>
-  $(function() {
-    $( "#datepicker" ).datepicker();
-  });
-  var rowNum = 0;
-function addRow1(frm) {
-rowNum ++;
-var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="-" onclick="removeRow1('+rowNum+');"></p>';
-jQuery('#itemRows').append(row);
-frm.add_idiomas.value = '';
-frm.add_nidiomas.value = '';
-}  
-function removeRow1(rnum) {
-jQuery('#rowNum'+rnum).remove();
-}
-  var rowNum = 0;
-function addRow2(frm) {
-rowNum ++;
-var row = '<p id="rowNum'+rowNum+'"><input type="text" name="prof[]" value="'+frm.add_prof.value+'"> <input type="button" value="-" onclick="removeRow2('+rowNum+');"></p>';
-jQuery('#itemRows2').append(row);
-frm.add_prof.value = '';
-}
-function removeRow2(rnum) {
-jQuery('#rowNum'+rnum).remove();
-}
-  var rowNum = 0;
-function addRow3(frm) {
-rowNum ++;
-var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nfor[]" size="4" value="'+frm.add_nfor.value+'"><input type="text" name="forma[]" value="'+frm.add_for.value+'"> <input type="button" value="-" onclick="removeRow3('+rowNum+');"></p>';
-jQuery('#itemRows3').append(row);
-frm.add_for.value = '';
-frm.add_nfor.value = '';
-}
-function removeRow3(rnum) {
-jQuery('#rowNum'+rnum).remove();
-}
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	
+	<script>
+		$(function() {
+		$( "#datepicker" ).datepicker();
+		});
+		var rowNum = 0;
+		function addRow1(frm){
+			rowNum ++;
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="-" onclick="removeRow1('+rowNum+');"></p>';
+			jQuery('#itemRows').append(row);
+			frm.add_idiomas.value = '';
+			frm.add_nidiomas.value = '';
+		}
+		
+		function removeRow1(rnum){
+			jQuery('#rowNum'+rnum).remove();
+		}
 
-
-function addRow4(frm) {
-rowNum ++;
-var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="dur[]" value="'+frm.add_dur.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="-" onclick="removeRow4('+rowNum+');"></p>';
-jQuery('#itemRows4').append(row);
-frm.add_empr.value = '';
-frm.add_categ.value = '';
-frm.add_dur.value = '';
-frm.add_desc.value = '';
-}
-function removeRow4(rnum) {
-jQuery('#rowNum'+rnum).remove();
-}
-
-
-
+		var rowNum = 0;
+		function addRow2(frm){
+			rowNum ++;
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="prof[]" value="'+frm.add_prof.value+'"> <input type="button" value="-" onclick="removeRow2('+rowNum+');"></p>';
+			jQuery('#itemRows2').append(row);
+			frm.add_prof.value = '';
+		}
+		
+		function removeRow2(rnum){
+			jQuery('#rowNum'+rnum).remove();
+		}
+		
+		var rowNum = 0;
+		function addRow3(frm){
+			rowNum ++;
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nfor[]" size="4" value="'+frm.add_nfor.value+'"><input type="text" name="forma[]" value="'+frm.add_for.value+'"> <input type="button" value="-" onclick="removeRow3('+rowNum+');"></p>';
+			jQuery('#itemRows3').append(row);
+			frm.add_for.value = '';
+			frm.add_nfor.value = '';
+		}
+		
+		function removeRow3(rnum){
+			jQuery('#rowNum'+rnum).remove();
+		}
+		
+		function addRow4(frm){
+			rowNum ++;
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="dur[]" value="'+frm.add_dur.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="-" onclick="removeRow4('+rowNum+');"></p>';
+			jQuery('#itemRows4').append(row);
+			frm.add_empr.value = '';
+			frm.add_categ.value = '';
+			frm.add_dur.value = '';
+			frm.add_desc.value = '';
+		}
+		
+		function removeRow4(rnum){
+			jQuery('#rowNum'+rnum).remove();
+		}
   </script>
-
-	
-	
 	
 </head>
 
 <body>
 
 <?php
-//require_once ('./es/library/functions.php');
+require_once ('./library/functions.php');
 if(isset($_POST['senduser'])){
 
-	foreach ($_POST as $key => $entry)
-{
-     if(is_array($entry)){
-		if ($key == categ) { $str_categ= implode(',',$entry);}
-		if ($key == nfor) { $str_nfor= implode(',',$entry);}
-		if ($key == forma) { $str_forma= implode(',',$entry);}
-		if ($key == idiomas) { $str_idiomas= implode(',',$entry);}
-		if ($key == nidiomas) { $str_nidiomas= implode(',',$entry);}
-		if ($key == dur) { $str_dur= implode(',',$entry);}
-		if ($key == prof) { $str_prof= implode(',',$entry);}
-		if ($key == empr) { $str_empr= implode(',',$entry);}
-		if ($key == desc) { $str_desc= implode(',',$entry);}
-       #print $key . ": " . implode(',',$entry) . "<br>";
-     }
-     else {
-       #print $key . ": " . $entry . "<br>";
-     }
-}
-echo "---> $str_empr $str_categ $str_dur $str_nfor $str_forma $str_idiomas  $str_nidiomas  $str_prof ";
-exit();
-	
+	foreach ($_POST as $key => $entry){
+		if(is_array($entry)){
+			if($key == categ){
+				//str_cated es 'occupation'
+				$str_categ = implode(',',$entry);
+			}
+			if($key == nfor){
+				//str_nfor es 'studyType'
+				$str_nfor = implode(',',$entry);
+			}
+			if($key == forma){
+				//str_forma es 'studyName'
+				$str_forma = implode(',',$entry);
+			}
+			if($key == idiomas){
+				//str_idiomas es 'language'
+				$str_idiomas = implode(',',$entry);
+			}
+			if($key == nidiomas){
+				//str_nidiomas es 'langLevel'
+				$str_nidiomas = implode(',',$entry);
+			}
+			if($key == dur){
+				//esto deberían ser 2 campos, que se correspondiesen con 'experStart' y 'experEnd'
+				$str_dur = implode(',',$entry);
+			}
+			if($key == prof){
+				//str_prof es 'experPos'
+				$str_prof = implode(',',$entry);
+			}
+			if($key == empr){
+				//str_empr es 'experCompany'
+				$str_empr = implode(',',$entry);
+			}
+			if($key == desc){
+				//str_desc es 'experDesc'
+				$str_desc = implode(',',$entry);
+			}
+			#print $key . ": " . implode(',',$entry) . "<br>";
+	     }
+	     else {
+	       #print $key . ": " . $entry . "<br>";
+	     }
+	}
+//echo "---> $str_empr $str_categ $str_dur $str_nfor $str_forma $str_idiomas  $str_nidiomas  $str_prof ";
+//exit();
+	/*
 	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-	`postalCode`, `country`, `province`, `city`, `phone`, `mobile`, `mail`, `marital`, `sons`, `language`, `langlevel`, `occupation`, `studytype`, `studyname`, `cvDate`) VALUES 
+	`postalCode`, `country`, `province`, `city`, `phone`, `mobile`, `mail`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, `cvDate`) VALUES 
 	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
 	'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
 	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
 	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', '".$str_idiomas."', '".$str_nidiomas."',
 	'".$str_prof."', '".$str_nfor."', '".$str_forma."', CURRENT_TIMESTAMP)");
-	
-	
+	*/
+	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+	`postalCode`, `country`, `province`, `city`, `phone`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, `experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `cvDate`) VALUES 
+	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
+	'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
+	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
+	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', CURRENT_TIMESTAMP)");
+
 	
 	/*
 				<select name="blanklanguage">
@@ -645,7 +665,7 @@ exit();
 		</tr>
 		<tr>
 			<td>Hijos</td>
-			<td><input type="number" name="blanksons" maxlength="2"></td>
+			<td><input type="number" name="blanksons" maxlength="2" min="0"></td>
 		</tr>
 		
 		<!-- AQUI TENGO QUE CARGAR DINAMICAMENTE LAS FOTOS -->
@@ -683,11 +703,11 @@ exit();
 				<option value="japanese">Japonés</option>
 			</select>
 			<select name="add_nidiomas">
-				<option selected value="0">Sin conocimientos</option>
-				<option value="1">Básico hablado y escrito</option>
-				<option value="2">Medio hablado y escrito</option>
-				<option value="3">Alto hablado y escrito</option>
-				<option value="4">Bilingüe</option>
+				<option selected value="null">Sin conocimientos</option>
+				<option value="basic">Básico hablado y escrito</option>
+				<option value="medium">Medio hablado y escrito</option>
+				<option value="high">Alto hablado y escrito</option>
+				<option value="bilingual">Bilingüe</option>
 			</select>
 	
 	<input onclick="addRow1(this.form);" type="button" value="+" />
