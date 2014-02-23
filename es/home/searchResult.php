@@ -158,13 +158,17 @@ $pdf = new Cezpdf('A4'); //seleccionamos tipo de hoja
 $pdf->selectFont('fonts/Helvetica.afm'); //seleccionamos fuente a utilizar
 $info_campo = mysqli_fetch_fields($resultado);
 $i=0;
+$j=0;
 //$npdf=$npdf."_".$fila[4]."_".$fila[5];
 $npdf=$npdf."_".$fila[3]."_".$fila[4];
 foreach ($info_campo as $valor) {
 chop($valor->name);
 if ($valor->name == id){$id[$fila[$i]]=$fila[++$i];}
-$pdf->ezText("<b>$valor->name</b> $fila[$i]");
+if (($valor->name==sex) && ($fila[$j]==0)){$fila[$j]="hombre";}
+if (($valor->name==sex) && ($fila[$j]==1)){$fila[$j]="mujer";}
+$pdf->ezText("<b>$valor->name</b> $fila[$j]");
 $i++;
+$j++;
 }
 echo "<table id=tabla3>";
 if ($j%2==0){
@@ -174,7 +178,7 @@ else{
 echo "<tr class=alt><td>";
 }
 //echo "$fila[0]</td><td><a href=visualizacv.php?id_b=$fila[0] target=_blank>$fila[1]</a></td><td>$fila[4]</td><td>$fila[5]</td><td>$fila[21]</td></tr>";
-echo "$fila[0]</td><td><a href=viewCV.php?id_b=$fila[0] target=_blank>$fila[1]</a></td><td>$fila[4]</td><td>$fila[5]</td><td>$fila[21]</td></tr>";
+echo "$fila[0]</td><td><a href=viewCV.php?id_b=$fila[0] target=_blank>$fila[1]</a></td><td>$fila[3]</td><td>$fila[4]</td><td>$fila[30]</td></tr>";
 
 echo "</table>";
 #$pdf->ezStream();
@@ -191,14 +195,14 @@ $j++;
     mysqli_free_result($resultado);
 }
 $numero=rand();
-`cd /Applications/XAMPP/xamppfiles/temp/cvs/ && tar cf cvs$numero.tar *.pdf`;
+`cd /Applications/XAMPP/xamppfiles/temp/cvs/ && tar cf cvs$numero.zip *.pdf`;
 `rm -rf /Applications/XAMPP/xamppfiles/temp/cvs/*.pdf`;
 $i=0;
 foreach ($id as $valor) {
 $id_o[$i]=$valor;
 $i++;
 }
-echo "<a href=downloadFile.php?doc=cvs$numero.tar>descargar</a>";
+echo "<a href=downloadFile.php?doc=cvs$numero.zip>descargar</a>";
 
 $_SESSION["id_o"] = serialize($id_o);
 $_SESSION["id"] = serialize($id);

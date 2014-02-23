@@ -29,15 +29,7 @@
 		require_once('./library/functions.php');
 		//Part of the code read when user is forced to change his/her password
 		if($_POST['pdChange']){
-			if($_POST['pdpass1'] != $_POST['pdpass2']){
-				?>
-				<script type="text/javascript">
-					alert('Ambas contraseñas deben ser iguales.');
-					window.location.href='index.html';
-				</script>
-				<?php 
-			}
-			elseif(!checkPassword($_POST['pdpass1'], $keyError)){
+			if(!checkPassChange($_POST['pdpass1'], $_POST['pdpass2'], $keyError)){
 				?>
 				<script type="text/javascript">
 					alert('<?php echo $keyError; ?>');
@@ -184,6 +176,7 @@
 							<h3>Debe cambiar la contraseña antes de continuar</h3>
 							<hr class="long">
 							<br/>
+							<?php include '../common/passwdRestrictionsES.txt'; ?>
 							<div id="stylized" class="myform">
 								<!-- <form id="form" name="form" action="home.php" method="post" onsubmit="return checkPasswordES(pdpass1, pdpass2)"> -->
 								<!-- <form id="form" name="form" action="updateExpiration.php" method="post" onsubmit="return checkPasswordES(pdpass1, pdpass2)"> -->
