@@ -1,0 +1,5 @@
+Recuerde que la contraseña debe tener las siguientes características:<br/>
+-Tener entre 6 y 16 caracteres<br/>
+-Tener al menos una letra minúscula<br/>
+-Tener al menos una letra mayúscula<br/>
+-Tener al menos un caracter numérico<br/>
