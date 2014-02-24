@@ -207,9 +207,62 @@
 								echo '<form id="editedCV" name="editedCV" method="post" action=editCurCV.php">';
 									echo "Nombre: <input type='text' name='eCCVname' value=" . $editedCVRow['name'] . " size='20' /><br/>";
 									echo "Apellidos: <input type='text' name='eCCVsurname' value=" . $editedCVRow['surname'] . " size='20' /><br/>";
-									echo "Fecha Nacimiento: <input type='text' name='eCCVbirthdate' value=" . $editedCVRow['birthdate'] . " size='10' /><br/>";
+									echo "Fecha Nacimiento: <input type='date' name='eCCVbirthdate' value=" . $editedCVRow['birthdate'] . " size='10' /><br/>";
 									echo "NIE: <input type='text' name='eCCVnie' value=" . $editedCVRow['nie'] . " size='10' /><br/>";
 									echo "Nacionalidad: <input type='text' name='eCCVnationalities' value=" . $editedCVRow['nationalities'] . " size='10' /><br/>";
+									if($editedCVRow['sex'] == 0){
+										echo "Sexo: <input type='text' name='eCCVsex' value='Hombre' size='10' disabled /><br/>";
+									}
+									else{
+										echo "Sexo: <input type='text' name='eCCVsex' value='Mujer' size='10' disabled /><br/>";
+									}
+									echo "Tipo de Dirección: <input type='text' name='eCCVaddrtype' value=" . $editedCVRow['addrType'] . " size='10' disabled />";
+									echo "Nombre: <input type='text' name='eCCVaddrName' value=" . $editedCVRow['addrName'] . " size='50' disabled /><br/>";
+									echo "Número: <input type='text' name='eCCVaddrNum' value=" . $editedCVRow['addrNum'] . " size='5' disabled />";
+									echo "Portal: <input type='text' name='eCCVaddrPortal' value=" . $editedCVRow['portal'] . " size='5' disabled />";
+									echo "Escalera: <input type='text' name='eCCVaddrStair' value=" . $editedCVRow['stair'] . " size='5' disabled />";
+									echo "Piso: <input type='text' name='eCCVaddrFloor' value=" . $editedCVRow['addrFloor'] . " size='5' disabled />";
+									echo "Puerta: <input type='text' name='eCCVaddrDoor' value=" . $editedCVRow['addrDoor'] . " size='5' disabled /><br/>";
+									echo "Código Postal: <input type='text' name='eCCVpostal' value=" . $editedCVRow['postalCode'] . " size='5' disabled />";
+									echo "Localidad: <input type='text' name='eCCVcity' value=" . $editedCVRow['city'] . " size='20' disabled />";
+									echo "Provincia: <input type='text' name='eCCVprovince' value=" . $editedCVRow['province'] . " size='20' disabled />";
+									echo "País: <input type='text' name='eCCVcountry' value=" . $editedCVRow['country'] . " size='20' disabled /><br/>";
+									echo "Teléfono Fijo: <input type='text' name='eCCVphone' value=" . $editedCVRow['phone'] . " size='10' disabled /><br/>";
+									echo "Teléfono Móvil: <input type='text' name='eCCVmobile' value=" . $editedCVRow['mobile'] . " size='10' disabled /><br/>";
+									echo "Correo Electrónico: <input type='mail' name='eCCVmail' value=" . $editedCVRow['mail'] . " size='20' disabled /><br/>";
+									echo "Carnet de Conducir: <input type='text' name='eCCVdrivingType' value=" . $editedCVRow['drivingType'] . " size='5' disabled />";
+									echo "<input type='date' name='eCCVdrivingDate' value=" . $editedCVRow['drivingDate'] . " /><br/>";
+									echo "Estado Civil: <input type='text' name='eCCVmarital' value=" . $editedCVRow['marital'] . " size='10' disabled /><br/>";
+									echo "Hijos: <input type='text' name='eCCVsons' value=" . $editedCVRow['sons'] . " size='5' disabled /><br/>";
+									echo "Documentos Adicionales: <input type='text' name='eCCV___' value=" . $editedCVRow['sons'] . " size='5' disabled /><br/>";
+									echo "Idiomas: <input type='text' name='eCCV___' value=" . $editedCVRow['sons'] . " size='5' disabled /><br/>";
+									echo "Profesiones: <input type='text' name='eCCV___' value=" . $editedCVRow['sons'] . " size='5' disabled /><br/>";
+									echo "Formación: <input type='text' name='eCCV___' value=" . $editedCVRow['sons'] . " size='5' disabled /><br/>";
+									echo "Experiencia Laboral: <input type='text' name='eCCV___' value=" . $editedCVRow['sons'] . " size='5' disabled /><br/>";
+									echo "Otros detalles: <input type='textarea' name='eCCVotherDetails' value=" . $editedCVRow['otherDetails'] . " rows='5' cols='40' disabled /><br/>";
+									echo "Habilidad 1: <input type='text' name='eCCVskill1' value=" . $editedCVRow['skill1'] . " size='20' disabled /><br/>";
+									echo "Habilidad 2: <input type='text' name='eCCVskill2' value=" . $editedCVRow['skill2'] . " size='20' disabled /><br/>";
+									echo "Habilidad 3: <input type='text' name='eCCVskill3' value=" . $editedCVRow['skill3'] . " size='20' disabled /><br/>";
+									echo "Habilidad 4: <input type='text' name='eCCVskill4' value=" . $editedCVRow['skill4'] . " size='20' disabled /><br/>";
+									echo "Habilidad 5: <input type='text' name='eCCVskill5' value=" . $editedCVRow['skill5'] . " size='20' disabled /><br/>";
+									echo "Habilidad 6: <input type='text' name='eCCVskill6' value=" . $editedCVRow['skill6'] . " size='20' disabled /><br/>";
+									echo "Habilidad 7: <input type='text' name='eCCVskill7' value=" . $editedCVRow['skill7'] . " size='20' disabled /><br/>";
+									echo "Habilidad 8: <input type='text' name='eCCVskill8' value=" . $editedCVRow['skill8'] . " size='20' disabled /><br/>";
+									echo "Habilidad 9: <input type='text' name='eCCVskill9' value=" . $editedCVRow['skill9'] . " size='20' disabled /><br/>";
+									echo "Habilidad 10: <input type='text' name='eCCVskill10' value=" . $editedCVRow['skill10'] . " size='20' disabled /><br/>";
+									echo "Comentarios: <input type='textarea' name='eCCVcomments' value=" . $editedCVRow['comments'] . " rows='5' cols='40' /><br/>";
+									echo "Estado del Candidato: <select name='eCCVcandidateStatus'>";
+										echo "<option value=''>Sin estado</option>";
+										echo "<option value='available'>Disponible</option>";
+										echo "<option value='working'>Colocado</option>";
+										echo "<option value='discarded'>Descartado</option>";
+									echo "</select><br/>";
+									echo "Fecha CV: <input type='date' name='eCCVcvDate' value=" . $editedCVRow['cvDate'] . " disabled /><br/>";
+									
+									
+									
+									
+									//Al guardarlo tendré que cambiar su 'cvStatus' a 'checked'
 								echo '</form>';
 							echo '</fieldset>';//del 'id=auto0'
 							

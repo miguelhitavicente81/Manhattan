@@ -185,26 +185,10 @@
 
 				<div class="col-md-9 scrollable" role="main"> 
 					<div class="bs-docs-section">
-
 						<h2 class="page-header">Mis datos</h2>
-
-						</span>
-
 						<?php
-
-
-
-
 						if(isset($_POST['changePassword'])){
-							if($_POST['newPassword'] != $_POST['confirmNewPassword']){
-								?>
-								<script type="text/javascript">
-									alert('Ambas contraseñas deben ser iguales.');
-									window.location.href='personalData.php';
-								</script>
-								<?php 
-							}
-							elseif(!checkPassword($_POST['newPassword'], $keyError)){
+							if(!checkPassChange($_POST['newPassword'], $_POST['confirmNewPassword'], $keyError)){
 								?>
 								<script type="text/javascript">
 									alert('<?php echo $keyError; ?>');
@@ -237,12 +221,13 @@
 								}
 							}
 						}
-					?>
+						?>
 
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h2 class="panel-title">Cambio de contraseña</h2>
 							</div>
+							<?php include '../../common/passwdRestrictionsES.txt'; ?>
 							<div class="panel-body">
 								<form id="changePasswordForm" name="changePasswordForm" class="form-horizontal" action="personalData.php" method="post" onsubmit="return equalPassword(newPassword, confirmNewPassword)">
 									<div class="form-group">
