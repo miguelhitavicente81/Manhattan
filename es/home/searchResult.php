@@ -1,7 +1,7 @@
-<? 
-session_start();
-set_time_limit(1800);
-set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_path());
+<?php 
+	session_start();
+	set_time_limit(1800);
+	set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_path());
 ?>
 <html>
 <head>
