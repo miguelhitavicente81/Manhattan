@@ -27,7 +27,7 @@
 	if (!$_SESSION['loglogin']){
 		?>
 		<script type="text/javascript">
-			window.location.href='index.html';
+			window.location.href='../index.html';
 		</script>
 		<?php
 	}
@@ -102,7 +102,7 @@
 					</div>
 				</form>
 			</div>
-		</div>
+		</div> <!-- exitRequest Modal -->
 
 
 
@@ -237,24 +237,6 @@
 								}
 							}
 						}
-
-
-/*						if(isset($_POST['changePassword'])){
-							if (isset($_POST['newPassword']) && !empty($_POST['newPassword']) && isset($_POST['confirmNewPassword']) && !empty($_POST['confirmNewPassword']) && ($_POST['newPassword'] == $_POST['confirmNewPassword'])){
-
-							if(checkPassword($_POST['newPassword'], $foundError)){
-								executeDBquery("UPDATE `users` SET `pass`='".$_POST['newPassword']."' WHERE `login`='".$userRow['login']."'");
-							}
-							else{
-								?>
-								<script type="text/javascript">
-									alert('<?php echo $foundError; ?>');
-									window.location.href='personalData.php';
-								</script>
-								<?php
-							}
-						}
-					}*/
 					?>
 
 						<div class="panel panel-default">
