@@ -129,7 +129,7 @@
 <body>
 
 <?php
-require_once ('./library/functions.php');
+//require_once ('./library/functions.php');
 if(isset($_POST['senduser'])){
 
 	foreach ($_POST as $key => $entry){
@@ -187,6 +187,7 @@ if(isset($_POST['senduser'])){
 	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', '".$str_idiomas."', '".$str_nidiomas."',
 	'".$str_prof."', '".$str_nfor."', '".$str_forma."', CURRENT_TIMESTAMP)");
 	*/
+	/*
 	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 	`postalCode`, `country`, `province`, `city`, `phone`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, `experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `cvDate`) VALUES 
 	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
@@ -194,25 +195,16 @@ if(isset($_POST['senduser'])){
 	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
 	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
 	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', CURRENT_TIMESTAMP)");
-
-	
-	/*
-				<select name="blanklanguage">
-			<select name="blanklanglevel">
-			<td><input type="text" name="blankoccupation" size="50" placeholder="Profesión actual" /><a href="#">&oplus;</a></td>
-			<select name="blankstudytype">
-			<input type="text" name="blankstudyname" size="30" placeholder="A definir por el candidato" /><a href="#">&oplus;</a>
-			<input type="text" name="blankcompany" size="30" placeholder="Empresa" />
-			<select name="blankcategory">
-				<option value="intern">Becario</option>
-			<input type="text" name="blankexptime" size="10" placeholder="Duración" />
-			<textarea name="blankexpdesc" rows="5" cols="40">Descripción</textarea><a href="#">&oplus;</a>
-			<td>Otros Detalles de Interés</td>
-			<td><textarea name="blankother" rows="5" cols="40">...</textarea></td>
-			<input type="text" name="blankword1" size="30" /><br>
 	*/
+	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
+	`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`) VALUES 
+	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
+	'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
+	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
+	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', CURRENT_TIMESTAMP)");
 	
-	//echo '-> '.$_POST['blankbirthdate'].' <-';
 	
 	//Preguntamos si nuetro arreglo 'archivos' fue definido
 	if (isset ($_FILES["archivos"])) {
@@ -251,6 +243,7 @@ if(isset($_POST['senduser'])){
 			//para trabajar con este
 			$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
 			$name = $_FILES["archivos"]["name"][$i];
+			/*
 			echo("<b>Archivo </b> $key ");
 			echo("<br />");
 			echo("<b>el nombre original:</b> ");
@@ -258,30 +251,18 @@ if(isset($_POST['senduser'])){
 			echo("<br />");
 			echo("<b>el nombre temporal:</b> \n");
 			echo($tmp_name);
-			echo("<br />");            
+			echo("<br />");
+			*/            
 		}
 		//} FIN DEL SWITCH
 	}
 }
+/***************  Fin del bloque que valida el contenido enviado en el formulario  ***************/
+
+/***************  Aquí comienza el bloque que permite mostrar el formulario  ***************/
 ?>
 <h1>Formulario</h1>
 <form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data">
-<!-- 
-	<dl>
-		<dt>Nombre</dt>
-		<dd><input type="text" name="blankname" size="20" maxlength="20" /></dd>
-		<dt><label>Archivos a Subir:</label></dt>
-		<!-- Esta div contendrá todos los campos file que creemos -- >
-		<dd><div id="adjuntos">
-        	<!-- Hay que prestar atención a esto, el nombre de este campo debe siempre terminar en [] como un vector, y ademas debe coincidir con el nombre que se da a los campos nuevos en el script -- >
-			<input type="file" name="archivos[]" /><br />
-		</div></dd>
-		<dt><a href="#" onClick="addCampo()">Subir otro archivo</a></dt>      
-		<dt>Otros detalles de interés</dt>
-		<dd><input type="text" name="blankname" size="20" maxlength="20" /></dd>
-		<dd><input type="submit" value="Enviar" id="envia" name="envia" /></dd>
-	</dl>
--->
 	<table>
 		<tr>
 			<td>Nombre</td>

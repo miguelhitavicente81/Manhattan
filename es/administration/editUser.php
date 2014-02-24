@@ -300,22 +300,7 @@ else{
 					//echo "Nombre: <input type='text' name='eUname' value='" . utf8_encode($editedUserRow['name']) . "' size='20' /><br/>";
 					//echo "Apellidos: <input type='text' name='ECUsurname' value='" . utf8_encode($editedUserRow['surname']) . "' size='20' /><br/>";
 					//Otra cosa, el usuario Administrador NO podrá cambiar su perfil. De hacerlo, luego no podría volver a ser Administrador
-					if(($_SESSION['logprofile'] == 'Administrador') || ($_SESSION['logprofile'] == 'SuperAdmin')){
-						/*
-						echo "Perfil: <select name='eUprofile'>";
-						$profNamesColumn = getDBcompletecolumnID('name', 'profiles', 'id');
-						$j = 0;
-						foreach($profNamesColumn as $i){
-							if($i == $editedUserRow['profile']){
-								echo "<option selected value=" . $j . ">" . utf8_encode($profNamesColumn[$j]) . "</option>";
-							}
-							else{
-								echo "<option value=" . $j . ">" . utf8_encode($profNamesColumn[$j]) . "</option>";
-							}
-							$j++;
-						}
-						echo "</select><br/>";
-						*/
+					if($_SESSION['logprofile'] == 'SuperAdmin'){
 						echo "Perfil: <select name='eUprofile'>";
 						$profNamesColumn = getDBcompletecolumnID('name', 'profiles', 'id');
 						foreach($profNamesColumn as $i){
@@ -328,6 +313,21 @@ else{
 						}
 						echo "</select><br/>";
 					}
+					elseif($_SESSION['logprofile'] == 'Administrador'){
+						echo "Perfil: <select name='eUprofile'>";
+						$profNamesColumn = getDBcompletecolumnID('name', 'profiles', 'id');
+						foreach($profNamesColumn as $i){
+							if($i != 'SuperAdmin'){
+								if($i == $editedUserRow['profile']){
+									echo "<option selected value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
+								}
+								else{
+									echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
+								}
+							}
+						}
+						echo "</select><br/>";
+					}
 					else{
 						echo "Perfil: <input type='text' name='eUprofile' value='" . utf8_encode($editedUserRow['profile']) . "' size='20' disabled /><br/>";
 					}
@@ -336,14 +336,16 @@ else{
 						echo "NIE: <input type='text' name='eUuser' value='" . getDBsinglefield('nie', 'cVitaes', 'userLogin', $editedUserRow['login']) . "' size='20' disabled /><br/>";
 					}
 					//ES MUY POSIBLE QUE ACABE QUITANDO LO DE EMPLEADO
-					echo "<label>Empleado: </label>";
-					if($editedUserRow['employee'] == 0){
-						echo "<input type='radio' name='eUemployee' value='0' checked>No";
-						echo "<input type='radio' name='eUemployee' value='1'>Si<br>";
-					}
-					else{
-						echo "<input type='radio' name='eUemployee' value='0'>No";
-						echo "<input type='radio' name='eUemployee' value='1' checked>Si<br>";
+					if($_SESSION['logprofile'] == 'SuperAdmin'){
+						echo "<label>Empleado: </label>";
+						if($editedUserRow['employee'] == 0){
+							echo "<input type='radio' name='eUemployee' value='0' checked>No";
+							echo "<input type='radio' name='eUemployee' value='1'>Si<br>";
+						}
+						else{
+							echo "<input type='radio' name='eUemployee' value='0'>No";
+							echo "<input type='radio' name='eUemployee' value='1' checked>Si<br>";
+						}
 					}
 					echo "<label>Activo: </label>";
 					if($editedUserRow['active'] == 0){
