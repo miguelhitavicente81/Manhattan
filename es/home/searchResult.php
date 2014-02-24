@@ -38,7 +38,7 @@
 	}
 	else {
 		$lastUpdate = $_SESSION['lastupdate'];
-		$curUpdate = date('Y-n-j H:i:s');
+		$curUpdate = date('Y-m-j H:i:s');
 		$elapsedTime = (strtotime($curUpdate)-strtotime($lastUpdate));
 		if($elapsedTime > $_SESSION['sessionexpiration']){
 			?>
@@ -283,8 +283,8 @@
 							$numero=rand();
 
 							# Limpiamos los PDFs generados
-							`cd ../../common/cvs/ && tar cf cvs$numero.zip *.pdf`;
-							`rm -rf ../../common/cvs/*.pdf`;
+							`cd ../../cvs/ && tar cf cvs$numero.zip *.pdf`;
+							`rm -rf ../../cvs/*.pdf`;
 
 							$i=0;
 							foreach ($id as $valor) {
