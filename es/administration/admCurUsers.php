@@ -146,7 +146,8 @@ else{
 						executeDBquery("UPDATE `profiles` SET `numUsers`='".$profileUsers."' WHERE `name`='".$_POST['newUProfile']."'");
 						?>
 						<script type="text/javascript">
-							alert('Usuario creado con éxito');
+							//alert('Usuario creado con éxito');
+							alert('Usuario creado con éxito. Su contraseña por defecto es: <?php echo $initialPass; ?>');
 							window.location.href='admCurUsers.php';
 						</script>
 						<?php
@@ -166,8 +167,7 @@ else{
 		-->
 		<p><span id="leftmsg">Usuarios Existentes</span></p><hr><br>
 		<?php 
-		//if($_SESSION['logprofile'] == 'Administrador'){ 
-		if(($_SESSION['logprofile'] == 'SuperAdmin') || ($_SESSION['logprofile'] == 'Administrador')){
+		if($_SESSION['logprofile'] == 'SuperAdmin'){
 			?>
 			<table class="tabla1">
 				<tr>
@@ -189,9 +189,7 @@ else{
 				echo "<tr>";
 				echo "<td>" . $showedUserRow['id'] . "</td>";
 				echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
-				//echo "<td>" . $showedUserRow['login'] . "</a></td>";
 				echo "<td>" . utf8_encode($showedUserRow['profile']) . "</td>";
-				//echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['profile'] . "</a></td>";
 				if($showedUserRow['employee'] == 1){
 					echo "<td>Si</td>";
 				}
@@ -217,39 +215,86 @@ else{
 				<legend>Nuevo Usuario</legend>
 				<form name="newUser" action="admCurUsers.php" method="post">
 					<input type="text" name="newUName" size="15" placeholder="Usuario" />
-					<!-- <input type="text" name="newUProfile" size="15" placeholder="Perfil" /> -->
-					<!-- <input type="text" name="newULanguage" size="15" placeholder="Idioma" /> -->
 					Perfil: <select name="newUProfile">
-					<?php 
-					/*
-					$profNames = getDBcompletecolumnID('name', 'profiles', 'id');
-					$j = 0;
-					foreach($profNames as $i){
-						echo "<option value=" . $j . ">" . utf8_encode($i) . "</option>";
-						$j++;
-					}
-					*/
-					$profNames = getDBcompletecolumnID('name', 'profiles', 'id');
-					foreach($profNames as $i){
-						echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
-					}
-					?>
+						<?php 
+						$profNames = getDBcompletecolumnID('name', 'profiles', 'id');
+						foreach($profNames as $i){
+							echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
+						}
+						?>
 					</select>
 					Idioma: <select name="newULanguage">
-					<?php 
-					/*
-					$siteLanguages = getDBcompletecolumnID('esName', 'siteLanguages', 'id');
-					$j = 0;
-					foreach($siteLanguages as $i){
-						echo "<option value=" . $j . ">" . utf8_encode($i) . "</option>";
-						$j++;
-					}
-					*/
-					$siteLanguages = getDBcompletecolumnID('esName', 'siteLanguages', 'id');
-					foreach($siteLanguages as $i){
-						echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
-					}
-					?>
+						<?php 
+						$siteLanguages = getDBcompletecolumnID('esName', 'siteLanguages', 'id');
+						foreach($siteLanguages as $i){
+							echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
+						}
+						?>
+					</select>
+					<input type="submit" value="Añadir" name="newUsubmit">
+				</form>
+			</fieldset>
+			<?php 
+		}
+		elseif($_SESSION['logprofile'] == 'Administrador'){
+			?>
+			<table class="tabla1">
+				<tr>
+					<th>Id</th>
+					<th>Login</th>
+					<th>Perfil</th>
+					<th>Activo</th>
+					<th>Idioma</th>
+					<th>Creado</th>
+					<th>Ultima conexión</th>
+					<th>Caduca Password</th>
+					<th>Acción</th>
+				</tr>
+			<?php
+			$numUsers = getDBrowsnumber('users');
+			for($i=2; $i<=$numUsers; $i++){
+				$showedUserRow = getDBrow('users', 'id', $i);
+				echo "<tr>";
+				echo "<td>" . $showedUserRow['id'] . "</td>";
+				echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
+				echo "<td>" . utf8_encode($showedUserRow['profile']) . "</td>";
+				if($showedUserRow['active']){
+					echo "<td>Si</td>";
+				}
+				else{
+					echo "<td>No</td>";
+				}
+				echo "<td>" . utf8_encode($showedUserRow['language']) . "</td>";
+				echo "<td>" . $showedUserRow['created'] . "</td>";
+				echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
+				echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
+				echo "<td><a href=''>Borrar</a></td>";
+				echo "</tr>";
+			}
+			?>
+			</table>
+			<fieldset id="auto1">
+				<legend>Nuevo Usuario</legend>
+				<form name="newUser" action="admCurUsers.php" method="post">
+					<input type="text" name="newUName" size="15" placeholder="Usuario" />
+					Perfil: <select name="newUProfile">
+						<?php 
+						//$profNames = getDBcompletecolumnNotID('name', 'profiles', 'id', 'name', 'SuperAdmin');
+						$profNames = getDBcompletecolumnID('name', 'profiles', 'id');
+						foreach($profNames as $i){
+							if($i != 'SuperAdmin'){
+								echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
+							}
+						}
+						?>
+					</select>
+					Idioma: <select name="newULanguage">
+						<?php 
+						$siteLanguages = getDBcompletecolumnID('esName', 'siteLanguages', 'id');
+						foreach($siteLanguages as $i){
+							echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
+						}
+						?>
 					</select>
 					<!-- <input type="hidden" value="hNewUsubmit" name="hiddenfield"> -->
 					<input type="submit" value="Añadir" name="newUsubmit">
@@ -259,10 +304,6 @@ else{
 		}
 		else{
 			echo "No dispone de permisos para visualizar esta página";
-			//echo "<input type='button' style='text-align: center' value='Volver al inicio' onclick='window.location=\"../home.php\"'/>";
-			/*?> <input type='button' style='text-align: center' value='Volver al inicio' onclick='window.location=../home.php'/> <?php */
-			/*?> <input type='button' style='text-align: center' value='Volver al inicio' onclick='href.Location:../home.php'/> <?php */
-			/*?> <button onclick="location.href='../home.php'">Inicio</button> <?php */
 			echo "<button onclick='location.href=\"../home.php\"'>Inicio</button>";  
 		}
 		?>
