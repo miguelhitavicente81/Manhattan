@@ -1,10 +1,10 @@
 <?php
 	$filea=$_GET["doc"];
-	$file = "$filea";
-	$desc=date("YmdHis");
+	$file = "../../cvs/$filea";
+	echo "Fichero montado: " . $file;
 	header ("Content-Type: application/octet-stream");
 	header ("Accept-Ranges: bytes");
 	header ("Content-Length: ".filesize($file));
-	header ("Content-Disposition: attachment; filename=".$desc.".zip");
+	header ("Content-Disposition: attachment; filename=".$filea);
 	readfile($file);
 ?>

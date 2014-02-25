@@ -207,84 +207,84 @@
 									$this->__construct($p, $o,'none',array());
 								}
 							}
-							$numero=date("YmdHis");
+
 							$enlace = connectDB();
-							
-							$consulta = "SELECT * FROM `cvitaes` where `nie` like '%$_POST[blankNIE]%' and `nationalities` like '%$_POST[blankNationality]%' and `sex` like '%$_POST[blankSex]%' and `drivingType` like '%$_POST[drivingtype]%' and `marital` like '%$_POST[civilStatus]%' and `sons` like '%$_POST[blankSons]%' and `language` like '%$_POST[blankLanguages]%' and `occupation` like '%$_POST[blankJob]%';";
-							mkdir("../../common/cvs", 0700);
-							
-							
+
+							$consulta = "SELECT * FROM `cvitaes` where `nie` like '%$_POST[blanknie]%' and `nationalities` like '%$_POST[blanknationality]%' and `sex` like '%$_POST[blanksex]%' and `drivingType` like '%$_POST[drivingtype]%' and `marital` like '%$_POST[civil]%' and `sons` like '%$_POST[sons]%' and `language` like '%$_POST[languages]%' and `occupation` like '%$_POST[job]%';";
+
 							if ($resultado = mysqli_query($enlace, $consulta)) {
 
 								/* Obtener la informacin de campo de todas las columnas */
 								$info_campo = mysqli_fetch_fields($resultado);
-								$valores_mostrar = array("id", "name", "nationalities", "surname","occupation");
+								$j=0;
+								$info_campo = mysqli_fetch_fields($resultado);
 								echo "<table id='resultTable' class='table table-striped table-hover'>";
 
 								echo "<thead>";
 								echo "	<tr>";
 								foreach ($info_campo as $valor) {
-									if (($valor->name == $valores_mostrar[0]) || ($valor->name == $valores_mostrar[1]) || ($valor->name == $valores_mostrar[2]) || ($valor->name == $valores_mostrar[3])||($valor->name == $valores_mostrar[4]) ) {
+									if (($valor->name == id) || ($valor->name == nie) || ($valor->name == name) || ($valor->name == surname)||($valor->name == occupation) ) {
 										echo "		<th>$valor->name</th>";
 									}
 								}
 								echo "	</tr>";
 								echo "</thead>";
-								$zip = new ZipArchive();
-								while ($fila = $resultado->fetch_assoc()) {
+
+								while ($fila = $resultado->fetch_row()) {
 									$pdf = new Cezpdf('A4'); // Seleccionamos tipo de hoja para el informe
 									$pdf->selectFont('fonts/Helvetica.afm'); //seleccionamos fuente a utilizar
-								
+									$info_campo = mysqli_fetch_fields($resultado);
+									$i=0;
+									$j=0;
 
 									$pdf_file_name = "";
-									$pdf_file_name = $fila['userLogin'];
-								
-										 $id[$fila['id']] = $fila['nie'];
-										if ($fila['sex']==0){ $fila['sex'] = "hombre"; }
-										if ($fila['sex']==1){ $fila['sex'] = "mujer"; }
-										
-									while (list($clave, $valor) = each($fila)) {
-									if (strlen($valor)>1){}
-									$pdf->ezText("<b>$clave</b> $valor");
+									$pdf_file_name = $fila[3] . "_" . $fila[4];
+									
+									foreach ($info_campo as $valor) {
+										chop($valor->name);
+										if ($valor->name == id){ $id[$fila[$i]] = $fila[++$i]; }
+										if (($valor->name==sex) && ($fila[$j]==0)){ $fila[$j] = "hombre"; }
+										if (($valor->name==sex) && ($fila[$j]==1)){ $fila[$j] = "mujer"; }
+										$pdf->ezText("<b>$valor->name</b> $fila[$j]");
+										$i++;
+										$j++;
 									}
+
+/*									if ($j%2==0){
+										echo "<tr><td>";
+									}
+									else{
+										echo "<tr class=alt><td>";
+									}*/
+
+									echo "<tr>";
+									echo "	<td>$fila[0]</td>";
+									echo "	<td><a href=viewCV.php?id_b=$fila[0] target=_blank>$fila[1]</a></td>";
+									echo "	<td>$fila[3]</td>";
+									echo "	<td>$fila[4]</td>";
+									echo "	<td>$fila[30]</td>";
+									echo "</tr>";
+
 									$documento_pdf = $pdf->ezOutput();
-									chdir('"../../common/cvs/"');
-									$nf=$pdf_file_name.".pdf";
-									$filezip = "../../common/cvs/".$numero.".zip";
-									$fichero = fopen(utf8_decode("$nf"),'wb') or die ("No se abrio $nf") ;
+									#$nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
+									$nf="../../cvs/$pdf_file_name.pdf";
+									$fichero = fopen(utf8_decode("$nf"),'wb');
 									fwrite ($fichero, $documento_pdf);
 									fclose ($fichero);
-									if($zip->open($filezip,ZIPARCHIVE::CREATE)===true) {
-									$zip->addFile($nf);
-									$zip->close();
-									unlink($nf);
-									$nf="";					
-									echo "<tr>";
-									echo "	<td>".$fila[$valores_mostrar[0]]."</td>";
-									echo "	<td><a href=viewCV.php?id_b=".$fila['id']." target=_blank>".$fila[$valores_mostrar[1]]."</a></td>";
-									echo "	<td>".$fila[$valores_mostrar[2]]."</td>";
-									echo "	<td>".$fila[$valores_mostrar[3]]."</td>";;
-									echo "	<td>".$fila[$valores_mostrar[4]]."</td>";
-									echo "</tr>";
-									
-									
-									
-}
+									$nf="";
+									$j++;
 								}
-								 
+
 								echo "</table>";
 								
 								mysqli_free_result($resultado);
-								
-								
 							}
 							
-							
-						
+							$numero=rand();
 
 							# Limpiamos los PDFs generados
-							
-					
+							`cd ../../cvs/ && tar cf cvs$numero.zip *.pdf`;
+							`rm -rf ../../cvs/*.pdf`;
 
 							$i=0;
 							foreach ($id as $valor) {
@@ -292,7 +292,7 @@
 								$i++;
 							}
 
-							echo "<form id='downloadSearchReport' name='downloadSearchReport' class='form-horizontal' method='post' action='downloadFile.php?doc=$filezip'>";
+							echo "<form id='downloadSearchReport' name='downloadSearchReport' class='form-horizontal' method='post' action='downloadFile.php?doc=cvs$numero.zip'>";
 							echo "	<div id='form_download' class='form-group pull-right' style='margin: 1px;'>";
 							echo "		<button type='submit' name='downloadSearchReportButton' class='btn btn-success' >Descargar Informe   <span class='glyphicon glyphicon-download-alt'> </span></button>";
 							echo "	</div>";

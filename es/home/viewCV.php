@@ -1,21 +1,5 @@
-<style type="text/css">
-.ventana_flotante {
-    background: none repeat scroll 0 0 #FFFFFF;
-    border: 1px solid #DDDDDD;
-    border-radius: 6px 6px 6px 6px;
-    bottom: 50px;
-    left: auto;
-    margin-left: -120px;
-    padding: 10px 0 0;
-    position: fixed;
-    text-align: center;
-    width: 90px;
-    z-index: 15;
-}
-</style>
 <?php
 session_start();
-error_reporting (E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
 $id_ac=$_GET["id_b"];
 $id_aco=$_GET["id_bb"];
 $id =unserialize($_SESSION["id"]);
@@ -52,7 +36,6 @@ $i++;
 }
 }
 }
-echo "<div id=ventana_flotante><textarea name=nota rows=5 cols=40>Descripción</textarea></div>";
 if(strlen($id_o[$ind_n])>0)
 //echo "<a href=visualizacv.php?id_bb=$ind_n>SIGUIENTE</a><br>";
 echo "<a href=viewCV.php?id_bb=$ind_n>SIGUIENTE</a><br>";
@@ -61,6 +44,4 @@ if(strlen($id_o[$ind_p])>0)
 echo "<a href=viewCV.php?id_bb=$ind_p>PREVIO </a><br>";
 $_SESSION["id_o"] = serialize($id_o);
 $_SESSION["id"] = serialize($id);
-
-
 ?>
