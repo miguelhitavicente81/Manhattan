@@ -267,7 +267,7 @@
 
 									$documento_pdf = $pdf->ezOutput();
 									#$nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
-									$nf="../../cvs/cv_$pdf_file_name.pdf";
+									$nf="../../cvs/$pdf_file_name.pdf";
 									$fichero = fopen(utf8_decode("$nf"),'wb');
 									fwrite ($fichero, $documento_pdf);
 									fclose ($fichero);
