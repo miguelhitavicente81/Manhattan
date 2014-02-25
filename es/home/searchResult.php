@@ -210,7 +210,7 @@
 
 							$enlace = connectDB();
 
-							$consulta = "SELECT * FROM `cvitaes` where `nie` like '%$_POST[blanknie]%' and `nationalities` like '%$_POST[blanknationality]%' and `sex` like '%$_POST[blanksex]%' and `drivingType` like '%$_POST[drivingtype]%' and `marital` like '%$_POST[civil]%' and `sons` like '%$_POST[sons]%' and `language` like '%$_POST[languages]%' and `occupation` like '%$_POST[job]%';";
+							$consulta = "SELECT * FROM `cvitaes` where `nie` like '%$_POST[blankNIE]%' and `nationalities` like '%$_POST[blankNationality]%' and `sex` like '%$_POST[blankSex]%' and `drivingType` like '%$_POST[drivingType]%' and `marital` like '%$_POST[civilStatus]%' and `sons` like '%$_POST[blankSons]%' and `language` like '%$_POST[blankLanguages]%' and `occupation` like '%$_POST[blankJob]%';";
 
 							if ($resultado = mysqli_query($enlace, $consulta)) {
 
@@ -267,8 +267,16 @@
 
 									$documento_pdf = $pdf->ezOutput();
 									#$nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
-									$nf="../../cvs/cv_$pdf_file_name.pdf";
-									$fichero = fopen(utf8_decode("$nf"),'wb');
+									//$nf="../../cvs/cv_$pdf_file_name.pdf";
+									// $nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
+									$cvs_path = $_SERVER['DOCUMENT_ROOT'] . "/Manhattan/cvs/"; 
+									$nf= $cvs_path . "cv_$pdf_file_name.pdf";
+									//echo '-->'.$nf.'<--'."\n";
+									//echo "Path: " . $cvs_path . "Nombre fichero: " . $nf;
+									
+									//$fichero = fopen(utf8_decode("$nf"),'wb');
+									$fichero = fopen($nf,'wb');
+									//echo "-->".utf8_decode($nf).'<--';
 									fwrite ($fichero, $documento_pdf);
 									fclose ($fichero);
 									$nf="";
@@ -283,8 +291,11 @@
 							$numero=rand();
 
 							# Limpiamos los PDFs generados
-							`cd ../../cvs/ && tar cf cvs$numero.zip *.pdf`;
-							`rm -rf ../../cvs/*.pdf`;
+							//`cd ../../common/cvs/ && tar cf cvs$numero.zip *.pdf`;
+							$cvs_path = $_SERVER['DOCUMENT_ROOT'] . "/Manhattan/cvs/";
+							`cd /Applications/XAMPP/htdocs/Manhattan/cvs && tar -cf cvs$numero.zip *.pdf`; 
+							//`cd $cvs_path && tar cf cvs$numero.zip *.pdf`;
+							//`rm -rf ../../common/cvs/*.pdf`;
 
 							$i=0;
 							foreach ($id as $valor) {
