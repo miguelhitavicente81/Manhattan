@@ -267,7 +267,7 @@
 
 									$documento_pdf = $pdf->ezOutput();
 									#$nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
-									//$nf="../../cvs/cv_$pdf_file_name.pdf";
+									$nf="../../cvs/cv_$pdf_file_name.pdf";
 									// $nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
 									$cvs_path = $_SERVER['DOCUMENT_ROOT'] . "/Manhattan/cvs/"; 
 									$nf= $cvs_path . "cv_$pdf_file_name.pdf";
