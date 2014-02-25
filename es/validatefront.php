@@ -26,7 +26,7 @@
 	<fieldset style="padding-top: 15%; border: solid 0px">
 		<div id="stylized" class="myform">
 		<?php 
-		require_once('./library/functions.php');
+		require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 		//Part of the code read when user is forced to change his/her password
 		if($_POST['pdChange']){
 			if(!checkPassChange($_POST['pdpass1'], $_POST['pdpass2'], $keyError)){

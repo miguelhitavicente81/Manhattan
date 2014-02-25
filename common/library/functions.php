@@ -401,8 +401,8 @@ function dateToSpanishFormat($oldDate){
  * Exit: String without accents
  */
 function dropAccents($incoming_string){
-	$tofind = "ÀÁÂÄÅàáâäÒÓÔÖòóôöÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ";
-	$replac = "AAAAAaaaaOOOOooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn";
+	$tofind = "ÀÁÂÄÅÃàáâäãÒÓÔÖÕòóôöõÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ";
+	$replac = "AAAAAAaaaaaOOOOOoooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn";
 	return utf8_encode(strtr(utf8_decode($incoming_string), utf8_decode($tofind), $replac));
 }
 

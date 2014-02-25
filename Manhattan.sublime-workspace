@@ -4,6 +4,18 @@
 		"selected_items":
 		[
 			[
+				"cur",
+				"current_path"
+			],
+			[
+				"pers",
+				"personalData"
+			],
+			[
+				"level",
+				"level2File"
+			],
+			[
 				"mar",
 				"margin-right"
 			],
@@ -88,10 +100,10 @@
 	"buffers":
 	[
 		{
-			"file": "Login.html",
+			"file": ".gitignore",
 			"settings":
 			{
-				"buffer_size": 2771,
+				"buffer_size": 18,
 				"line_ending": "Unix"
 			}
 		}
@@ -99,16 +111,24 @@
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 58.0,
+		"height": 147.0,
 		"selected_items":
 		[
 			[
-				"stty php",
-				"Set Syntax: PHP"
+				"comm",
+				"Toggle Block Comment"
+			],
+			[
+				"iden",
+				"Indentation: Reindent Lines"
 			],
 			[
 				"ident",
 				"Indentation: Reindent Lines"
+			],
+			[
+				"comme",
+				"Toggle Block Comment"
 			],
 			[
 				"remove",
@@ -127,16 +147,8 @@
 				"Toggle Block Comment"
 			],
 			[
-				"comm",
-				"Toggle Block Comment"
-			],
-			[
 				"tab",
 				"Indentation: Convert to Tabs"
-			],
-			[
-				"iden",
-				"Indentation: Reindent Lines"
 			],
 			[
 				"Xml",
@@ -367,7 +379,7 @@
 				"Set Syntax: Shell Script (Bash)"
 			]
 		],
-		"width": 464.0
+		"width": 521.0
 	},
 	"console":
 	{
@@ -387,12 +399,32 @@
 	},
 	"file_history":
 	[
-		"/C/Documents and Settings/miguelfito/Mis documentos/Portable Applications/XAMPP/htdocs/Manhattan/es/library/functions.php",
-		"/C/Documents and Settings/miguelfito/Mis documentos/Portable Applications/XAMPP/htdocs/Manhattan/common/css/design.css",
-		"/C/Documents and Settings/miguelfito/Mis documentos/Portable Applications/XAMPP/htdocs/Manhattan/es/administration.php",
-		"/C/Documents and Settings/miguelfito/Mis documentos/Portable Applications/XAMPP/htdocs/Manhattan/es/home.php",
-		"/C/Documents and Settings/miguelfito/Mis documentos/Portable Applications/XAMPP/htdocs/Manhattan/es/endsession.php",
-		"/C/Documents and Settings/miguelfito/Mis documentos/Portable Applications/XAMPP/htdocs/PRJ2014001/common/0.12-rc12/readme.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/.gitignore",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/administration.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/endsession.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/home.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/upload.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/validatefront.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/administration/admCurProfiles.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/administration/admCurUsers.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/administration/admGenOptions.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/administration/editProfile.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/administration/editUser.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/home/checkedCVs.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/home/editCurCV.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/home/pendingCVs.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/home/personalData.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/home/searchCVs.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/home/searchResult.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/home/searchResult_Medias.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/common/css/design.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/es/library/functions.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/Login.html",
+		"/Users/mike/Desktop/searchCVs_PRE.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/common/css/searchStyle.css",
+		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/common/passwdRestrictionsES.txt",
+		"/Users/mike/Desktop/searchCVs.php",
+		"/Users/mike/Desktop/file_list.txt",
 		"/Applications/XAMPP/xamppfiles/htdocs/Manhattan/Manhattan.sublime-project",
 		"/Users/mike/Desktop/index.html",
 		"/Users/mike/Desktop/home.php",
@@ -494,27 +526,7 @@
 		"/C/Documents and Settings/miguelfito/Escritorio/msisdn_rbt_baja3.txt",
 		"/C/Documents and Settings/miguelfito/Escritorio/Indy/Guia 1 Indiana Jones and the Fate of Atlantis.txt",
 		"/C/Documents and Settings/miguelfito/Configuración local/Archivos temporales de Internet/Content.Outlook/1JJOD1TR/MobileInternet_sessions.txt",
-		"/C/Documents and Settings/miguelfito/Configuración local/Archivos temporales de Internet/Content.Outlook/1JJOD1TR/ApuntesContentMaster.txt",
-		"/C/Documents and Settings/miguelfito/Configuración local/Archivos temporales de Internet/Content.IE5/QU2X35M1/C__Users_exggpg_AppData_Local_Temp_BC_greenlist_X604630_(2)[1].txt",
-		"/C/Documents and Settings/miguelfito/Datos de programa/Sublime Text 2/Packages/Package Control/Package Control.sublime-settings",
-		"/C/Documents and Settings/miguelfito/Datos de programa/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
-		"/C/Documents and Settings/miguelfito/Configuración local/Archivos temporales de Internet/Content.Outlook/1JJOD1TR/querys_buenas",
-		"/C/Documents and Settings/miguelfito/Configuración local/Archivos temporales de Internet/Content.IE5/1RZJE72Q/C__DOCUME~1_ADMINI~1_ESCRIT~1_LogsSSO[1].txt",
-		"/C/Documents and Settings/miguelfito/Escritorio/BC_greenlist.txt",
-		"/C/Documents and Settings/miguelfito/Escritorio/N02042357/comandos_salida_sql_DAR_DE_BAJA01.sql",
-		"/C/Documents and Settings/miguelfito/Configuración local/Temp/scp02504/drutt/scripts/Pospagos_SuscripcionHeredada.txt",
-		"/C/Documents and Settings/miguelfito/Configuración local/Temp/scp39114/drutt/scripts/comandos_sql_DAR_DE_BAJA.sh",
-		"/C/Documents and Settings/miguelfito/Configuración local/Temp/scp46551/drutt/scripts/MSISDNs_PAGOSVF.txt",
-		"/C/Documents and Settings/miguelfito/Mis documentos/Altran/[2009 - X] Soporte Live! y Terceros/Consultas SQL/DBA.sql",
-		"/C/Documents and Settings/miguelfito/Configuración local/Temp/scp01703/home/mmelonp/.ssh/authorized_keys",
-		"/C/Documents and Settings/miguelfito/Configuración local/Temp/scp07765/export/home/userprod/scripts/comprobacionesRelease.sh",
-		"/C/Documents and Settings/miguelfito/Configuración local/Archivos temporales de Internet/Content.Outlook/1JJOD1TR/tib-ap5 6-p.txt",
-		"/C/Documents and Settings/miguelfito/Configuración local/Temp/scp12046/export/home/userprod/scripts/comprobacionesRelease.sh",
-		"/C/Documents and Settings/miguelfito/Configuración local/Temp/scp37765/export/home/userprod/scripts/comprobacionesRelease.sh",
-		"/C/Documents and Settings/miguelfito/Configuración local/Temp/scp10625/export/home/userprod/scripts/Estadisticas_PagosVF_OCS.sh",
-		"/C/Documents and Settings/miguelfito/Datos de programa/Sublime Text 2/Packages/Theme - Refined/Color Schemes/Danro.tmTheme",
-		"/C/Documents and Settings/miguelfito/Datos de programa/Sublime Text 2/Packages/User/Shell-Unix-Generic.sublime-settings",
-		"/C/Documents and Settings/miguelfito/Configuración local/Temp/scp32687/var/www/ive/css/wcstyle.css"
+		"/C/Documents and Settings/miguelfito/Configuración local/Archivos temporales de Internet/Content.Outlook/1JJOD1TR/ApuntesContentMaster.txt"
 	],
 	"find":
 	{
@@ -533,6 +545,30 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"require_once(.*functions.*)",
+			"require_once(.*)",
+			"require_once(\\'\\..*/functions.php\\')",
+			"require_once('.* /functions.php')",
+			"require_once('.*/functions.php)",
+			"require_once('\\.*functions.php)",
+			"require_once('\\..*/functions.php)",
+			"./library/functions.php",
+			"functions.php",
+			"<input type=\"checkbox\"",
+			"form_Nationality",
+			"blanknie",
+			"myform",
+			"auto0",
+			"form1",
+			"comprobar",
+			"test",
+			"searchStyle.css",
+			"pdChange",
+			"pdpass2",
+			"pdpass1",
+			"inputPassword",
+			"inputEmail",
+			"dni",
 			"\\$sj",
 			"\\)\\{",
 			"\\){",
@@ -636,31 +672,7 @@
 			"1688974434",
 			"P004/56030808Z 1364850010112",
 			"PML",
-			">",
-			"<",
-			"<.*>",
-			";",
-			"^\\n\n",
-			" => ",
-			"\\n",
-			",",
-			" \\[.*\\]",
-			"\\\\.*,",
-			",.*\\\\",
-			",.*,",
-			"@",
-			"admin",
-			"corefem",
-			"lbs",
-			"mmelonp",
-			"lisi",
-			"mp",
-			"movifijo",
-			"mp",
-			"offer",
-			"jber",
-			"omcorreo",
-			"webfem"
+			">"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -668,6 +680,10 @@
 		"regex": true,
 		"replace_history":
 		[
+			"require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');",
+			"<input type=\"checkbox\" class=\"form-control\"",
+			"searchForm",
+			"nie",
 			"\\$k",
 			"\\)\\ \\{",
 			") {",
@@ -718,19 +734,19 @@
 			[
 				{
 					"buffer": 0,
-					"file": "Login.html",
+					"file": ".gitignore",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2771,
+						"buffer_size": 18,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								17,
+								17
 							]
 						],
 						"settings":
@@ -738,49 +754,48 @@
 							"BracketHighlighterBusy": false,
 							"bh_regions":
 							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
 								"bh_default",
 								"bh_default_center",
 								"bh_default_open",
 								"bh_default_close",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
 								"bh_round",
 								"bh_round_center",
 								"bh_round_open",
 								"bh_round_close",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
 								"bh_single_quote",
 								"bh_single_quote_center",
 								"bh_single_quote_open",
 								"bh_single_quote_close",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
 								"bh_unmatched",
 								"bh_unmatched_center",
 								"bh_unmatched_open",
 								"bh_unmatched_close"
 							],
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -847,11 +862,11 @@
 	},
 	"select_project":
 	{
-		"height": 500.0,
+		"height": 0.0,
 		"selected_items":
 		[
 		],
-		"width": 380.0
+		"width": 0.0
 	},
 	"select_symbol":
 	{

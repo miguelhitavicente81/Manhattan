@@ -53,7 +53,7 @@
 			unset($curUpdate);
 			unset($elapsedTime);
 		}
-		require_once '../library/functions.php';
+		require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 		?>
 
 
@@ -266,11 +266,11 @@
 									echo "</tr>";
 
 									$documento_pdf = $pdf->ezOutput();
-									#$nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
-									$nf="../../cvs/$pdf_file_name.pdf";
+									# $nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
+									// $nf="../../cvs/$pdf_file_name.pdf";
 									// $nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
-									$cvs_path = $_SERVER['DOCUMENT_ROOT'] . "/Manhattan/cvs/"; 
-									$nf= $cvs_path . "cv_$pdf_file_name.pdf";
+									$cvs_path = $_SERVER['DOCUMENT_ROOT'] . '/cvs/';
+									$nf = dropAccents($cvs_path . "cv_$pdf_file_name.pdf");
 									//echo '-->'.$nf.'<--'."\n";
 									//echo "Path: " . $cvs_path . "Nombre fichero: " . $nf;
 									
@@ -292,10 +292,11 @@
 
 							# Limpiamos los PDFs generados
 							//`cd ../../common/cvs/ && tar cf cvs$numero.zip *.pdf`;
-							$cvs_path = $_SERVER['DOCUMENT_ROOT'] . "/Manhattan/cvs/";
-							`cd /Applications/XAMPP/htdocs/Manhattan/cvs && tar -cf cvs$numero.zip *.pdf`; 
-							//`cd $cvs_path && tar cf cvs$numero.zip *.pdf`;
+							//$cvs_path = $_SERVER['DOCUMENT_ROOT'] . "/cvs";
+							//`cd /Applications/XAMPP/htdocs/Manhattan/cvs && tar -cf cvs$numero.zip *.pdf`; 
+							`cd $cvs_path && tar cf cvs$numero.zip *.pdf`;
 							//`rm -rf ../../common/cvs/*.pdf`;
+							`rm -rf $cvs_path/*.pdf`;
 
 							$i=0;
 							foreach ($id as $valor) {

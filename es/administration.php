@@ -48,7 +48,7 @@
 			unset($curUpdate);
 			unset($elapsedTime);
 		}
-		require_once './library/functions.php';
+		require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 		?>
 
 
