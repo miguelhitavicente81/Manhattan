@@ -227,7 +227,10 @@
 							<div class="panel-heading">
 								<h2 class="panel-title">Cambio de contraseña</h2>
 							</div>
-							<?php include '../../common/passwdRestrictionsES.txt'; ?>
+							
+							<div id="panel-warning" class="panel panel-warning encapsulated center-block">
+								<?php include $_SERVER['DOCUMENT_ROOT'] . '/common/passwdRestrictionsES.txt'; ?>
+							</div>
 							<div class="panel-body">
 								<form id="changePasswordForm" name="changePasswordForm" class="form-horizontal" action="personalData.php" method="post" onsubmit="return equalPassword(newPassword, confirmNewPassword)">
 									<div class="form-group">
