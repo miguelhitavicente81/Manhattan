@@ -29,6 +29,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 
 <body>
 	<?php
+	$output_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/";
 	if (!$_SESSION['loglogin']){
 		?>
 		<script type="text/javascript">
@@ -221,15 +222,14 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 
 								/* Obtener la informacin de campo de todas las columnas */
 								$info_campo = mysqli_fetch_fields($resultado);
-								$valores_mostrar = array("id", "name", "nationalities", "surname","occupation");
+								$valores_mostrar = array("id", "name", "surname", "nationalities","occupation");
 								echo "<table id='resultTable' class='table table-striped table-hover'>";
-
+								
 								echo "<thead>";
 								echo "	<tr>";
-								foreach ($info_campo as $valor) {
-									if (($valor->name == $valores_mostrar[0]) || ($valor->name == $valores_mostrar[1]) || ($valor->name == $valores_mostrar[2]) || ($valor->name == $valores_mostrar[3])||($valor->name == $valores_mostrar[4]) ) {
-										echo "		<th>$valor->name</th>";
-									}
+								foreach ($valores_mostrar as $valor) {
+								
+										echo "		<th>$valor</th>";
 								}
 								echo "	</tr>";
 								echo "</thead>";
@@ -247,21 +247,16 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 									if ($fila['sex']==1){ $fila['sex'] = "mujer"; }
 
 									while (list($clave, $valor) = each($fila)) {
-										if (strlen($valor)>1){}
 											$pdf->ezText("<b>$clave</b> $valor");
 									}
 									$documento_pdf = $pdf->ezOutput();
 									chdir($output_dir);
 									$nf=$pdf_file_name.".pdf";
 									$filezip = $output_dir . $numero . ".zip";
-									$fichero = fopen(utf8_decode("$nf"),'wb') or die ("No se abrio $nf") ;
+									$fichero = fopen($nf,'wb') or die ("No se abrio $nf") ;
 									fwrite ($fichero, $documento_pdf);
 									fclose ($fichero);
-									if($zip->open($filezip,ZIPARCHIVE::CREATE)===true) {
-										$zip->addFile($nf);
-										$zip->close();
-										unlink($nf);
-										$nf="";					
+											
 										echo "<tr>";
 										echo "	<td>".$fila[$valores_mostrar[0]]."</td>";
 										echo "	<td><a href=viewCV.php?id_b=".$fila['id']." target=_blank>".$fila[$valores_mostrar[1]]."</a></td>";
@@ -272,7 +267,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 
 
 
-									}
+									
 								}
 
 								echo "</table>";
