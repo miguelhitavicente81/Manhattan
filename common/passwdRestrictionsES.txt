@@ -1,6 +1,11 @@
-Recuerde que la contraseña debe tener las siguientes características:<br/>
-- Tener entre 6 y 16 caracteres<br/>
-- Tener al menos una letra minúscula<br/>
-- Tener al menos una letra mayúscula<br/>
-- Tener al menos un caracter numérico<br/>
-- Que sea todo lo fácil de recordar para usted<br/>
+<div class="panel-heading">
+	Recuerde que la contraseña debe tener las siguientes características
+</div>
+</br>
+<ul>
+	<li>Tener entre 6 y 16 caracteres</li>
+	<li>Tener al menos una letra minúscula</li>
+	<li>Tener al menos una letra mayúscula</li>
+	<li>Tener al menos un caracter numérico</li>
+	<li>Que sea todo lo fácil de recordar para usted</li>
+</ul>

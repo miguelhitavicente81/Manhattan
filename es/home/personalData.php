@@ -33,7 +33,7 @@
 	}
 	else {
 		$lastUpdate = $_SESSION['lastupdate'];
-		$curUpdate = date('Y-n-j H:i:s');
+		$curUpdate = date('Y-m-j H:i:s');
 		$elapsedTime = (strtotime($curUpdate)-strtotime($lastUpdate));
 		if($elapsedTime > $_SESSION['sessionexpiration']){
 			?>
@@ -48,7 +48,7 @@
 			unset($curUpdate);
 			unset($elapsedTime);
 		}
-		require_once '../library/functions.php';
+		require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 		?>
 
 
@@ -211,7 +211,7 @@
 								else{
 									$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
 									$_SESSION['logprofile'] = $userRow['profile'];
-									$_SESSION['lastupdate'] = date('Y-n-j H:i:s');
+									$_SESSION['lastupdate'] = date('Y-m-j H:i:s');
 									$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
 									?>
 									<script type="text/javascript">
@@ -227,7 +227,10 @@
 							<div class="panel-heading">
 								<h2 class="panel-title">Cambio de contraseña</h2>
 							</div>
-							<?php include '../../common/passwdRestrictionsES.txt'; ?>
+							
+							<div id="panel-warning" class="panel panel-warning encapsulated center-block">
+								<?php include $_SERVER['DOCUMENT_ROOT'] . '/common/passwdRestrictionsES.txt'; ?>
+							</div>
 							<div class="panel-body">
 								<form id="changePasswordForm" name="changePasswordForm" class="form-horizontal" action="personalData.php" method="post" onsubmit="return equalPassword(newPassword, confirmNewPassword)">
 									<div class="form-group">
@@ -237,7 +240,7 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="confirmNewPassword" class="control-label col-xs-3">Password</label>
+										<label for="confirmNewPassword" class="control-label col-xs-3">Repita contraseña</label>
 										<div class="col-xs-9">
 											<input type="password" class="form-control" name="confirmNewPassword" id="confirmNewPassword" placeholder="" required data-toggle="tooltip" title="Confirma la nueva contraseña" autocapitalize="off">
 										</div>

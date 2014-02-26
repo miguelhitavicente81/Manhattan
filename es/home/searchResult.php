@@ -1,8 +1,8 @@
 <?php 
-	session_start();
-	error_reporting (E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
-	set_time_limit(1800);
-	set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_path());
+session_start();
+error_reporting (E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
+set_time_limit(1800);
+set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_path());
 ?>
 <html lang="es">
 <head>
@@ -53,7 +53,7 @@
 			unset($curUpdate);
 			unset($elapsedTime);
 		}
-		require_once '../library/functions.php';
+		require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 		?>
 
 
@@ -124,7 +124,7 @@
 		<div id="main-content" class="container bs-docs-container">
 			<div class="row">
 				<div class="col-md-3">
-						<div id="sidebar-navigation-list" class="bs-sidebar hidden-print affix-top" role="complementary">
+					<div id="sidebar-navigation-list" class="bs-sidebar hidden-print affix-top" role="complementary">
 						<ul class="nav bs-sidenav">
 							<?php 
 							$mainKeysRow = getDBcompletecolumnID('key', 'mainNames', 'id');
@@ -186,7 +186,7 @@
 							}
 							?>
 						</ul> <!-- class="nav bs-sidenav" -->
-						</div> <!-- id="sidebar-navigation-list"  -->
+					</div> <!-- id="sidebar-navigation-list"  -->
 				</div> <!-- col-md-3 -->
 
 				<div class="col-md-9 scrollable" role="main"> 
@@ -194,108 +194,94 @@
 
 						<h1 class="page-header">Resultados de la búsqueda
 
-						<!-- <p class="lead"> -->
-						<small>
+							<!-- <p class="lead"> -->
+							<small>
 
-						</small></span></h1>
+							</small></span></h1>
 
-						<?php
+							<?php
+
 							include 'Cezpdf.php';
+
+							$output_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/";
 
 							class Creport extends Cezpdf{
 								function Creport($p,$o){
 									$this->__construct($p, $o,'none',array());
 								}
 							}
-
+							$numero = date("YmdHis");
 							$enlace = connectDB();
-
-							$consulta = "SELECT * FROM `cvitaes` where `nie` like '%$_POST[blankNIE]%' and `nationalities` like '%$_POST[blankNationality]%' and `sex` like '%$_POST[blankSex]%' and `drivingType` like '%$_POST[drivingType]%' and `marital` like '%$_POST[civilStatus]%' and `sons` like '%$_POST[blankSons]%' and `language` like '%$_POST[blankLanguages]%' and `occupation` like '%$_POST[blankJob]%';";
-
+							
+							$consulta = "SELECT * FROM `cvitaes` where `nie` like '%$_POST[blankNIE]%' and `nationalities` like '%$_POST[blankNationality]%' and `sex` like '%$_POST[blankSex]%' and `drivingType` like '%$_POST[drivingtype]%' and `marital` like '%$_POST[civilStatus]%' and `sons` like '%$_POST[blankSons]%' and `language` like '%$_POST[blankLanguages]%' and `occupation` like '%$_POST[blankJob]%';";
+							mkdir($output_dir, 0700);
+							
+							
 							if ($resultado = mysqli_query($enlace, $consulta)) {
 
 								/* Obtener la informacin de campo de todas las columnas */
 								$info_campo = mysqli_fetch_fields($resultado);
-								$j=0;
-								$info_campo = mysqli_fetch_fields($resultado);
+								$valores_mostrar = array("id", "name", "nationalities", "surname","occupation");
 								echo "<table id='resultTable' class='table table-striped table-hover'>";
 
 								echo "<thead>";
 								echo "	<tr>";
 								foreach ($info_campo as $valor) {
-									if (($valor->name == id) || ($valor->name == nie) || ($valor->name == name) || ($valor->name == surname)||($valor->name == occupation) ) {
+									if (($valor->name == $valores_mostrar[0]) || ($valor->name == $valores_mostrar[1]) || ($valor->name == $valores_mostrar[2]) || ($valor->name == $valores_mostrar[3])||($valor->name == $valores_mostrar[4]) ) {
 										echo "		<th>$valor->name</th>";
 									}
 								}
 								echo "	</tr>";
 								echo "</thead>";
-
-								while ($fila = $resultado->fetch_row()) {
+								$zip = new ZipArchive();
+								while ($fila = $resultado->fetch_assoc()) {
 									$pdf = new Cezpdf('A4'); // Seleccionamos tipo de hoja para el informe
 									$pdf->selectFont('fonts/Helvetica.afm'); //seleccionamos fuente a utilizar
-									$info_campo = mysqli_fetch_fields($resultado);
-									$i=0;
-									$j=0;
+
 
 									$pdf_file_name = "";
-									$pdf_file_name = $fila[3] . "_" . $fila[4];
-									
-									foreach ($info_campo as $valor) {
-										chop($valor->name);
-										if ($valor->name == id){ $id[$fila[$i]] = $fila[++$i]; }
-										if (($valor->name==sex) && ($fila[$j]==0)){ $fila[$j] = "hombre"; }
-										if (($valor->name==sex) && ($fila[$j]==1)){ $fila[$j] = "mujer"; }
-										$pdf->ezText("<b>$valor->name</b> $fila[$j]");
-										$i++;
-										$j++;
+									$pdf_file_name = $fila['userLogin'];
+
+									$id[$fila['id']] = $fila['nie'];
+									if ($fila['sex']==0){ $fila['sex'] = "hombre"; }
+									if ($fila['sex']==1){ $fila['sex'] = "mujer"; }
+
+									while (list($clave, $valor) = each($fila)) {
+										if (strlen($valor)>1){}
+											$pdf->ezText("<b>$clave</b> $valor");
 									}
-
-/*									if ($j%2==0){
-										echo "<tr><td>";
-									}
-									else{
-										echo "<tr class=alt><td>";
-									}*/
-
-									echo "<tr>";
-									echo "	<td>$fila[0]</td>";
-									echo "	<td><a href=viewCV.php?id_b=$fila[0] target=_blank>$fila[1]</a></td>";
-									echo "	<td>$fila[3]</td>";
-									echo "	<td>$fila[4]</td>";
-									echo "	<td>$fila[30]</td>";
-									echo "</tr>";
-
 									$documento_pdf = $pdf->ezOutput();
-									#$nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
-									$nf="../../cvs/$pdf_file_name.pdf";
-									// $nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
-									$cvs_path = $_SERVER['DOCUMENT_ROOT'] . "/Manhattan/cvs/"; 
-									$nf= $cvs_path . "cv_$pdf_file_name.pdf";
-									//echo '-->'.$nf.'<--'."\n";
-									//echo "Path: " . $cvs_path . "Nombre fichero: " . $nf;
-									
-									//$fichero = fopen(utf8_decode("$nf"),'wb');
-									$fichero = fopen($nf,'wb');
-									//echo "-->".utf8_decode($nf).'<--';
+									chdir($output_dir);
+									$nf=$pdf_file_name.".pdf";
+									$filezip = $output_dir . $numero . ".zip";
+									$fichero = fopen(utf8_decode("$nf"),'wb') or die ("No se abrio $nf") ;
 									fwrite ($fichero, $documento_pdf);
 									fclose ($fichero);
-									$nf="";
-									$j++;
+									if($zip->open($filezip,ZIPARCHIVE::CREATE)===true) {
+										$zip->addFile($nf);
+										$zip->close();
+										unlink($nf);
+										$nf="";					
+										echo "<tr>";
+										echo "	<td>".$fila[$valores_mostrar[0]]."</td>";
+										echo "	<td><a href=viewCV.php?id_b=".$fila['id']." target=_blank>".$fila[$valores_mostrar[1]]."</a></td>";
+										echo "	<td>".$fila[$valores_mostrar[2]]."</td>";
+										echo "	<td>".$fila[$valores_mostrar[3]]."</td>";
+										echo "	<td>".$fila[$valores_mostrar[4]]."</td>";
+										echo "</tr>";
+
+
+
+									}
 								}
 
 								echo "</table>";
 								
 								mysqli_free_result($resultado);
+								
+								
 							}
 							
-							$numero=rand();
-
-							# Limpiamos los PDFs generados
-							//`cd ../../common/cvs/ && tar cf cvs$numero.zip *.pdf`;
-							$cvs_path = $_SERVER['DOCUMENT_ROOT'] . "/Manhattan/cvs/";
-							`cd /Applications/XAMPP/htdocs/Manhattan/cvs && tar -cf cvs$numero.zip *.pdf`; 
-							//`cd $cvs_path && tar cf cvs$numero.zip *.pdf`;
-							//`rm -rf ../../common/cvs/*.pdf`;
 
 							$i=0;
 							foreach ($id as $valor) {
@@ -303,7 +289,7 @@
 								$i++;
 							}
 
-							echo "<form id='downloadSearchReport' name='downloadSearchReport' class='form-horizontal' method='post' action='downloadFile.php?doc=cvs$numero.zip'>";
+							echo "<form id='downloadSearchReport' name='downloadSearchReport' class='form-horizontal' method='post' action='downloadFile.php?doc=$filezip'>";
 							echo "	<div id='form_download' class='form-group pull-right' style='margin: 1px;'>";
 							echo "		<button type='submit' name='downloadSearchReportButton' class='btn btn-success' >Descargar Informe   <span class='glyphicon glyphicon-download-alt'> </span></button>";
 							echo "	</div>";
@@ -313,20 +299,20 @@
 
 							$_SESSION["id_o"] = serialize($id_o);
 							$_SESSION["id"] = serialize($id);
-						?>		
+							?>		
 
-					</div> <!-- bs-docs-section -->
-				</div> <!-- col-md-9 scrollable role=main -->
-			</div> <!-- row -->
-		</div> <!-- class="container bs-docs-container" -->
+						</div> <!-- bs-docs-section -->
+					</div> <!-- col-md-9 scrollable role=main -->
+				</div> <!-- row -->
+			</div> <!-- class="container bs-docs-container" -->
 
 
 
-	<?php
+			<?php
 
 		} //del "else" de $_SESSION.
 
-	?>
+		?>
 
 
 <!-- Footer bar & info
