@@ -275,7 +275,6 @@ if(isset($_POST['senduser'])){
 /***************  Aquí comienza el bloque que permite mostrar el formulario  ***************/
 ?>
 <h1>Formulario</h1>
-<!-- <form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data" onsubmit="checkForm()"> -->
 <form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data">
 	<table>
 		<tr>
