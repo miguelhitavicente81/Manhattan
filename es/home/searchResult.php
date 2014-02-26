@@ -239,7 +239,7 @@
 
 									$pdf_file_name = "";
 									$pdf_file_name = $fila[3] . "_" . $fila[4];
-									
+
 									foreach ($info_campo as $valor) {
 										chop($valor->name);
 										if ($valor->name == id){ $id[$fila[$i]] = $fila[++$i]; }
@@ -273,7 +273,7 @@
 									$nf = dropAccents($cvs_path . "cv_$pdf_file_name.pdf");
 									//echo '-->'.$nf.'<--'."\n";
 									//echo "Path: " . $cvs_path . "Nombre fichero: " . $nf;
-									
+
 									//$fichero = fopen(utf8_decode("$nf"),'wb');
 									$fichero = fopen($nf,'wb');
 									//echo "-->".utf8_decode($nf).'<--';
@@ -284,10 +284,10 @@
 								}
 
 								echo "</table>";
-								
+
 								mysqli_free_result($resultado);
 							}
-							
+
 							$numero=rand();
 
 							# Limpiamos los PDFs generados
