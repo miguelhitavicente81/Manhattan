@@ -1,8 +1,10 @@
 <?php
-	$file = $_SERVER['DOCUMENT_ROOT'] . '/cvs/' . $_GET['doc'];
+	$file = $_GET["doc"];
+
+	$desc = date("YmdHis");
 	header ("Content-Type: application/octet-stream");
 	header ("Accept-Ranges: bytes");
 	header ("Content-Length: ".filesize($file));
-	header ("Content-Disposition: attachment; filename=" . $_GET['doc']);
+	header ("Content-Disposition: attachment; filename=".$desc.".zip");
 	readfile($file);
 ?>
