@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+<?php session_start(); /*error_reporting (E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING); */ ?>
 <html lang="es">
 <head>
 	<meta charset="utf-8">
@@ -23,13 +23,12 @@
 </head>
 
 <body>
-	<fieldset style="padding-top: 15%; border: solid 0px">
-		<div id="stylized" class="myform">
+
 		<?php 
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 		//Part of the code read when user is forced to change his/her password
-		if($_POST['pdChange']){
-			if(!checkPassChange($_POST['pdpass1'], $_POST['pdpass2'], $keyError)){
+		if($_POST['changePassword']){
+			if(!checkPassChange($_POST['newPassword'], $_POST['confirmNewPassword'], $keyError)){
 				?>
 				<script type="text/javascript">
 					alert('<?php echo $keyError; ?>');
@@ -39,8 +38,8 @@
 			}
 			//That's when system generates new Blowfish password
 			else{
-				$newCryptedPass = blowfishCrypt($_POST['pdpass1']);
-				if(!executeDBquery("UPDATE `users` SET `pass`='".$newCryptedPass."', `needPass`='0' WHERE `login`='".$_SESSION['loglogin']."'")){
+				$newCryptedPass = blowfishCrypt($_POST['newPassword']);
+				if(!executeDBquery("UPDATE `users` SET `pass`='".$newCryptedPass."', `needPass`='1' WHERE `login`='".$_SESSION['loglogin']."'")){
 					//session_destroy(); DEBERIA DESTRUIR LA SESSION
 					?>
 					<script type="text/javascript">
@@ -52,7 +51,7 @@
 				else{
 					$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
 					$_SESSION['logprofile'] = $userRow['profile'];
-					$_SESSION['lastupdate'] = date('Y-n-j H:i:s');
+					$_SESSION['lastupdate'] = date('Y-m-j H:i:s');
 					$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
 					?>
 					<script type="text/javascript">
@@ -93,8 +92,8 @@
 				//Then checks password
 				if(!(crypt($_POST['logpasswd'], $userRow['pass']) == $userRow['pass'])){
 					if(!$userRow['needPass']){
-						echo crypt($_POST['logpasswd'], $userRow['pass']).' -- ';
-						echo $userRow['pass'].'-';
+						//echo crypt($_POST['logpasswd'], $userRow['pass']).' -- ';
+						//echo $userRow['pass'].'-';
 						?>
 						<script type="text/javascript">
 							alert('Contraseña incorrecta.');
@@ -159,38 +158,51 @@
 					else{
 					*/
 					//But it still lasts to check whether the user needs change his/her password
-					echo "<div class='bs-example'><div class='progress progress-striped active'><div class='bar' style='width: 60%;'><span class='sr-only'>Cargando …</span></div></div></div>";
+					// echo "<div class='bs-example'><div class='progress progress-striped active'><div class='bar' style='width: 60%;'><span class='sr-only'>Cargando …</span></div></div></div>";
 
 					/*
-					$_SESSION['lastupdate'] = date('Y-n-j H:i:s');
+					$_SESSION['lastupdate'] = date('Y-m-j H:i:s');
 					$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
 					*/
 					//if($userRow['needPass']){
 					//SI FUNCIONA LA SIGUIENTE COMPARACION NO NECESITARE LA LINEA ANTERIOR NI EL CAMPO "needPass" EN LA TABLA "users"
 					//"needPass" se usa cuando un usuario recién creado entra por 1ª vez
-					//if($userRow['passExpiration'] <= date('Y-n-j')){
+					//if($userRow['passExpiration'] <= date('Y-m-j')){
 					if(($userRow['passExpiration'] <= date('Y-m-j')) || ($userRow['needPass'])){
-						echo 'el3';
 						?>
-						<div id="data">
-							<h3>Debe cambiar la contraseña antes de continuar</h3>
-							<hr class="long">
-							<br/>
-							<?php include '../common/passwdRestrictionsES.txt'; ?>
-							<div id="stylized" class="myform">
-								<!-- <form id="form" name="form" action="home.php" method="post" onsubmit="return checkPasswordES(pdpass1, pdpass2)"> -->
-								<!-- <form id="form" name="form" action="updateExpiration.php" method="post" onsubmit="return checkPasswordES(pdpass1, pdpass2)"> -->
-								<form id="form" name="form" action="validatefront.php" method="post">
-									<h1>Cambio de contraseña</h1>
-									<label>Nueva contraseña</label><input type="password" name="pdpass1" id="pdpass1" size="35"><br>
-									<label>Repita contraseña</label><input type="password" name="pdpass2" id="pdpass2" size="35"><br>
-									<!-- ME FALTA ACTUALIZAR EL CAMPO "passExpiration", POR LO QUE EL action DEBERIA LLAMAR A "updateExpiration()" Y ESTE IR LUEGO A "home.php" -->
-									<input type="submit" value="Cambiar" name="pdChange"><br/>
-									<br/>
-								</form>
-							</div> <!-- del "stylized" -->
-							<br>
-						</div>
+
+							<div id="panel-warning" class="panel panel-warning center-block">
+								<div class="panel-heading">
+									<h3 class="panel-title">Debe cambiar la contraseña antes de continuar</h3>
+								</div>
+								
+									<div class="well">
+										<?php //include $_SERVER['DOCUMENT_ROOT'] . '/common/passwdRestrictionsES.txt'; ?>
+									</div>
+									<div class="panel-body">
+										<form id="changePasswordForm" name="changePasswordForm" class="form-horizontal center-block" action="validatefront.php" method="post" onsubmit="return equalPassword(newPassword, confirmNewPassword)">
+											<div class="form-group">
+												<label for="newPassword" class="control-label">Nueva contraseña</label>
+												<div class="center-block">
+													<input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="" required data-toggle="tooltip" title="Introduce la nueva contraseña" autocapitalize="off">
+												</div>
+											</div>
+											<div class="form-group">
+												<label for="confirmNewPassword" class="control-label">Repita contraseña</label>
+												<div class="center-block">
+													<input type="password" class="form-control" name="confirmNewPassword" id="confirmNewPassword" placeholder="" required data-toggle="tooltip" title="Confirma la nueva contraseña" autocapitalize="off">
+												</div>
+
+												<div class="pull-right">
+													<button type="submit" class="btn btn-primary" name="changePassword">Cambiar</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div> <!-- id="panel-warning"  -->
+
+
+
 						<?php
 					}
 					/* COMPROBAR SI A LA CONTRASEÑA LE QUEDA MENOS DEL TIEMPO DE AVERTENCIA (LO QUE TENDRE QUE INCLUIR EN LA TABLA "otherOptions")
@@ -210,7 +222,7 @@
 						else{
 							//$_SESSION['loglogin'] = $checkedUser;
 							$_SESSION['logprofile'] = $userRow['profile'];
-							$_SESSION['lastupdate'] = date('Y-n-j H:i:s');
+							$_SESSION['lastupdate'] = date('Y-m-j H:i:s');
 							$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
 							?>
 							<script type="text/javascript">
@@ -233,9 +245,9 @@
 			}
 		}
 		?>
-		<!-- <input type="button" style="text-align: center" value="Volver al inicio" onclick="window.location='./Login.html'"/> -->
-		</div>
-	</fieldset>
+
+
+
 
 <!-- Footer bar & info
 	================================================== -->
