@@ -33,7 +33,7 @@
 	}
 	else {
 		$lastUpdate = $_SESSION['lastupdate'];
-		$curUpdate = date('Y-n-j H:i:s');
+		$curUpdate = date('Y-m-j H:i:s');
 		$elapsedTime = (strtotime($curUpdate)-strtotime($lastUpdate));
 		if($elapsedTime > $_SESSION['sessionexpiration']){
 			?>
@@ -48,7 +48,7 @@
 			unset($curUpdate);
 			unset($elapsedTime);
 		}
-		require_once '../library/functions.php';
+		require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 		?>
 
 

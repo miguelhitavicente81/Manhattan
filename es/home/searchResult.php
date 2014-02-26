@@ -53,7 +53,7 @@
 			unset($curUpdate);
 			unset($elapsedTime);
 		}
-		require_once '../library/functions.php';
+		require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 		?>
 
 
@@ -210,7 +210,7 @@
 
 							$enlace = connectDB();
 
-							$consulta = "SELECT * FROM `cvitaes` where `nie` like '%$_POST[blanknie]%' and `nationalities` like '%$_POST[blanknationality]%' and `sex` like '%$_POST[blanksex]%' and `drivingType` like '%$_POST[drivingtype]%' and `marital` like '%$_POST[civil]%' and `sons` like '%$_POST[sons]%' and `language` like '%$_POST[languages]%' and `occupation` like '%$_POST[job]%';";
+							$consulta = "SELECT * FROM `cvitaes` where `nie` like '%$_POST[blankNIE]%' and `nationalities` like '%$_POST[blankNationality]%' and `sex` like '%$_POST[blankSex]%' and `drivingType` like '%$_POST[drivingType]%' and `marital` like '%$_POST[civilStatus]%' and `sons` like '%$_POST[blankSons]%' and `language` like '%$_POST[blankLanguages]%' and `occupation` like '%$_POST[blankJob]%';";
 
 							if ($resultado = mysqli_query($enlace, $consulta)) {
 
@@ -239,7 +239,7 @@
 
 									$pdf_file_name = "";
 									$pdf_file_name = $fila[3] . "_" . $fila[4];
-									
+
 									foreach ($info_campo as $valor) {
 										chop($valor->name);
 										if ($valor->name == id){ $id[$fila[$i]] = $fila[++$i]; }
@@ -266,9 +266,17 @@
 									echo "</tr>";
 
 									$documento_pdf = $pdf->ezOutput();
-									#$nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
-									$nf="../../cvs/$pdf_file_name.pdf";
-									$fichero = fopen(utf8_decode("$nf"),'wb');
+									# $nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
+									// $nf="../../cvs/$pdf_file_name.pdf";
+									// $nf="/Applications/XAMPP/xamppfiles/temp/cvs/cv_$pdf_file_name.pdf";
+									$cvs_path = $_SERVER['DOCUMENT_ROOT'] . '/cvs/';
+									$nf = dropAccents($cvs_path . "cv_$pdf_file_name.pdf");
+									//echo '-->'.$nf.'<--'."\n";
+									//echo "Path: " . $cvs_path . "Nombre fichero: " . $nf;
+
+									//$fichero = fopen(utf8_decode("$nf"),'wb');
+									$fichero = fopen($nf,'wb');
+									//echo "-->".utf8_decode($nf).'<--';
 									fwrite ($fichero, $documento_pdf);
 									fclose ($fichero);
 									$nf="";
@@ -276,15 +284,19 @@
 								}
 
 								echo "</table>";
-								
+
 								mysqli_free_result($resultado);
 							}
-							
+
 							$numero=rand();
 
 							# Limpiamos los PDFs generados
-							`cd ../../cvs/ && tar cf cvs$numero.zip *.pdf`;
-							`rm -rf ../../cvs/*.pdf`;
+							//`cd ../../common/cvs/ && tar cf cvs$numero.zip *.pdf`;
+							//$cvs_path = $_SERVER['DOCUMENT_ROOT'] . "/cvs";
+							//`cd /Applications/XAMPP/htdocs/Manhattan/cvs && tar -cf cvs$numero.zip *.pdf`; 
+							`cd $cvs_path && tar cf cvs$numero.zip *.pdf`;
+							//`rm -rf ../../common/cvs/*.pdf`;
+							`rm -rf $cvs_path/*.pdf`;
 
 							$i=0;
 							foreach ($id as $valor) {

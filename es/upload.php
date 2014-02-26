@@ -129,7 +129,7 @@
 <body>
 
 <?php
-//require_once ('./library/functions.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 if(isset($_POST['senduser'])){
 
 	foreach ($_POST as $key => $entry){
@@ -187,7 +187,7 @@ if(isset($_POST['senduser'])){
 	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', '".$str_idiomas."', '".$str_nidiomas."',
 	'".$str_prof."', '".$str_nfor."', '".$str_forma."', CURRENT_TIMESTAMP)");
 	*/
-	/*
+	/* CHUTA
 	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 	`postalCode`, `country`, `province`, `city`, `phone`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, `experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `cvDate`) VALUES 
 	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
@@ -196,6 +196,7 @@ if(isset($_POST['senduser'])){
 	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
 	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', CURRENT_TIMESTAMP)");
 	*/
+	/* NO CHUTA
 	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
 	`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`) VALUES 
@@ -204,6 +205,18 @@ if(isset($_POST['senduser'])){
 	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
 	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
 	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', CURRENT_TIMESTAMP)");
+	*/
+	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
+	`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
+	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
+	'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
+	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
+	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
+	'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
+	'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')");
+		
 	
 	
 	//Preguntamos si nuetro arreglo 'archivos' fue definido
@@ -262,6 +275,7 @@ if(isset($_POST['senduser'])){
 /***************  Aquí comienza el bloque que permite mostrar el formulario  ***************/
 ?>
 <h1>Formulario</h1>
+<!-- <form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data" onsubmit="checkForm()"> -->
 <form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data">
 	<table>
 		<tr>
@@ -743,16 +757,16 @@ if(isset($_POST['senduser'])){
 		<tr>
 			<td>Las 10 palabras que mejor me definen son...</td>
 			<td>
-			<input type="text" name="blankword1" size="30" /><br>
-			<input type="text" name="blankword2" size="30" /><br>
-			<input type="text" name="blankword3" size="30" /><br>
-			<input type="text" name="blankword4" size="30" /><br>
-			<input type="text" name="blankword5" size="30" /><br>
-			<input type="text" name="blankword6" size="30" /><br>
-			<input type="text" name="blankword7" size="30" /><br>
-			<input type="text" name="blankword8" size="30" /><br>
-			<input type="text" name="blankword9" size="30" /><br>
-			<input type="text" name="blankword10" size="30" />
+			<input type="text" name="blankskill1" size="30" /><br>
+			<input type="text" name="blankskill2" size="30" /><br>
+			<input type="text" name="blankskill3" size="30" /><br>
+			<input type="text" name="blankskill4" size="30" /><br>
+			<input type="text" name="blankskill5" size="30" /><br>
+			<input type="text" name="blankskill6" size="30" /><br>
+			<input type="text" name="blankskill7" size="30" /><br>
+			<input type="text" name="blankskill8" size="30" /><br>
+			<input type="text" name="blankskill9" size="30" /><br>
+			<input type="text" name="blankskill10" size="30" />
 			</td>
 		</tr>
 		
