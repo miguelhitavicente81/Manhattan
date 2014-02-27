@@ -374,12 +374,10 @@ if(isset($_POST['senduser'])){
 
 
 
-<h1>Formulario</h1>
-
 <!-- <form id="miForm" action="" method="get" onsubmit="return valida(this)"> -->
 <!-- <form id="formu" name="formu" action="" method="post" enctype="multipart/form-data" onsubmit="return valida(this)"> -->
 <!-- <form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data" onsubmit="return checkFormES(this)"> -->
-<form id="formu" name="formu" action="" method="post" enctype="multipart/form-data" onsubmit="return checkFormES(this)">
+<form id="formu" class="form-horizontal form-upload" name="formu" action="" method="post" enctype="multipart/form-data" onsubmit="return checkFormES(this)">
 
 <!-- 
 <p>
@@ -413,25 +411,25 @@ Jugador 3: <input type="text" id="jugador3" />
 		-->
 	
 		<tr>
-			<td>Nombre</td>
+			<td><label class='control-label'>Nombre</label></td>
 			<td><input type="text" name="blankname" size="30" maxlength="20" /></td>
 		</tr>
 		<tr>
-			<td>Apellidos</td>
+			<td><label class='control-label'>Apellidos</label></td>
 			<td><input type="text" name="blanksurname" size="30" maxlength="30" /></td>
 		</tr>
 		<tr>
-			<td>Fecha de Nacimiento</td>
+			<td><label class='control-label'>Fecha de Nacimiento</label></td>
 			<td><input type="date" name="blankbirthdate" /></td>
 		</tr>
 		<tr>
-			<td>NIE</td>
+			<td><label class='control-label'>NIE</label></td>
 			<td><input type="text" name="blanknie" size="30" maxlength="12" placeholder="Max. 12 caracteres"/></td>
 		</tr>
 		
 		<!-- <td><span class="form-sub-label-container"><select class="form-dropdown form-address-country" name="q13_direccion13[country]" id="input_13_country"> -->
 		<tr>
-			<td>Nacionalidad</td>
+			<td><label class='control-label'>Nacionalidad</label></td>
 			<td>
 			<select name="blanknationality">
 				<option value="" selected> Seleccione </option>
@@ -682,14 +680,14 @@ Jugador 3: <input type="text" id="jugador3" />
 			</td>
 		</tr>
 		<tr>
-			<td>Sexo</td>
+			<td><label class='control-label'>Sexo</label></td>
 			<td>
 				<input type="radio" name="blanksex" value="0">Hombre
 				<input type="radio" name="blanksex" value="1">Mujer
 			</td>
 		</tr>
 		<tr>
-			<td>Dirección</td>
+			<td><label class='control-label'>Dirección</label></td>
 			<td>
 				<select name="blankaddrtype">
 					<option value="" selected>-- Tipo --</option>
@@ -733,22 +731,22 @@ Jugador 3: <input type="text" id="jugador3" />
 			</td>
 		</tr>
 		<tr>
-			<td>Teléfono Fijo</td>
+			<td><label class='control-label'>Teléfono Fijo</label></td>
 			<td><input type="text" name="blankphone" size="30" maxlength="9" /></td>
 			<!-- <td><input type="tel" name="blankphone" size="30"/></td> -->
 		</tr>
 		<tr>
-			<td>Teléfono Móvil</td>
+			<td><label class='control-label'>Teléfono Móvil</label></td>
 			<td><input type="text" name="blankmobile" size="30" maxlength="12" /></td>
 			<!-- <td><input type="tel" name="blankmobile" size="30"/></td> -->
 		</tr>
 		<tr>
-			<td>Correo Electrónico</td>
+			<td><label class='control-label'>Correo Electrónico</label></td>
 			<td><input type="email" name="blankmail" size="30" 	placeholder="correo@ejemplo.com" /></td>
 		</tr>
 		
 		<tr>
-			<td>Carné de Conducir</td>
+			<td><label class='control-label'>Carnet de Conducir</label></td>
 			<td>
 			<select name="blankdrivingtype">
 				<option value=""> Tipo </option>
@@ -780,7 +778,7 @@ Jugador 3: <input type="text" id="jugador3" />
 -->
 		
 		<tr>
-			<td>Estado Civil</td>
+			<td><label class='control-label'>Estado Civil</label></td>
 			<td>
 			<select name="blankmarital">
 				<option selected value="">-- Estado --</option>
@@ -793,19 +791,19 @@ Jugador 3: <input type="text" id="jugador3" />
 			</td>
 		</tr>
 		<tr>
-			<td>Hijos</td>
+			<td><label class='control-label'>Hijos</label></td>
 			<td><input type="number" name="blanksons" maxlength="2" min="0"></td>
 		</tr>
 		
 		<!-- AQUI TENGO QUE CARGAR DINAMICAMENTE LAS FOTOS -->
 		<tr>
-			<td>Foto</td>
+			<td><label class='control-label'>Foto</label></td>
 			<td><input type="number" name="blankphoto" maxlength="2"></td>
 		</tr>
 		
 		
 		<tr>
-			<td>Documentos adicionales</td>
+			<td><label class='control-label'>Documentos adicionales</label></td>
 			<!-- <td id="adjuntos"><input type="file" name="archivos[]" /> ORIGINAL -->
 			<td id="adjuntos"><input type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif" file-maxsize="1024" />
 			<!-- <a href="#" onClick="addCampo()">Subir otro archivo</a> -->
@@ -815,7 +813,7 @@ Jugador 3: <input type="text" id="jugador3" />
 		</tr>
 		
 		<tr>
-			<td>Nivel de Idiomas</td>
+			<td><label class='control-label'>Nivel de idiomas</label></td>
 			<td>
 			<div id="itemRows">
 			<select name="add_idiomas">
@@ -845,14 +843,14 @@ Jugador 3: <input type="text" id="jugador3" />
 		</tr>
 		
 		<tr>
-			<td>Profesión</td>
-			
+
+			<td><div class="tooltip-demo"><label class='control-label'>Profesión</label> <span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Si su profesión no aparece incluída en el listado, póngase en contacto con nosotros a través de pa@pa.com o llamando al 902 202 122"></span></div></td>
 			<td><div id="itemRows2"><input type="text" name="add_prof" size="50" placeholder="Profesión actual" /><input onclick="addRow2(this.form);" type="button" value="+" /></td>
 		</tr>
 		</div>
 		
 		<tr>
-			<td>Formación</td>
+			<td><label class='control-label'>Formación</label></td>
 			<td>
 			<div id="itemRows3">
 			<select name="add_nfor">
@@ -867,7 +865,7 @@ Jugador 3: <input type="text" id="jugador3" />
 		</tr>
 		
 		<tr>
-			<td>Experiencia Laboral</td>
+			<td><label class='control-label'>Experiencia Laboral</label></td>
 			<td>
 			<div id="itemRows4">
 			<input type="text" name="add_empr" size="30" placeholder="Empresa" />
@@ -884,12 +882,12 @@ Jugador 3: <input type="text" id="jugador3" />
 		</tr>
 		
 		<tr>
-			<td>Otros Detalles de Interés</td>
+			<td><label class='control-label'>Otros datos de interés</label></td>
 			<td><textarea name="blankother" rows="5" cols="40">...</textarea></td>
 		</tr>
 		
 		<tr>
-			<td>Las 10 palabras que mejor me definen son...</td>
+			<td><label class='control-label'>Las 10 palabras que mejor me definen son...</label></td>
 			<td>
 			<input type="text" name="blankskill1" size="30" /><br>
 			<input type="text" name="blankskill2" size="30" /><br>
@@ -918,7 +916,9 @@ Jugador 3: <input type="text" id="jugador3" />
 <input type="reset" value="Borrar" />
 -->
 
+
 </form>
+
 </body>
 </html>
 
