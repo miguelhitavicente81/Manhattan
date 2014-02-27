@@ -1,4 +1,4 @@
-<?php session_start(); /*error_reporting (E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING); */ ?>
+<?php session_start(); error_reporting (E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING); $wannaExit = false; $wannaGoTo ='index.html'; ?>
 <html lang="es">
 <head>
 	<meta charset="utf-8">
@@ -19,6 +19,9 @@
 	<!-- Using the favicon for touch-devices shortcut -->
 	<link rel="apple-touch-icon" href="../common/img/apple-touch-icon.png">
 
+	<script type="text/javascript">
+		var changePasswordFlag = false;
+	</script>	
 
 </head>
 
@@ -26,27 +29,34 @@
 
 		<?php 
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
-		//Part of the code read when user is forced to change his/her password
-		if($_POST['changePassword']){
+		//Part of the code read when user is forced to change his/her password	
+
+		if($_POST['confirmNewPassword']){
 			if(!checkPassChange($_POST['newPassword'], $_POST['confirmNewPassword'], $keyError)){
 				?>
-				<script type="text/javascript">
-					alert('<?php echo $keyError; ?>');
-					window.location.href='index.html';
-				</script>
-				<?php 
+				<div class="top-alert-container">
+					<div class="alert alert-warning alert-error top-alert fade in">
+						<a href="#" class="close" data-dismiss="alert">&times;</a>
+						<strong>Opppsss!</strong> <?php echo $keyError; ?>
+					</div>
+				</div>
+
+				<?php $wannaGoTo ='index.html';
 			}
 			//That's when system generates new Blowfish password
 			else{
 				$newCryptedPass = blowfishCrypt($_POST['newPassword']);
-				if(!executeDBquery("UPDATE `users` SET `pass`='".$newCryptedPass."', `needPass`='1' WHERE `login`='".$_SESSION['loglogin']."'")){
+				if(!executeDBquery("UPDATE `users` SET `pass`='".$newCryptedPass."', `needPass`='0' WHERE `login`='".$_SESSION['loglogin']."'")){
 					//session_destroy(); DEBERIA DESTRUIR LA SESSION
 					?>
-					<script type="text/javascript">
-						alert('No fue posible actualizar su contraseña.');
-						window.location.href='index.html';
-					</script>
-					<?php 
+					<div class="top-alert-container">
+						<div class="alert alert-danger alert-error top-alert fade in">
+							<a href="#" class="close" data-dismiss="alert">&times;</a>
+							<strong>Error!</strong> No fue posible actualizar su contraseña.
+						</div>
+					</div>
+
+					<?php 	$wannaGoTo = 'index.html';
 				}
 				else{
 					$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
@@ -54,10 +64,15 @@
 					$_SESSION['lastupdate'] = date('Y-m-j H:i:s');
 					$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
 					?>
-					<script type="text/javascript">
-						window.location.href='home.php';
-					</script>
-					<?php 
+
+					<div class="top-alert-container">
+						<div class="alert alert-success top-alert fade in">
+							<a href="#" class="close" data-dismiss="alert">&times;</a>
+							<strong>Éxito!</strong> Se ha actualizado la contraseña.
+						</div>
+					</div>					
+
+					<?php $wannaGoTo = 'home.php';
 				}
 			}
 		}
@@ -73,175 +88,135 @@
 				$profileRow = getDBrow('profiles', 'name', $userRow['profile']);
 				if($userRow == 0){
 					?>
-					<script type="text/javascript">
-						alert('Usuario inexistente o incorrecto.');
-						window.location.href='index.html';
-					</script>
-					<?php 
+					<div class="top-alert-container">
+						<div class="alert alert-danger alert-error top-alert fade in">
+							<a href="#" class="close" data-dismiss="alert">&times;</a>
+							<strong>Error!</strong> Usuario inexistente o incorrecto.
+						</div>
+					</div>
+
+					<?php 	$wannaGoTo ='index.html'; 
 				}
-				/*
-				if($checkedPasswd != ($userRow['pass'])){
-					?>
-					<script type="text/javascript">
-						alert('Contraseña incorrecta.');
-						window.location.href='index.html';
-					</script>
-					<?php 
-				}
-				*/
+
 				//Then checks password
 				if(!(crypt($_POST['logpasswd'], $userRow['pass']) == $userRow['pass'])){
-					if(!$userRow['needPass']){
-						//echo crypt($_POST['logpasswd'], $userRow['pass']).' -- ';
-						//echo $userRow['pass'].'-';
+					if(!$userRow['needPass']){						
 						?>
-						<script type="text/javascript">
-							alert('Contraseña incorrecta.');
-							window.location.href='index.html';
-						</script>
-						<?php 
+						<div class="top-alert-container">
+							<div class="alert alert-danger alert-error top-alert fade in">
+								<a href="#" class="close" data-dismiss="alert">&times;</a>
+								<strong>Error!</strong> Contraseña incorrecta.
+							</div>
+						</div>						
+						<?php 	$wannaGoTo ='index.html'; $wannaExit = true;
 					}
 				}
 				//Checks whether user profile is active
 				if(!$profileRow['active']){
 					?>
-					<script type="text/javascript">
-						alert('Perfil no activo.');
-						window.location.href='index.html';
-					</script>
-					<?php 
+					<div class="top-alert-container">
+						<div class="alert alert-warning alert-error top-alert fade in">
+							<a href="#" class="close" data-dismiss="alert">&times;</a>
+							<strong>Opppsss!</strong> El perfil solicitado no está activo.
+						</div>
+					</div>						
+					<?php $wannaGoTo ='index.html';
 				}
 				//Checks whether user account is active
 				if(!$userRow['active']){
 					?>
-					<script type="text/javascript">
-						alert('Usuario no activo.');
-						window.location.href='index.html';
-					</script>
-					<?php 
+					<div class="top-alert-container">
+						<div class="alert alert-warning alert-error top-alert fade in">
+							<a href="#" class="close" data-dismiss="alert">&times;</a>
+							<strong>Opppsss!</strong> La cuenta de usuario no está activada.
+						</div>
+					</div>						
+					<?php $wannaGoTo ='index.html'; 
 				}
-				//Check whether user and profile's user are active (if not, will be blocked) his/her access
-				//At the moment won't be used 'connected' field in 'users' table. Will use COOKIES
-				/*
-				elseif($userRow['connected']){
-					?>
-					<script type="text/javascript">
-						alert('Usuario conectado.');
-						window.location.href='index.html';
-					</script>
-					<?php 
-				}
-				*/
-				else{
-					//After all these checkings, user could be properly logged in. We start with procedure
-					$_SESSION['loglogin'] = $checkedUser;
-					
-					//After all checkings, user is properly logged in, so it updates 'last connection' 
-					//session_name($checkedUser);
-					//Next sentence is actually written at the top 
-					//session_start();
-					//Don't know if will need these 2 vars in next php pages
-					/*
-					$_SESSION['loglogin'] = $checkedUser;
-					$_SESSION['logprofile'] = $userRow['profile'];
-					*/
-					/*
-					if(!executeDBquery("UPDATE `users` SET `lastConnection` = CURRENT_TIMESTAMP WHERE `login` = '".$checkedUser."'")){
-						echo 'el1';
+				else {
+					if (!$wannaExit) {	
+						//After all these checkings, user could be properly logged in. We start with procedure
+						$_SESSION['loglogin'] = $checkedUser; 
+
+						if(($userRow['passExpiration'] <= date('Y-m-j')) || ($userRow['needPass'])){
 						?>
 						<script type="text/javascript">
-							alert('No se pudo actualizar la fecha de última conexión.');
-							window.location.href='index.html';
-						</script>
-						<?php 
-					}
-					else{
-					*/
-					//But it still lasts to check whether the user needs change his/her password
-					// echo "<div class='bs-example'><div class='progress progress-striped active'><div class='bar' style='width: 60%;'><span class='sr-only'>Cargando …</span></div></div></div>";
+							var changePasswordFlag = true;
+						</script>	
 
-					/*
-					$_SESSION['lastupdate'] = date('Y-m-j H:i:s');
-					$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
-					*/
-					//if($userRow['needPass']){
-					//SI FUNCIONA LA SIGUIENTE COMPARACION NO NECESITARE LA LINEA ANTERIOR NI EL CAMPO "needPass" EN LA TABLA "users"
-					//"needPass" se usa cuando un usuario recién creado entra por 1ª vez
-					//if($userRow['passExpiration'] <= date('Y-m-j')){
-					if(($userRow['passExpiration'] <= date('Y-m-j')) || ($userRow['needPass'])){
-						?>
-
-							<div id="panel-warning" class="panel panel-warning center-block">
-								<div class="panel-heading">
-									<h3 class="panel-title">Debe cambiar la contraseña antes de continuar</h3>
-								</div>
-								
-									<div class="well">
-										<?php //include $_SERVER['DOCUMENT_ROOT'] . '/common/passwdRestrictionsES.txt'; ?>
-									</div>
-									<div class="panel-body">
-										<form id="changePasswordForm" name="changePasswordForm" class="form-horizontal center-block" action="validatefront.php" method="post" onsubmit="return equalPassword(newPassword, confirmNewPassword)">
-											<div class="form-group">
-												<label for="newPassword" class="control-label">Nueva contraseña</label>
-												<div class="center-block">
-													<input type="password" class="form-control" name="newPassword" id="newPassword" placeholder="" required data-toggle="tooltip" title="Introduce la nueva contraseña" autocapitalize="off">
+						<div id='changePasswordModal' class='modal fade' tabindex='-1' role='dialog' aria-labelledby='changePasswordModalLabel' aria-hidden='true'>
+							<div class='modal-dialog'>
+								<form id='changePasswordForm' class='form-horizontal center-block' action='validatefront.php' method='post' onsubmit='return equalPassword(newPassword, confirmNewPassword)'>
+									<div class='modal-content panel-warning'>
+										<div class='modal-header panel-heading'>
+											<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+											<h4 class='modal-title'>Debe cambiar la contraseña antes de continuar</h4>
+										</div>
+										<div class='well encapsulated'>
+											<?php include $_SERVER['DOCUMENT_ROOT'] . '/common/passwdRestrictionsES.txt' ?>
+										</div>
+										<div class='modal-body encapsulated'>
+											<div class='form-group'>
+												<label for='newPassword' class='control-label'>Nueva contraseña</label>
+												<div class='center-block'>
+													<input type='password' class='form-control' name='newPassword' id='newPassword' placeholder='' required data-toggle='tooltip' title='Introduce la nueva contraseña' autocapitalize='off'>
 												</div>
 											</div>
-											<div class="form-group">
-												<label for="confirmNewPassword" class="control-label">Repita contraseña</label>
-												<div class="center-block">
-													<input type="password" class="form-control" name="confirmNewPassword" id="confirmNewPassword" placeholder="" required data-toggle="tooltip" title="Confirma la nueva contraseña" autocapitalize="off">
-												</div>
-
-												<div class="pull-right">
-													<button type="submit" class="btn btn-primary" name="changePassword">Cambiar</button>
+											<div class='form-group'>
+												<label for='confirmNewPassword' class='control-label'>Repita contraseña</label>
+												<div class='center-block'>
+													<input type='password' class='form-control' name='confirmNewPassword' id='confirmNewPassword' placeholder='' required data-toggle='tooltip' title='Confirma la nueva contraseña' autocapitalize='off'>
 												</div>
 											</div>
-										</form>
+										</div>
+										<div class='modal-footer'>
+											<button type='submit' class='btn btn-primary'>Cambiar</button>
+										</div>
 									</div>
-								</div> <!-- id="panel-warning"  -->
-
-
+								</form><!-- id='changePasswordForm'  -->
+							</div><!-- /.modal-dialog -->
+						</div><!-- /.modal -->
 
 						<?php
-					}
-					/* COMPROBAR SI A LA CONTRASEÑA LE QUEDA MENOS DEL TIEMPO DE AVERTENCIA (LO QUE TENDRE QUE INCLUIR EN LA TABLA "otherOptions")
-					if($userRow['passExpiration']){
-					}
-					*/
-					else{
-						if(!executeDBquery("UPDATE `users` SET `lastConnection` = CURRENT_TIMESTAMP WHERE `login` = '".$checkedUser."'")){
-							echo 'el1';
-							?>
-							<script type="text/javascript">
-								alert('No se pudo actualizar la fecha de última conexión.');
-								window.location.href='index.html';
-							</script>
-							<?php 
 						}
+
 						else{
-							//$_SESSION['loglogin'] = $checkedUser;
-							$_SESSION['logprofile'] = $userRow['profile'];
-							$_SESSION['lastupdate'] = date('Y-m-j H:i:s');
-							$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
-							?>
-							<script type="text/javascript">
-								window.location.href='home.php';
-							</script>
-							<?php 
+							if(!executeDBquery("UPDATE `users` SET `lastConnection` = CURRENT_TIMESTAMP WHERE `login` = '".$checkedUser."'")){
+								?>
+								<div class="top-alert-container">
+									<div class="alert alert-danger alert-error top-alert fade in">
+										<a href="#" class="close" data-dismiss="alert">&times;</a>
+										<strong>Error!</strong> No se pudo actualizar la fecha de última conexión.
+									</div>
+								</div>								
+								<?php $wannaGoTo ='index.html'; 
+							}
+							else{
+								$_SESSION['logprofile'] = $userRow['profile'];
+								$_SESSION['lastupdate'] = date('Y-m-j H:i:s');
+								$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
+								?>
+
+								<script type="text/javascript">
+									window.location.href='home.php';
+								</script>
+								<?php
+							}
 						}
-					}
-					//}
-				}
+					} // Si no quiero salir...
+				} // Else
 			}
+
 			//If any of the text fields (login/password) were not fulfilled...
 			else{
 				?>
-				<script type="text/javascript">
-					alert('Ha olvidado rellenar alguno de los campos.');
-					window.location.href='index.html';
-				</script>
-				<?php 
+				<div class="top-alert-container">
+					<div class="alert alert-warning alert-error top-alert fade in">
+						<a href="#" class="close" data-dismiss="alert">&times;</a>
+						<strong>Opppsss!</strong> Ha olvidado rellenar alguno de los campos.
+					</div>
+				</div>				
+				<?php $wannaGoTo ='index.html'; 
 			}
 		}
 		?>
@@ -268,6 +243,32 @@
 	<script src="../common/js/functions.js"></script>
 	<script src="../common/js/application.js"></script>
 	<script src="../common/js/docs.min.js"></script>
+
+	<!-- Own document functions -->
+	<!-- Show modal if password has to be changed -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			if (changePasswordFlag == true) {
+				// Automatically show the password change alert
+				$('#changePasswordModal').modal('show');
+			}
+			$('#changePasswordModal').on('hidden.bs.modal', function (e) {
+ 				window.location.href='index.html';
+			});
+		});  
+	</script> 
+
+	<!-- Go to validatefront.php when alert closed -->
+	<script type="text/javascript">
+		$(document).ready(function(){
+			// Close the alert after 2 seconds.
+			window.setTimeout(function() { $(".alert").alert('close'); }, 5000);
+			$(".alert").bind('closed.bs.alert', function(){
+				window.location.href='<?php echo $wannaGoTo ?>';
+			});
+		});  
+	</script>
+
 
 </body>
 </html>
