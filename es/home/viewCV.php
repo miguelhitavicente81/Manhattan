@@ -47,20 +47,8 @@ if (mysqli_connect_errno()) {
     printf("Fall la conexin: %s\n", mysqli_connect_error());
     exit();
 }
-if ($_GET[reportType] == "full_report"){
+
 $consulta = "SELECT * from cVitaes where nie like '$actual'" ;
-}
-if ($_GET[reportType] == "blind_report"){
-$consulta = "SELECT `postalCode`,`country`,`province`,`city`,`mobile`,`mail`,`drivingType`,`drivingDate`,`language`,`langLevel`,`occupation`,`studyType`,`studyName`,`userLogin`  from cVitaes where nie like '$actual'" ;
-}
-if ($n_custom_elements>0){
-$consulta = "SELECT ";
-foreach( $custom_elements as $value ) {
-    $consulta = $consulta."`".$value."`,";
-}
-$consulta = $consulta."`userLogin`";
-$consulta = $consulta." from cVitaes where nie like '$actual'" ;
-}
 if ($resultado = mysqli_query($enlace, $consulta)) {
 while ($fila = $resultado->fetch_assoc()) {
 		$pdf = new Cezpdf('A4'); // Seleccionamos tipo de hoja para el informe
