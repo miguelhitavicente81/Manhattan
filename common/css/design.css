@@ -223,6 +223,11 @@ body {
 	font-weight: 700;
 }
 
+.form-upload .control-label {
+	padding: 0;
+	text-align: left;
+}
+
 
 
 

@@ -182,36 +182,30 @@
 				<div class="col-md-9 scrollable" role="main"> 
 					<div class="bs-docs-section">
 
-						<h1 class="page-header">Noticias
-
-						<!-- <p class="lead"> -->
-						<small>
 						<?php 
 
 							if(($userRow['profile'] == 'Administrador') || ($userRow['profile'] == 'SuperAdmin')){
 								if((getDBrowsnumber('cVitaes') == 0) || ($numPendingCVs = count($cvIDs = getDBcolumnvalue('id', 'cVitaes', 'cvStatus', 'pending')))){
-									echo "No existen CVs por clasificar.";
+									echo "<h1 class='page-header'>Noticias <small>No existen CVs por clasificar</small></h1>";
 								}
 								else{
-									echo "Existen <a href=./home/pendingCVs.php>" . $numPendingCVs . " </a> CVs por clasificar.";
+									echo "<h1 class='page-header'>Noticias <small>Existen <a href=./home/pendingCVs.php>" . $numPendingCVs . " </a> CVs por clasificar</small></h1>";
 								}
 							}
 							elseif($userRow['profile'] == 'Lector'){
 								echo "-- DEFINIR SE SE QUIERE O NO QUE UN PERFIL \"Lector\" PUEDA REVISAR CVs --";
 								if((getDBrowsnumber('cVitaes') == 0) || ($numPendingCVs = count($cvIDs = getDBcolumnvalue('id', 'cVitaes', 'cvStatus', 'pending')))){
-									echo "No existen CVs por clasificar.";
+									echo "<h1 class='page-header'>Noticias <small> No existen CVs por clasificar</small></h1>";
 								}
 								else{
-									echo "Existen <a href=./home/pendingCVs.php>" . $numPendingCVs . " </a> CVs por clasificar.";
+									echo "<h1 class='page-header'>Noticias <small> Existen <a href=./home/pendingCVs.php>" . $numPendingCVs . " </a> CVs por clasificar</small></h1>";
 								}
 							}
 							else{
-								echo "-- SE ENTIENDE QUE SI UN \"Candidato\" TIENE ACCESO A LA ZONA PRIVADA DE LA PAGINA ES PORQUE SE LE HA CONCEDIDO PARA RELLENAR OTRO CV --";
-								//include 'blankform.php';
+								echo "<h1 class='page-header'>Introduce tu CV<small>" . $userRow['login'] . "</small></h1>";
 								include 'upload.php';
 							}
 						?>
-						</small></span></h1>
 					</div> <!-- bs-docs-section -->
 				</div> <!-- col-md-9 scrollable role=main -->
 			</div> <!-- row -->
