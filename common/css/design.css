@@ -314,6 +314,13 @@ body {
 }
 
 
+/* Redefine h1 small links without decoration
+-------------------------------------------------- */
+
+h1 small a:link {
+	text-decoration: none;
+}
+
 
 
 

@@ -251,6 +251,29 @@ function getDBsinglefield2($fieldreq, $dbtable, $fieldsup1, $infosup1, $fieldsup
 }
 
 
+/* Gets the pending CVs number
+ * Exit (singleDBfield): amount of pending CVs
+ */
+function getPendingCVs() {
+
+	$connection = connectDB();
+
+	$result = mysqli_query($connection, "SELECT COUNT( * ) FROM cvitaes WHERE cvStatus = 'pending'") or die ("Error calculando el número de CVs pendientes: ".mysqli_error());
+	
+	if (mysqli_num_rows($result)>0){
+		$fila = mysqli_fetch_array($result);
+		$singleDBfield = $fila[0]; //Getting count (*) value
+		mysqli_free_result($result);
+		mysqli_close($connection);
+		return $singleDBfield;
+	}
+	else{
+		mysqli_free_result($result);
+		mysqli_close($connection);
+	}
+}
+
+
 
 
 

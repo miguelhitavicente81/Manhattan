@@ -117,8 +117,10 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 		* el resto de menús de nivel 1 cuando navegue por ellos, y saber cuál es el activo (id='onlink')
 		*/ -->
 		<?php
-		$myFile = 'home';
-		$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+			$myFile = 'home';
+			$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+
+			$pendingCVs = getPendingCVs();
 		?>
 
 
@@ -149,10 +151,14 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 												if(!getDBsinglefield2('esName', $namesTable, 'fatherKey', $colNamej, 'level', '3')){
 													$level2File = getDBsinglefield('key', $namesTable, 'esName', $subLevelMenu);
 													// Because the file we are is a level 2 file, we do this comparision to make active element in list if it's this same file
-													if ($level2File == basename(__FILE__, '.php'))
-														echo "<li class='active'><span class='badge'>$k</span><a href=$level2File.php>" . $subLevelMenu . "</a></li>";
+													if ($level2File == 'pendingCVs') 
+														$badge = "<span class='badge'>$pendingCVs</span>";
 													else
-														echo "<li><span class='badge'>$k</span><a href=$level2File.php>" . $subLevelMenu . "</a></li>";
+														$badge = "";
+													if ($level2File == basename(__FILE__, '.php')) 
+														echo "<li class='active'>$badge<a href=$level2File.php>" . $subLevelMenu . "</a></li>";
+													else
+														echo "<li>$badge<a href=$level2File.php>" . $subLevelMenu . "</a></li>";
 												}
 												else{
 													$arrayKeys = array();
@@ -170,7 +176,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 															}
 														}
 													}
-													echo "<li><span class='badge'>$k</span><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
+													echo "<li><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
 												}
 											}
 										}

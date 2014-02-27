@@ -106,8 +106,10 @@
 
 
 		<?php 
-		$myFile = 'administration';
-		$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+			$myFile = 'administration';
+			$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+
+			$pendingCVs = getPendingCVs();
 		?>
 
 
@@ -136,7 +138,7 @@
 											if(($myFileProfileRow[$k] == 1) && ($subLevelMenu = getDBsinglefield2('esName', $namesTable, 'key', $colNamej, 'level', '2'))) {
 												if(!getDBsinglefield2('esName', $namesTable, 'fatherKey', $colNamej, 'level', '3')){
 													$level2File = getDBsinglefield('key', $namesTable, 'esName', $subLevelMenu);
-													echo "<li><span class='badge'>$k</span><a href=administration/$level2File.php>" . $subLevelMenu . "</a></li>";
+													echo "<li><a href=administration/$level2File.php>" . $subLevelMenu . "</a></li>";
 												}
 												else{
 													$arrayKeys = array();
@@ -154,7 +156,7 @@
 															}
 														}
 													}
-													echo "<li><span class='badge'>$k</span><a href=administration/$level3File.php>" . $subLevelMenu . "</a></li>";
+													echo "<li><a href=administration/$level3File.php>" . $subLevelMenu . "</a></li>";
 												}
 											}
 										}
@@ -164,8 +166,12 @@
 
 									}
 
-									else{
-										echo "<li><a href=$i.php>" . $mainNamesRow[$j] . "</a></li>";
+									else{ 
+										if ($i == 'home')
+											echo "<li><span class='badge'>$pendingCVs</span><a href=$i.php>" . $mainNamesRow[$j] . " </a></li>";
+										else 
+											echo "<li><a href=$i.php>" . $mainNamesRow[$j] . " </a></li>";
+
 										$j++;
 									}
 								}

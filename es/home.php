@@ -112,6 +112,8 @@
 		<?php
 			$myFile = 'home';
 			$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+
+			$pendingCVs = getPendingCVs();
 		?>
 
 
@@ -140,7 +142,12 @@
 													if(($myFileProfileRow[$k] == 1) && ($subLevelMenu = getDBsinglefield2('esName', $namesTable, 'key', $colNamej, 'level', '2'))) {
 														if(!getDBsinglefield2('esName', $namesTable, 'fatherKey', $colNamej, 'level', '3')){
 															$level2File = getDBsinglefield('key', $namesTable, 'esName', $subLevelMenu);
-															echo "<li><span class='badge'>$k</span><a href=home/$level2File.php>" . $subLevelMenu . " </a></li>";
+															if ($level2File == 'pendingCVs') {
+																echo "<li><span class='badge'>$pendingCVs</span><a href=home/$level2File.php>" . $subLevelMenu . " </a></li>";
+															}
+															else 
+																echo "<li><a href=home/$level2File.php>" . $subLevelMenu . " </a></li>";
+
 														}
 														else{
 															$arrayKeys = array();
@@ -158,7 +165,7 @@
 																	}
 																}
 															}
-															echo "<li><span class='badge'>$k</span><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
+															echo "<li><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
 														}
 													}
 												}
@@ -185,20 +192,20 @@
 						<?php 
 
 							if(($userRow['profile'] == 'Administrador') || ($userRow['profile'] == 'SuperAdmin')){
-								if((getDBrowsnumber('cVitaes') == 0) || ($numPendingCVs = count($cvIDs = getDBcolumnvalue('id', 'cVitaes', 'cvStatus', 'pending')))){
+								if((getDBrowsnumber('cVitaes') == 0) || ($pendingCVs == 0)){
 									echo "<h1 class='page-header'>Noticias <small>No existen CVs por clasificar</small></h1>";
 								}
 								else{
-									echo "<h1 class='page-header'>Noticias <small>Existen <a href=./home/pendingCVs.php>" . $numPendingCVs . " </a> CVs por clasificar</small></h1>";
+									echo "<h1 class='page-header'>Noticias <small>Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por clasificar</small></h1>";
 								}
 							}
 							elseif($userRow['profile'] == 'Lector'){
 								echo "-- DEFINIR SE SE QUIERE O NO QUE UN PERFIL \"Lector\" PUEDA REVISAR CVs --";
-								if((getDBrowsnumber('cVitaes') == 0) || ($numPendingCVs = count($cvIDs = getDBcolumnvalue('id', 'cVitaes', 'cvStatus', 'pending')))){
+								if((getDBrowsnumber('cVitaes') == 0) || ($pendingCVs == 0)){
 									echo "<h1 class='page-header'>Noticias <small> No existen CVs por clasificar</small></h1>";
 								}
 								else{
-									echo "<h1 class='page-header'>Noticias <small> Existen <a href=./home/pendingCVs.php>" . $numPendingCVs . " </a> CVs por clasificar</small></h1>";
+									echo "<h1 class='page-header'>Noticias <small> Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por clasificar</small></h1>";
 								}
 							}
 							else{
