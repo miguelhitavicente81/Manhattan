@@ -845,8 +845,8 @@ Jugador 3: <input type="text" id="jugador3" />
 		</tr>
 		
 		<tr>
-			<td>Profesión</td>
-			
+
+			<td><div class="tooltip-demo">Profesión <span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Si su profesión no aparece incluída en el listado, póngase en contacto con nosotros a través de pa@pa.com o llamando al 902 202 122"></span></div></td>
 			<td><div id="itemRows2"><input type="text" name="add_prof" size="50" placeholder="Profesión actual" /><input onclick="addRow2(this.form);" type="button" value="+" /></td>
 		</tr>
 		</div>
@@ -918,7 +918,9 @@ Jugador 3: <input type="text" id="jugador3" />
 <input type="reset" value="Borrar" />
 -->
 
+
 </form>
+
 </body>
 </html>
 
