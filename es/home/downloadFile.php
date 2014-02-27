@@ -23,9 +23,7 @@
 
 				if($zip->open($filezip,ZIPARCHIVE::CREATE)===true) {
 					chdir("$output_dir");
-					echo getcwd() . "\n";
 					$nf = $fila['userLogin'] . ".pdf";
-					echo "--->$nf<br>";
 					$zip->addFile($nf);
 					$zip->close();
 					unlink($nf);
@@ -38,10 +36,15 @@
 		}
 	}
 
-	$desc = date("YmdHis");
-	header ("Content-Type: application/octet-stream");
-	header ("Accept-Ranges: bytes");
-	header ("Content-Length: ".filesize($filezip));
-	header ("Content-Disposition: attachment; filename=".$desc.".zip");
-	readfile($filezip);
+header("Pragma: public");
+header("Expires: 0");
+header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+header("Cache-Control: public");
+header("Content-Description: File Transfer");
+header("Content-type: application/octet-stream");
+header("Content-Disposition: attachment; filename=\"".$numero.".zip\"");
+header("Content-Transfer-Encoding: binary");
+header("Content-Length: ".filesize($filezip));
+ob_end_flush();
+@readfile($filezip);
 ?>
