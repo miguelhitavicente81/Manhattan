@@ -255,7 +255,7 @@
 <body>
 
 <?php
-require_once ('./es/library/functions.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 if(isset($_POST['senduser'])){
 
 	foreach ($_POST as $key => $entry){
