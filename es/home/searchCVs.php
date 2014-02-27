@@ -193,14 +193,22 @@
 								<h2 class="panel-title">Introduzca criterios de búsqueda</h2>
 							</div>
 							<div class="panel-body">
-			
+								
 								<form id="searchForm" name="searchForm" class="form-horizontal" method="post" action="searchResult.php" autocomplete="off" autocapitalize="off" enctype="multipart/form-data" onsubmit="return comprobar()";>
+									<div id="form_WordKey" class="form-group">
+										<label for="blankWordKey" class="control-label col-xs-3">Palabra Clave</label>
+										<div class="col-xs-9">
+											<input type="text" class="form-control" name="blankWordKey" id="blankWordKey" maxlength="12" placeholder="Max. 12 caracteres" autofocus>
+										</div>
+									</div> <!-- id="form_WordKey" -->
 									<div id="form_NIE" class="form-group">
 										<label for="blankNIE" class="control-label col-xs-3">NIE</label>
 										<div class="col-xs-9">
 											<input type="text" class="form-control" name="blankNIE" id="blankNIE" maxlength="12" placeholder="Max. 12 caracteres" autofocus>
 										</div>
 									</div> <!-- id="form_NIE" -->
+									
+									
 
 									<div id="form_Driving" class="form-group">
 										<label for="drivingType" class="control-label col-xs-3">Carné de Conducir</label>
@@ -575,19 +583,18 @@
 											<hr>									
 
 											<div id="form_custom_report" class="form-group">
-												<label><input type="checkbox" name="per1" value="Nombre" disabled> Nombre</label>
-												<label><input type="checkbox" name="per2" value="Apellidos" disabled> Apellidos</label>
-												<label><input type="checkbox" name="per8" value="Direccion" disabled> Direccion</label>
-												<label><input type="checkbox" name="per9" value="Tfijo" disabled> Telefono Fijo</label>
-												<label><input type="checkbox" name="per10" value="Tmovil" disabled> Telefono Movil</label>
-												<label><input type="checkbox" name="per11" value="Email" disabled> Email</label>
-												<label><input type="checkbox" name="per3" value="Cconducir" disabled> Carnet Conducir</label>
-												<label><input type="checkbox" name="per4" value="Ecivil" disabled> Estado Civil</label>
-												<label><input type="checkbox" name="per5" value="Hijos" disabled> Hijos Civil</label>
-												<label><input type="checkbox" name="per6" value="Nidiomas" disabled> Idiomas</label>
-												<label><input type="checkbox" name="per7" value="Profesion" disabled> Profesion</label>
-												<label><input type="checkbox" name="per12" value="Formacion" disabled> Formacion</label>
-												<label><input type="checkbox" name="per13" value="Experiencia" disabled> Experiencia Laboral</label>
+												<label><input type="checkbox" name="per[]" value="name" disabled> Nombre</label>
+												<label><input type="checkbox" name="per[]" value="surname" disabled> Apellidos</label>
+												<label><input type="checkbox" name="per[]" value="addrName" disabled> Direccion</label>
+												<label><input type="checkbox" name="per[]" value="phone" disabled> Telefono Fijo</label>
+												<label><input type="checkbox" name="per[]" value="mobile" disabled> Telefono Movil</label>
+												<label><input type="checkbox" name="per[]" value="mail" disabled> Email</label>
+												<label><input type="checkbox" name="per[]" value="drivingType" disabled> Carnet Conducir</label>
+												<label><input type="checkbox" name="per[]" value="marital" disabled> Estado Civil</label>
+												<label><input type="checkbox" name="per[]" value="sons" disabled> Hijos Civil</label>
+												<label><input type="checkbox" name="per[]" value="language" disabled> Idiomas</label>
+												<label><input type="checkbox" name="per[]" value="occupation" disabled> Profesion</label>
+												<label><input type="checkbox" name="per[]" value="experDesc" disabled> Experiencia Laboral</label>
 											</div>
 										</div>
 									</div>

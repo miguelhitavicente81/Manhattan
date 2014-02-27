@@ -29,6 +29,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 
 <body>
 	<?php
+	
 	$output_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/";
 	if (!$_SESSION['loglogin']){
 		?>
@@ -213,11 +214,21 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 							}
 							$numero = date("YmdHis");
 							$enlace = connectDB();
-							
-							$consulta = "SELECT * FROM `cvitaes` where `nie` like '%$_POST[blankNIE]%' and `nationalities` like '%$_POST[blankNationality]%' and `sex` like '%$_POST[blankSex]%' and `drivingType` like '%$_POST[drivingtype]%' and `marital` like '%$_POST[civilStatus]%' and `sons` like '%$_POST[blankSons]%' and `language` like '%$_POST[blankLanguages]%' and `occupation` like '%$_POST[blankJob]%';";
+							if ($_POST[reportType] == "full_report"){
+							$reportType=full_report;
+							}
+							if($_POST[reportType] == "blind_report"){
+							$reportType=blind_report;
+							}
+							if($_POST[reportType] == "custom_report"){
+							$reportType=custom_report;
+							}
 							mkdir($output_dir, 0700);
-							
-							
+							if(strlen($_POST[blankWordKey])>0){
+							$criteria="where `nie` like '%$_POST[blankWordKey]%' or `nationalities` like '%$_POST[blankWordKey]%' or `sex` like '%$_POST[blankWordKey]%' or `drivingType` like '%$_POST[blankWordKey]%' or `marital` like '%$_POST[blankWordKey]%' or `sons` like '%$_POST[blankWordKey]%' or `language` like '%$_POST[blankWordKey]%' or `occupation` like '%$_POST[blankWordKey]%' or `city` like '%$_POST[blankWordKey]%' or `experDesc` like '%$_POST[blankWordKey]%' and cvStatus = 'checked';";}
+							else{
+							$criteria="where `nie` like '%$_POST[blankNIE]%' and `nationalities` like '%$_POST[blankNationality]%' and `sex` like '%$_POST[blankSex]%' and `drivingType` like '%$_POST[drivingtype]%' and `marital` like '%$_POST[civilStatus]%' and `sons` like '%$_POST[blankSons]%' and `language` like '%$_POST[blankLanguages]%' and `occupation` like '%$_POST[blankJob]%' and cvStatus = 'checked';";}						
+							$consulta = "SELECT * FROM `cvitaes` ".$criteria;
 							if ($resultado = mysqli_query($enlace, $consulta)) {
 
 								/* Obtener la informacin de campo de todas las columnas */
@@ -259,7 +270,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 											
 										echo "<tr>";
 										echo "	<td>".$fila[$valores_mostrar[0]]."</td>";
-										echo "	<td><a href=viewCV.php?id_b=".$fila['id']." target=_blank>".$fila[$valores_mostrar[1]]."</a></td>";
+										echo "	<td><a href=viewCV.php?id_b=".$fila['id']."&reportType=".$reportType." target=_blank>".$fila[$valores_mostrar[1]]."</a></td>";
 										echo "	<td>".$fila[$valores_mostrar[2]]."</td>";
 										echo "	<td>".$fila[$valores_mostrar[3]]."</td>";
 										echo "	<td>".$fila[$valores_mostrar[4]]."</td>";
@@ -291,7 +302,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 							echo "</form>";
 
 							#echo "<a href=downloadFile.php?doc=cvs$numero.zip>descargar</a>";
-
+							$_SESSION["custom"]= serialize($_POST[per]);
 							$_SESSION["id_o"] = serialize($id_o);
 							$_SESSION["id"] = serialize($id);
 							?>		

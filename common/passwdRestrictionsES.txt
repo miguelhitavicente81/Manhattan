@@ -1,7 +1,6 @@
 <div class="panel-heading">
 	Recuerde que la contraseña debe tener las siguientes características
 </div>
-</br>
 <ul>
 	<li>Tener entre 6 y 16 caracteres</li>
 	<li>Tener al menos una letra minúscula</li>
