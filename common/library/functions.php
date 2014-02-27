@@ -303,6 +303,44 @@ function blowfishCrypt($password, $rounds = 7){
 
 
 
+/* Checks whether a DNI (native) or NIE (abroad people with national document) is properly or not
+ * Entry (nie): String
+ * Exit (): Boolean
+ */
+function checkDNI_NIE($nie){
+	if(strlen($nie) != 9){
+		return false;      
+	}
+	//Possible values for end letter
+	$letterValues = array(0 => 'T', 1 => 'R', 2 => 'W', 3 => 'A', 4 => 'G', 5 => 'M', 6 => 'Y', 7 => 'F', 8 => 'P', 9 => 'D', 10 => 'X', 11 => 'B',
+	12 => 'N', 13 => 'J', 14 => 'Z', 15 => 'S', 16 => 'Q', 17 => 'V', 18 => 'H', 19 => 'L', 20 => 'C', 21 => 'K',22 => 'E');
+	
+	//Checks if matches with an original DNI
+	if(preg_match('/^[0-9]{8}[A-Z]$/i', $nie)){
+		//Checking letter match
+		if(strtoupper($nie[strlen($nie) - 1]) != $letterValues[((int) substr($nie, 0, strlen($nie) - 1)) % 23]){
+			return false;
+		}
+		else{
+			return true; 
+		}
+	}
+	//Checks if matches with an original NIE
+	elseif(preg_match('/^[XYZ][0-9]{7}[A-Z]$/i', $nie)){
+		//Checking letter match
+		if(strtoupper($nie[strlen($nie) - 1]) != $letterValues[((int) substr($nie, 1, strlen($nie) - 2)) % 23]){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+	//If function arrives here is because entry string is not valid
+	return false; 
+}
+
+
+
 //HAY UNA VERSION JAVASCRIPT DE ESTA FUNCION YA
 /* Checks whether a given password is strong enough (and properly written) when changed for a new one
  * Entry (keypass): 

@@ -68,9 +68,11 @@
 	<link rel="stylesheet" href="/resources/demos/style.css">
 	
 	<script>
-		$(function() {
-		$( "#datepicker" ).datepicker();
+		$(function(){
+			$( "#datepicker" ).datepicker();
 		});
+		
+		//Functions used to add/remove realtime Language fields 
 		var rowNum = 0;
 		function addRow1(frm){
 			rowNum ++;
@@ -83,19 +85,8 @@
 		function removeRow1(rnum){
 			jQuery('#rowNum'+rnum).remove();
 		}
-		
-		var rowNum = 0;
-		function addRow2(frm){
-			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="prof[]" value="'+frm.add_prof.value+'"> <input type="button" value="-" onclick="removeRow2('+rowNum+');"></p>';
-			jQuery('#itemRows2').append(row);
-			frm.add_prof.value = '';
-		}
-		
-		function removeRow2(rnum){
-			jQuery('#rowNum'+rnum).remove();
-		}
-		
+
+		//Functions used to add/remove realtime Education fields 
 		var rowNum = 0;
 		function addRow3(frm){
 			rowNum ++;
@@ -174,14 +165,14 @@
 			message += "El campo fecha no puede estar vacío.\n";
 			result = false;
 		}
-		if(form.elements["blanknie"].value == ""){
+		if(form.elements["blanknie"].value == "" || /^\s+$/.test(form.elements["blanknie"].value) ){
 			message += "El campo NIE no puede estar vacío.\n";
 			result = false;
 		}
 		//if(checkNIE(form.elements["blanknie"].value) == false){
 		if(!checkNIE(form.elements["blanknie"].value)){
 			//message += "El campo NIE no está debidamente escrito\n";
-			message += "El campo NIE debe incluir la letra en mayúscula.\n";
+			message += "Revise su NIE (debe incluir la letra en mayúscula)\n";
 			result = false;
 		}
 		if(form.elements["blanknationality"].value == ""){
@@ -196,33 +187,36 @@
 			message += "Debe seleccionar el tipo de dirección.\n";
 			result = false;
 		}
-		if(form.elements["blankaddrname"].value == ""){
+		if(form.elements["blankaddrname"].value == "" || /^\s+$/.test(form.elements["blankaddrname"].value) ){
 			message += "El campo Nombre de la Dirección no puede estar vacío.\n";
 			result = false;
 		}
-		if(form.elements["blankaddrpostalcode"].value == ""){
-			message += "El campo Código Postal no puede estar vacío.\n";
+		if(form.elements["blankaddrpostalcode"].value == "" || form.elements["blankaddrpostalcode"].value.length >= 5 || /^\s+$/.test(form.elements["blankaddrpostalcode"].value) ){
+			//message += "El campo Código Postal no puede estar vacío.\n";
+			message += "El campo Código Postal debe estar formado por 5 números.\n";
 			result = false;
 		}
-		if(form.elements["blankaddrcountry"].value == ""){
+		if(form.elements["blankaddrcountry"].value == "" || /^\s+$/.test(form.elements["blankaddrcountry"].value) ){
 			message += "El campo País no puede estar vacío.\n";
 			result = false;
 		}
-		if(form.elements["blankaddrprovince"].value == ""){
+		if(form.elements["blankaddrprovince"].value == "" || /^\s+$/.test(form.elements["blankaddrprovince"].value) ){
 			message += "El campo Provincia no puede estar vacío.\n";
 			result = false;
 		}
-		if(form.elements["blankaddrcity"].value == ""){
+		if(form.elements["blankaddrcity"].value == "" || /^\s+$/.test(form.elements["blankaddrcity"].value) ){
 			message += "El campo Población no puede estar vacío.\n";
 			result = false;
 		}
 		//var phonePattern = new RegExp("^[0-9]{9}$");
-		var phonePattern = new RegExp("^[1-9][0-9]{8}$");
+		//var phonePattern = new RegExp("^[1-9][0-9]{8}$");
+		var phonePattern = new RegExp("^[9][0-9]{8}$");
 		if(form.elements["blankphone"].value == "" || !phonePattern.test(form.elements["blankphone"].value)){
-			message += "El campo Teléfono debe estar formado por 9 dígitos.\n";
+			message += "El campo Teléfono debe estar formado por 9 dígitos, comenzando por 9.\n";
 			result = false;
 		}
-		var mobPattern = new RegExp("^[6-7][0-9]{8}$");
+		//var mobPattern = new RegExp("^[6-7][0-9]{8}$");
+		var mobPattern = new RegExp("^[6|7][0-9]{8}$");
 		if(form.elements["blankmobile"].value == "" || !mobPattern.test(form.elements["blankmobile"].value)){
 			message += "El campo Móvil debe estar formado por 9 dígitos, comenzando por 6 ó 7.\n";
 			result = false;
@@ -255,13 +249,7 @@
 <body>
 
 <?php
-<<<<<<< HEAD
-//require_once ('./es/library/functions.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
-
-=======
-require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
->>>>>>> upstream/development
 if(isset($_POST['senduser'])){
 
 	foreach ($_POST as $key => $entry){
@@ -308,7 +296,17 @@ if(isset($_POST['senduser'])){
 	       #print $key . ": " . $entry . "<br>";
 	     }
 	}
-	//if((isset($_POST['blankname'])) && (strlen($_POST['blankname']) > 0) && (isset($_POST['blanksurname'])) && (strlen($_POST['blanksurname'])) && )
+	
+	if((isset($_POST['blankname'])) && (strlen($_POST['blankname']) > 0) && (isset($_POST['blanksurname'])) && (strlen($_POST['blanksurname']) > 0) && ($_POST['blankbirthdate'] != '0000-00-00') &&
+	(checkDNI_NIE($_POST['blanknie'])) && (isset($_POST['blanknationality'])) && (strlen($_POST['blanknationality']) > 0) && (isset($_POST['blanksex'])) && (isset($_POST['blankaddrtype'])) &&
+	(isset($_POST['blankaddrname'])) && (isset($_POST['blankaddrpostalcode'])) && (strlen($_POST['blankaddrpostalcode']) < 6) && (isset($_POST['blankphone'])) && (strlen($_POST['blankphone']) == 9) &&
+	(preg_match('^[9][0-9]{8}$', $_POST['blankphone'])) && (isset($_POST['blankmobile'])) && (strlen($_POST['blankmobile']) == 9) && (preg_match('^[6|7][0-9]{8}$', $_POST['blankmobile'])) && 
+	(filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)) && (isset($_POST['blankmarital']))){
+		echo "Todo fue OK\n";
+	}
+	else{
+		echo "Todo fue MAL\n";
+	}
 	
 	/*
 	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
@@ -381,65 +379,29 @@ if(isset($_POST['senduser'])){
 ?>
 
 
-
-<h1>Formulario</h1>
-
-<!-- <form id="miForm" action="" method="get" onsubmit="return valida(this)"> -->
-<!-- <form id="formu" name="formu" action="" method="post" enctype="multipart/form-data" onsubmit="return valida(this)"> -->
-<!-- <form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data" onsubmit="return checkFormES(this)"> -->
-<form id="formu" name="formu" action="" method="post" enctype="multipart/form-data" onsubmit="return checkFormES(this)">
-
-<!-- 
-<p>
-Jugador 1: <input type="text" id="jugador1" />
-<br />
-Jugador 2: <input type="text" id="jugador2" />
-<br />
-Jugador 3: <input type="text" id="jugador3" />
-<br />
-<input type="submit" value="Enviar" />
-<input type="reset" value="Borrar" />
-</p>
--->
-
-
+<form id="formu" class="form-horizontal form-upload" name="formu" action="" method="post" enctype="multipart/form-data" onsubmit="return checkFormES(this)">
 
 	<table>
-		<!-- 
 		<tr>
-			<td>Jugador 1:</td>
-			<td><input type="text" id="jugador1" /></td>
-		</tr>
-		<tr>
-			<td>Jugador 2:</td>
-			<td><input type="text" id="jugador2" /></td>
-		</tr>
-		<tr>
-			<td>Jugador 3:</td>
-			<td><input type="text" id="jugador3" /></td>
-		</tr>
-		-->
-	
-		<tr>
-			<td>Nombre</td>
+			<td><label class='control-label'>Nombre</label></td>
 			<td><input type="text" name="blankname" size="30" maxlength="20" /></td>
 		</tr>
 		<tr>
-			<td>Apellidos</td>
+			<td><label class='control-label'>Apellidos</label></td>
 			<td><input type="text" name="blanksurname" size="30" maxlength="30" /></td>
 		</tr>
 		<tr>
-			<td>Fecha de Nacimiento</td>
+			<td><label class='control-label'>Fecha de Nacimiento</label></td>
 			<td><input type="date" name="blankbirthdate" /></td>
 		</tr>
 		<tr>
-			<td>NIE</td>
+			<td><label class='control-label'>DNI/NIE</label></td>
 			<td><input type="text" name="blanknie" size="30" maxlength="12" placeholder="Max. 12 caracteres"/></td>
 		</tr>
 		
 		<!-- <td><span class="form-sub-label-container"><select class="form-dropdown form-address-country" name="q13_direccion13[country]" id="input_13_country"> -->
 		<tr>
-			<td>Nacionalidad</td>
+			<td><label class='control-label'>Nacionalidad</label></td>
 			<td>
 			<select name="blanknationality">
 				<option value="" selected> Seleccione </option>
@@ -690,14 +652,14 @@ Jugador 3: <input type="text" id="jugador3" />
 			</td>
 		</tr>
 		<tr>
-			<td>Sexo</td>
+			<td><label class='control-label'>Sexo</label></td>
 			<td>
 				<input type="radio" name="blanksex" value="0">Hombre
 				<input type="radio" name="blanksex" value="1">Mujer
 			</td>
 		</tr>
 		<tr>
-			<td>Dirección</td>
+			<td><label class='control-label'>Dirección</label></td>
 			<td>
 				<select name="blankaddrtype">
 					<option value="" selected>-- Tipo --</option>
@@ -741,22 +703,20 @@ Jugador 3: <input type="text" id="jugador3" />
 			</td>
 		</tr>
 		<tr>
-			<td>Teléfono Fijo</td>
+			<td><label class='control-label'>Teléfono Fijo</label></td>
 			<td><input type="text" name="blankphone" size="30" maxlength="9" /></td>
-			<!-- <td><input type="tel" name="blankphone" size="30"/></td> -->
 		</tr>
 		<tr>
-			<td>Teléfono Móvil</td>
+			<td><label class='control-label'>Teléfono Móvil</label></td>
 			<td><input type="text" name="blankmobile" size="30" maxlength="12" /></td>
-			<!-- <td><input type="tel" name="blankmobile" size="30"/></td> -->
 		</tr>
 		<tr>
-			<td>Correo Electrónico</td>
-			<td><input type="email" name="blankmail" size="30" 	placeholder="correo@ejemplo.com" /></td>
+			<td><label class='control-label'>Correo Electrónico</label></td>
+			<td><input type="email" name="blankmail" size="30"	placeholder="correo@ejemplo.com" /></td>
 		</tr>
 		
 		<tr>
-			<td>Carné de Conducir</td>
+			<td><label class='control-label'>Carnet de Conducir</label></td>
 			<td>
 			<select name="blankdrivingtype">
 				<option value=""> Tipo </option>
@@ -776,19 +736,8 @@ Jugador 3: <input type="text" id="jugador3" />
 			</td>
 		</tr>
 		
-		<!-- 
 		<tr>
-			<td>Carnet de Conducir</td>
-			<td><input type="text" id="datepicker" name="blankdrivingdate"></td>
-		</tr>
-		-->
-
- <!--
-<p>Date: <input type="text" id="datepicker"></p>
--->
-		
-		<tr>
-			<td>Estado Civil</td>
+			<td><label class='control-label'>Estado Civil</label></td>
 			<td>
 			<select name="blankmarital">
 				<option selected value="">-- Estado --</option>
@@ -801,19 +750,19 @@ Jugador 3: <input type="text" id="jugador3" />
 			</td>
 		</tr>
 		<tr>
-			<td>Hijos</td>
+			<td><label class='control-label'>Hijos</label></td>
 			<td><input type="number" name="blanksons" maxlength="2" min="0"></td>
 		</tr>
 		
 		<!-- AQUI TENGO QUE CARGAR DINAMICAMENTE LAS FOTOS -->
 		<tr>
-			<td>Foto</td>
+			<td><label class='control-label'>Foto</label></td>
 			<td><input type="number" name="blankphoto" maxlength="2"></td>
 		</tr>
 		
 		
 		<tr>
-			<td>Documentos adicionales</td>
+			<td><label class='control-label'>Documentos Adicionales</label></td>
 			<!-- <td id="adjuntos"><input type="file" name="archivos[]" /> ORIGINAL -->
 			<td id="adjuntos"><input type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif" file-maxsize="1024" />
 			<!-- <a href="#" onClick="addCampo()">Subir otro archivo</a> -->
@@ -823,44 +772,36 @@ Jugador 3: <input type="text" id="jugador3" />
 		</tr>
 		
 		<tr>
-			<td>Nivel de Idiomas</td>
+			<td><label class='control-label'>Nivel de Idiomas</label></td>
 			<td>
-			<div id="itemRows">
-			<select name="add_idiomas">
-				<option selected value="">-- Idioma --</option>
-				<option value="german">Alemán</option>
-				<option value="english">Inglés</option>
-				<option value="spanish">Español</option>
-				<option value="french">Francés</option>
-				<option value="portuguese">Portugués</option>
-				<option value="italian">Italiano</option>
-				<option value="greek">Griego</option>
-				<option value="ruse">Ruso</option>
-				<option value="chinese">Chino</option>
-				<option value="japanese">Japonés</option>
-			</select>
-			<select name="add_nidiomas">
-				<option selected value="null">Sin conocimientos</option>
-				<option value="basic">Básico hablado y escrito</option>
-				<option value="medium">Medio hablado y escrito</option>
-				<option value="high">Alto hablado y escrito</option>
-				<option value="bilingual">Bilingüe</option>
-			</select>
-	
-	<input onclick="addRow1(this.form);" type="button" value="+" />
-</div>
+				<div id="itemRows">
+					<select name="add_idiomas">
+						<option selected value="">-- Idioma --</option>
+						<option value="german">Alemán</option>
+						<option value="english">Inglés</option>
+						<option value="spanish">Español</option>
+						<option value="french">Francés</option>
+						<option value="portuguese">Portugués</option>
+						<option value="italian">Italiano</option>
+						<option value="greek">Griego</option>
+						<option value="ruse">Ruso</option>
+						<option value="chinese">Chino</option>
+						<option value="japanese">Japonés</option>
+					</select>
+					<select name="add_nidiomas">
+						<option selected value="null">Sin conocimientos</option>
+						<option value="basic">Básico hablado y escrito</option>
+						<option value="medium">Medio hablado y escrito</option>
+						<option value="high">Alto hablado y escrito</option>
+						<option value="bilingual">Bilingüe</option>
+					</select>
+					<input onclick="addRow1(this.form);" type="button" value="+" />
+				</div>
 			</td>
 		</tr>
 		
 		<tr>
-			<td>Profesión</td>
-			
-			<td><div id="itemRows2"><input type="text" name="add_prof" size="50" placeholder="Profesión actual" /><input onclick="addRow2(this.form);" type="button" value="+" /></td>
-		</tr>
-		</div>
-		
-		<tr>
-			<td>Formación</td>
+			<td><label class='control-label'>Educación</label></td>
 			<td>
 			<div id="itemRows3">
 			<select name="add_nfor">
@@ -875,7 +816,8 @@ Jugador 3: <input type="text" id="jugador3" />
 		</tr>
 		
 		<tr>
-			<td>Experiencia Laboral</td>
+			<!-- <td><label class='control-label'>Experiencia Laboral</label></td> -->
+			<td><label class='control-label'>Qué has hecho estos últimos años...</label></td>
 			<td>
 			<div id="itemRows4">
 			<input type="text" name="add_empr" size="30" placeholder="Empresa" />
@@ -892,12 +834,12 @@ Jugador 3: <input type="text" id="jugador3" />
 		</tr>
 		
 		<tr>
-			<td>Otros Detalles de Interés</td>
+			<td><label class='control-label'>Otros Detalles de Interés</label></td>
 			<td><textarea name="blankother" rows="5" cols="40">...</textarea></td>
 		</tr>
 		
 		<tr>
-			<td>Las 10 palabras que mejor me definen son...</td>
+			<td><label class='control-label'>Las 10 palabras que mejor me definen son...</label></td>
 			<td>
 			<input type="text" name="blankskill1" size="30" /><br>
 			<input type="text" name="blankskill2" size="30" /><br>
@@ -911,26 +853,12 @@ Jugador 3: <input type="text" id="jugador3" />
 			<input type="text" name="blankskill10" size="30" />
 			</td>
 		</tr>
-		
-		
-		
-		
 	</table>
 
 	<input type="checkbox" name="blanklopd" /> He leído y acepto las condiciones de uso y política de privacidad<br>
 	<input type="submit" name="senduser" value="Enviar solicitud">
 	<input type="reset" value="Borrar formulario" />
 
-<!-- 
-<input type="submit" value="Enviar" />
-<input type="reset" value="Borrar" />
--->
-
 </form>
 </body>
 </html>
-
-
-
-
-
