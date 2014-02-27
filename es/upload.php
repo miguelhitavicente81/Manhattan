@@ -255,7 +255,9 @@
 <body>
 
 <?php
-require_once ('./es/library/functions.php');
+//require_once ('./es/library/functions.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
+
 if(isset($_POST['senduser'])){
 
 	foreach ($_POST as $key => $entry){
@@ -302,6 +304,8 @@ if(isset($_POST['senduser'])){
 	       #print $key . ": " . $entry . "<br>";
 	     }
 	}
+	//if((isset($_POST['blankname'])) && (strlen($_POST['blankname']) > 0) && (isset($_POST['blanksurname'])) && (strlen($_POST['blanksurname'])) && )
+	
 	/*
 	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
