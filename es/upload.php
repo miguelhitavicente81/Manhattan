@@ -1,6 +1,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Validación un formulario</title>
 	<script type="text/javascript">
 	
 		//Esta es una variable de control para mantener nombres diferentes de cada campo creado dinamicamente. 
@@ -61,7 +62,6 @@
 		}
 	</script>
 	
-	
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -83,7 +83,7 @@
 		function removeRow1(rnum){
 			jQuery('#rowNum'+rnum).remove();
 		}
-
+		
 		var rowNum = 0;
 		function addRow2(frm){
 			rowNum ++;
@@ -122,14 +122,140 @@
 		function removeRow4(rnum){
 			jQuery('#rowNum'+rnum).remove();
 		}
-  </script>
+	</script>
+	
+	<script type="text/javascript">
+		function checkNIE(dni){
+			var numero;
+			var let;
+			var letra;
+			var expresion_regular_dni;
+			
+			expresion_regular_dni = /^\d{8}[a-zA-Z]$/;
+	
+			if(expresion_regular_dni.test (dni) == true){
+				numero = dni.substr(0,dni.length-1);
+				let = dni.substr(dni.length-1,1);
+				numero = numero % 23;
+				letra='TRWAGMYFPDXBNJZSQVHLCKET';
+				letra=letra.substring(numero,numero+1);
+				if(letra!=let){
+					//alert('Dni erroneo, la letra del NIF no se corresponde');
+					return false;
+				}
+				else{
+					//alert('Dni correcto');
+					return true;
+				}
+			}
+			else{
+				//alert('Dni erroneo, formato no válido');
+				return false;
+			}
+		}
+	</script>
+	
+	
+	<script type="text/javascript">
+	function checkFormES(form){
+		var result = true;
+		var message = "Por favor revise lo siguiente:\n";
+		
+		//if(form.elements["blankname"].value == ""){
+		if(form.elements["blankname"].value == null || form.elements["blankname"].value.length == 0 || /^\s+$/.test(form.elements["blankname"].value) ){
+			message += "El campo nombre no puede estar vacío.\n";
+			result = false;
+		}
+		if(form.elements["blanksurname"].value == null || form.elements["blanksurname"].value.length == 0 || /^\s+$/.test(form.elements["blanksurname"].value) ){
+			message += "El campo apellido no puede estar vacío.\n";
+			result = false;
+		}
+		if(form.elements["blankbirthdate"].value == ""){
+			message += "El campo fecha no puede estar vacío.\n";
+			result = false;
+		}
+		if(form.elements["blanknie"].value == ""){
+			message += "El campo NIE no puede estar vacío.\n";
+			result = false;
+		}
+		//if(checkNIE(form.elements["blanknie"].value) == false){
+		if(!checkNIE(form.elements["blanknie"].value)){
+			//message += "El campo NIE no está debidamente escrito\n";
+			message += "El campo NIE debe incluir la letra en mayúscula.\n";
+			result = false;
+		}
+		if(form.elements["blanknationality"].value == ""){
+			message += "El campo Nacionalidad no puede estar vacío.\n";
+			result = false;
+		}
+		if(form.elements["blanksex"].value == ""){
+			message += "Debe seleccionar el Sexo.\n";
+			result = false;
+		}
+		if(form.elements["blankaddrtype"].value == ""){
+			message += "Debe seleccionar el tipo de dirección.\n";
+			result = false;
+		}
+		if(form.elements["blankaddrname"].value == ""){
+			message += "El campo Nombre de la Dirección no puede estar vacío.\n";
+			result = false;
+		}
+		if(form.elements["blankaddrpostalcode"].value == ""){
+			message += "El campo Código Postal no puede estar vacío.\n";
+			result = false;
+		}
+		if(form.elements["blankaddrcountry"].value == ""){
+			message += "El campo País no puede estar vacío.\n";
+			result = false;
+		}
+		if(form.elements["blankaddrprovince"].value == ""){
+			message += "El campo Provincia no puede estar vacío.\n";
+			result = false;
+		}
+		if(form.elements["blankaddrcity"].value == ""){
+			message += "El campo Población no puede estar vacío.\n";
+			result = false;
+		}
+		//var phonePattern = new RegExp("^[0-9]{9}$");
+		var phonePattern = new RegExp("^[1-9][0-9]{8}$");
+		if(form.elements["blankphone"].value == "" || !phonePattern.test(form.elements["blankphone"].value)){
+			message += "El campo Teléfono debe estar formado por 9 dígitos.\n";
+			result = false;
+		}
+		var mobPattern = new RegExp("^[6-7][0-9]{8}$");
+		if(form.elements["blankmobile"].value == "" || !mobPattern.test(form.elements["blankmobile"].value)){
+			message += "El campo Móvil debe estar formado por 9 dígitos, comenzando por 6 ó 7.\n";
+			result = false;
+		}
+		//var mailPattern = new RegExp(?:[a-z0-9!#$%&'*+/=?^_{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]);
+		var mailPattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if(form.elements["blankmail"].value == "" || !mailPattern.test(form.elements["blankmail"].value)){
+			message += "El campo Mail no es válido o esta vacío.\n";
+			result = false;
+		}
+		if(form.elements["blankmarital"].value == ""){
+			message += "Debe seleccionar su Estado civil.\n";
+			result = false;
+		}
+		//<input type="checkbox" name="blanklopd" /> He leído y acepto las condiciones de uso y política de privacidad<br>
+		//if(!this.form.blanklopd.checked){
+		if(!document.formu.blanklopd.checked){
+			message += "Debe aceptar las condiciones de uso y privacidad para continuar.\n";
+			result = false;
+		}
+		if(result == false){
+			alert(message);
+		}
+		return message;
+	}
+	</script>
 	
 </head>
 
 <body>
 
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
+require_once ('./es/library/functions.php');
 if(isset($_POST['senduser'])){
 
 	foreach ($_POST as $key => $entry){
@@ -176,36 +302,7 @@ if(isset($_POST['senduser'])){
 	       #print $key . ": " . $entry . "<br>";
 	     }
 	}
-//echo "---> $str_empr $str_categ $str_dur $str_nfor $str_forma $str_idiomas  $str_nidiomas  $str_prof ";
-//exit();
 	/*
-	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-	`postalCode`, `country`, `province`, `city`, `phone`, `mobile`, `mail`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, `cvDate`) VALUES 
-	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
-	'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
-	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', '".$str_idiomas."', '".$str_nidiomas."',
-	'".$str_prof."', '".$str_nfor."', '".$str_forma."', CURRENT_TIMESTAMP)");
-	*/
-	/* CHUTA
-	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-	`postalCode`, `country`, `province`, `city`, `phone`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, `experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `cvDate`) VALUES 
-	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
-	'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
-	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
-	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', CURRENT_TIMESTAMP)");
-	*/
-	/* NO CHUTA
-	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
-	`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`) VALUES 
-	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
-	'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
-	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
-	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', CURRENT_TIMESTAMP)");
-	*/
 	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
 	`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
@@ -216,7 +313,7 @@ if(isset($_POST['senduser'])){
 	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
 	'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
 	'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')");
-		
+	*/
 	
 	
 	//Preguntamos si nuetro arreglo 'archivos' fue definido
@@ -274,10 +371,47 @@ if(isset($_POST['senduser'])){
 
 /***************  Aquí comienza el bloque que permite mostrar el formulario  ***************/
 ?>
+
+
+
 <h1>Formulario</h1>
-<!-- <form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data" onsubmit="checkForm()"> -->
-<form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data">
+
+<!-- <form id="miForm" action="" method="get" onsubmit="return valida(this)"> -->
+<!-- <form id="formu" name="formu" action="" method="post" enctype="multipart/form-data" onsubmit="return valida(this)"> -->
+<!-- <form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data" onsubmit="return checkFormES(this)"> -->
+<form id="formu" name="formu" action="" method="post" enctype="multipart/form-data" onsubmit="return checkFormES(this)">
+
+<!-- 
+<p>
+Jugador 1: <input type="text" id="jugador1" />
+<br />
+Jugador 2: <input type="text" id="jugador2" />
+<br />
+Jugador 3: <input type="text" id="jugador3" />
+<br />
+<input type="submit" value="Enviar" />
+<input type="reset" value="Borrar" />
+</p>
+-->
+
+
+
 	<table>
+		<!-- 
+		<tr>
+			<td>Jugador 1:</td>
+			<td><input type="text" id="jugador1" /></td>
+		</tr>
+		<tr>
+			<td>Jugador 2:</td>
+			<td><input type="text" id="jugador2" /></td>
+		</tr>
+		<tr>
+			<td>Jugador 3:</td>
+			<td><input type="text" id="jugador3" /></td>
+		</tr>
+		-->
+	
 		<tr>
 			<td>Nombre</td>
 			<td><input type="text" name="blankname" size="30" maxlength="20" /></td>
@@ -774,10 +908,21 @@ if(isset($_POST['senduser'])){
 		
 		
 	</table>
+
 	<input type="checkbox" name="blanklopd" /> He leído y acepto las condiciones de uso y política de privacidad<br>
 	<input type="submit" name="senduser" value="Enviar solicitud">
+	<input type="reset" value="Borrar formulario" />
+
+<!-- 
+<input type="submit" value="Enviar" />
+<input type="reset" value="Borrar" />
+-->
+
 </form>
-
 </body>
-
 </html>
+
+
+
+
+

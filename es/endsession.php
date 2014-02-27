@@ -75,7 +75,7 @@
 	<script type="text/javascript">
 		$(document).ready(function(){
 			// Close the alert after 2 seconds.
-			window.setTimeout(function() { $(".alert").alert('close'); }, 2000);
+			window.setTimeout(function() { $(".alert").alert('close'); }, 3000);
 			$(".alert").bind('closed.bs.alert', function(){
 				window.location.href='index.html';
 			});
