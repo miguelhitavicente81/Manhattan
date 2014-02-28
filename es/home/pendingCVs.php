@@ -198,7 +198,7 @@
 
 					<?php 
 
-						if((getDBrowsnumber('cVitaes') == 0) || (count($cvIDs = getDBcolumnvalue('id', 'cVitaes', 'cvStatus', 'pending')) == 0)){
+						if((getDBrowsnumber('cVitaes') == 0) || $pendingCVs == 0)){
 						echo 'No hay CVs por clasificar';
 					}
 					else{
