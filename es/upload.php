@@ -68,13 +68,16 @@
 	<link rel="stylesheet" href="/resources/demos/style.css">
 	
 	<script>
-		$(function() {
-		$( "#datepicker" ).datepicker();
+		$(function(){
+			$( "#datepicker" ).datepicker();
 		});
+		
+		//Functions used to add/remove realtime Language fields 
 		var rowNum = 0;
 		function addRow1(frm){
 			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="-" onclick="removeRow1('+rowNum+');"></p>';
+			//var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="-" onclick="removeRow1('+rowNum+');"></p>';
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="Eliminar" onclick="removeRow1('+rowNum+');"></p>';
 			jQuery('#itemRows').append(row);
 			frm.add_idiomas.value = '';
 			frm.add_nidiomas.value = '';
@@ -84,24 +87,14 @@
 			jQuery('#rowNum'+rnum).remove();
 		}
 		
-		var rowNum = 0;
-		function addRow2(frm){
-			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="prof[]" value="'+frm.add_prof.value+'"> <input type="button" value="-" onclick="removeRow2('+rowNum+');"></p>';
-			jQuery('#itemRows2').append(row);
-			frm.add_prof.value = '';
-		}
-		
-		function removeRow2(rnum){
-			jQuery('#rowNum'+rnum).remove();
-		}
-		
+		//Functions used to add/remove realtime Education fields 
 		var rowNum = 0;
 		function addRow3(frm){
 			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nfor[]" size="4" value="'+frm.add_nfor.value+'"><input type="text" name="forma[]" value="'+frm.add_for.value+'"> <input type="button" value="-" onclick="removeRow3('+rowNum+');"></p>';
+			//var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nfor[]" size="4" value="'+frm.add_nfor.value+'"><input type="text" name="forma[]" value="'+frm.add_for.value+'"> <input type="button" value="Eliminar" onclick="removeRow3('+rowNum+');"></p>';
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nfor[]" size="30" value="'+frm.add_nfor.value+'"><input type="button" value="Eliminar" onclick="removeRow3('+rowNum+');"></p>';
 			jQuery('#itemRows3').append(row);
-			frm.add_for.value = '';
+			//frm.add_for.value = '';
 			frm.add_nfor.value = '';
 		}
 		
@@ -111,7 +104,7 @@
 		
 		function addRow4(frm){
 			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="dur[]" value="'+frm.add_dur.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="-" onclick="removeRow4('+rowNum+');"></p>';
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="dur[]" value="'+frm.add_dur.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="Eliminar" onclick="removeRow4('+rowNum+');"></p>';
 			jQuery('#itemRows4').append(row);
 			frm.add_empr.value = '';
 			frm.add_categ.value = '';
@@ -174,14 +167,14 @@
 			message += "El campo fecha no puede estar vacío.\n";
 			result = false;
 		}
-		if(form.elements["blanknie"].value == ""){
+		if(form.elements["blanknie"].value == "" || /^\s+$/.test(form.elements["blanknie"].value) ){
 			message += "El campo NIE no puede estar vacío.\n";
 			result = false;
 		}
 		//if(checkNIE(form.elements["blanknie"].value) == false){
 		if(!checkNIE(form.elements["blanknie"].value)){
 			//message += "El campo NIE no está debidamente escrito\n";
-			message += "El campo NIE debe incluir la letra en mayúscula.\n";
+			message += "Revise su NIE (debe incluir la letra en mayúscula)\n";
 			result = false;
 		}
 		if(form.elements["blanknationality"].value == ""){
@@ -196,33 +189,36 @@
 			message += "Debe seleccionar el tipo de dirección.\n";
 			result = false;
 		}
-		if(form.elements["blankaddrname"].value == ""){
+		if(form.elements["blankaddrname"].value == "" || /^\s+$/.test(form.elements["blankaddrname"].value) ){
 			message += "El campo Nombre de la Dirección no puede estar vacío.\n";
 			result = false;
 		}
-		if(form.elements["blankaddrpostalcode"].value == ""){
-			message += "El campo Código Postal no puede estar vacío.\n";
+		if(form.elements["blankaddrpostalcode"].value == "" || form.elements["blankaddrpostalcode"].value.length >= 5 || /^\s+$/.test(form.elements["blankaddrpostalcode"].value) ){
+			//message += "El campo Código Postal no puede estar vacío.\n";
+			message += "El campo Código Postal debe estar formado por 5 números.\n";
 			result = false;
 		}
-		if(form.elements["blankaddrcountry"].value == ""){
+		if(form.elements["blankaddrcountry"].value == "" || /^\s+$/.test(form.elements["blankaddrcountry"].value) ){
 			message += "El campo País no puede estar vacío.\n";
 			result = false;
 		}
-		if(form.elements["blankaddrprovince"].value == ""){
+		if(form.elements["blankaddrprovince"].value == "" || /^\s+$/.test(form.elements["blankaddrprovince"].value) ){
 			message += "El campo Provincia no puede estar vacío.\n";
 			result = false;
 		}
-		if(form.elements["blankaddrcity"].value == ""){
+		if(form.elements["blankaddrcity"].value == "" || /^\s+$/.test(form.elements["blankaddrcity"].value) ){
 			message += "El campo Población no puede estar vacío.\n";
 			result = false;
 		}
 		//var phonePattern = new RegExp("^[0-9]{9}$");
-		var phonePattern = new RegExp("^[1-9][0-9]{8}$");
+		//var phonePattern = new RegExp("^[1-9][0-9]{8}$");
+		var phonePattern = new RegExp("^[9][0-9]{8}$");
 		if(form.elements["blankphone"].value == "" || !phonePattern.test(form.elements["blankphone"].value)){
-			message += "El campo Teléfono debe estar formado por 9 dígitos.\n";
+			message += "El campo Teléfono debe estar formado por 9 dígitos, comenzando por 9.\n";
 			result = false;
 		}
-		var mobPattern = new RegExp("^[6-7][0-9]{8}$");
+		//var mobPattern = new RegExp("^[6-7][0-9]{8}$");
+		var mobPattern = new RegExp("^[6|7][0-9]{8}$");
 		if(form.elements["blankmobile"].value == "" || !mobPattern.test(form.elements["blankmobile"].value)){
 			message += "El campo Móvil debe estar formado por 9 dígitos, comenzando por 6 ó 7.\n";
 			result = false;
@@ -302,6 +298,18 @@ if(isset($_POST['senduser'])){
 	       #print $key . ": " . $entry . "<br>";
 	     }
 	}
+	
+	if((isset($_POST['blankname'])) && (strlen($_POST['blankname']) > 0) && (isset($_POST['blanksurname'])) && (strlen($_POST['blanksurname']) > 0) && ($_POST['blankbirthdate'] != '0000-00-00') &&
+	(checkDNI_NIE($_POST['blanknie'])) && (isset($_POST['blanknationality'])) && (strlen($_POST['blanknationality']) > 0) && (isset($_POST['blanksex'])) && (isset($_POST['blankaddrtype'])) &&
+	(isset($_POST['blankaddrname'])) && (isset($_POST['blankaddrpostalcode'])) && (strlen($_POST['blankaddrpostalcode']) < 6) && (isset($_POST['blankphone'])) && (strlen($_POST['blankphone']) == 9) &&
+	(preg_match('^[9][0-9]{8}$', $_POST['blankphone'])) && (isset($_POST['blankmobile'])) && (strlen($_POST['blankmobile']) == 9) && (preg_match('^[6|7][0-9]{8}$', $_POST['blankmobile'])) && 
+	(filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)) && (isset($_POST['blankmarital']))){
+		echo "Todo fue OK\n";
+	}
+	else{
+		echo "Todo fue MAL\n";
+	}
+	
 	/*
 	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
@@ -372,44 +380,9 @@ if(isset($_POST['senduser'])){
 /***************  Aquí comienza el bloque que permite mostrar el formulario  ***************/
 ?>
 
-
-
-<!-- <form id="miForm" action="" method="get" onsubmit="return valida(this)"> -->
-<!-- <form id="formu" name="formu" action="" method="post" enctype="multipart/form-data" onsubmit="return valida(this)"> -->
-<!-- <form name="formu" id="formu" action="upload.php" method="post" enctype="multipart/form-data" onsubmit="return checkFormES(this)"> -->
 <form id="formu" class="form-horizontal form-upload" name="formu" action="" method="post" enctype="multipart/form-data" onsubmit="return checkFormES(this)">
 
-<!-- 
-<p>
-Jugador 1: <input type="text" id="jugador1" />
-<br />
-Jugador 2: <input type="text" id="jugador2" />
-<br />
-Jugador 3: <input type="text" id="jugador3" />
-<br />
-<input type="submit" value="Enviar" />
-<input type="reset" value="Borrar" />
-</p>
--->
-
-
-
 	<table>
-		<!-- 
-		<tr>
-			<td>Jugador 1:</td>
-			<td><input type="text" id="jugador1" /></td>
-		</tr>
-		<tr>
-			<td>Jugador 2:</td>
-			<td><input type="text" id="jugador2" /></td>
-		</tr>
-		<tr>
-			<td>Jugador 3:</td>
-			<td><input type="text" id="jugador3" /></td>
-		</tr>
-		-->
-	
 		<tr>
 			<td><label class='control-label'>Nombre</label></td>
 			<td><input type="text" name="blankname" size="30" maxlength="20" /></td>
@@ -423,7 +396,7 @@ Jugador 3: <input type="text" id="jugador3" />
 			<td><input type="date" name="blankbirthdate" /></td>
 		</tr>
 		<tr>
-			<td><label class='control-label'>NIE</label></td>
+			<td><label class='control-label'>DNI/NIE</label></td>
 			<td><input type="text" name="blanknie" size="30" maxlength="12" placeholder="Max. 12 caracteres"/></td>
 		</tr>
 		
@@ -733,12 +706,10 @@ Jugador 3: <input type="text" id="jugador3" />
 		<tr>
 			<td><label class='control-label'>Teléfono Fijo</label></td>
 			<td><input type="text" name="blankphone" size="30" maxlength="9" /></td>
-			<!-- <td><input type="tel" name="blankphone" size="30"/></td> -->
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Móvil</label></td>
 			<td><input type="text" name="blankmobile" size="30" maxlength="12" /></td>
-			<!-- <td><input type="tel" name="blankmobile" size="30"/></td> -->
 		</tr>
 		<tr>
 			<td><label class='control-label'>Correo Electrónico</label></td>
@@ -766,17 +737,6 @@ Jugador 3: <input type="text" id="jugador3" />
 			</td>
 		</tr>
 		
-		<!-- 
-		<tr>
-			<td>Carnet de Conducir</td>
-			<td><input type="text" id="datepicker" name="blankdrivingdate"></td>
-		</tr>
-		-->
-
- <!--
-<p>Date: <input type="text" id="datepicker"></p>
--->
-		
 		<tr>
 			<td><label class='control-label'>Estado Civil</label></td>
 			<td>
@@ -801,56 +761,75 @@ Jugador 3: <input type="text" id="jugador3" />
 			<td><input type="number" name="blankphoto" maxlength="2"></td>
 		</tr>
 		
-		
 		<tr>
 			<td><label class='control-label'>Documentos adicionales</label></td>
-			<!-- <td id="adjuntos"><input type="file" name="archivos[]" /> ORIGINAL -->
 			<td id="adjuntos"><input type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif" file-maxsize="1024" />
-			<!-- <a href="#" onClick="addCampo()">Subir otro archivo</a> -->
 			<input onclick="addCampo();" type="button" value="+" />
-			
 			</td>
 		</tr>
 		
 		<tr>
 			<td><label class='control-label'>Nivel de idiomas</label></td>
 			<td>
-			<div id="itemRows">
-			<select name="add_idiomas">
-				<option selected value="">-- Idioma --</option>
-				<option value="german">Alemán</option>
-				<option value="english">Inglés</option>
-				<option value="spanish">Español</option>
-				<option value="french">Francés</option>
-				<option value="portuguese">Portugués</option>
-				<option value="italian">Italiano</option>
-				<option value="greek">Griego</option>
-				<option value="ruse">Ruso</option>
-				<option value="chinese">Chino</option>
-				<option value="japanese">Japonés</option>
-			</select>
-			<select name="add_nidiomas">
-				<option selected value="null">Sin conocimientos</option>
-				<option value="basic">Básico hablado y escrito</option>
-				<option value="medium">Medio hablado y escrito</option>
-				<option value="high">Alto hablado y escrito</option>
-				<option value="bilingual">Bilingüe</option>
-			</select>
-	
-	<input onclick="addRow1(this.form);" type="button" value="+" />
-</div>
+				<div id="itemRows">
+					<select name="add_idiomas">
+						<option selected value="">-- Idioma --</option>
+						<option value="german">Alemán</option>
+						<option value="english">Inglés</option>
+						<option value="spanish">Español</option>
+						<option value="french">Francés</option>
+						<option value="portuguese">Portugués</option>
+						<option value="italian">Italiano</option>
+						<option value="greek">Griego</option>
+						<option value="ruse">Ruso</option>
+						<option value="chinese">Chino</option>
+						<option value="japanese">Japonés</option>
+					</select>
+					<select name="add_nidiomas">
+						<option selected value="null">Sin conocimientos</option>
+						<option value="basic">Básico hablado y escrito</option>
+						<option value="medium">Medio hablado y escrito</option>
+						<option value="high">Alto hablado y escrito</option>
+						<option value="bilingual">Bilingüe</option>
+					</select>
+					<input onclick="addRow1(this.form);" type="button" value="Pulse para incluir" />
+				</div>
 			</td>
 		</tr>
 		
 		<tr>
-
-			<td><div class="tooltip-demo"><label class='control-label'>Profesión</label> <span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Si su profesión no aparece incluída en el listado, póngase en contacto con nosotros a través de pa@pa.com o llamando al 902 202 122"></span></div></td>
-			<td><div id="itemRows2"><input type="text" name="add_prof" size="50" placeholder="Profesión actual" /><input onclick="addRow2(this.form);" type="button" value="+" /></td>
+			<td>
+				<div class="tooltip-demo">
+					<label class='control-label'>Educación</label>
+					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Si su título no aparece incluído en el listado, póngase en contacto con nosotros a través de pa@pa.com o llamando al 902 202 122"></span>
+				</div>
+			</td>
+			<td>
+				<div id="itemRows3">
+					<select name="add_nfor">
+						<option selected value="">-- Elija Estudios --</option>
+						<?php 
+						/*
+						$eduKeys = getDBcompletecolumnID('key', 'studies', 'id');
+						foreach($eduKeys as $i){
+							echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
+						}
+						*/
+						$eduNames = getDBcompleteColumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'studies', 'id');
+						foreach($eduNames as $i){
+							//echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
+							echo "<option value=" . $i . ">" . $i . "</option>";
+						}
+						?>
+					</select>
+					<input onclick="addRow3(this.form);" type="button" value="Pulse para incluir" />
+				</div>
+			</td>
 		</tr>
-		</div>
-		
+		<!-- </div> -->
+		<!-- 
 		<tr>
-			<td><label class='control-label'>Formación</label></td>
+			<td><label class='control-label'>Educación</label></td>
 			<td>
 			<div id="itemRows3">
 			<select name="add_nfor">
@@ -861,29 +840,29 @@ Jugador 3: <input type="text" id="jugador3" />
 				<option value="bfa">Diplomatura</option>
 				<option value="bachelor">Licenciatura</option>
 			</select>
-			<input type="text" name="add_for" placeholder="Formacion" /><input onclick="addRow3(this.form);" type="button" value="+" /></td></div>
+			<input type="text" name="add_for" placeholder="Formacion" /><input onclick="addRow3(this.form);" type="button" value="Pulse para incluir" /></td></div>
 		</tr>
-		
+		-->
 		<tr>
-			<td><label class='control-label'>Experiencia Laboral</label></td>
+			<td><label class='control-label'>Qué has hecho estos últimos años...</label></td>
 			<td>
 			<div id="itemRows4">
 			<input type="text" name="add_empr" size="30" placeholder="Empresa" />
-			<select name="add_categ">
-				<option value="intern">Becario</option>
-				<option value="employee">Empleado</option>
-				<option value="middle">Mando intermedio</option>
-				<option value="director">Director</option>
-			</select>
+			<input type="text" name="add_categ" size="30" placeholder="Posición" />
 			<input type="text" name="add_dur" size="10" placeholder="Duración" />
-			<textarea name="add_desc" rows="5" cols="40">Descripción</textarea>
-			<input onclick="addRow4(this.form);" type="button" value="+" /></td></div>
+			<textarea name="add_desc" rows="5" cols="40" placeholder="Incluya una descripción de su experiencia en este puesto..."></textarea>
+			<input onclick="addRow4(this.form);" type="button" value="Pulse para incluir" /></td></div>
 			</td>
 		</tr>
 		
 		<tr>
+			<td><label class='control-label'>Salario deseado</label></td>
+			<td><input type="text" name="blanksalary" size="10" placeholder="$" /><br></td>
+		</tr>
+		
+		<tr>
 			<td><label class='control-label'>Otros datos de interés</label></td>
-			<td><textarea name="blankother" rows="5" cols="40">...</textarea></td>
+			<td><textarea name="blankother" rows="5" cols="40" placeholder="Indique todo aquello que estime oportuno y aparezca en ningún otro campo..."></textarea></td>
 		</tr>
 		
 		<tr>
@@ -901,28 +880,13 @@ Jugador 3: <input type="text" id="jugador3" />
 			<input type="text" name="blankskill10" size="30" />
 			</td>
 		</tr>
-		
-		
-		
-		
 	</table>
 
 	<input type="checkbox" name="blanklopd" /> He leído y acepto las condiciones de uso y política de privacidad<br>
 	<input type="submit" name="senduser" value="Enviar solicitud">
-	<input type="reset" value="Borrar formulario" />
-
-<!-- 
-<input type="submit" value="Enviar" />
-<input type="reset" value="Borrar" />
--->
-
+	<!-- <input type="reset" value="Borrar formulario" /> -->
 
 </form>
 
 </body>
 </html>
-
-
-
-
-
