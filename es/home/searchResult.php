@@ -338,8 +338,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 			</div> <!-- class="container bs-docs-container" -->
 
 
-
-			<?php
+		<?php
 
 		} //del "else" de $_SESSION.
 
