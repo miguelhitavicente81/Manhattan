@@ -117,8 +117,10 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 		* el resto de menús de nivel 1 cuando navegue por ellos, y saber cuál es el activo (id='onlink')
 		*/ -->
 		<?php
-		$myFile = 'home';
-		$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+			$myFile = 'home';
+			$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+
+			$pendingCVs = getPendingCVs();
 		?>
 
 
@@ -149,10 +151,14 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 												if(!getDBsinglefield2('esName', $namesTable, 'fatherKey', $colNamej, 'level', '3')){
 													$level2File = getDBsinglefield('key', $namesTable, 'esName', $subLevelMenu);
 													// Because the file we are is a level 2 file, we do this comparision to make active element in list if it's this same file
-													if ($level2File == basename(__FILE__, '.php'))
-														echo "<li class='active'><span class='badge'>$k</span><a href=$level2File.php>" . $subLevelMenu . "</a></li>";
+													if ($level2File == 'pendingCVs') 
+														$badge = "<span class='badge'>$pendingCVs</span>";
 													else
-														echo "<li><span class='badge'>$k</span><a href=$level2File.php>" . $subLevelMenu . "</a></li>";
+														$badge = "";
+													if ($level2File == basename(__FILE__, '.php')) 
+														echo "<li class='active'>$badge<a href=$level2File.php>" . $subLevelMenu . "</a></li>";
+													else
+														echo "<li>$badge<a href=$level2File.php>" . $subLevelMenu . "</a></li>";
 												}
 												else{
 													$arrayKeys = array();
@@ -170,7 +176,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 															}
 														}
 													}
-													echo "<li><span class='badge'>$k</span><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
+													echo "<li><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
 												}
 											}
 										}
@@ -214,21 +220,20 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 							}
 							$numero = date("YmdHis");
 							$enlace = connectDB();
-							if ($_POST[reportType] == "full_report"){
-							$reportType=full_report;
-							}
-							if($_POST[reportType] == "blind_report"){
-							$reportType=blind_report;
-							}
-							if($_POST[reportType] == "custom_report"){
-							$reportType=custom_report;
-							}
+							
+							
+						
+							
+							
+							
+							
 							mkdir($output_dir, 0700);
 							if(strlen($_POST[blankWordKey])>0){
 							$criteria="where `nie` like '%$_POST[blankWordKey]%' or `nationalities` like '%$_POST[blankWordKey]%' or `sex` like '%$_POST[blankWordKey]%' or `drivingType` like '%$_POST[blankWordKey]%' or `marital` like '%$_POST[blankWordKey]%' or `sons` like '%$_POST[blankWordKey]%' or `language` like '%$_POST[blankWordKey]%' or `occupation` like '%$_POST[blankWordKey]%' or `city` like '%$_POST[blankWordKey]%' or `experDesc` like '%$_POST[blankWordKey]%' and cvStatus = 'checked';";}
 							else{
 							$criteria="where `nie` like '%$_POST[blankNIE]%' and `nationalities` like '%$_POST[blankNationality]%' and `sex` like '%$_POST[blankSex]%' and `drivingType` like '%$_POST[drivingtype]%' and `marital` like '%$_POST[civilStatus]%' and `sons` like '%$_POST[blankSons]%' and `language` like '%$_POST[blankLanguages]%' and `occupation` like '%$_POST[blankJob]%' and cvStatus = 'checked';";}						
-							$consulta = "SELECT * FROM `cvitaes` ".$criteria;
+							
+							$consulta = "SELECT * FROM `cvitaes`".$criteria;
 							if ($resultado = mysqli_query($enlace, $consulta)) {
 
 								/* Obtener la informacin de campo de todas las columnas */
@@ -239,8 +244,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 								echo "<thead>";
 								echo "	<tr>";
 								foreach ($valores_mostrar as $valor) {
-								
-										echo "		<th>$valor</th>";
+										echo "<th>$valor</th>";
 								}
 								echo "	</tr>";
 								echo "</thead>";
@@ -256,9 +260,30 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 									$id[$fila['id']] = $fila['nie'];
 									if ($fila['sex']==0){ $fila['sex'] = "hombre"; }
 									if ($fila['sex']==1){ $fila['sex'] = "mujer"; }
-
+									if ($_POST[reportType] == "custom_report"){
+									$reportType=custom_report;
 									while (list($clave, $valor) = each($fila)) {
+									foreach( $_POST[per] as $value ) {
+									if($clave == $value){
+											$pdf->ezText("<b>$clave</b> $valor");}
+									}
+									}
+									}
+									
+									if ($_POST[reportType] == "blind_report"){
+									echo "CIEGO";
+									$reportType=blind_report;
+									while (list($clave, $valor) = each($fila)){
+											if(($clave == postalCode) || ($clave == country) || ($clave == province) || ($clave == city) || ($clave == drivingType) || ($clave == language) || ($clave == langLevel) || ($clave == occupation) || ($clave == studyType) || ($clave == studyName)){
+											$pdf->ezText("<b>$clave</b> $valor");}
+									}
+									}
+									if ($_POST[reportType] == "full_report"){
+									$reportType=full_report;
+									while (list($clave, $valor) = each($fila)){
+										
 											$pdf->ezText("<b>$clave</b> $valor");
+									}
 									}
 									$documento_pdf = $pdf->ezOutput();
 									chdir($output_dir);

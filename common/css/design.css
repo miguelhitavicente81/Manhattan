@@ -223,6 +223,11 @@ body {
 	font-weight: 700;
 }
 
+.form-upload .control-label {
+	padding: 0;
+	text-align: left;
+}
+
 
 
 
@@ -308,6 +313,13 @@ body {
 	border-radius: 10px;
 }
 
+
+/* Redefine h1 small links without decoration
+-------------------------------------------------- */
+
+h1 small a:link {
+	text-decoration: none;
+}
 
 
 

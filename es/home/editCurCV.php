@@ -110,8 +110,10 @@
 		* el resto de menús de nivel 1 cuando navegue por ellos, y saber cuál es el activo (id='onlink')
 		*/ -->
 		<?php
-		$myFile = 'home';
-		$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+			$myFile = 'home';
+			$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+
+			$pendingCVs = getPendingCVs();
 		?>
 
 
@@ -142,9 +144,9 @@
 													$level2File = getDBsinglefield('key', $namesTable, 'esName', $subLevelMenu);
 													// Because the file we are is a level 2 file, we do this comparision to make active element in list if it's this same file
 													if ($level2File == basename(__FILE__, '.php'))
-														echo "<li class='active'><span class='badge'>$k</span><a href=$level2File.php>" . $subLevelMenu . "</a></li>";
+														echo "<li class='active'><a href=$level2File.php>" . $subLevelMenu . "</a></li>";
 													else
-														echo "<li><span class='badge'>$k</span><a href=$level2File.php>" . $subLevelMenu . "</a></li>";
+														echo "<li><a href=$level2File.php>" . $subLevelMenu . "</a></li>";
 												}
 												else{
 													$arrayKeys = array();
@@ -162,7 +164,7 @@
 															}
 														}
 													}
-													echo "<li><span class='badge'>$k</span><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
+													echo "<li><a href=home/$level3File.php>" . $subLevelMenu . "</a></li>";
 												}
 											}
 										}

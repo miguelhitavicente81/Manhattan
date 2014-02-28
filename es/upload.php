@@ -76,7 +76,8 @@
 		var rowNum = 0;
 		function addRow1(frm){
 			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="-" onclick="removeRow1('+rowNum+');"></p>';
+			//var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="-" onclick="removeRow1('+rowNum+');"></p>';
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="Eliminar" onclick="removeRow1('+rowNum+');"></p>';
 			jQuery('#itemRows').append(row);
 			frm.add_idiomas.value = '';
 			frm.add_nidiomas.value = '';
@@ -85,14 +86,15 @@
 		function removeRow1(rnum){
 			jQuery('#rowNum'+rnum).remove();
 		}
-
+		
 		//Functions used to add/remove realtime Education fields 
 		var rowNum = 0;
 		function addRow3(frm){
 			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nfor[]" size="4" value="'+frm.add_nfor.value+'"><input type="text" name="forma[]" value="'+frm.add_for.value+'"> <input type="button" value="-" onclick="removeRow3('+rowNum+');"></p>';
+			//var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nfor[]" size="4" value="'+frm.add_nfor.value+'"><input type="text" name="forma[]" value="'+frm.add_for.value+'"> <input type="button" value="Eliminar" onclick="removeRow3('+rowNum+');"></p>';
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nfor[]" size="30" value="'+frm.add_nfor.value+'"><input type="button" value="Eliminar" onclick="removeRow3('+rowNum+');"></p>';
 			jQuery('#itemRows3').append(row);
-			frm.add_for.value = '';
+			//frm.add_for.value = '';
 			frm.add_nfor.value = '';
 		}
 		
@@ -102,7 +104,7 @@
 		
 		function addRow4(frm){
 			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="dur[]" value="'+frm.add_dur.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="-" onclick="removeRow4('+rowNum+');"></p>';
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="dur[]" value="'+frm.add_dur.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="Eliminar" onclick="removeRow4('+rowNum+');"></p>';
 			jQuery('#itemRows4').append(row);
 			frm.add_empr.value = '';
 			frm.add_categ.value = '';
@@ -377,7 +379,6 @@ if(isset($_POST['senduser'])){
 
 /***************  Aquí comienza el bloque que permite mostrar el formulario  ***************/
 ?>
-
 
 <form id="formu" class="form-horizontal form-upload" name="formu" action="" method="post" enctype="multipart/form-data" onsubmit="return checkFormES(this)">
 
@@ -712,7 +713,7 @@ if(isset($_POST['senduser'])){
 		</tr>
 		<tr>
 			<td><label class='control-label'>Correo Electrónico</label></td>
-			<td><input type="email" name="blankmail" size="30"	placeholder="correo@ejemplo.com" /></td>
+			<td><input type="email" name="blankmail" size="30" 	placeholder="correo@ejemplo.com" /></td>
 		</tr>
 		
 		<tr>
@@ -760,19 +761,15 @@ if(isset($_POST['senduser'])){
 			<td><input type="number" name="blankphoto" maxlength="2"></td>
 		</tr>
 		
-		
 		<tr>
-			<td><label class='control-label'>Documentos Adicionales</label></td>
-			<!-- <td id="adjuntos"><input type="file" name="archivos[]" /> ORIGINAL -->
+			<td><label class='control-label'>Documentos adicionales</label></td>
 			<td id="adjuntos"><input type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif" file-maxsize="1024" />
-			<!-- <a href="#" onClick="addCampo()">Subir otro archivo</a> -->
 			<input onclick="addCampo();" type="button" value="+" />
-			
 			</td>
 		</tr>
 		
 		<tr>
-			<td><label class='control-label'>Nivel de Idiomas</label></td>
+			<td><label class='control-label'>Nivel de idiomas</label></td>
 			<td>
 				<div id="itemRows">
 					<select name="add_idiomas">
@@ -795,11 +792,42 @@ if(isset($_POST['senduser'])){
 						<option value="high">Alto hablado y escrito</option>
 						<option value="bilingual">Bilingüe</option>
 					</select>
-					<input onclick="addRow1(this.form);" type="button" value="+" />
+					<input onclick="addRow1(this.form);" type="button" value="Pulse para incluir" />
 				</div>
 			</td>
 		</tr>
 		
+		<tr>
+			<td>
+				<div class="tooltip-demo">
+					<label class='control-label'>Educación</label>
+					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Si su título no aparece incluído en el listado, póngase en contacto con nosotros a través de pa@pa.com o llamando al 902 202 122"></span>
+				</div>
+			</td>
+			<td>
+				<div id="itemRows3">
+					<select name="add_nfor">
+						<option selected value="">-- Elija Estudios --</option>
+						<?php 
+						/*
+						$eduKeys = getDBcompletecolumnID('key', 'studies', 'id');
+						foreach($eduKeys as $i){
+							echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
+						}
+						*/
+						$eduNames = getDBcompleteColumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'studies', 'id');
+						foreach($eduNames as $i){
+							//echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
+							echo "<option value=" . $i . ">" . $i . "</option>";
+						}
+						?>
+					</select>
+					<input onclick="addRow3(this.form);" type="button" value="Pulse para incluir" />
+				</div>
+			</td>
+		</tr>
+		<!-- </div> -->
+		<!-- 
 		<tr>
 			<td><label class='control-label'>Educación</label></td>
 			<td>
@@ -812,30 +840,29 @@ if(isset($_POST['senduser'])){
 				<option value="bfa">Diplomatura</option>
 				<option value="bachelor">Licenciatura</option>
 			</select>
-			<input type="text" name="add_for" placeholder="Formacion" /><input onclick="addRow3(this.form);" type="button" value="+" /></td></div>
+			<input type="text" name="add_for" placeholder="Formacion" /><input onclick="addRow3(this.form);" type="button" value="Pulse para incluir" /></td></div>
 		</tr>
-		
+		-->
 		<tr>
-			<!-- <td><label class='control-label'>Experiencia Laboral</label></td> -->
 			<td><label class='control-label'>Qué has hecho estos últimos años...</label></td>
 			<td>
 			<div id="itemRows4">
 			<input type="text" name="add_empr" size="30" placeholder="Empresa" />
-			<select name="add_categ">
-				<option value="intern">Becario</option>
-				<option value="employee">Empleado</option>
-				<option value="middle">Mando intermedio</option>
-				<option value="director">Director</option>
-			</select>
+			<input type="text" name="add_categ" size="30" placeholder="Posición" />
 			<input type="text" name="add_dur" size="10" placeholder="Duración" />
-			<textarea name="add_desc" rows="5" cols="40">Descripción</textarea>
-			<input onclick="addRow4(this.form);" type="button" value="+" /></td></div>
+			<textarea name="add_desc" rows="5" cols="40" placeholder="Incluya una descripción de su experiencia en este puesto..."></textarea>
+			<input onclick="addRow4(this.form);" type="button" value="Pulse para incluir" /></td></div>
 			</td>
 		</tr>
 		
 		<tr>
-			<td><label class='control-label'>Otros Detalles de Interés</label></td>
-			<td><textarea name="blankother" rows="5" cols="40">...</textarea></td>
+			<td><label class='control-label'>Salario deseado</label></td>
+			<td><input type="text" name="blanksalary" size="10" placeholder="$" /><br></td>
+		</tr>
+		
+		<tr>
+			<td><label class='control-label'>Otros datos de interés</label></td>
+			<td><textarea name="blankother" rows="5" cols="40" placeholder="Indique todo aquello que estime oportuno y aparezca en ningún otro campo..."></textarea></td>
 		</tr>
 		
 		<tr>
@@ -857,8 +884,9 @@ if(isset($_POST['senduser'])){
 
 	<input type="checkbox" name="blanklopd" /> He leído y acepto las condiciones de uso y política de privacidad<br>
 	<input type="submit" name="senduser" value="Enviar solicitud">
-	<input type="reset" value="Borrar formulario" />
+	<!-- <input type="reset" value="Borrar formulario" /> -->
 
 </form>
+
 </body>
 </html>
