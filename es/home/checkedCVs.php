@@ -38,7 +38,7 @@
 		if($elapsedTime > $_SESSION['sessionexpiration']){
 			?>
 			<script type="text/javascript">
-				window.location.href='endsession.php';
+				window.location.href='../endsession.php';
 			</script>
 			<?php
 		}
