@@ -201,16 +201,16 @@
 
 		<div id="main-content" class="cvViewer bs-docs-container">
 			<div class="row container-fluid cvViewer">
-				<div class="panel panel-default cvViewer col-md-8" role="main"> <!-- Panel -->
+				<div class="panel panel-default cvViewer tooltip-demo col-md-8" role="main"> <!-- Panel -->
 					<div class="btn-group pull-right">
 						<?php 	if(strlen($id_o[$ind_p])>0) 
-									echo "<a href='viewCV.php?id_bb=$ind_p' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-chevron-left'></span></a>";
+									echo "<a href='viewCV.php?id_bb=$ind_p' class='btn btn-default btn-sm' data-toggle='tooltip' data-original-title='Anterior'><span class='glyphicon glyphicon-chevron-left'></span></a>";
 								else 
 									echo "<a class='btn btn-default btn-sm' disabled><span class='glyphicon glyphicon-chevron-left'></span></a>";
 						?>
-							<a href="<?php echo "../../cvs/".$nf ?>" class="btn btn-default btn-sm"><span class='glyphicon glyphicon-download-alt'></span></a>
+							<a href="<?php echo "../../cvs/".$nf ?>" class="btn btn-default btn-sm" data-toggle='tooltip' data-original-title='Descargar CV en PDF'><span class='glyphicon glyphicon-download-alt'></span></a>
 						<?php 	if(strlen($id_o[$ind_n])>0) 
-									echo "<a href='viewCV.php?id_bb=$ind_n' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-chevron-right'></span></a>";
+									echo "<a href='viewCV.php?id_bb=$ind_n' class='btn btn-default btn-sm' data-toggle='tooltip' data-original-title='Siguiente'><span class='glyphicon glyphicon-chevron-right'></span></a>";
 								else 
 									echo "<a class='btn btn-default btn-sm' disabled><span class='glyphicon glyphicon-chevron-right'></span></a>";
 
