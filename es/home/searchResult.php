@@ -322,7 +322,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 
 							echo "<form id='downloadSearchReport' name='downloadSearchReport' class='form-horizontal' method='post' action='downloadFile.php?doc=$filezip'>";
 							echo "	<div id='form_download' class='form-group pull-right' style='margin: 1px;'>";
-							echo "		<button type='submit' name='downloadSearchReportButton' class='btn btn-success' >Descargar Informe   <span class='glyphicon glyphicon-download-alt'> </span></button>";
+							echo "		<button type='submit' name='downloadSearchReportButton' class='btn btn-primary' >Descargar Informe   <span class='glyphicon glyphicon-download-alt'> </span></button>";
 							echo "	</div>";
 							echo "</form>";
 

@@ -606,7 +606,7 @@
 									</div>
 
 									<div id="form_submit" class="form-group pull-right" style="margin: 1px;">
-										<button type="submit" name="Buscar" class="btn btn-success" >Buscar <span class="glyphicon glyphicon-search"> </span></button>
+										<button type="submit" name="Buscar" class="btn btn-primary" >Buscar <span class="glyphicon glyphicon-search"> </span></button>
 									</div>
 
 								</form> <!-- id="searchForm" -->
