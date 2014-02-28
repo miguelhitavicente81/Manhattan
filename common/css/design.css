@@ -232,6 +232,30 @@ body {
 
 
 
+/* CV Viewer styles
+-------------------------------------------------- */
+.cvViewer .row{
+	margin: 0;
+	margin-left: 10%;
+	margin-right: 10%;
+}
+
+.cvViewer .panel {
+	padding: 0;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.cvViewer .btn-group {
+	position: relative;
+	top: 25px;
+	right: 25px;
+}
+
+
+
+
+
 /* Sticky footer styles
 -------------------------------------------------- */
 
@@ -349,4 +373,9 @@ h1 small a:link {
 
 .encapsulated {
 	margin: 30px;
+}
+
+.fixed {
+	position: fixed;
+	width: 50%;
 }

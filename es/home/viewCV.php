@@ -12,7 +12,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
-	<meta name="author" content="David Alfonso Gin? Prieto, Miguel Hita Vicente y Miguel ?ngel Mel? P?ez">
+	<meta name="author" content="David Alfonso Ginés Prieto, Miguel Hita Vicente y Miguel Ángel Melón Pérez">
 	
 	<title>CVs encontrados</title>
 	
@@ -100,14 +100,14 @@
 				<form class="modal-content" action="../endsession.php">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="exitRequestLabel">Cerrar sesi?</h4>
+						<h4 class="modal-title" id="exitRequestLabel">Cerrar sesión</h4>
 					</div>
 					<div class="modal-body">
-						?Est? seguro de que quieres salir?
+						¿Estás seguro de que quieres salir?
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-primary">S? cerrar sesi?</button>
+						<button type="submit" class="btn btn-primary">Sí, cerrar sesión</button>
 					</div>
 				</form>
 			</div>
@@ -127,94 +127,123 @@
 
 
 
-<script type="text/javascript">
-function insert()
-{
-alert('Nota A?dida');
-}
-</script>
-
-<?php
-$nota=$_POST['nota'];
-
-							$output_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/";
-
-							class Creport extends Cezpdf{
-								function Creport($p,$o){
-									$this->__construct($p, $o,'none',array());
-								}
-							}
-$id_ac=$_GET["id_b"];
-$id_aco=$_GET["id_bb"];
-$id =unserialize($_SESSION["id"]);
-$id_o =unserialize($_SESSION["id_o"]);
-$custom_elements =unserialize($_SESSION["custom"]);
-$n_custom_elements = count($custom_elements);
-if(strlen($id_ac)>0){$actual=$id[$id_ac];$ida=$id_ac;}
-if(strlen($id_aco)>0){$actual=$id_o[$id_aco];$ida=$id_aco;}
-$i=0;
-foreach ($id_o as $valor){
-if($valor == $actual){
-$ind_a=$i;
-$h=$i-1;
-$ind_p=$h;
-$j=$i+1;
-$ind_n=$j;
-}
-$i++;
-}
-$enlace = connectDB();
-	$output_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/";
-$enlace = mysqli_connect("localhost", "root", "", "PRJ2014001");
-
-if (mysqli_connect_errno()) {
-    printf("Fall la conexin: %s\n", mysqli_connect_error());
-    exit();
-}
-
-$consulta = "SELECT * from cVitaes where nie like '$actual'" ;
-if ($resultado = mysqli_query($enlace, $consulta)) {
-while ($fila = $resultado->fetch_assoc()) {
-		$pdf = new Cezpdf('A4'); // Seleccionamos tipo de hoja para el informe
-		$pdf->selectFont('fonts/Helvetica.afm'); //seleccionamos fuente a utilizar
-		$id[$fila['id']] = $fila['nie'];
-		if ($fila['sex']==0){ $fila['sex'] = "hombre"; }
-		if ($fila['sex']==1){ $fila['sex'] = "mujer"; }
-
-	
-									while (list($clave, $valor) = each($fila)) {
-											echo "<b>$clave</b> $valor<br>";
-											$pdf->ezText("<b>$clave</b> $valor");
-											
-									}
-									if (strlen($nota)>0){$pdf->ezText("\n\nNOTA:\n\n$nota");
-									}
-									$documento_pdf = $pdf->ezOutput();
-									chdir($output_dir);
-									$pdf_file_name = "";
-									$pdf_file_name = $fila['userLogin'];
-									$nf=$pdf_file_name.".pdf";
-									$fichero = fopen($nf,'wb') or die ("No se abrio $nf") ;
-									fwrite ($fichero, $documento_pdf);
-									fclose ($fichero);
-}
-}
-echo "NOTA <br>";
-echo "<form name=formu id=formu action=viewCV.php?id_b=".$ida."&reportType=".$_GET[reportType]." method=post enctype=multipart/form-data>";
-echo "<textarea name=nota rows=5 cols=40></textarea><br>";
-echo "<input type=submit name=enviar value=Insertar Nota onclick=\"insert();\"/><br>";
-if(strlen($id_o[$ind_n])>0)
-//echo "<a href=visualizacv.php?id_bb=$ind_n>SIGUIENTE</a><br>";
-echo "<a href=viewCV.php?id_bb=$ind_n>SIGUIENTE</a><br>";
-if(strlen($id_o[$ind_p])>0)
-//echo "<a href=visualizacv.php?id_bb=$ind_p>PREVIO </a><br>";
-echo "<a href=viewCV.php?id_bb=$ind_p>PREVIO </a><br>";
-$_SESSION["id_o"] = serialize($id_o);
-$_SESSION["id"] = serialize($id);
-?>
+		<script type="text/javascript">
+			function insert() {
+				alert('Nota Añadida');
+			}
+		</script> 
 
 
+		<?php
+		$nota=$_POST['nota'];
 
+		$output_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/";
+
+		class Creport extends Cezpdf{
+			function Creport($p,$o){
+				$this->__construct($p, $o,'none',array());
+			}
+		}
+		$id_ac=$_GET["id_b"];
+		$id_aco=$_GET["id_bb"];
+		$id =unserialize($_SESSION["id"]);
+		$id_o =unserialize($_SESSION["id_o"]);
+		$custom_elements =unserialize($_SESSION["custom"]);
+		$n_custom_elements = count($custom_elements);
+		if(strlen($id_ac)>0){$actual=$id[$id_ac];$ida=$id_ac;}
+		if(strlen($id_aco)>0){$actual=$id_o[$id_aco];$ida=$id_aco;}
+		$i=0;
+		foreach ($id_o as $valor){
+			if($valor == $actual){
+				$ind_a=$i;
+				$h=$i-1;
+				$ind_p=$h;
+				$j=$i+1;
+				$ind_n=$j;
+			}
+			$i++;
+		}
+		$enlace = connectDB();
+		$output_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/";
+
+		$consulta = "SELECT * from cVitaes where nie like '$actual'" ;
+		if ($resultado = mysqli_query($enlace, $consulta)) {
+			$texto = "";
+			while ($fila = $resultado->fetch_assoc()) {
+				$pdf = new Cezpdf('A4'); // Seleccionamos tipo de hoja para el informe
+				$pdf->selectFont('fonts/Helvetica.afm'); //seleccionamos fuente a utilizar
+				$id[$fila['id']] = $fila['nie'];
+				if ($fila['sex']==0){ $fila['sex'] = "hombre"; }
+				if ($fila['sex']==1){ $fila['sex'] = "mujer"; }
+
+
+				while (list($clave, $valor) = each($fila)) {
+
+					$texto = $texto . "<b>$clave</b> $valor<br>";
+					$pdf->ezText("<b>$clave</b> $valor");
+
+				}
+				if (strlen($nota)>0){$pdf->ezText("\n\n<b>NOTA:</b>\n\n".utf8_decode($nota));
+			}
+			$documento_pdf = $pdf->ezOutput();
+			chdir($output_dir);
+			$pdf_file_name = "";
+			$pdf_file_name = $fila['userLogin'];
+			$nf=$pdf_file_name.".pdf";
+			$fichero = fopen($nf,'wb') or die ("No se abrio $nf") ;
+			fwrite ($fichero, $documento_pdf);
+			fclose ($fichero);
+		}
+		}
+
+		?>
+
+
+		<div id="main-content" class="cvViewer bs-docs-container">
+			<div class="row container-fluid cvViewer">
+				<div class="panel panel-default cvViewer col-md-8" role="main"> <!-- Panel -->
+					<div class="btn-group pull-right">
+						<?php 	if(strlen($id_o[$ind_p])>0) 
+									echo "<a href='viewCV.php?id_bb=$ind_p' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-chevron-left'></span></a>";
+								else 
+									echo "<a class='btn btn-default btn-sm' disabled><span class='glyphicon glyphicon-chevron-left'></span></a>";
+						?>
+							<a href="<?php echo "../../cvs/".$nf ?>" class="btn btn-default btn-sm"><span class='glyphicon glyphicon-download-alt'></span></a>
+						<?php 	if(strlen($id_o[$ind_n])>0) 
+									echo "<a href='viewCV.php?id_bb=$ind_n' class='btn btn-default btn-sm'><span class='glyphicon glyphicon-chevron-right'></span></a>";
+								else 
+									echo "<a class='btn btn-default btn-sm' disabled><span class='glyphicon glyphicon-chevron-right'></span></a>";
+
+							$_SESSION["id_o"] = serialize($id_o);
+							$_SESSION["id"] = serialize($id);
+						?>
+					</div>
+					<div class="panel-heading">
+						<h3 class="panel-title">CV de fulanito de tal</h3>
+					</div>
+					<div class="panel-body scrollable" > <!-- panel-body -->
+						<?php echo $texto; ?>
+					</div> <!-- panel-body -->
+				</div> <!-- Panel -->
+
+				<div class="panel panel-default col-md-3">
+					<div class="panel-heading">
+						<h3 class="panel-title">Añadir nota</h3>
+					</div>
+					<div class="panel-body" > <!-- panel-body -->
+						<?php
+							echo "<form name='formu' id='formu' class='form-horizontal' action='viewCV.php?id_b=".$ida."&reportType=".$_GET[reportType]."' method='post' enctype='multipart/form-data'>";
+							echo "<textarea class='form-control' name='nota' rows='10' cols='40'></textarea>";
+
+							echo "<div id='form_submit' class='form-group pull-right' style='margin: 1px; margin-top: 10px;'>";
+							echo "		<button type='submit' name='enviar' class='btn btn-primary' onclick='insert();'>Insertar nota   <span class='glyphicon glyphicon-pencil'> </span></button>";
+							echo "</div>";
+
+						?>
+					</div> <!-- panel-body -->
+				</div>
+			</div>
+		</div>
 
 
 		<?php
