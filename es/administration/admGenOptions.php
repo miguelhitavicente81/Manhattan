@@ -285,7 +285,7 @@
 										<?php 
 									}
 									elseif(!executeDBquery("INSERT INTO `otherOptions` (`id`, `key`, `name`, `comment`, `value`) VALUES
-									(NULL, '".$auxKey."', '".ucwords($_POST['newOptionName'])."', '".ucwords($_POST['newOptionComment'])."', '".ucwords($_POST['newOptionValue'])."')")){
+									(NULL, '".$auxKey."', '".$_POST['newOptionName']."', '".$_POST['newOptionComment']."', '".$_POST['newOptionValue']."')")){
 										?>
 										<script type="text/javascript">
 											alert('Error including new option.');
@@ -323,6 +323,7 @@
 							break;
 							
 							case 'hDelOptions':
+								//De momento no hay botón de borrar Opciones
 								if(!deleteDBrow('otherOptions', 'id', $_GET['codvalue'])){
 									?>
 									<script type="text/javascript">
@@ -480,6 +481,7 @@
 										<thead>
 											<tr>
 												<th>Id</th>
+												<th>Clave</th>
 												<th>Nombre</th>
 												<th>Comentario</th>
 												<th>Valor</th>
@@ -527,20 +529,125 @@
 								</div>
 							</div>
 						</div> <!-- Panel Otras Opciones -->
-
-						
-
-					
-					
 					
 					<?php 
 					}
 					elseif($_SESSION['loglogin'] == 'Administrador'){
 					?>
-					
-					
-					
-					
+						<div class="panel panel-default"> <!-- Panel de Idiomas -->
+							<div class="panel-heading">
+								<h3 class="panel-title">Idiomas</h3>
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Nombre (Ing)</th>
+												<th>Nombre (Esp)</th>
+												<th>Nombre (Ale)</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php 
+											$langKeyRows = getDBcompletecolumnID('key', 'languages', 'id');
+											$k = 1;
+											foreach($langKeyRows as $i){
+												$langRow = getDBrow('languages', 'key', $i);
+												echo "<tr>";
+												echo "<td>" . $k . "</td>";
+												echo "<td>" . $langRow['english'] . "</td>";
+												echo "<td>" . $langRow['spanish'] . "</td>";
+												echo "<td>" . $langRow['german'] . "</td>";
+												echo "<td><a href='admGenOptions.php?codvalue=" . $langRow['id'] . "&hiddenGET=hDelLang' onclick='return confirmLangDeletionES();'>Borrar</a></td>";
+												$k++;
+											}
+											?>
+										</tbody>
+									</table>
+								</div>
+
+								<div class="container-fluid center-block">
+									<h4>Nuevo Idioma</h4>
+									<form class="form-inline" role="form" name="newLanguage" action="admGenOptions.php" method="post">
+										<div class="form-group">
+											<label class="sr-only" for="newLangenName">Nombre Inglés</label>
+											<input type="text" class="form-control" name="newLangenName" placeholder="Nombre Inglés" />
+										</div>							
+										<div class="form-group">
+											<label class="sr-only" for="newLangesName">Nombre Español</label>
+											<input type="text" class="form-control" name="newLangesName" placeholder="Nombre Español" />
+										</div>
+										<div class="form-group">
+											<label class="sr-only" for="newLangdeName">Nombre Alemán</label>
+											<input type="text" class="form-control" name="newLangdeName" placeholder="Nombre Alemán" />
+										</div>	
+										<input type="hidden" value="hNewLangSubmit" name="hiddenPOST">
+										<button type="submit" class="btn btn-primary" name="newLangsubmit" value="Incluir">Incluir</button>
+									</form>
+								</div>
+
+							</div>
+						</div> <!-- Panel de Idiomas -->
+						
+						<div class="panel panel-default"> <!-- Panel de Educación (studies) -->		
+							<div class="panel-heading">
+								<h3 class="panel-title">Educación</h3>
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Nombre (Ing)</th>
+												<th>Nombre (Esp)</th>
+												<th>Nombre (Ale)</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php 
+											$studyKeyRows = getDBcompletecolumnID('key', 'studies', 'id');
+											$k = 1;
+											foreach($studyKeyRows as $i){
+												$studyRow = getDBrow('studies', 'key', $i);
+												echo "<tr>";
+												echo "<td>" . $k . "</td>";
+												echo "<td>" . $studyRow['english'] . "</td>";
+												echo "<td>" . $studyRow['spanish'] . "</td>";
+												echo "<td>" . $studyRow['german'] . "</td>";
+												echo "<td><a href='admGenOptions.php?codvalue=" . $studyRow['id'] . "&hiddenGET=hDelStudy' onclick='return confirmStudyDeletionES();'>Borrar</a></td>";
+												$k++;
+											}
+											?>
+										</tbody>
+									</table>
+								</div>
+								
+								<div class="container-fluid center-block">
+									<h4>Nueva Educación</h4>
+									<form class="form-inline" role="form" name="newStudy" action="admGenOptions.php" method="post">
+										<div class="form-group">
+											<label class="sr-only" for="newStudyenName">Nombre Inglés</label>
+											<input type="text" class="form-control" name="newStudyenName" placeholder="Nombre Inglés" />
+										</div>							
+										<div class="form-group">
+											<label class="sr-only" for="newStudyesName">Nombre Español</label>
+											<input type="text" class="form-control" name="newStudyesName" placeholder="Nombre Español" />
+										</div>
+										<div class="form-group">
+											<label class="sr-only" for="newStudydeName">Nombre Alemán</label>
+											<input type="text" class="form-control" name="newStudydeName" placeholder="Nombre Alemán" />
+										</div>	
+										<input type="hidden" value="hNewStudySubmit" name="hiddenPOST">
+										<button type="submit" class="btn btn-primary" name="newStudysubmit" value="Incluir">Incluir</button>
+									</form>
+								</div>
+							</div>
+						</div> <!-- Panel de Estudios -->
 					
 					<?php 
 					}
@@ -554,36 +661,11 @@
 					<?php 
 					}
 					?>
-					
-					
-					
-
-
-						
-						<?php 
-						if($_SESSION['loglogin'] == 'super'){
-						?>
-
-						<?php 
-						}//Fin del if que permite mostrar la información solo visible por 'super'
-						else{
-							
-						}//Fin del else que permite mostrar la información general para el resto de usuarios con acceso ('Administrador')
-						//Ñapa para que no vean la tabla siguiente...PONERLO ARRIBA EN LA PARTE DE 'super'
-						if($_SESSION['loglogin'] == 'super'){
-						?>
-
-						<?php 
-						}
-						?>					
 						
 					</div> <!-- bs-docs-section -->
 				</div> <!-- col-md-9 scrollable role=main -->
 			</div> <!-- row -->
 		</div> <!-- class="container bs-docs-container" -->
-
-
-
 
 	<?php
 
