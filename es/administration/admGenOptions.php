@@ -197,47 +197,35 @@
 				<div class="col-md-9 scrollable" role="main"> 
 
 					<?php
-					if(isset($_POST['hiddenfield'])){
-						switch ($_POST['hiddenfield']){
-							case 'hNewLLsubmit':
-								if((empty($_POST['newLLkey'])) || strpos(trim($_POST['newLLkey']), " ") > 0 || (empty($_POST['newLLenName'])) || (empty($_POST['newLLesName'])) || (empty($_POST['newLLdeName']))){
+					if(isset($_POST['hiddenPOST'])){
+						switch ($_POST['hiddenPOST']){
+							case 'hNewLangsubmit':
+								if((empty($_POST['newLangenName'])) || (empty($_POST['newLangesName'])) || (empty($_POST['newLangdeName']))){
 									?>
 									<script type="text/javascript">
-										alert('Todos los campos deben estar rellenos, y la Clave no puede contener espacios.');
+										alert('Todos los campos deben estar rellenos.');
 										window.location.href='admGenOptions.php';
 									</script>
 									<?php 
 								}
 								else{
-									$strippedString = dropAccents($_POST['newLLkey']);
-									if(!executeDBquery("INSERT INTO `languageLevel` (`id`, `key`, `enName`, `esName`, `deName`) VALUES
-									(NULL, '".$strippedString."', '".utf8_decode($_POST['newLLenName'])."', '".utf8_decode($_POST['newLLesName'])."', '".utf8_decode($_POST['newLLdeName'])."')")){
+									$auxKey = dropAccents($_POST['newLangenName']);
+									$auxKey = ucwords($auxKey);
+									$auxKey = str_replace(' ', '', $auxKey);
+									//echo $auxKey;
+									if($auxKey == getDBsinglefield('key', 'languages', 'key', $auxKey)){
 										?>
 										<script type="text/javascript">
-											alert('Error al incluir el nuevo Nivel de idioma.');
+											alert('Alguno de los datos introducidos ya existe en la BD.');
 											window.location.href='admGenOptions.php';
 										</script>
 										<?php 
 									}
-								}
-							break;
-
-							case 'hNewLangsubmit':
-								if((empty($_POST['newLangkey'])) || strpos(trim($_POST['newLangkey']), " ") > 0 || (empty($_POST['newLangenName'])) || (empty($_POST['newLangesName'])) || (empty($_POST['newLangdeName']))){
-									?>
-									<script type="text/javascript">
-										alert('Todos los campos deben estar rellenos, y la Clave no puede contener espacios.');
-										window.location.href='admGenOptions.php';
-									</script>
-									<?php 
-								}
-								else{
-									$strippedString = dropAccents($_POST['newLangkey']);
-									if(!executeDBquery("INSERT INTO `languages` (`id`, `key`, `enName`, `esName`, `deName`) VALUES
-									(NULL, '".$strippedString."', '".utf8_decode($_POST['newLangenName'])."', '".utf8_decode($_POST['newLangesName'])."', '".utf8_decode($_POST['newLangdeName'])."')")){
+									elseif(!executeDBquery("INSERT INTO `languages` (`id`, `key`, `enName`, `esName`, `deName`) VALUES
+									(NULL, '".$auxKey."', '".ucwords($_POST['newLangenName'])."', '".ucwords($_POST['newLangesName'])."', '".ucwords($_POST['newLangdeName'])."')")){
 										?>
 										<script type="text/javascript">
-											alert('Error al incluir el nuevo Idioma.');
+											alert('Error including new Language.');
 											window.location.href='admGenOptions.php';
 										</script>
 										<?php 
@@ -268,201 +256,180 @@
 								}
 							break;
 						}
-					}
-					?>				
+					}//del POST
+					elseif(isset($_GET['hiddenGET'])){
+						switch($_GET['hiddenGET']){
+							case 'hDelLang':
+								if(!deleteDBrow('languages', 'id', $_GET['codvalue'])){
+									?>
+									<script type="text/javascript">
+										alert('Error deleting Language.');
+										window.location.href='admGenOptions.php';
+									</script>
+									<?php 
+								}
+							break;
+
+							/*
+							case 'hDelLang':
+								
+							break;
+
+														
+							case 'hDelLang':
+								
+							break;
+
+														
+							case 'hDelLang':
+								
+							break;
+							*/
+						}
+						?>
+						<script type="text/javascript">
+							window.location.href='admGenOptions.php';
+						</script>
+						<?php 
+					}//del GET
+					?>
 
 					<div class="bs-docs-section">
 
 						<h2 class="page-header">Conjunto de configuraciones generales</h2>
-
-						</span>
-
-						<div class="panel panel-default"> <!-- Panel de Idiomas -->
-							<div class="panel-heading">
-								<h3 class="panel-title">Idiomas</h3>
-							</div>
-							<div class="panel-body">
-
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Clave</th>
-											<th>Nombre (Ing)</th>
-											<th>Nombre (Esp)</th>
-											<th>Nombre (Ale)</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php 
-										$langNumRows = getDBrowsnumber('languages');
-										for($i=1;$i<=$langNumRows;$i++){
-											$langRow = getDBrow('languages', 'id', $i);
-											echo "<tr>";
-											echo "<td>" . $langRow['id'] . "</td>";
-											echo "<td>" . $langRow['key'] . "</td>";
-											echo "<td>" . $langRow['enName'] . "</td>";
-											echo "<td>" . $langRow['esName'] . "</td>";
-											echo "<td>" . $langRow['deName'] . "</td>";
-											echo "<td><a href=''>Borrar</a></td>";
-										}
-										?>
-									</tbody>
-								</table>
-
-								<div class="container-fluid center-block">
-									<h4>Nuevo Idioma</h4>
-									<form class="form-inline" role="form" name="newLanguage" action="admGenOptions.php" method="post">
-										<div class="form-group">
-											<label class="sr-only" for="newLLkey">Clave</label>
-											<input type="text" class="form-control" size="6" name="newLangkey" placeholder="Clave" />
-										</div>
-										<div class="form-group">
-											<label class="sr-only" for="newLLenName">Nombre Inglés</label>
-											<input type="text" class="form-control" name="newLangenName" placeholder="Nombre Inglés" />
-										</div>							
-										<div class="form-group">
-											<label class="sr-only" for="newLLesName">Nombre Español</label>
-											<input type="text" class="form-control" name="newLangesName" placeholder="Nombre Español" />
-										</div>
-										<div class="form-group">
-											<label class="sr-only" for="newLLdeName">Nombre Alemán</label>
-											<input type="text" class="form-control" name="newLangdeName" placeholder="Nombre Alemán" />
-										</div>	
-										<input type="hidden" value="hNewLangsubmit" name="hiddenfield">
-										<button type="submit" class="btn btn-primary" name="newLangsubmit" value="Incluir">Incluir</button>
-									</form>
-								</div>
-
-							</div>
-						</div> <!-- Panel de Idiomas -->	
-
-						<div class="panel panel-default"> <!-- Panel de Nivel de Idiomas -->
-							<div class="panel-heading">
-								<h3 class="panel-title">Nivel de Idiomas</h3>
-							</div>
-							<div class="panel-body">						
-
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Clave</th>
-											<th>Nombre (Ing)</th>
-											<th>Nombre (Esp)</th>
-											<th>Nombre (Ale)</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php
-										$langLevelNumRows = getDBrowsnumber('languageLevel');
-										for($i=1;$i<=$langLevelNumRows;$i++){
-											$langLevelRow = getDBrow('languageLevel', 'id', $i);
-											echo "<tr>";
-											echo "<td>" . $langLevelRow['id'] . "</td>";
-											echo "<td>" . $langLevelRow['key'] . "</td>";
-											echo "<td>" . $langLevelRow['enName'] . "</td>";
-											echo "<td>" . $langLevelRow['esName'] . "</td>";
-											echo "<td>" . $langLevelRow['deName'] . "</td>";
-											echo "<td>Borrar</td>";
-											echo "</tr>";
-										}
-										?>
-									</tbody>
-								</table>
-
-								<div class="container-fluid center-block">
-									<h4>Nuevo nivel de idiomas</h4>
-									<form class="form-inline" role="form" name="newLangLevel" action="admGenOptions.php" method="post">
-										<div class="form-group">
-											<label class="sr-only" for="newLLkey">Clave</label>
-											<input type="text" class="form-control" size="6" name="newLLkey" placeholder="Clave" />
-										</div>
-										<div class="form-group">
-											<label class="sr-only" for="newLLenName">Nombre Inglés</label>
-											<input type="text" class="form-control" name="newLLenName" placeholder="Nombre Inglés" />
-										</div>							
-										<div class="form-group">
-											<label class="sr-only" for="newLLesName">Nombre Español</label>
-											<input type="text" class="form-control" name="newLLesName" placeholder="Nombre Español" />
-										</div>
-										<div class="form-group">
-											<label class="sr-only" for="newLLdeName">Nombre Alemán</label>
-											<input type="text" class="form-control" name="newLLdeName" placeholder="Nombre Alemán" />
-										</div>	
-										<input type="hidden" value="hNewLLsubmit" name="hiddenfield">
-										<button type="submit" class="btn btn-primary" name="newLLsubmit" value="Incluir">Incluir</button>
-									</form>
-								</div>
-							</div>
-						</div> <!-- Panel de Nivel de Idiomas -->		
-
 						
-						<div class="panel panel-default"> <!-- Panel de Estudios -->		
-							<div class="panel-heading">
-								<h3 class="panel-title">Estudios</h3>
-							</div>
-							<div class="panel-body">
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Clave</th>
-											<th>Nombre (Ing)</th>
-											<th>Nombre (Esp)</th>
-											<th>Nombre (Ale)</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php
-										$langLevelNumRows = getDBrowsnumber('studyTypes');
-										for($i=1;$i<=$langLevelNumRows;$i++){
-											$studyTypesRow = getDBrow('studyTypes', 'id', $i);
-											echo "<tr>";
-											echo "<td>" . $studyTypesRow['id'] . "</td>";
-											echo "<td>" . $studyTypesRow['key'] . "</td>";
-											echo "<td>" . $studyTypesRow['enName'] . "</td>";
-											echo "<td>" . $studyTypesRow['esName'] . "</td>";
-											echo "<td>" . $studyTypesRow['deName'] . "</td>";
-											echo "<td>Borrar</td>";
-											echo "</tr>";
-										}
-										?>
-									</tbody>
-								</table>
-
-								<div class="container-fluid center-block">
-									<h4>Nuevo tipo de estudios</h4>
-									<form class="form-inline" role="form" name="newStudyTypes" action="admGenOptions.php" method="post">
-										<div class="form-group">
-											<label class="sr-only" for="newStudyTypeskey">Clave</label>
-											<input type="text" class="form-control" name="newStudyTypeskey" size="6" placeholder="Clave" />
-										</div>
-										<div class="form-group">
-											<label class="sr-only" for="newStudyTypesenName">Nombre Inglés</label>
-											<input type="text" class="form-control" name="newStudyTypesenName" placeholder="Nombre Inglés" />
-										</div>							
-										<div class="form-group">
-											<label class="sr-only" for="newStudyTypesesName">Nombre Español</label>
-											<input type="text" class="form-control" name="newStudyTypesesName" placeholder="Nombre Español" />
-										</div>
-										<div class="form-group">
-											<label class="sr-only" for="newStudyTypesdeName">Nombre Alemán</label>
-											<input type="text" class="form-control" name="newStudyTypesdeName" placeholder="Nombre Alemán" />
-										</div>	
-										<input type="hidden" value="hNewStudyTypessubmit" name="hiddenfield">
-										<button type="submit" class="btn btn-primary" name="newStudyTypessubmit" value="Incluir">Incluir</button>
-									</form>
+						<?php 
+						if($_SESSION['loglogin'] == 'super'){
+						?>
+							<div class="panel panel-default"> <!-- Panel de Idiomas -->
+								<div class="panel-heading">
+									<h3 class="panel-title">Idiomas</h3>
 								</div>
-
-							</div>
-						</div> <!-- Panel de Estudios -->		
+								<div class="panel-body">
+	
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Clave</th>
+												<th>Nombre (Ing)</th>
+												<th>Nombre (Esp)</th>
+												<th>Nombre (Ale)</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php 
+											$langKeyRows = getDBcompletecolumnID('key', 'languages', 'id');
+											//echo '-'.count($langKeyRows).'-';
+											//$langNumRows = getDBrowsnumber('languages');
+											//echo '-'.$langNumRows.'-';
+											//for($i=1;$i<=$langNumRows;$i++){
+											$k = 1;
+											foreach($langKeyRows as $i){
+												$langRow = getDBrow('languages', 'key', $i);
+												echo "<tr>";
+												//echo "<td>" . $langRow['id'] . "</td>";
+												echo "<td>" . $k . "</td>";
+												echo "<td>" . $langRow['key'] . "</td>";
+												echo "<td>" . $langRow['enName'] . "</td>";
+												echo "<td>" . $langRow['esName'] . "</td>";
+												echo "<td>" . $langRow['deName'] . "</td>";
+												//echo "<td><a href=''onclick='confirmLangDeletionES('" . $langRow['id'] . "')'>Borrar</a></td>";
+												//echo "<td><a href='admGenOptions.php?codvalue=" . $langRow['id'] . "' onclick='return confirmLangDeletionES();'>Borrar</a></td>";
+												echo "<td><a href='admGenOptions.php?codvalue=" . $langRow['id'] . "&hiddenGET=hDelLang' onclick='return confirmLangDeletionES();'>Borrar</a></td>";
+												$k++;
+											}
+											?>
+										</tbody>
+									</table>
+	
+									<div class="container-fluid center-block">
+										<h4>Nuevo Idioma</h4>
+										<form class="form-inline" role="form" name="newLanguage" action="admGenOptions.php" method="post">
+											<div class="form-group">
+												<label class="sr-only" for="newLLenName">Nombre Inglés</label>
+												<input type="text" class="form-control" name="newLangenName" placeholder="Nombre Inglés" />
+											</div>							
+											<div class="form-group">
+												<label class="sr-only" for="newLLesName">Nombre Español</label>
+												<input type="text" class="form-control" name="newLangesName" placeholder="Nombre Español" />
+											</div>
+											<div class="form-group">
+												<label class="sr-only" for="newLLdeName">Nombre Alemán</label>
+												<input type="text" class="form-control" name="newLangdeName" placeholder="Nombre Alemán" />
+											</div>	
+											<input type="hidden" value="hNewLangsubmit" name="hiddenPOST">
+											<button type="submit" class="btn btn-primary" name="newLangsubmit" value="Incluir">Incluir</button>
+										</form>
+									</div>
+	
+								</div>
+							</div> <!-- Panel de Idiomas -->
+							
+							<div class="panel panel-default"> <!-- Panel de Estudios -->		
+								<div class="panel-heading">
+									<h3 class="panel-title">Estudios</h3>
+								</div>
+								<div class="panel-body">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Clave</th>
+												<th>Nombre (Ing)</th>
+												<th>Nombre (Esp)</th>
+												<th>Nombre (Ale)</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+											$langLevelNumRows = getDBrowsnumber('studyTypes');
+											for($i=1;$i<=$langLevelNumRows;$i++){
+												$studyTypesRow = getDBrow('studyTypes', 'id', $i);
+												echo "<tr>";
+												echo "<td>" . $studyTypesRow['id'] . "</td>";
+												echo "<td>" . $studyTypesRow['key'] . "</td>";
+												echo "<td>" . $studyTypesRow['enName'] . "</td>";
+												echo "<td>" . $studyTypesRow['esName'] . "</td>";
+												echo "<td>" . $studyTypesRow['deName'] . "</td>";
+												echo "<td>Borrar</td>";
+												echo "</tr>";
+											}
+											?>
+										</tbody>
+									</table>
+	
+									<div class="container-fluid center-block">
+										<h4>Nuevo tipo de estudios</h4>
+										<form class="form-inline" role="form" name="newStudyTypes" action="admGenOptions.php" method="post">
+											<div class="form-group">
+												<label class="sr-only" for="newStudyTypesenName">Nombre Inglés</label>
+												<input type="text" class="form-control" name="newStudyTypesenName" placeholder="Nombre Inglés" />
+											</div>							
+											<div class="form-group">
+												<label class="sr-only" for="newStudyTypesesName">Nombre Español</label>
+												<input type="text" class="form-control" name="newStudyTypesesName" placeholder="Nombre Español" />
+											</div>
+											<div class="form-group">
+												<label class="sr-only" for="newStudyTypesdeName">Nombre Alemán</label>
+												<input type="text" class="form-control" name="newStudyTypesdeName" placeholder="Nombre Alemán" />
+											</div>	
+											<input type="hidden" value="hNewStudyTypessubmit" name="hiddenPOST">
+											<button type="submit" class="btn btn-primary" name="newStudyTypessubmit" value="Incluir">Incluir</button>
+										</form>
+									</div>
+	
+								</div>
+							</div> <!-- Panel de Estudios -->		
 
 						<?php 
-						//Ñapa para que no vean la tabla siguiente...
+						}//Fin del if que permite mostrar la información solo visible por 'super'
+						else{
+							
+						}//Fin del else que permite mostrar la información general para el resto de usuarios con acceso ('Administrador')
+						//Ñapa para que no vean la tabla siguiente...PONERLO ARRIBA EN LA PARTE DE 'super'
 						if($_SESSION['loglogin'] == 'super'){
 						?>
 							<div class="panel panel-default"> <!-- Panel Otras Opciones -->

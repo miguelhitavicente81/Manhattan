@@ -208,6 +208,24 @@ function confirmProfileDeletion(id) {
 
 
 
+/* Double-checks deletion of an existing language
+ * Called in "admGenOptions.php"
+ */
+/*
+function confirmLangDeletionES(id) {
+	if(confirm('¿Realmente desea borrar este idioma?')) {
+		window.location.href='admGenOptions.php?hiddenfield=hDelLang&codvalue='+id;
+	}
+}
+*/
+function confirmLangDeletionES(id) {
+	if(confirm('¿Confirma que desea borrar este idioma?')) {
+	}
+}
+
+
+
+
 
 
 /**********************************************************************************************************
