@@ -193,7 +193,7 @@
 			message += "El campo Nombre de la Dirección no puede estar vacío.\n";
 			result = false;
 		}
-		if(form.elements["blankaddrpostalcode"].value == "" || form.elements["blankaddrpostalcode"].value.length >= 5 || /^\s+$/.test(form.elements["blankaddrpostalcode"].value) ){
+		if(form.elements["blankaddrpostalcode"].value == "" || form.elements["blankaddrpostalcode"].value.length != 5 || /^\s+$/.test(form.elements["blankaddrpostalcode"].value) ){
 			//message += "El campo Código Postal no puede estar vacío.\n";
 			message += "El campo Código Postal debe estar formado por 5 números.\n";
 			result = false;
@@ -242,7 +242,7 @@
 		if(result == false){
 			alert(message);
 		}
-		return message;
+		this.form=form;
 	}
 	</script>
 	
@@ -251,7 +251,11 @@
 <body>
 
 <?php
+$user_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
+echo "$user_dir";
 require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/SimpleImage.php');
+mkdir($user_dir,7444);
 if(isset($_POST['senduser'])){
 
 	foreach ($_POST as $key => $entry){
@@ -299,19 +303,21 @@ if(isset($_POST['senduser'])){
 	     }
 	}
 	
-	if((isset($_POST['blankname'])) && (strlen($_POST['blankname']) > 0) && (isset($_POST['blanksurname'])) && (strlen($_POST['blanksurname']) > 0) && ($_POST['blankbirthdate'] != '0000-00-00') &&
-	(checkDNI_NIE($_POST['blanknie'])) && (isset($_POST['blanknationality'])) && (strlen($_POST['blanknationality']) > 0) && (isset($_POST['blanksex'])) && (isset($_POST['blankaddrtype'])) &&
-	(isset($_POST['blankaddrname'])) && (isset($_POST['blankaddrpostalcode'])) && (strlen($_POST['blankaddrpostalcode']) < 6) && (isset($_POST['blankphone'])) && (strlen($_POST['blankphone']) == 9) &&
-	(preg_match('^[9][0-9]{8}$', $_POST['blankphone'])) && (isset($_POST['blankmobile'])) && (strlen($_POST['blankmobile']) == 9) && (preg_match('^[6|7][0-9]{8}$', $_POST['blankmobile'])) && 
-	(filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)) && (isset($_POST['blankmarital']))){
-		echo "Todo fue OK\n";
-	}
-	else{
-		echo "Todo fue MAL\n";
-	}
-	
-	/*
-	executeDBquery("INSERT INTO `cVitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+
+}
+if (isset($_POST['push_button'])){
+
+	echo "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
+	`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
+	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
+	'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
+	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
+	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
+	'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
+	'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')";
+/*	executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
 	`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
 	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
@@ -321,90 +327,65 @@ if(isset($_POST['senduser'])){
 	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
 	'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
 	'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')");
-	*/
-	
-	
-	//Preguntamos si nuetro arreglo 'archivos' fue definido
-	if (isset ($_FILES["archivos"])) {
-		/* CUANDO TENGA CLAROS LOS ERRORES DESCOMENTARE EL CODIGO
-		if($_FILES['archivos']['error']){
-			switch ($_FILES['nom_du_fichier']['error']){
-				case 1: // UPLOAD_ERR_INI_SIZE
-					echo"El archivo sobrepasa el limite autorizado por el servidor(archivo php.ini) !";
-				break;
-				
-				case 2: // UPLOAD_ERR_FORM_SIZE
-					echo "El archivo sobrepasa el limite autorizado en el formulario HTML !";
-				break;
-				
-				case 3: // UPLOAD_ERR_PARTIAL
-					echo "El envio del archivo ha sido suspendido durante la transferencia!";
-				break;
-				
-				case 4: // UPLOAD_ERR_NO_FILE
-					echo "El archivo que ha enviado tiene un tamaño nulo !";
-				break;
-	          }
-		}
-		else{
-			*/
-		//$destinyPath = '/Users/Burlock/Desktop/';
-		$destinyPath = '/Applications/XAMPP/xamppfiles/temp/';
-		
-		//de ser asi, para procesar los archivos subidos al servidor solo debemos recorrerlo
-		//obtenemos la cantidad de elementos que tiene el arreglo archivos
+*/
 		$tot = count($_FILES["archivos"]["name"]);
 		//este for recorre el arreglo
 		for ($i = 0; $i < $tot; $i++){
-			move_uploaded_file($_FILES['archivos']['tmp_name'][$i], $destinyPath.$_FILES['archivos']['name'][$i]);
+			move_uploaded_file( $_FILES['archivos']['tmp_name'][$i],$user_dir.$_FILES['archivos']['name'][$i]);
 			//con el indice $i, podemos obtener la propiedad que desemos de cada archivo
 			//para trabajar con este
 			$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
 			$name = $_FILES["archivos"]["name"][$i];
-			/*
-			echo("<b>Archivo </b> $key ");
-			echo("<br />");
-			echo("<b>el nombre original:</b> ");
-			echo($name);
-			echo("<br />");
-			echo("<b>el nombre temporal:</b> \n");
-			echo($tmp_name);
-			echo("<br />");
-			*/            
+			
 		}
-		//} FIN DEL SWITCH
-	}
+	
+
+$uploadfile = $user_dir . "foto";
+
+echo $uploadfile;
+if (move_uploaded_file($_FILES['foto']['tmp_name'], $uploadfile)) {
+$image = new SimpleImage(); 
+$image->load($uploadfile); 
+$image->resize(200,250); 
+$image->save($uploadfile."r.jpg"); 
+unlink($uploadfile);
+    #echo "El archivo es válido y fue cargado exitosamente.\n";
+} else {
+    #echo "¡Posible ataque de carga de archivos!\n";
 }
+
+}
+	
 /***************  Fin del bloque que valida el contenido enviado en el formulario  ***************/
 
 /***************  Aquí comienza el bloque que permite mostrar el formulario  ***************/
 ?>
 
-<form id="formu" class="form-horizontal form-upload" name="formu" action="" method="post" enctype="multipart/form-data">
+<form id="formu" class="form-horizontal form-upload" name="formu" action=""  method="post" enctype="multipart/form-data">
 
 	<table>
 		<tr>
 			<td><label class='control-label'>Nombre</label></td>
-			<td><input type="text" name="blankname" size="30" maxlength="20" /></td>
+			<td><input type="text" name="blankname" size="30" maxlength="20" required/></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Apellidos</label></td>
-			<td><input type="text" name="blanksurname" size="30" maxlength="30" /></td>
+			<td><input type="text" name="blanksurname" size="30" maxlength="30" required/></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Fecha de Nacimiento</label></td>
-			<td><input type="date" name="blankbirthdate" /></td>
+			<td><input type="date" name="blankbirthdate" required/></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>DNI/NIE</label></td>
-			<td><input type="text" name="blanknie" size="30" maxlength="12" placeholder="Max. 12 caracteres"/></td>
+			<td><input type="text" name="blanknie" size="30" maxlength="12" required placeholder="Max. 12 caracteres"/></td>
 		</tr>
 		
 		<!-- <td><span class="form-sub-label-container"><select class="form-dropdown form-address-country" name="q13_direccion13[country]" id="input_13_country"> -->
 		<tr>
 			<td><label class='control-label'>Nacionalidad</label></td>
 			<td>
-			<select name="blanknationality">
+			<select name="blanknationality" required>
 				<option value="" selected> Seleccione </option>
 				<option value="Afghanistan"> Afghanistan </option>
 				<option value="Albania"> Albania </option>
@@ -655,14 +636,14 @@ if(isset($_POST['senduser'])){
 		<tr>
 			<td><label class='control-label'>Sexo</label></td>
 			<td>
-				<input type="radio" name="blanksex" value="0">Hombre
-				<input type="radio" name="blanksex" value="1">Mujer
+				<input type="radio" name="blanksex" value="0" required>Hombre
+				<input type="radio" name="blanksex" value="1" >Mujer
 			</td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Dirección</label></td>
 			<td>
-				<select name="blankaddrtype">
+				<select name="blankaddrtype" required>
 					<option value="" selected>-- Tipo --</option>
 					<option value="Acceso">Acceso</option>
 					<option value="Acera">Acera</option>
@@ -691,29 +672,29 @@ if(isset($_POST['senduser'])){
 					<option value="Urbanización">Urbanización</option>
 					<option value="Vía">Vía</option>
 				</select>
-				<input type="text" name="blankaddrname" size="50" maxlength="50" placeholder="Nombre" />
-				<input type="text" name="blankaddrnum" size="5" maxlength="10" placeholder="Num" />
-				<input type="text" name="blankaddrportal" size="5" maxlength="10" placeholder="Portal" />
-				<input type="text" name="blankaddrstair" size="5" maxlength="10" placeholder="Escalera" />
-				<input type="text" name="blankaddrfloor" size="5" maxlength="10" placeholder="Piso" />
-				<input type="text" name="blankaddrdoor" size="5" maxlength="10" placeholder="Puerta" /><br>
-				<input type="text" name="blankaddrpostalcode" size="10" maxlength="10" placeholder="Código Postal" />
-				<input type="text" name="blankaddrcountry" size="20" maxlength="50" placeholder="Pais" />				
-				<input type="text" name="blankaddrprovince" size="20" maxlength="50" placeholder="Provincia" />
-				<input type="text" name="blankaddrcity" size="50" maxlength="50" placeholder="Población" />
+				<input type="text" name="blankaddrname" size="50" maxlength="50" required placeholder="Nombre" />
+				<input type="text" name="blankaddrnum" size="5" maxlength="10" required placeholder="Num" />
+				<input type="text" name="blankaddrportal" size="5" maxlength="10" required placeholder="Portal" />
+				<input type="text" name="blankaddrstair" size="5" maxlength="10" required placeholder="Escalera" />
+				<input type="text" name="blankaddrfloor" size="5" maxlength="10" required placeholder="Piso" />
+				<input type="text" name="blankaddrdoor" size="5" maxlength="10" required placeholder="Puerta" /><br>
+				<input type="text" name="blankaddrpostalcode" size="10" maxlength="10" required placeholder="Código Postal" />
+				<input type="text" name="blankaddrcountry" size="20" maxlength="50" required placeholder="Pais" />				
+				<input type="text" name="blankaddrprovince" size="20" maxlength="50" required placeholder="Provincia" />
+				<input type="text" name="blankaddrcity" size="50" maxlength="50" required placeholder="Población" />
 			</td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Fijo</label></td>
-			<td><input type="text" name="blankphone" size="30" maxlength="9" /></td>
+			<td><input type="text" name="blankphone" size="30" maxlength="9" required /></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Móvil</label></td>
-			<td><input type="text" name="blankmobile" size="30" maxlength="12" /></td>
+			<td><input type="text" name="blankmobile" size="30" maxlength="12" required /></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Correo Electrónico</label></td>
-			<td><input type="email" name="blankmail" size="30" 	placeholder="correo@ejemplo.com" /></td>
+			<td><input type="email" name="blankmail" size="30" 	required placeholder="correo@ejemplo.com" /></td>
 		</tr>
 		
 		<tr>
@@ -740,7 +721,7 @@ if(isset($_POST['senduser'])){
 		<tr>
 			<td><label class='control-label'>Estado Civil</label></td>
 			<td>
-			<select name="blankmarital">
+			<select name="blankmarital" required>
 				<option selected value="">-- Estado --</option>
 				<option value="single">Soltero/a</option>
 				<option value="married">Casado/a</option>
@@ -752,19 +733,19 @@ if(isset($_POST['senduser'])){
 		</tr>
 		<tr>
 			<td><label class='control-label'>Hijos</label></td>
-			<td><input type="number" name="blanksons" maxlength="2" min="0"></td>
+			<td><input type="number" name="blanksons" maxlength="2" required min="0"></td>
 		</tr>
 		
 		<!-- AQUI TENGO QUE CARGAR DINAMICAMENTE LAS FOTOS -->
 		<tr>
 			<td><label class='control-label'>Foto</label></td>
-			<td><input type="number" name="blankphoto" maxlength="2"></td>
+			<td><input type="file" name="foto" required file-accept="jpg, jpeg, png, gif" file-maxsize="1024" /></td>
 		</tr>
 		
 		<tr>
 			<td><label class='control-label'>Documentos adicionales</label></td>
 			<td id="adjuntos"><input type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif" file-maxsize="1024" />
-			<input onclick="addCampo();" type="button" value="+" />
+			</td><td><input onclick="addCampo();" type="button" value="+" />
 			</td>
 		</tr>
 		
@@ -883,7 +864,7 @@ if(isset($_POST['senduser'])){
 	</table>
 
 	<input type="checkbox" name="blanklopd" /> He leído y acepto las condiciones de uso y política de privacidad<br>
-	<input onclick="return checkFormES(this.form);" type="button" value="Enviar" />
+	<input  type="submit" name ="push_button" value="Enviar" />
 	<!-- <input type="reset" value="Borrar formulario" /> -->
 
 </form>
