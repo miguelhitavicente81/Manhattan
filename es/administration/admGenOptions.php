@@ -282,34 +282,35 @@
 								<h3 class="panel-title">Idiomas</h3>
 							</div>
 							<div class="panel-body">
-
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Clave</th>
-											<th>Nombre (Ing)</th>
-											<th>Nombre (Esp)</th>
-											<th>Nombre (Ale)</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php 
-										$langNumRows = getDBrowsnumber('languages');
-										for($i=1;$i<=$langNumRows;$i++){
-											$langRow = getDBrow('languages', 'id', $i);
-											echo "<tr>";
-											echo "<td>" . $langRow['id'] . "</td>";
-											echo "<td>" . $langRow['key'] . "</td>";
-											echo "<td>" . $langRow['enName'] . "</td>";
-											echo "<td>" . $langRow['esName'] . "</td>";
-											echo "<td>" . $langRow['deName'] . "</td>";
-											echo "<td><a href=''>Borrar</a></td>";
-										}
-										?>
-									</tbody>
-								</table>
+								<div class="table-responsive">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Clave</th>
+												<th>Nombre (Ing)</th>
+												<th>Nombre (Esp)</th>
+												<th>Nombre (Ale)</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php 
+											$langNumRows = getDBrowsnumber('languages');
+											for($i=1;$i<=$langNumRows;$i++){
+												$langRow = getDBrow('languages', 'id', $i);
+												echo "<tr>";
+												echo "<td>" . $langRow['id'] . "</td>";
+												echo "<td>" . $langRow['key'] . "</td>";
+												echo "<td>" . $langRow['enName'] . "</td>";
+												echo "<td>" . $langRow['esName'] . "</td>";
+												echo "<td>" . $langRow['deName'] . "</td>";
+												echo "<td><a href=''>Borrar</a></td>";
+											}
+											?>
+										</tbody>
+									</table>
+								</div>
 
 								<div class="container-fluid center-block">
 									<h4>Nuevo Idioma</h4>
@@ -343,35 +344,36 @@
 								<h3 class="panel-title">Nivel de Idiomas</h3>
 							</div>
 							<div class="panel-body">						
-
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Clave</th>
-											<th>Nombre (Ing)</th>
-											<th>Nombre (Esp)</th>
-											<th>Nombre (Ale)</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php
-										$langLevelNumRows = getDBrowsnumber('languageLevel');
-										for($i=1;$i<=$langLevelNumRows;$i++){
-											$langLevelRow = getDBrow('languageLevel', 'id', $i);
-											echo "<tr>";
-											echo "<td>" . $langLevelRow['id'] . "</td>";
-											echo "<td>" . $langLevelRow['key'] . "</td>";
-											echo "<td>" . $langLevelRow['enName'] . "</td>";
-											echo "<td>" . $langLevelRow['esName'] . "</td>";
-											echo "<td>" . $langLevelRow['deName'] . "</td>";
-											echo "<td>Borrar</td>";
-											echo "</tr>";
-										}
-										?>
-									</tbody>
-								</table>
+								<div class="table-responsive">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Clave</th>
+												<th>Nombre (Ing)</th>
+												<th>Nombre (Esp)</th>
+												<th>Nombre (Ale)</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+											$langLevelNumRows = getDBrowsnumber('languageLevel');
+											for($i=1;$i<=$langLevelNumRows;$i++){
+												$langLevelRow = getDBrow('languageLevel', 'id', $i);
+												echo "<tr>";
+												echo "<td>" . $langLevelRow['id'] . "</td>";
+												echo "<td>" . $langLevelRow['key'] . "</td>";
+												echo "<td>" . $langLevelRow['enName'] . "</td>";
+												echo "<td>" . $langLevelRow['esName'] . "</td>";
+												echo "<td>" . $langLevelRow['deName'] . "</td>";
+												echo "<td>Borrar</td>";
+												echo "</tr>";
+											}
+											?>
+										</tbody>
+									</table>
+								</div>
 
 								<div class="container-fluid center-block">
 									<h4>Nuevo nivel de idiomas</h4>
@@ -405,34 +407,36 @@
 								<h3 class="panel-title">Estudios</h3>
 							</div>
 							<div class="panel-body">
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Clave</th>
-											<th>Nombre (Ing)</th>
-											<th>Nombre (Esp)</th>
-											<th>Nombre (Ale)</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php
-										$langLevelNumRows = getDBrowsnumber('studyTypes');
-										for($i=1;$i<=$langLevelNumRows;$i++){
-											$studyTypesRow = getDBrow('studyTypes', 'id', $i);
-											echo "<tr>";
-											echo "<td>" . $studyTypesRow['id'] . "</td>";
-											echo "<td>" . $studyTypesRow['key'] . "</td>";
-											echo "<td>" . $studyTypesRow['enName'] . "</td>";
-											echo "<td>" . $studyTypesRow['esName'] . "</td>";
-											echo "<td>" . $studyTypesRow['deName'] . "</td>";
-											echo "<td>Borrar</td>";
-											echo "</tr>";
-										}
-										?>
-									</tbody>
-								</table>
+								<div class="table-responsive">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Clave</th>
+												<th>Nombre (Ing)</th>
+												<th>Nombre (Esp)</th>
+												<th>Nombre (Ale)</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+											$langLevelNumRows = getDBrowsnumber('studyTypes');
+											for($i=1;$i<=$langLevelNumRows;$i++){
+												$studyTypesRow = getDBrow('studyTypes', 'id', $i);
+												echo "<tr>";
+												echo "<td>" . $studyTypesRow['id'] . "</td>";
+												echo "<td>" . $studyTypesRow['key'] . "</td>";
+												echo "<td>" . $studyTypesRow['enName'] . "</td>";
+												echo "<td>" . $studyTypesRow['esName'] . "</td>";
+												echo "<td>" . $studyTypesRow['deName'] . "</td>";
+												echo "<td>Borrar</td>";
+												echo "</tr>";
+											}
+											?>
+										</tbody>
+									</table>
+								</div>
 
 								<div class="container-fluid center-block">
 									<h4>Nuevo tipo de estudios</h4>
@@ -470,32 +474,34 @@
 									<h3 class="panel-title">Otras Opciones</h3>
 								</div>
 								<div class="panel-body">
-									<table class="table table-striped table-hover">
-										<thead>
-											<tr>
-												<th>Id</th>
-												<th>Nombre</th>
-												<th>Comentario</th>
-												<th>Valor</th>
-											</tr>
-										</thead>
+									<div class="table-responsive">
+										<table class="table table-striped table-hover">
+											<thead>
+												<tr>
+													<th>Id</th>
+													<th>Nombre</th>
+													<th>Comentario</th>
+													<th>Valor</th>
+												</tr>
+											</thead>
 
-										<tbody>
-											<?php 
-											$oOptionsNumRows = getDBrowsnumber('otherOptions');
-											for ($i=1; $i<=$oOptionsNumRows; $i++){
-												$oOptionsRow = getDBrow('otherOptions', 'id', $i);
-												echo "<tr>";
-												//echo "<td><a href='EditCurUser.php?codvalue=" . $userrow[0] . "'>" . $userrow[1] . "</a></td>";
-												echo "<td>" . $i . "</td>";
-												echo "<td>" . $oOptionsRow['name'] . "</td>";
-												echo "<td>" . $oOptionsRow['comment'] . "</td>";
-												echo "<td>" . $oOptionsRow['value'] . "</td>";
-												echo "</tr>";
-											}
-											?>
-										</tbody>
-									</table>
+											<tbody>
+												<?php 
+												$oOptionsNumRows = getDBrowsnumber('otherOptions');
+												for ($i=1; $i<=$oOptionsNumRows; $i++){
+													$oOptionsRow = getDBrow('otherOptions', 'id', $i);
+													echo "<tr>";
+													//echo "<td><a href='EditCurUser.php?codvalue=" . $userrow[0] . "'>" . $userrow[1] . "</a></td>";
+													echo "<td>" . $i . "</td>";
+													echo "<td>" . $oOptionsRow['name'] . "</td>";
+													echo "<td>" . $oOptionsRow['comment'] . "</td>";
+													echo "<td>" . $oOptionsRow['value'] . "</td>";
+													echo "</tr>";
+												}
+												?>
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div> <!-- Panel Otras Opciones -->
 

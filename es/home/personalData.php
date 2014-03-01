@@ -237,7 +237,7 @@
 							<div id="panel-warning" class="panel panel-warning encapsulated center-block">
 								<?php include $_SERVER['DOCUMENT_ROOT'] . '/common/passwdRestrictionsES.txt'; ?>
 							</div>
-							<div class="panel-body">
+							<div class="panel-body encapsulated center-block">
 								<form id="changePasswordForm" name="changePasswordForm" class="form-horizontal" action="personalData.php" method="post" onsubmit="return equalPassword(newPassword, confirmNewPassword)">
 									<div class="form-group">
 										<label for="newPassword" class="control-label col-xs-3">Nueva contraseña</label>
@@ -249,11 +249,9 @@
 										<label for="confirmNewPassword" class="control-label col-xs-3">Repita contraseña</label>
 										<div class="col-xs-8">
 											<input type="password" class="form-control" name="confirmNewPassword" id="confirmNewPassword" placeholder="" required data-toggle="tooltip" title="Confirma la nueva contraseña" autocapitalize="off">
-										</div>
-									</div>
-									<div class="form-group">
-										<div class="col-xs-offset-10 col-xs-2">
-											<button type="submit" class="btn btn-primary" name="changePassword">Cambiar</button>
+											<div class="fluid-container pull-right" style="margin-top: 15px;">
+												<button type="submit" class="btn btn-primary" name="changePassword">Cambiar</button>
+											</div>
 										</div>
 									</div>
 								</form>
