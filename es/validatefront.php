@@ -226,7 +226,7 @@
 
 <!-- Footer bar & info
 	================================================== -->
-	<div id="footer" class="hidden-xs hidden-sm" >
+	<div id="footer">
 		<div class="container">
 			<p class="text-muted">&copy; Perspectiva Alemania, S.L.</p>
 		</div>
