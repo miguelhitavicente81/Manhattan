@@ -356,35 +356,38 @@
 								<h3 class="panel-title">Idiomas</h3>
 							</div>
 							<div class="panel-body">
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Clave</th>
-											<th>Nombre (Ing)</th>
-											<th>Nombre (Esp)</th>
-											<th>Nombre (Ale)</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php 
-										$langKeyRows = getDBcompletecolumnID('key', 'languages', 'id');
-										$k = 1;
-										foreach($langKeyRows as $i){
-											$langRow = getDBrow('languages', 'key', $i);
-											echo "<tr>";
-											echo "<td>" . $k . "</td>";
-											echo "<td>" . $langRow['key'] . "</td>";
-											echo "<td>" . $langRow['english'] . "</td>";
-											echo "<td>" . $langRow['spanish'] . "</td>";
-											echo "<td>" . $langRow['german'] . "</td>";
-											echo "<td><a href='admGenOptions.php?codvalue=" . $langRow['id'] . "&hiddenGET=hDelLang' onclick='return confirmLangDeletionES();'>Borrar</a></td>";
-											$k++;
-										}
-										?>
-									</tbody>
-								</table>
+								<div class="table-responsive">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Clave</th>
+												<th>Nombre (Ing)</th>
+												<th>Nombre (Esp)</th>
+												<th>Nombre (Ale)</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php 
+											$langKeyRows = getDBcompletecolumnID('key', 'languages', 'id');
+											$k = 1;
+											foreach($langKeyRows as $i){
+												$langRow = getDBrow('languages', 'key', $i);
+												echo "<tr>";
+												echo "<td>" . $k . "</td>";
+												echo "<td>" . $langRow['key'] . "</td>";
+												echo "<td>" . $langRow['english'] . "</td>";
+												echo "<td>" . $langRow['spanish'] . "</td>";
+												echo "<td>" . $langRow['german'] . "</td>";
+												echo "<td><a href='admGenOptions.php?codvalue=" . $langRow['id'] . "&hiddenGET=hDelLang' onclick='return confirmLangDeletionES();'>Borrar</a></td>";
+												$k++;
+											}
+											?>
+										</tbody>
+									</table>
+								</div>
+
 								<div class="container-fluid center-block">
 									<h4>Nuevo Idioma</h4>
 									<form class="form-inline" role="form" name="newLanguage" action="admGenOptions.php" method="post">
@@ -413,35 +416,38 @@
 								<h3 class="panel-title">Educación</h3>
 							</div>
 							<div class="panel-body">
-								<table class="table table-striped table-hover">
-									<thead>
-										<tr>
-											<th>Id</th>
-											<th>Clave</th>
-											<th>Nombre (Ing)</th>
-											<th>Nombre (Esp)</th>
-											<th>Nombre (Ale)</th>
-											<th>Acción</th>
-										</tr>
-									</thead>
-									<tbody>
-										<?php 
-										$studyKeyRows = getDBcompletecolumnID('key', 'studies', 'id');
-										$k = 1;
-										foreach($studyKeyRows as $i){
-											$studyRow = getDBrow('studies', 'key', $i);
-											echo "<tr>";
-											echo "<td>" . $k . "</td>";
-											echo "<td>" . $studyRow['key'] . "</td>";
-											echo "<td>" . $studyRow['english'] . "</td>";
-											echo "<td>" . $studyRow['spanish'] . "</td>";
-											echo "<td>" . $studyRow['german'] . "</td>";
-											echo "<td><a href='admGenOptions.php?codvalue=" . $studyRow['id'] . "&hiddenGET=hDelStudy' onclick='return confirmStudyDeletionES();'>Borrar</a></td>";
-											$k++;
-										}
-										?>
-									</tbody>
-								</table>
+								<div class="table-responsive">
+									<table class="table table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Clave</th>
+												<th>Nombre (Ing)</th>
+												<th>Nombre (Esp)</th>
+												<th>Nombre (Ale)</th>
+												<th>Acción</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php 
+											$studyKeyRows = getDBcompletecolumnID('key', 'studies', 'id');
+											$k = 1;
+											foreach($studyKeyRows as $i){
+												$studyRow = getDBrow('studies', 'key', $i);
+												echo "<tr>";
+												echo "<td>" . $k . "</td>";
+												echo "<td>" . $studyRow['key'] . "</td>";
+												echo "<td>" . $studyRow['english'] . "</td>";
+												echo "<td>" . $studyRow['spanish'] . "</td>";
+												echo "<td>" . $studyRow['german'] . "</td>";
+												echo "<td><a href='admGenOptions.php?codvalue=" . $studyRow['id'] . "&hiddenGET=hDelStudy' onclick='return confirmStudyDeletionES();'>Borrar</a></td>";
+												$k++;
+											}
+											?>
+										</tbody>
+									</table>
+								</div>
+								
 								<div class="container-fluid center-block">
 									<h4>Nueva Educación</h4>
 									<form class="form-inline" role="form" name="newStudy" action="admGenOptions.php" method="post">
