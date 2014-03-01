@@ -240,6 +240,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 								/* Obtener la informacin de campo de todas las columnas */
 								$info_campo = mysqli_fetch_fields($resultado);
 								$valores_mostrar = array("id", "name", "surname", "nationalities","occupation");
+								echo "<div class='table-responsive'>";
 								echo "<table id='resultTable' class='table table-striped table-hover'>";
 								
 								echo "<thead>";
@@ -265,13 +266,12 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 									$imagen_o="$output_dir/chica.jpg";
 								    $image = new SimpleImage();
 								    $image->load("$output_dir/chica.jpg");
-								    $image->resize(100,130);
+								    $image->resize(100,100);
 								    $image->save("$output_dir/chica2.jpg");
 									$pdf->ezImage("$output_dir/chica2.jpg",0,0,'none','right');
 									while (list($clave, $valor) = each($fila)) {
 									foreach( $_POST[per] as $value ) {
 									if($clave == $value){
-											
 											$pdf->ezText("<b>$clave</b> $valor");}
 									}
 									}
@@ -283,7 +283,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 									$imagen_o="$output_dir/chica.jpg";
 								    $image = new SimpleImage();
 								    $image->load("$output_dir/chica.jpg");
-								    $image->resize(100,130);
+								    $image->resize(100,100);
 								    $image->save("$output_dir/chica2.jpg");
 									$pdf->ezImage("$output_dir/chica2.jpg",0,0,'none','right');
 									while (list($clave, $valor) = each($fila)){
@@ -296,7 +296,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 									$imagen_o="$output_dir/chica.jpg";
 								    $image = new SimpleImage();
 								    $image->load("$output_dir/chica.jpg");
-								    $image->resize(100,130);
+								    $image->resize(100,100);
 								    $image->save("$output_dir/chica2.jpg");
 									$pdf->ezImage("$output_dir/chica2.jpg",0,0,'none','right');
 									while (list($clave, $valor) = each($fila)){
@@ -326,6 +326,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 								}
 
 								echo "</table>";
+								echo "</div>";
 								
 								mysqli_free_result($resultado);
 								
