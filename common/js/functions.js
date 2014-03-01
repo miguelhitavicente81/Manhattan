@@ -208,6 +208,26 @@ function confirmProfileDeletion(id) {
 
 
 
+/* Double-checks deletion of an existing language
+ * Called in "admGenOptions.php"
+ */
+function confirmLangDeletionES(id) {
+	if(confirm('¿Confirma que desea borrar este idioma?')) {
+	}
+}
+
+
+
+/* Double-checks deletion of an existing study
+ * Called in "admGenOptions.php"
+ */
+function confirmStudyDeletionES(id) {
+	if(confirm('¿Confirma que desea borrar esta Educación?')) {
+	}
+}
+
+
+
 
 
 /**********************************************************************************************************

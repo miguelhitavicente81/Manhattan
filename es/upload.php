@@ -636,8 +636,8 @@ unlink($uploadfile);
 		<tr>
 			<td><label class='control-label'>Sexo</label></td>
 			<td>
-				<input type="radio" name="blanksex" value="0" required>Hombre
-				<input type="radio" name="blanksex" value="1" >Mujer
+				<input type="radio" name="blanksex" value="0" required> Hombre
+				<input type="radio" name="blanksex" value="1" > Mujer
 			</td>
 		</tr>
 		<tr>
@@ -744,7 +744,7 @@ unlink($uploadfile);
 		
 		<tr>
 			<td><label class='control-label'>Documentos adicionales</label></td>
-			<td id="adjuntos"><input type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, html, zip, mp3, wma, mpg, flv, avi, jpg, jpeg, png, gif" file-maxsize="1024" />
+			<td id="adjuntos"><input type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, zip" file-maxsize="1024" />
 			</td><td><input onclick="addCampo();" type="button" value="+" />
 			</td>
 		</tr>
@@ -753,6 +753,7 @@ unlink($uploadfile);
 			<td><label class='control-label'>Nivel de idiomas</label></td>
 			<td>
 				<div id="itemRows">
+					<!-- 
 					<select name="add_idiomas">
 						<option selected value="">-- Idioma --</option>
 						<option value="german">Alemán</option>
@@ -766,12 +767,25 @@ unlink($uploadfile);
 						<option value="chinese">Chino</option>
 						<option value="japanese">Japonés</option>
 					</select>
+					-->
+					<select name="add_idiomas">
+						<option selected disabled value="">-- Idioma --</option>
+						<?php
+						$langNames = getDBcompletecolumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'languages', 'id');
+						 foreach($langNames as $i){
+						 	echo "<option value=" . $i . ">" . $i . "</option>";
+						 }
+						?>
+					</select>
 					<select name="add_nidiomas">
-						<option selected value="null">Sin conocimientos</option>
-						<option value="basic">Básico hablado y escrito</option>
-						<option value="medium">Medio hablado y escrito</option>
-						<option value="high">Alto hablado y escrito</option>
-						<option value="bilingual">Bilingüe</option>
+						<option selected value="null">-- Sin conocimientos --</option>
+						<option value="A1">A1</option>
+						<option value="A2">A2</option>
+						<option value="B1">B1</option>
+						<option value="B2">B2</option>
+						<option value="C1">C1</option>
+						<option value="C2">C2</option>
+						<option value="mothertongue">Lengua Materna</option>
 					</select>
 					<input onclick="addRow1(this.form);" type="button" value="Pulse para incluir" />
 				</div>
@@ -788,7 +802,7 @@ unlink($uploadfile);
 			<td>
 				<div id="itemRows3">
 					<select name="add_nfor">
-						<option selected value="">-- Elija Estudios --</option>
+						<option selected value="">Estudié...</option>
 						<?php 
 						/*
 						$eduKeys = getDBcompletecolumnID('key', 'studies', 'id');
