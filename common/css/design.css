@@ -255,6 +255,29 @@ body {
 
 
 
+/* Responsive tables styles
+-------------------------------------------------- */
+.table {
+	font-weight: 200;
+	font-size: 12pt;
+}
+
+.table th {
+	font-weight: 500;
+	font-size: 12pt;
+}
+
+#usersTable {
+	font-size: 10pt;
+}
+
+#usersTable th {
+	font-size: 10pt;
+}
+
+
+
+
 
 /* Sticky footer styles
 -------------------------------------------------- */

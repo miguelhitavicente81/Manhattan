@@ -193,23 +193,23 @@
 
 							if(($userRow['profile'] == 'Administrador') || ($userRow['profile'] == 'SuperAdmin')){
 								if((getDBrowsnumber('cVitaes') == 0) || ($pendingCVs == 0)){
-									echo "<h1 class='page-header'>Noticias <small>No existen CVs por clasificar</small></h1>";
+									echo "<h1 class='page-header'>Noticias <br><small>No existen CVs por clasificar</small></h1>";
 								}
 								else{
-									echo "<h1 class='page-header'>Noticias <small>Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por clasificar</small></h1>";
+									echo "<h1 class='page-header'>Noticias <br><small>Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por clasificar</small></h1>";
 								}
 							}
 							elseif($userRow['profile'] == 'Lector'){
 								echo "-- DEFINIR SE SE QUIERE O NO QUE UN PERFIL \"Lector\" PUEDA REVISAR CVs --";
 								if((getDBrowsnumber('cVitaes') == 0) || ($pendingCVs == 0)){
-									echo "<h1 class='page-header'>Noticias <small> No existen CVs por clasificar</small></h1>";
+									echo "<h1 class='page-header'>Noticias <br><small> No existen CVs por clasificar</small></h1>";
 								}
 								else{
-									echo "<h1 class='page-header'>Noticias <small> Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por clasificar</small></h1>";
+									echo "<h1 class='page-header'>Noticias <br><small> Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por clasificar</small></h1>";
 								}
 							}
 							else{
-								echo "<h1 class='page-header'>Introduce tu CV<small>" . $userRow['login'] . "</small></h1>";
+								echo "<h1 class='page-header'>Introduce tu CV <br><small>" . $userRow['login'] . "</small></h1>";
 								include 'upload.php';
 							}
 						?>

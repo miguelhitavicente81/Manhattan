@@ -82,9 +82,6 @@
 							<li class="dropdown-header">Conectado como: <?php echo $_SESSION['loglogin']; ?></li>
 							<li class="divider"></li>
 							<li><a href="../administration.php">Configuración</a></li>
-							<li><a href="#">Abrir incidencia</a></li>
-							<li><a href="#">Revisar Curriculum</a></li>
-							<li class="divider"></li>
 							<li><a data-toggle="modal" data-target="#exitRequest" href="#exitRequest">Salir</a></li>
 						</ul>
 					</li>
@@ -172,9 +169,18 @@
 			while ($fila = $resultado->fetch_assoc()) {
 				$pdf = new Cezpdf('A4'); // Seleccionamos tipo de hoja para el informe
 				$pdf->selectFont('fonts/Helvetica.afm'); //seleccionamos fuente a utilizar
+				$currentName = $fila['name'];
 				$id[$fila['id']] = $fila['nie'];
 				if ($fila['sex']==0){ $fila['sex'] = "hombre"; }
 				if ($fila['sex']==1){ $fila['sex'] = "mujer"; }
+
+				// Añadido tras el merge de Miguel Hita
+				$imagen="chica.jpg";
+
+				$texto = $texto . "<img class='pull-right img-circle img-thumbnail' src=../../cvs/".$imagen." width=\"100px\" height=\"100px\"\/><br>";
+				//print"<img src=../../cvs/".$imagen." width=\"100px\" height=\"100px\"\/>";
+				$pdf->ezImage("$output_dir/chica2.jpg",0,0,'none','right');
+				// Añadido tras el merge de Miguel Hita
 
 
 				while (list($clave, $valor) = each($fila)) {
@@ -219,7 +225,7 @@
 						?>
 					</div>
 					<div class="panel-heading">
-						<h3 class="panel-title">CV de fulanito de tal</h3>
+						<h3 class="panel-title">CV de <?php echo $currentName;?></h3>
 					</div>
 					<div class="panel-body scrollable" > <!-- panel-body -->
 						<?php echo $texto; ?>

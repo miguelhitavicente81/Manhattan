@@ -56,6 +56,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 			unset($elapsedTime);
 		}
 		require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
+		require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/SimpleImage.php');
 		?>
 
 
@@ -80,9 +81,6 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 							<li class="dropdown-header">Conectado como: <?php echo $_SESSION['loglogin']; ?></li>
 							<li class="divider"></li>
 							<li><a href="../administration.php">Configuración</a></li>
-							<li><a href="#">Abrir incidencia</a></li>
-							<li><a href="#">Revisar Curriculum</a></li>
-							<li class="divider"></li>
 							<li><a data-toggle="modal" data-target="#exitRequest" href="#exitRequest">Salir</a></li>
 						</ul>
 					</li>
@@ -239,6 +237,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 								/* Obtener la informacin de campo de todas las columnas */
 								$info_campo = mysqli_fetch_fields($resultado);
 								$valores_mostrar = array("id", "name", "surname", "nationalities","occupation");
+								echo "<div class='table-responsive'>";
 								echo "<table id='resultTable' class='table table-striped table-hover'>";
 								
 								echo "<thead>";
@@ -248,7 +247,6 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 								}
 								echo "	</tr>";
 								echo "</thead>";
-								$zip = new ZipArchive();
 								while ($fila = $resultado->fetch_assoc()) {
 									$pdf = new Cezpdf('A4'); // Seleccionamos tipo de hoja para el informe
 									$pdf->selectFont('fonts/Helvetica.afm'); //seleccionamos fuente a utilizar
@@ -256,12 +254,18 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 
 									$pdf_file_name = "";
 									$pdf_file_name = $fila['userLogin'];
-
+									
 									$id[$fila['id']] = $fila['nie'];
 									if ($fila['sex']==0){ $fila['sex'] = "hombre"; }
 									if ($fila['sex']==1){ $fila['sex'] = "mujer"; }
 									if ($_POST[reportType] == "custom_report"){
 									$reportType=custom_report;
+									$imagen_o="$output_dir/chica.jpg";
+								    $image = new SimpleImage();
+								    $image->load("$output_dir/chica.jpg");
+								    $image->resize(100,100);
+								    $image->save("$output_dir/chica2.jpg");
+									$pdf->ezImage("$output_dir/chica2.jpg",0,0,'none','right');
 									while (list($clave, $valor) = each($fila)) {
 									foreach( $_POST[per] as $value ) {
 									if($clave == $value){
@@ -273,6 +277,12 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 									if ($_POST[reportType] == "blind_report"){
 									echo "CIEGO";
 									$reportType=blind_report;
+									$imagen_o="$output_dir/chica.jpg";
+								    $image = new SimpleImage();
+								    $image->load("$output_dir/chica.jpg");
+								    $image->resize(100,100);
+								    $image->save("$output_dir/chica2.jpg");
+									$pdf->ezImage("$output_dir/chica2.jpg",0,0,'none','right');
 									while (list($clave, $valor) = each($fila)){
 											if(($clave == postalCode) || ($clave == country) || ($clave == province) || ($clave == city) || ($clave == drivingType) || ($clave == language) || ($clave == langLevel) || ($clave == occupation) || ($clave == studyType) || ($clave == studyName)){
 											$pdf->ezText("<b>$clave</b> $valor");}
@@ -280,6 +290,12 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 									}
 									if ($_POST[reportType] == "full_report"){
 									$reportType=full_report;
+									$imagen_o="$output_dir/chica.jpg";
+								    $image = new SimpleImage();
+								    $image->load("$output_dir/chica.jpg");
+								    $image->resize(100,100);
+								    $image->save("$output_dir/chica2.jpg");
+									$pdf->ezImage("$output_dir/chica2.jpg",0,0,'none','right');
 									while (list($clave, $valor) = each($fila)){
 										
 											$pdf->ezText("<b>$clave</b> $valor");
@@ -307,6 +323,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 								}
 
 								echo "</table>";
+								echo "</div>";
 								
 								mysqli_free_result($resultado);
 								

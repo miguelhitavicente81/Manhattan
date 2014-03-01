@@ -73,9 +73,6 @@
 							<li class="dropdown-header">Conectado como: <?php echo $_SESSION['loglogin']; ?></li>
 							<li class="divider"></li>
 							<li><a href="../administration.php">Configuración</a></li>
-							<li><a href="#">Abrir incidencia</a></li>
-							<li><a href="#">Revisar Curriculum</a></li>
-							<li class="divider"></li>
 							<li><a data-toggle="modal" data-target="#exitRequest" href="#exitRequest">Salir</a></li>
 						</ul>
 					</li>
@@ -193,7 +190,6 @@
 					<div class="bs-docs-section">
 
 						<h2 class="page-header">Buscar CVs</h2>
-
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<h2 class="panel-title">Introduzca criterios de búsqueda</h2>

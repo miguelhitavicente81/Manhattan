@@ -73,9 +73,6 @@
 							<li class="dropdown-header">Conectado como: <?php echo $_SESSION['loglogin']; ?></li>
 							<li class="divider"></li>
 							<li><a href="../administration.php">Configuración</a></li>
-							<li><a href="#">Abrir incidencia</a></li>
-							<li><a href="#">Revisar Curriculum</a></li>
-							<li class="divider"></li>
 							<li><a data-toggle="modal" data-target="#exitRequest" href="#exitRequest">Salir</a></li>
 						</ul>
 					</li>
@@ -203,30 +200,32 @@
 					}
 					else{
 						?>
-						<table class="table table-striped table-hover">
-							<thead>
-								<tr>
-									<th>NIE</th>
-									<th>Nombre</th>
-									<th>Apellidos</th>
-									<th>Acción (Eliminar)</th>
-								</tr>
-							</thead>
+						<div class="table-responsive">
+							<table class="table table-striped table-hover">
+								<thead>
+									<tr>
+										<th>NIE</th>
+										<th>Nombre</th>
+										<th>Apellidos</th>
+										<th>Acción (Eliminar)</th>
+									</tr>
+								</thead>
 
-							<tbody>
-							<?php 
-							foreach($cvIDs as $i){
-								$cvRow = getDBrow('cVitaes', 'id', $i);
-								echo "<tr>";
-								echo "<td><a href='editCurCV.php?codvalue=" . $cvRow['nie'] . "'>" . $cvRow['nie'] . "</a></td>";
-								echo "<td>" . $cvRow['name'] . "</td>";
-								echo "<td>" . $cvRow['surname'] . "</td>";
-								echo "<td><a href='delCurCV.php?codvalue=" . $cvRow['nie'] . "'>Borrar</a></td>";
-								echo "</tr>";
-							}
-							?>
-							</tbody>
-						</table>
+								<tbody>
+								<?php 
+								foreach($cvIDs as $i){
+									$cvRow = getDBrow('cVitaes', 'id', $i);
+									echo "<tr>";
+									echo "<td><a href='editCurCV.php?codvalue=" . $cvRow['nie'] . "'>" . $cvRow['nie'] . "</a></td>";
+									echo "<td>" . $cvRow['name'] . "</td>";
+									echo "<td>" . $cvRow['surname'] . "</td>";
+									echo "<td><a href='delCurCV.php?codvalue=" . $cvRow['nie'] . "'>Borrar</a></td>";
+									echo "</tr>";
+								}
+								?>
+								</tbody>
+							</table>
+						</div>
 						<?php 
 					}
 					?>
