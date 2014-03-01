@@ -12,7 +12,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
-	<meta name="author" content="David Alfonso GinÃ©s Prieto, Miguel Hita Vicente y Miguel Ãngel MelÃ³n PÃ©rez">
+	<meta name="author" content="David Alfonso Ginés Prieto, Miguel Hita Vicente y Miguel Ángel Melón Pérez">
 	
 	<title>CVs encontrados</title>
 	
@@ -81,7 +81,7 @@
 						<ul class="dropdown-menu">
 							<li class="dropdown-header">Conectado como: <?php echo $_SESSION['loglogin']; ?></li>
 							<li class="divider"></li>
-							<li><a href="../administration.php">ConfiguraciÃ³n</a></li>
+							<li><a href="../administration.php">Configuración</a></li>
 							<li><a href="#">Abrir incidencia</a></li>
 							<li><a href="#">Revisar Curriculum</a></li>
 							<li class="divider"></li>
@@ -100,14 +100,14 @@
 				<form class="modal-content" action="../endsession.php">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						<h4 class="modal-title" id="exitRequestLabel">Cerrar sesiÃ³n</h4>
+						<h4 class="modal-title" id="exitRequestLabel">Cerrar sesión</h4>
 					</div>
 					<div class="modal-body">
-						Â¿EstÃ¡s seguro de que quieres salir?
+						¿Estás seguro de que quieres salir?
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-primary">SÃ­, cerrar sesiÃ³n</button>
+						<button type="submit" class="btn btn-primary">Sí, cerrar sesión</button>
 					</div>
 				</form>
 			</div>
@@ -129,7 +129,7 @@
 
 		<script type="text/javascript">
 			function insert() {
-				alert('Nota AÃ±adida');
+				alert('Nota Añadida');
 			}
 		</script> 
 
@@ -175,6 +175,14 @@
 				$id[$fila['id']] = $fila['nie'];
 				if ($fila['sex']==0){ $fila['sex'] = "hombre"; }
 				if ($fila['sex']==1){ $fila['sex'] = "mujer"; }
+
+				// Añadido tras el merge de Miguel Hita
+				$imagen="chica.jpg";
+
+				$texto = $texto . "<img src=../../cvs/".$imagen." width=\"100px\" height=\"100px\"\/>";
+				//print"<img src=../../cvs/".$imagen." width=\"100px\" height=\"100px\"\/>";
+				$pdf->ezImage("$output_dir/chica2.jpg",0,0,'none','right');
+				// Añadido tras el merge de Miguel Hita
 
 
 				while (list($clave, $valor) = each($fila)) {
@@ -228,7 +236,7 @@
 
 				<div class="panel panel-default col-md-3">
 					<div class="panel-heading">
-						<h3 class="panel-title">AÃ±adir nota</h3>
+						<h3 class="panel-title">Añadir nota</h3>
 					</div>
 					<div class="panel-body" > <!-- panel-body -->
 						<?php

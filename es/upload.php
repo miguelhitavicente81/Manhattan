@@ -380,7 +380,7 @@ if(isset($_POST['senduser'])){
 /***************  Aquí comienza el bloque que permite mostrar el formulario  ***************/
 ?>
 
-<form id="formu" class="form-horizontal form-upload" name="formu" action="" method="post" enctype="multipart/form-data" onsubmit="return checkFormES(this)">
+<form id="formu" class="form-horizontal form-upload" name="formu" action="" method="post" enctype="multipart/form-data">
 
 	<table>
 		<tr>
@@ -883,7 +883,7 @@ if(isset($_POST['senduser'])){
 	</table>
 
 	<input type="checkbox" name="blanklopd" /> He leído y acepto las condiciones de uso y política de privacidad<br>
-	<input type="submit" name="senduser" value="Enviar solicitud">
+	<input onclick="return checkFormES(this.form);" type="button" value="Enviar" />
 	<!-- <input type="reset" value="Borrar formulario" /> -->
 
 </form>
