@@ -350,7 +350,7 @@
 					<h2 class="page-header">Conjunto de configuraciones generales</h2>
 					
 					<?php 
-					if($_SESSION['loglogin'] == 'super'){
+					if($_SESSION['logprofile'] == 'SuperAdmin'){
 						?>
 						<div class="panel panel-default"> <!-- Panel de Idiomas -->
 							<div class="panel-heading">
@@ -532,7 +532,7 @@
 					
 					<?php 
 					}
-					elseif($_SESSION['loglogin'] == 'Administrador'){
+					elseif($_SESSION['logprofile'] == 'Administrador'){
 					?>
 						<div class="panel panel-default"> <!-- Panel de Idiomas -->
 							<div class="panel-heading">
