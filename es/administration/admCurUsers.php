@@ -284,7 +284,8 @@
 														$showedUserRow = getDBrow('users', 'id', $i);
 														echo "<tr>";
 														echo "<td>" . $showedUserRow['id'] . "</td>";
-														echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
+														//echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
+														echo "<td><a href='editSelectedUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
 														echo "<td>" . $showedUserRow['profile'] . "</td>";
 														if($showedUserRow['employee'] == 1){
 															echo "<td>Sí</td>";
@@ -382,7 +383,8 @@
 														$showedUserRow = getDBrow('users', 'id', $i);
 														echo "<tr>";
 														echo "<td>" . $showedUserRow['id'] . "</td>";
-														echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
+														//echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
+														echo "<td><a href='editSelectedUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
 														echo "<td>" . $showedUserRow['profile'] . "</td>";
 														if($showedUserRow['active']){
 															echo "<td>Sí</td>";

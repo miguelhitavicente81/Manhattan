@@ -261,6 +261,26 @@ body {
 
 
 
+
+/* editUserModal styles
+-------------------------------------------------- */
+#editedUserLabel{
+}
+@media (min-width: 768px) {
+	#editedUserLabel {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+}
+
+#noPadding{
+	padding: 0px;
+	margin-right: 20px;
+}
+
+
+
+
 /* Responsive tables styles
 -------------------------------------------------- */
 .table {
