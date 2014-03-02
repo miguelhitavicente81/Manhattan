@@ -68,6 +68,10 @@ body {
 	display: block;
 }
 
+.navbar-nav>li>.dropdown-menu>.dropdown-header { padding-left: 10px; padding-right: 10px; }
+
+.navbar-nav>li>.dropdown-menu>li>a { padding-left: 10px; padding-right: 10px; }
+
 
 /* Tabbed navbar redefinitions
 -------------------------------------------------- */
