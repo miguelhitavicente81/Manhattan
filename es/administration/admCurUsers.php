@@ -253,176 +253,202 @@
 						}
 						?>
 
-		<?php 
-			if($_SESSION['logprofile'] == 'SuperAdmin'){
-		?>
-				<div class="panel panel-default"> <!-- Panel de Usuarios Existentes -->
-					<div class="panel-heading">
-						<h3 class="panel-title">Usuarios Existentes</h3>
-					</div>
-					<div class="panel-body">
-						<div class="table-responsive">
-							<table id="usersTable" class="table table-striped table-hover">
-								<thead>
-									<tr>
-										<th>Id</th>
-										<th>Login</th>
-										<th>Perfil</th>
-										<th>Empleado</th>
-										<th>Activo</th>
-										<th>Idioma</th>
-										<th>Creado</th>
-										<th>Ultima conexión</th>
-										<th>Caduca Password</th>
-										<th>Acción</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-										$numUsers = getDBrowsnumber('users');
-										for($i=1; $i<=$numUsers; $i++){
-											$showedUserRow = getDBrow('users', 'id', $i);
-											echo "<tr>";
-											echo "<td>" . $showedUserRow['id'] . "</td>";
-											echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
-											echo "<td>" . $showedUserRow['profile'] . "</td>";
-											if($showedUserRow['employee'] == 1){
-												echo "<td>Sí</td>";
-											}
-											else{
-												echo "<td>No</td>";
-											}
-											if($showedUserRow['active']){
-												echo "<td>Sí</td>";
-											}
-											else{
-												echo "<td>No</td>";
-											}
-											echo "<td>" . $showedUserRow['language'] . "</td>";
-											echo "<td>" . $showedUserRow['created'] . "</td>";
-											echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
-											echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
-											echo "<td><a href=''>Borrar</a></td>";
-											echo "</tr>";
-										}
-									?>
-								</tbody>
-							</table>
-						</div>
-
-						<div class="container-fluid center-block">
-							<h4>Nuevo Usuario</h4>
-
-							<form class="form-inline" role="form" name="newUser" action="admCurUsers.php" method="post">
-								<div class="form-group">
-									<label class="sr-only" for="newUName">Usuario</label>
-									<input type="text" class="form-control" size="6" name="newUName" placeholder="Usuario" />
+					<?php 
+						if($_SESSION['logprofile'] == 'SuperAdmin'){
+					?>
+							<div class="panel panel-default"> <!-- Panel de Usuarios Existentes -->
+								<div class="panel-heading">
+									<h3 class="panel-title">Usuarios Existentes</h3>
 								</div>
-								<div class="form-group">
-									<label class="sr-only" for="newUProfile">Perfil</label>
-									<select name="newUProfile" class="form-control">
-										<option selected disabled value=''>Perfil</option>
-										<?php 
-											$profNames = getDBcompletecolumnID('name', 'profiles', 'id');
-											foreach($profNames as $i){
-												echo "<option value=" . $i . ">" . $i . "</option>";
-											}
-										?>
-									</select>
-								</div>
-								<div class="form-group">
-									<label class="sr-only" for="newULanguage">Idioma</label>
-									<select name="newULanguage" class="form-control">
-										<option selected disabled value=''>Idioma</option>
-										<?php 
-											$siteLanguages = getDBcompletecolumnID('esName', 'siteLanguages', 'id');
-											foreach($siteLanguages as $i){
-												echo "<option value=" . $i . ">" . $i . "</option>";
-											}
-										?>
-									</select>
-								</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table id="usersTable" class="table table-striped table-hover">
+											<thead>
+												<tr>
+													<th>Id</th>
+													<th>Login</th>
+													<th>Perfil</th>
+													<th>Empleado</th>
+													<th>Activo</th>
+													<th>Idioma</th>
+													<th>Creado</th>
+													<th>Ultima conexión</th>
+													<th>Caduca Password</th>
+													<th>Acción</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php
+													$numUsers = getDBrowsnumber('users');
+													for($i=1; $i<=$numUsers; $i++){
+														$showedUserRow = getDBrow('users', 'id', $i);
+														echo "<tr>";
+														echo "<td>" . $showedUserRow['id'] . "</td>";
+														echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
+														echo "<td>" . $showedUserRow['profile'] . "</td>";
+														if($showedUserRow['employee'] == 1){
+															echo "<td>Sí</td>";
+														}
+														else{
+															echo "<td>No</td>";
+														}
+														if($showedUserRow['active']){
+															echo "<td>Sí</td>";
+														}
+														else{
+															echo "<td>No</td>";
+														}
+														echo "<td>" . $showedUserRow['language'] . "</td>";
+														echo "<td>" . $showedUserRow['created'] . "</td>";
+														echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
+														echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
+														echo "<td><a href=''>Borrar</a></td>";
+														echo "</tr>";
+													}
+												?>
+											</tbody>
+										</table>
+									</div>
 
-								<button type="submit" class="btn btn-primary" name="newUsubmit" value="Añadir">Añadir</button>
-							</form>
-						</div>
-					</div>
-				</div> <!-- Panel de Usuarios existentes -->	
+									<div class="container-fluid center-block">
+										<h4>Nuevo Usuario</h4>
 
-				<?php 
-			}
-		elseif($_SESSION['logprofile'] == 'Administrador'){
-			?>
-			<table class="tabla1">
-				<tr>
-					<th>Id</th>
-					<th>Login</th>
-					<th>Perfil</th>
-					<th>Activo</th>
-					<th>Idioma</th>
-					<th>Creado</th>
-					<th>Ultima conexión</th>
-					<th>Caduca Password</th>
-					<th>Acción</th>
-				</tr>
-			<?php
-			$numUsers = getDBrowsnumber('users');
-			for($i=2; $i<=$numUsers; $i++){
-				$showedUserRow = getDBrow('users', 'id', $i);
-				echo "<tr>";
-				echo "<td>" . $showedUserRow['id'] . "</td>";
-				echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
-				echo "<td>" . utf8_encode($showedUserRow['profile']) . "</td>";
-				if($showedUserRow['active']){
-					echo "<td>Si</td>";
-				}
-				else{
-					echo "<td>No</td>";
-				}
-				echo "<td>" . utf8_encode($showedUserRow['language']) . "</td>";
-				echo "<td>" . $showedUserRow['created'] . "</td>";
-				echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
-				echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
-				echo "<td><a href=''>Borrar</a></td>";
-				echo "</tr>";
-			}
-			?>
-			</table>
-			<fieldset id="auto1">
-				<legend>Nuevo Usuario</legend>
-				<form name="newUser" action="admCurUsers.php" method="post">
-					<input type="text" name="newUName" size="15" placeholder="Usuario" />
-					Perfil: <select name="newUProfile">
+										<form class="form-inline" role="form" name="newUser" action="admCurUsers.php" method="post">
+											<div class="form-group">
+												<label class="sr-only" for="newUName">Usuario</label>
+												<input type="text" class="form-control" size="6" name="newUName" placeholder="Usuario" />
+											</div>
+											<div class="form-group">
+												<label class="sr-only" for="newUProfile">Perfil</label>
+												<select name="newUProfile" class="form-control">
+													<option selected disabled value=''>Perfil</option>
+													<?php 
+														$profNames = getDBcompletecolumnID('name', 'profiles', 'id');
+														foreach($profNames as $i){
+															echo "<option value=" . $i . ">" . $i . "</option>";
+														}
+													?>
+												</select>
+											</div>
+											<div class="form-group">
+												<label class="sr-only" for="newULanguage">Idioma</label>
+												<select name="newULanguage" class="form-control">
+													<option selected disabled value=''>Idioma</option>
+													<?php 
+														$siteLanguages = getDBcompletecolumnID('esName', 'siteLanguages', 'id');
+														foreach($siteLanguages as $i){
+															echo "<option value=" . $i . ">" . $i . "</option>";
+														}
+													?>
+												</select>
+											</div>
+
+											<button type="submit" class="btn btn-primary" name="newUsubmit" value="Añadir">Añadir</button>
+										</form>
+									</div>
+								</div>
+							</div> <!-- Panel de Usuarios existentes -->	
+
 						<?php 
-						//$profNames = getDBcompletecolumnNotID('name', 'profiles', 'id', 'name', 'SuperAdmin');
-						$profNames = getDBcompletecolumnID('name', 'profiles', 'id');
-						foreach($profNames as $i){
-							if($i != 'SuperAdmin'){
-								echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
-							}
+						}
+						elseif($_SESSION['logprofile'] == 'Administrador'){
+						?>
+
+
+							<div class="panel panel-default"> <!-- Panel de Usuarios Existentes -->
+								<div class="panel-heading">
+									<h3 class="panel-title">Usuarios Existentes</h3>
+								</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+										<table id="usersTable" class="table table-striped table-hover">
+											<thead>
+												<tr>
+													<th>Id</th>
+													<th>Login</th>
+													<th>Perfil</th>
+													<th>Activo</th>
+													<th>Idioma</th>
+													<th>Creado</th>
+													<th>Ultima conexión</th>
+													<th>Caduca Password</th>
+													<th>Acción</th>
+												</tr>
+											</thead>
+											<tbody>
+												<?php
+													$numUsers = getDBrowsnumber('users');
+													for($i=1; $i<=$numUsers; $i++){
+														$showedUserRow = getDBrow('users', 'id', $i);
+														echo "<tr>";
+														echo "<td>" . $showedUserRow['id'] . "</td>";
+														echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
+														echo "<td>" . $showedUserRow['profile'] . "</td>";
+														if($showedUserRow['active']){
+															echo "<td>Sí</td>";
+														}
+														else{
+															echo "<td>No</td>";
+														}
+														echo "<td>" . $showedUserRow['language'] . "</td>";
+														echo "<td>" . $showedUserRow['created'] . "</td>";
+														echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
+														echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
+														echo "<td><a href=''>Borrar</a></td>";
+														echo "</tr>";
+													}
+												?>
+											</tbody>
+										</table>
+									</div>
+
+									<div class="container-fluid center-block">
+										<h4>Nuevo Usuario</h4>
+
+										<form class="form-inline" role="form" name="newUser" action="admCurUsers.php" method="post">
+											<div class="form-group">
+												<label class="sr-only" for="newUName">Usuario</label>
+												<input type="text" class="form-control" size="6" name="newUName" placeholder="Usuario" />
+											</div>
+											<div class="form-group">
+												<label class="sr-only" for="newUProfile">Perfil</label>
+												<select name="newUProfile" class="form-control">
+													<option selected disabled value=''>Perfil</option>
+													<?php 
+														$profNames = getDBcompletecolumnID('name', 'profiles', 'id');
+														foreach($profNames as $i){
+															if($i != 'SuperAdmin')
+																echo "<option value=" . $i . ">" . $i . "</option>";
+														}
+													?>
+												</select>
+											</div>
+											<div class="form-group">
+												<label class="sr-only" for="newULanguage">Idioma</label>
+												<select name="newULanguage" class="form-control">
+													<option selected disabled value=''>Idioma</option>
+													<?php 
+														$siteLanguages = getDBcompletecolumnID('esName', 'siteLanguages', 'id');
+														foreach($siteLanguages as $i){
+															echo "<option value=" . $i . ">" . $i . "</option>";
+														}
+													?>
+												</select>
+											</div>
+
+											<button type="submit" class="btn btn-primary" name="newUsubmit" value="Añadir">Añadir</button>
+										</form>
+									</div>
+								</div>
+							</div> <!-- Panel de Usuarios existentes -->	
+						
+						<?php 
+						}
+						else{
+							echo "No dispone de permisos para visualizar esta página";
+							echo "<button onclick='location.href=\"../home.php\"'>Inicio</button>";  
 						}
 						?>
-					</select>
-					Idioma: <select name="newULanguage">
-						<?php 
-						$siteLanguages = getDBcompletecolumnID('esName', 'siteLanguages', 'id');
-						foreach($siteLanguages as $i){
-							echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
-						}
-						?>
-					</select>
-					<!-- <input type="hidden" value="hNewUsubmit" name="hiddenfield"> -->
-					<input type="submit" value="Añadir" name="newUsubmit">
-				</form>
-			</fieldset>
-			<?php 
-		}
-		else{
-			echo "No dispone de permisos para visualizar esta página";
-			echo "<button onclick='location.href=\"../home.php\"'>Inicio</button>";  
-		}
-		?>
-				
 						
 					</div> <!-- bs-docs-section -->
 				</div> <!-- col-md-9 scrollable role=main -->
