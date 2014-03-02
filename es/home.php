@@ -195,14 +195,21 @@
 								else{
 									echo "<h1 class='page-header'>Noticias <br><small>Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por clasificar</small></h1>";
 								}
+								if(suggestPassword(date('Y-m-d'), $userRow['passExpiration'], $days)){
+									echo "<small>Su contraseña caduca en " . $days . " días. <a href=./home/personalData.php>Cambiar</a></small>";
+								}
 							}
 							elseif($userRow['profile'] == 'Lector'){
-								echo "-- DEFINIR SE SE QUIERE O NO QUE UN PERFIL \"Lector\" PUEDA REVISAR CVs --";
+								//echo "-- DEFINIR SE SE QUIERE O NO QUE UN PERFIL \"Lector\" PUEDA REVISAR CVs --";
+								//Un Lector SOLO podría realizar búsquedas de CVs y generación de ZIPs para enviar
 								if((getDBrowsnumber('cVitaes') == 0) || ($pendingCVs == 0)){
 									echo "<h1 class='page-header'>Noticias <br><small> No existen CVs por clasificar</small></h1>";
 								}
 								else{
 									echo "<h1 class='page-header'>Noticias <br><small> Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por clasificar</small></h1>";
+								}
+								if(suggestPassword(date('Y-m-d'), $userRow['passExpiration'], $days)){
+									echo "<small>Su contraseña caduca en " . $days . " días. <a href=./home/personalData.php>Cambiar</a></small>";
 								}
 							}
 							else{

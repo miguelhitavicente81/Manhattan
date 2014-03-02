@@ -495,4 +495,24 @@ function normalizeLogin($incomingLogin){
 
 
 
+/* Checks whether current password is about to expire
+ * Entry (curDate): String with current date in YYYY-MM-DD format
+ * Entry (curExpirate): String with current expiration date, which should a future date
+ * Exit (true/false): Boolean that tells if password is about to expire or not
+ */
+function suggestPassword($curDate, $curExpirate, &$days){
+	$datetime1 = date_create($curDate);
+	$datetime2 = date_create($curExpirate);
+	$interval = date_diff($datetime1, $datetime2);
+	$days = $interval->format('%a');
+	if($days > getDBsinglefield('value', 'otherOptions', 'key', 'passExpiryAdvise')){
+		//It won't be necessary to remind user about changing password
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+
 ?>
