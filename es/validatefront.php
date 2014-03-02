@@ -138,7 +138,8 @@
 						//After all these checkings, user could be properly logged in. We start with procedure
 						$_SESSION['loglogin'] = $checkedUser; 
 
-						if(($userRow['passExpiration'] <= date('Y-m-j')) || ($userRow['needPass'])){
+						//if(($userRow['passExpiration'] <= date('Y-m-j')) || ($userRow['needPass'])){
+						if(($userRow['passExpiration'] <= date('Y-m-d')) || ($userRow['needPass'])){
 						?>
 						<script type="text/javascript">
 							var changePasswordFlag = true;
