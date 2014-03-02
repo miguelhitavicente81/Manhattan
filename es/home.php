@@ -211,6 +211,9 @@
 								else{
 									echo "<h1 class='page-header'>Noticias <br><small> Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por clasificar</small></h1>";
 								}
+								if(suggestPassword(date('Y-m-d'), $userRow['passExpiration'], $days)){
+									echo "<small>Su contraseña caduca en " . $days . " días. <a href=./home/personalData.php>Cambiar</a></small>";
+								}
 							}
 							else{
 								echo "<h1 class='page-header'>Introduce tu CV <br><small>" . $userRow['login'] . "</small></h1>";
