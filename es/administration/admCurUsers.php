@@ -363,11 +363,9 @@
 											</tbody>
 										</table>
 									</div>
-									<div id="form_submit" class="form-group pull-right" style="margin: 1px;">
-										<button type="submit" name="Buscar" class="btn btn-primary" >Buscar <span class="glyphicon glyphicon-search"> </span></button>
-									</div>	
+
 									<div class="container-fluid center-block">
-										<h4>Nuevo Usuarioxxxx</h4>
+										<h4>Nuevo Usuario</h4>
 
 										<form class="form-inline" role="form" name="newUser" action="admCurUsers.php" method="post">
 											<div class="form-group">
@@ -400,6 +398,7 @@
 											</div>
 
 											<button type="submit" class="btn btn-primary" name="newUsubmit" value="Añadir">Añadir</button>
+											<button type="submit" class="btn btn-primary pull-right" name="newUsubmitC" value="AñadirC">Crear Candidato</button>
 										</form>
 									
 									</div>
@@ -496,13 +495,7 @@
 											</div>
 
 											<button type="submit" class="btn btn-primary" name="newUsubmit" value="Añadir">Añadir</button>
-										</form>
-										
-
-										<form class="form-inline" role="form" name="newUser" action="admCurUsers.php" method="post">
-										
-
-											<button type="submit" class="btn btn-primary" name="newUsubmitC" value="AñadirC">Crear Candidato</button>
+											<button type="submit" class="btn btn-primary pull-right" name="newUsubmitC" value="AñadirC">Crear Candidato</button>
 										</form>
 										
 									</div>
