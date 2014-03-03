@@ -115,6 +115,16 @@
 		function removeRow4(rnum){
 			jQuery('#rowNum'+rnum).remove();
 		}
+		function addRow5(frm){
+			rowNum ++;
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nat[]" value="'+frm.add_nat.value+'"><input type="button" value="Eliminar" onclick="removeRow4('+rowNum+');"></p>';
+			jQuery('#itemRows5').append(row);
+			frm.add_nat.value = '';
+		}
+		
+		function removeRow5(rnum){
+			jQuery('#rowNum'+rnum).remove();
+		}
 	</script>
 	
 	<script type="text/javascript">
@@ -296,6 +306,11 @@ if(isset($_POST['senduser'])){
 				//str_desc es 'experDesc'
 				$str_desc = implode(',',$entry);
 			}
+			if($key == nat){
+				//str_desc es 'experDesc'
+				$str_nat = implode(',',$entry);
+			}
+			
 			#print $key . ": " . implode(',',$entry) . "<br>";
 	     }
 	     else {
@@ -306,11 +321,11 @@ if(isset($_POST['senduser'])){
 
 }
 if (isset($_POST['push_button'])){
-
+	echo $str_nat;
 	echo "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
 	`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
-	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
+	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
 	'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
 	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
 	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
@@ -328,6 +343,7 @@ if (isset($_POST['push_button'])){
 	'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
 	'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')");
 */
+exit();
 		$tot = count($_FILES["archivos"]["name"]);
 		//este for recorre el arreglo
 		for ($i = 0; $i < $tot; $i++){
@@ -384,8 +400,10 @@ unlink($uploadfile);
 		<!-- <td><span class="form-sub-label-container"><select class="form-dropdown form-address-country" name="q13_direccion13[country]" id="input_13_country"> -->
 		<tr>
 			<td><label class='control-label'>Nacionalidad</label></td>
+			
 			<td>
-			<select name="blanknationality" required>
+			<div id="itemRows5">
+			<select name="add_nat">
 				<option value="" selected> Seleccione </option>
 				<option value="Afghanistan"> Afghanistan </option>
 				<option value="Albania"> Albania </option>
@@ -631,7 +649,9 @@ unlink($uploadfile);
 				<option value="Zimbabwe"> Zimbabwe </option>
 				<option value="other"> Other </option>
 			</select>
-			</td>
+			
+			<input onclick="addRow5(this.form);" type="button" value="Pulse para incluir" /></td>
+			</div>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Sexo</label></td>
