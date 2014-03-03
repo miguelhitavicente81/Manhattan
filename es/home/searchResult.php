@@ -80,7 +80,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 						<ul class="dropdown-menu">
 							<li class="dropdown-header">Conectado como: <?php echo $_SESSION['loglogin']; ?></li>
 							<li class="divider"></li>
-							<li><a href="../administration.php">Configuración</a></li>
+							<li><a href="../home/personalData.php">Configuración personal</a></li>
 							<li><a data-toggle="modal" data-target="#exitRequest" href="#exitRequest">Salir</a></li>
 						</ul>
 					</li>
