@@ -262,7 +262,7 @@
 								$parts = explode("_", $lastUser[0]);
 								$user_number=$parts[1]+1;
 								$user_number=sprintf("%06d",$user_number);
-								$newUser=$parts[0]."_".$user_number;
+								$newUser="pa_".$user_number;
 								$newUser = dropAccents($newUser);
 								if(getDBsinglefield('login', 'users', 'login', $newUser)){
 									?>
