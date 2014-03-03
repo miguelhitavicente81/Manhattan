@@ -205,7 +205,7 @@
 
 
 						<?php 
-						//if(isset($_POST['hNewUsubmit'])){ SI FUERA NECESARIO
+						//if(isset($_POST['NewUsubmit'])){ SI FUERA NECESARIO
 						if(isset($_POST['newUsubmit'])){
 							if (isset($_POST['newUName']) && !empty($_POST['newUName'])){
 								$newUser = $_POST['newUName'];
@@ -228,6 +228,7 @@
 									$expirationDate = addMonthsToDate(getDBsinglefield('value', 'otherOptions', 'key', 'expirationMonths'));
 									if(!executeDBquery("INSERT INTO `users` (`id`, `login`, `pass`, `profile`, `active`, `language`, `needPass`, `created`, `passExpiration`) VALUES 
 									(NULL, '".utf8_decode($newUser)."', '".$initialPass."', '".utf8_decode($_POST['newUProfile'])."', '1', '".utf8_decode($_POST['newULanguage'])."', '1', CURRENT_TIMESTAMP, '".$expirationDate."')")){
+									
 										?>
 										<script type="text/javascript">
 											alert('Error al insertar el nuevo usuario');
@@ -251,6 +252,59 @@
 								}
 							}
 						}
+						
+						
+						
+						
+						if(isset($_POST['newUsubmitC'])){
+								$lastUser = getDBcompletecolumnIDlast('login','users','id');
+								echo "ultimo usuario:$lastUser[0]\n";
+								$parts = explode("_", $lastUser[0]);
+								$user_number=$parts[1]+1;
+								$user_number=sprintf("%06d",$user_number);
+								$newUser=$parts[0]."_".$user_number;
+								$newUser = dropAccents($newUser);
+								if(getDBsinglefield('login', 'users', 'login', $newUser)){
+									?>
+									<script type="text/javascript">
+										alert('El usuario que se intenta crear ya existe');
+										window.location.href='admCurUsers.php';
+									</script>
+									<?php
+								}
+								else{
+									//Genero una contraseña aleatoria
+									$initialPass = getRandomPass();
+									//GENERAR LA FECHA DE CADUCIDAD QUE ESTARA INDICADA POR UN VALOR EN LA TABLA "otherOptions"
+									$expirationDate = addMonthsToDate(getDBsinglefield('value', 'otherOptions', 'key', 'expirationMonths'));
+									if(!executeDBquery("INSERT INTO `users` (`id`, `login`, `pass`, `profile`, `active`, `language`, `needPass`, `created`, `passExpiration`) VALUES 
+									(NULL, '".utf8_decode($newUser)."', '".$initialPass."', 'Candidato', '1', 'spanish', '1', CURRENT_TIMESTAMP, '".$expirationDate."')")){
+										?>
+										<script type="text/javascript">
+											alert('Error al insertar el nuevo usuario');
+											window.location.href='admCurUsers.php';
+										</script>
+										<?php
+									}
+									else{
+										//SUMAR +1 AL PERFIL DEL USUARIO
+										$profileUsers = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
+										$profileUsers += 1;
+										executeDBquery("UPDATE `profiles` SET `numUsers`='".$profileUsers."' WHERE `name`='Candidato'");
+										?>
+										<script type="text/javascript">
+											//alert('Usuario creado con éxito');
+											alert('Usuario creado con éxito <?php echo $newUser;?>. Su contraseña por defecto es: <?php echo $initialPass; ?>');
+											window.location.href='admCurUsers.php';
+										</script>
+										<?php
+									}
+								}
+							
+						}
+						
+						
+						
 						?>
 
 					<?php 
@@ -273,7 +327,6 @@
 													<th>Idioma</th>
 													<th>Creado</th>
 													<th>Ultima conexión</th>
-													<th>Caduca Password</th>
 													<th>Acción</th>
 												</tr>
 											</thead>
@@ -310,9 +363,11 @@
 											</tbody>
 										</table>
 									</div>
-
+									<div id="form_submit" class="form-group pull-right" style="margin: 1px;">
+										<button type="submit" name="Buscar" class="btn btn-primary" >Buscar <span class="glyphicon glyphicon-search"> </span></button>
+									</div>	
 									<div class="container-fluid center-block">
-										<h4>Nuevo Usuario</h4>
+										<h4>Nuevo Usuarioxxxx</h4>
 
 										<form class="form-inline" role="form" name="newUser" action="admCurUsers.php" method="post">
 											<div class="form-group">
@@ -346,7 +401,9 @@
 
 											<button type="submit" class="btn btn-primary" name="newUsubmit" value="Añadir">Añadir</button>
 										</form>
+									
 									</div>
+									
 								</div>
 							</div> <!-- Panel de Usuarios existentes -->	
 
@@ -440,6 +497,14 @@
 
 											<button type="submit" class="btn btn-primary" name="newUsubmit" value="Añadir">Añadir</button>
 										</form>
+										
+
+										<form class="form-inline" role="form" name="newUser" action="admCurUsers.php" method="post">
+										
+
+											<button type="submit" class="btn btn-primary" name="newUsubmitC" value="AñadirC">Crear Candidato</button>
+										</form>
+										
 									</div>
 								</div>
 							</div> <!-- Panel de Usuarios existentes -->	
