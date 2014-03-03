@@ -225,7 +225,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 							
 							
 							
-							mkdir($output_dir, 0700);
+							
 							if(strlen($_POST[blankWordKey])>0){
 							$criteria="where `nie` like '%$_POST[blankWordKey]%' or `nationalities` like '%$_POST[blankWordKey]%' or `sex` like '%$_POST[blankWordKey]%' or `drivingType` like '%$_POST[blankWordKey]%' or `marital` like '%$_POST[blankWordKey]%' or `sons` like '%$_POST[blankWordKey]%' or `language` like '%$_POST[blankWordKey]%' or `occupation` like '%$_POST[blankWordKey]%' or `city` like '%$_POST[blankWordKey]%' or `experDesc` like '%$_POST[blankWordKey]%' and cvStatus = 'checked';";}
 							else{
@@ -254,18 +254,14 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 
 									$pdf_file_name = "";
 									$pdf_file_name = $fila['userLogin'];
-									
+									$imagen_o=$output_dir.$fila['userLogin']."/fotor.jpg";
+									echo $imagen_o;
 									$id[$fila['id']] = $fila['nie'];
 									if ($fila['sex']==0){ $fila['sex'] = "hombre"; }
 									if ($fila['sex']==1){ $fila['sex'] = "mujer"; }
 									if ($_POST[reportType] == "custom_report"){
 									$reportType=custom_report;
-									$imagen_o="$output_dir/chica.jpg";
-								    $image = new SimpleImage();
-								    $image->load("$output_dir/chica.jpg");
-								    $image->resize(100,100);
-								    $image->save("$output_dir/chica2.jpg");
-									$pdf->ezImage("$output_dir/chica2.jpg",0,0,'none','right');
+									$pdf->ezImage("$imagen_o",0,0,'none','right');
 									while (list($clave, $valor) = each($fila)) {
 									foreach( $_POST[per] as $value ) {
 									if($clave == $value){
@@ -275,14 +271,8 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 									}
 									
 									if ($_POST[reportType] == "blind_report"){
-									echo "CIEGO";
 									$reportType=blind_report;
-									$imagen_o="$output_dir/chica.jpg";
-								    $image = new SimpleImage();
-								    $image->load("$output_dir/chica.jpg");
-								    $image->resize(100,100);
-								    $image->save("$output_dir/chica2.jpg");
-									$pdf->ezImage("$output_dir/chica2.jpg",0,0,'none','right');
+									$pdf->ezImage("$imagen_o",0,0,'none','right');
 									while (list($clave, $valor) = each($fila)){
 											if(($clave == postalCode) || ($clave == country) || ($clave == province) || ($clave == city) || ($clave == drivingType) || ($clave == language) || ($clave == langLevel) || ($clave == occupation) || ($clave == studyType) || ($clave == studyName)){
 											$pdf->ezText("<b>$clave</b> $valor");}
@@ -290,12 +280,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 									}
 									if ($_POST[reportType] == "full_report"){
 									$reportType=full_report;
-									$imagen_o="$output_dir/chica.jpg";
-								    $image = new SimpleImage();
-								    $image->load("$output_dir/chica.jpg");
-								    $image->resize(100,100);
-								    $image->save("$output_dir/chica2.jpg");
-									$pdf->ezImage("$output_dir/chica2.jpg",0,0,'none','right');
+									$pdf->ezImage("$imagen_o",0,0,'none','right');
 									while (list($clave, $valor) = each($fila)){
 										
 											$pdf->ezText("<b>$clave</b> $valor");

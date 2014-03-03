@@ -135,7 +135,7 @@
 		$nota=$_POST['nota'];
 
 		$output_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/";
-
+		$imagen_o=$output_dir.$fila['userLogin']."/fotor.jpg";
 		class Creport extends Cezpdf{
 			function Creport($p,$o){
 				$this->__construct($p, $o,'none',array());
@@ -163,7 +163,7 @@
 		$enlace = connectDB();
 		$output_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/";
 
-		$consulta = "SELECT * from cVitaes where nie like '$actual'" ;
+		$consulta = "SELECT * from cvitaes where nie like '$actual'" ;
 		if ($resultado = mysqli_query($enlace, $consulta)) {
 			$texto = "";
 			while ($fila = $resultado->fetch_assoc()) {
@@ -175,11 +175,11 @@
 				if ($fila['sex']==1){ $fila['sex'] = "mujer"; }
 
 				// Añadido tras el merge de Miguel Hita
-				$imagen="chica.jpg";
+				$imagen=$fila['userLogin']."/fotor.jpg";
 
-				$texto = $texto . "<img class='pull-right img-circle img-thumbnail' src=../../cvs/".$imagen." width=\"100px\" height=\"100px\"\/><br>";
+				$texto = $texto . "<img class='pull-right img-circle img-thumbnail' src='../../cvs/".$imagen."' width='100px' height='100px'/><br>";
 				//print"<img src=../../cvs/".$imagen." width=\"100px\" height=\"100px\"\/>";
-				$pdf->ezImage("$output_dir/chica2.jpg",0,0,'none','right');
+					$pdf->ezImage("../../cvs/$imagen",0,0,'none','right');
 				// Añadido tras el merge de Miguel Hita
 
 
