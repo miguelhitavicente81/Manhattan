@@ -195,21 +195,23 @@
 								else{
 									echo "<h1 class='page-header'>Noticias <br><small>Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por clasificar</small></h1>";
 								}
+
 								if(suggestPassword(date('Y-m-d'), $userRow['passExpiration'], $days)){
-									echo "<small>Su contraseña caduca en " . $days . " días. <a href=./home/personalData.php>Cambiar</a></small>";
+									echo "<h1 class='page-header'>Noticias <br></h1>";
+									echo "<div class='clearfix'>";
+									echo "<h4 class='text-danger'>&nbsp;Su contraseña caduca en " . $days . " días. <a href=./home/personalData.php>Cambiar</a><span class='label label-danger notice-label pull-left'>Aviso</span></h4>";
+									echo "</div>";
 								}
 							}
 							elseif($userRow['profile'] == 'Lector'){
-								//echo "-- DEFINIR SE SE QUIERE O NO QUE UN PERFIL \"Lector\" PUEDA REVISAR CVs --";
-								//Un Lector SOLO podría realizar búsquedas de CVs y generación de ZIPs para enviar
-								if((getDBrowsnumber('cVitaes') == 0) || ($pendingCVs == 0)){
-									echo "<h1 class='page-header'>Noticias <br><small> No existen CVs por clasificar</small></h1>";
+								if(suggestPassword(date('Y-m-d'), $userRow['passExpiration'], $days)){
+									echo "<h1 class='page-header'>Noticias <br></h1>";
+									echo "<div class='clearfix'>";
+									echo "<h4 class='text-danger'>&nbsp;Su contraseña caduca en " . $days . " días. <a href=./home/personalData.php>Cambiar</a><span class='label label-danger notice-label pull-left'>Aviso</span></h4>";
+									echo "</div>";
 								}
 								else{
-									echo "<h1 class='page-header'>Noticias <br><small> Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por clasificar</small></h1>";
-								}
-								if(suggestPassword(date('Y-m-d'), $userRow['passExpiration'], $days)){
-									echo "<small>Su contraseña caduca en " . $days . " días. <a href=./home/personalData.php>Cambiar</a></small>";
+									echo "<h1 class='page-header'>Noticias <br><small></small></h1>";
 								}
 							}
 							else{
