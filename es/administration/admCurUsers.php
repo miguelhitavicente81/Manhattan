@@ -257,9 +257,8 @@
 						
 						
 						if(isset($_POST['newUsubmitC'])){
-								$lastUser = getDBcompletecolumnIDlast('login','users','id');
-								$parts = explode("_", $lastUser[0]);
-								$user_number=$parts[1]+1;
+								$user_number = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
+								$user_number=$user_number+1;
 								$user_number=sprintf("%06d",$user_number);
 								$newUser="pa_".$user_number;
 								$newUser = dropAccents($newUser);

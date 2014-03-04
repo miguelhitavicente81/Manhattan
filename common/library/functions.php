@@ -142,27 +142,7 @@ function getDBcompletecolumnID($columnrequested, $dbtable, $id){
 	}
 }
 
-function getDBcompletecolumnIDlast($columnrequested, $dbtable, $id){
-	$conexion = connectDB();
 
-
-	$result = mysqli_query($conexion, "SELECT `$columnrequested` FROM `$dbtable` ORDER BY `$id` desc limit 1") or die("Error en getDBcompletecolumnID: ".mysqli_error());
-
-	$i = 0;
-	if(mysqli_num_rows($result) > 0){
-		while($column = mysqli_fetch_row($result)){
-			$row[$i] = $column[0];
-			$i++;
-		}
-		mysqli_free_result($result);
-		mysqli_close($conexion);
-		return $row;
-	}
-	else{
-		mysqli_free_result($result);
-		mysqli_close($conexion);
-	}
-}
 
 /* Counts number of columns in a table
  * Entry (dbtable): Name for the table in which will be counted number of columns
