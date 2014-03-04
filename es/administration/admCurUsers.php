@@ -377,7 +377,8 @@
 													<?php 
 														$profNames = getDBcompletecolumnID('name', 'profiles', 'id');
 														foreach($profNames as $i){
-															echo "<option value=" . $i . ">" . $i . "</option>";
+															if ($i != 'Candidato'){
+															echo "<option value=" . $i . ">" . $i . "</option>";}
 														}
 													?>
 												</select>
@@ -471,8 +472,8 @@
 													<?php 
 														$profNames = getDBcompletecolumnID('name', 'profiles', 'id');
 														foreach($profNames as $i){
-															if($i != 'SuperAdmin')
-																echo "<option value=" . $i . ">" . $i . "</option>";
+															if(($i != 'SuperAdmin') && ($i != 'Candidato')){
+																echo "<option value=" . $i . ">" . $i . "</option>";}
 														}
 													?>
 												</select>
