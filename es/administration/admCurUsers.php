@@ -428,7 +428,6 @@
 													<th>Creado</th>
 													<th>Ultima conexión</th>
 													<th>Caduca Password</th>
-													<th>Acción</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -451,7 +450,6 @@
 														echo "<td>" . $showedUserRow['created'] . "</td>";
 														echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
 														echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
-														echo "<td><a href=''>Borrar</a></td>";
 														echo "</tr>";
 													}
 												?>

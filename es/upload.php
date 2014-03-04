@@ -117,7 +117,7 @@
 		}
 		function addRow5(frm){
 			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nat[]" value="'+frm.add_nat.value+'"><input type="button" value="Eliminar" onclick="removeRow4('+rowNum+');"></p>';
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nat[]" value="'+frm.add_nat.value+'"><input type="button" value="Eliminar" onclick="removeRow5('+rowNum+');"></p>';
 			jQuery('#itemRows5').append(row);
 			frm.add_nat.value = '';
 		}
@@ -261,14 +261,14 @@
 <body>
 
 <?php
-$user_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
-echo "$user_dir";
 require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/SimpleImage.php');
-mkdir($user_dir,7444);
-if(isset($_POST['senduser'])){
+
+if(isset($_POST['push_button'])){
+#echo "entro en el if $_POST[senduser]";
 
 	foreach ($_POST as $key => $entry){
+			#echo $key;
 		if(is_array($entry)){
 			if($key == categ){
 				//str_cated es 'occupation'
@@ -312,6 +312,7 @@ if(isset($_POST['senduser'])){
 			}
 			
 			#print $key . ": " . implode(',',$entry) . "<br>";
+		
 	     }
 	     else {
 	       #print $key . ": " . $entry . "<br>";
@@ -321,7 +322,9 @@ if(isset($_POST['senduser'])){
 
 }
 if (isset($_POST['push_button'])){
-	echo $str_nat;
+$user_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
+mkdir($user_dir,0777);
+chmod($user_dir, 0777);
 	echo "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
 	`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
@@ -332,7 +335,7 @@ if (isset($_POST['push_button'])){
 	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
 	'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
 	'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')";
-/*	executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+	executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
 	`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
 	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
@@ -342,8 +345,8 @@ if (isset($_POST['push_button'])){
 	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
 	'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
 	'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')");
-*/
-exit();
+
+
 		$tot = count($_FILES["archivos"]["name"]);
 		//este for recorre el arreglo
 		for ($i = 0; $i < $tot; $i++){
