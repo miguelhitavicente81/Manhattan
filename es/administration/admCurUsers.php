@@ -257,9 +257,8 @@
 						
 						
 						if(isset($_POST['newUsubmitC'])){
-								$lastUser = getDBcompletecolumnIDlast('login','users','id');
-								$parts = explode("_", $lastUser[0]);
-								$user_number=$parts[1]+1;
+								$user_number = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
+								$user_number=$user_number+1;
 								$user_number=sprintf("%06d",$user_number);
 								$newUser="pa_".$user_number;
 								$newUser = dropAccents($newUser);
@@ -378,7 +377,8 @@
 													<?php 
 														$profNames = getDBcompletecolumnID('name', 'profiles', 'id');
 														foreach($profNames as $i){
-															echo "<option value=" . $i . ">" . $i . "</option>";
+															if ($i != 'Candidato'){
+															echo "<option value=" . $i . ">" . $i . "</option>";}
 														}
 													?>
 												</select>
@@ -428,7 +428,6 @@
 													<th>Creado</th>
 													<th>Ultima conexión</th>
 													<th>Caduca Password</th>
-													<th>Acción</th>
 												</tr>
 											</thead>
 											<tbody>
@@ -451,7 +450,6 @@
 														echo "<td>" . $showedUserRow['created'] . "</td>";
 														echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
 														echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
-														echo "<td><a href=''>Borrar</a></td>";
 														echo "</tr>";
 													}
 												?>
@@ -474,8 +472,8 @@
 													<?php 
 														$profNames = getDBcompletecolumnID('name', 'profiles', 'id');
 														foreach($profNames as $i){
-															if($i != 'SuperAdmin')
-																echo "<option value=" . $i . ">" . $i . "</option>";
+															if(($i != 'SuperAdmin') && ($i != 'Candidato')){
+																echo "<option value=" . $i . ">" . $i . "</option>";}
 														}
 													?>
 												</select>
