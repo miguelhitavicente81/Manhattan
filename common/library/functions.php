@@ -278,13 +278,27 @@ function getPendingCVs() {
 /* Gets the translation for language
  * Entry (keyLanguage): Language key on DB
  * Entry (languageToBeTranslated): Desired language to $keyLanguage be translated
- * Exit (singleDBfield): amount of pending CVs
+ * Exit Translated term into desired language
  */
 function getLanguageTranslation($keyLanguage, $languageToBeTranslated)
 {
 	$connection = connectDB();
 
 	$result = mysqli_query($connection, "SELECT `$languageToBeTranslated` FROM `siteLanguages` WHERE `key` = '$keyLanguage'") or die ("Error translating the language: ".mysqli_error($connection));
+	return mysqli_fetch_array($result)[0];
+}
+
+
+/* Gets key for a language
+ * Entry (languageToBeTranslated): Desired language to be translated
+ * Entry (languageWritten): In wich language are written $languageToBeTranslated
+ * Exit Translated term into desired language
+ */
+function getKeyLanguage($languageToBeTranslated, $languageWritten)
+{
+	$connection = connectDB();
+
+	$result = mysqli_query($connection, "SELECT `key` FROM `siteLanguages` WHERE `$languageWritten` = '$languageToBeTranslated'") or die ("Error translating the language: ".mysqli_error($connection));
 	return mysqli_fetch_array($result)[0];
 }
 

@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php 
+		session_start();
+		error_reporting (E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
+?>
 <html lang="es">
 <head>
 	<meta charset="utf-8">
@@ -318,8 +321,7 @@
 														$showedUserRow = getDBrow('users', 'id', $i);
 														echo "<tr>";
 														echo "<td>" . $showedUserRow['id'] . "</td>";
-														//echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
-														echo "<td><a href='editSelectedUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
+														echo "<td><a class='launchModal' href='admCurUsers.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
 														echo "<td>" . $showedUserRow['profile'] . "</td>";
 														if($showedUserRow['employee'] == 1){
 															echo "<td>Sí</td>";
@@ -421,8 +423,7 @@
 														$showedUserRow = getDBrow('users', 'id', $i);
 														echo "<tr>";
 														echo "<td>" . $showedUserRow['id'] . "</td>";
-														//echo "<td><a href='editUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
-														echo "<td><a href='editSelectedUser.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
+														echo "<td><a class='launchModal' href='admCurUsers.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
 														echo "<td>" . $showedUserRow['profile'] . "</td>";
 														if($showedUserRow['active']){
 															echo "<td>Sí</td>";
@@ -507,6 +508,390 @@
 				</div> <!-- col-md-9 scrollable role=main -->
 			</div> <!-- row -->
 		</div> <!-- class="container bs-docs-container" -->
+
+
+
+		<?php 
+			/***************************************************************************************************************************
+			 * *********************************************************************************************************************** *
+			 * *******************************  Functional code for Edit User Selected on Click Action  ****************************** *
+			 * *********************************************************************************************************************** *
+			 ***************************************************************************************************************************/
+
+			$editedUserRow = getDBrow('users', 'id', $_GET['codvalue']);
+
+		?>
+
+		<!-- Modal HTML -->
+		<div id="editUserModal" class="modal fade">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<h4 class="modal-title">Usuario: <?php echo $editedUserRow['login'] ?></h4>
+					</div>
+					<form id="editedUser" class="form-horizontal" role="form" name="editedUser" autocomplete="off" method="post" action="admCurUsers.php">
+						<div class="modal-body">
+							<div class="form-group">
+								<label id="editedUserLabel" class="control-label col-sm-2" for="newUProfile">Identificador: </label> 
+								<div class="col-sm-10">
+									<input class="form-control" type='text' name='newUProfile' value="<?php echo $editedUserRow['id'] ?>" autocomplete="off" disabled />
+									<input type='hidden' name='eUcodUser' value="<?php echo $editedUserRow['id'] ?>">
+								</div>
+							</div>
+							<div class="form-group">
+								<label id="editedUserLabel" class="control-label col-sm-2" for="eUlogin">Login: </label>
+								<div class="col-sm-10">
+									<input class="form-control" type='text' name='eUlogin' value="<?php echo $editedUserRow['login'] ?>" autocomplete="off"/>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label id="editedUserLabel" class="control-label col-sm-2" for="eUpasswd">Contraseña: </label>
+								<div class="col-sm-10">
+									<input class="form-control" type='password' name='eUpasswd' value="<?php echo $editedUserRow['pass'] ?>"  disabled />
+								</div>
+							</div>
+
+							<?php 
+								if($_SESSION['logprofile'] == 'SuperAdmin'){
+									echo "<div class='form-group'>";
+									echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUprofile'>Perfil: </label>";
+									echo "<div class='col-sm-10'>";
+									echo "<select class='form-control' name='eUprofile'>";
+									$profNamesColumn = getDBcompletecolumnID('name', 'profiles', 'id');
+									foreach($profNamesColumn as $i){
+										if($i == $editedUserRow['profile']){
+											echo "<option selected value=" . $i . ">" . $i . "</option>";
+										}
+										else{
+											echo "<option value=" . $i . ">" . $i . "</option>";
+										}
+									}
+									echo "</select>";
+									echo "</div>";
+									echo "</div>";
+								}
+								elseif($_SESSION['logprofile'] == 'Administrador'){
+									echo "<div class='form-group'>";
+									echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUprofile'>Perfil: </label>";
+									echo "<div class='col-sm-10'>";
+									echo "<select class='form-control' name='eUprofile'>";
+									$profNamesColumn = getDBcompletecolumnID('name', 'profiles', 'id');
+									foreach($profNamesColumn as $i){
+										if($i != 'SuperAdmin'){
+											if($i == $editedUserRow['profile']){
+												echo "<option selected value=" . $i . ">" . $i . "</option>";
+											}
+											else{
+												echo "<option value=" . $i . ">" . $i . "</option>";
+											}
+										}
+									}
+									echo "</select>";
+									echo "</div>";
+									echo "</div>";
+								}
+								else{
+									echo "<div class='form-group'>";
+									echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUprofile'>Perfil: </label>";	
+									echo "<div class='col-sm-10'>";
+									echo "<input class='form-control' type='text' name='eUprofile' value='" . $editedUserRow['profile'] . "' disabled />";
+									echo "</div>";
+									echo "</div>";
+								}
+
+								//If user has profile "Candidato" will show his/her NIE
+								if($editedUserRow['profile'] == "Candidato"){
+									echo "<div class='form-group'>";
+									echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUuser'>NIE: </label>";
+									echo "<div class='col-sm-10'>";
+									echo "<input class='form-control' type='text' name='eUuser' value='" . getDBsinglefield('nie', 'cVitaes', 'userLogin', $editedUserRow['login']) . "' disabled /><br/>";
+									echo "</div>";
+									echo "</div>";
+								}
+
+								if($_SESSION['logprofile'] == 'SuperAdmin'){
+									echo "<div class='form-group'>";
+									echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUemployee'>Empleado: </label>";
+									echo "<div class='col-sm-10'>";
+									echo "<div class='radio-inline'>";
+									if($editedUserRow['employee'] == 0){
+										echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUemployee' value='0' checked>No</label>";
+										echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUemployee' value='1'>Si</label>";
+									}
+									else{
+										echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUemployee' value='0'>No</label>";
+										echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUemployee' value='1' checked>Si</label>";
+									}
+									echo "</div>";
+									echo "</div>";
+									echo "</div>";
+								}
+
+								echo "<div class='form-group'>";
+								echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUactive'>Activo: </label>";
+								echo "<div class='col-sm-10'>";
+								echo "<div class='radio-inline'>";
+								if($editedUserRow['active'] == 0){
+									echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUactive' value='0' checked>No</label>";
+									echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUactive' value='1'>Si</label>";
+								}
+								else{
+									echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUactive' value='0'>No</label>";
+									echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUactive' value='1' checked>Si</label>";
+								}
+								echo "</div>";
+								echo "</div>";
+								echo "</div>";
+
+								echo "<div class='form-group'>";
+								echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUlanguage'>Idioma: </label>";
+								echo "<div class='col-sm-10'>";
+								echo "<select class='form-control' name='eUlanguage'>";													
+								$languagesColumn = getDBcompletecolumnID('key', 'siteLanguages', 'id');
+								foreach($languagesColumn as $i){
+									if($i == $editedUserRow['language']){
+										echo "<option selected value=" . getLanguageTranslation($i, 'spanish') . ">" . getLanguageTranslation($i, 'spanish') . "</option>";
+									}
+									else{
+										echo "<option value=" . getLanguageTranslation($i, 'spanish') . ">" . getLanguageTranslation($i, 'spanish') . "</option>";
+									}
+								}
+								echo "</select>";
+								echo "</div>";
+								echo "</div>";
+
+								echo "<div class='form-group'>";
+								echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUcreated'>Creado: </label>";
+								echo "<div class='col-sm-10'>";
+								echo "<input class='form-control' type='text' name='eUcreated' value='" . $editedUserRow['created'] . "' disabled />";
+								echo "</div>";
+								echo "</div>";
+
+								echo "<div class='form-group'>";
+								echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUconnection'>Última conexión: </label>";
+								echo "<div class='col-sm-10'>";
+								echo "<input class='form-control' type='text' name='eUconnection' value='" . $editedUserRow['lastConnection'] . "' disabled />";
+								echo "</div>";
+								echo "</div>";
+
+								echo "<div class='form-group'>";
+								echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUexpiration'>Caducidad contraseña: </label>";
+								echo "<div class='col-sm-10'>";
+								echo "<input class='form-control' type='text' name='eUexpiration' value='" . $editedUserRow['passExpiration'] . "' disabled />";
+								echo "</div>";
+								echo "</div>";	
+
+							?>
+
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+							<button type="submit" class="btn btn-primary" name="eUsersend">Guardar cambios</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>		
+
+
+
+
+	<?php 
+	/***************************************************************************************************************************
+	 * *********************************************************************************************************************** *
+	 * *******************************  Functional code for Edit User Selected on Click Action  ****************************** *
+	 * *********************************************************************************************************************** *
+	 ***************************************************************************************************************************/
+
+
+	if (!isset($_GET['codvalue'])) {
+
+		//QUE EL LOGIN NO ESTE REPETIDO, Y QUE ESTE NORMALIZADO
+		$editedUserRow = getDBrow('users', 'id', $_POST['eUcodUser']);
+		
+		/***************  Block of code that validates content sent from the form. It is only acceded after clicking on 'eUsersend' SUBMIT  ***************/			
+		
+		/*************************************************************************************************/
+		//1st case: eUlogin(0), eUprofile(0), eUlanguage(1)
+		if(($_POST['eUlogin'] == $editedUserRow['login']) && ($_POST['eUprofile'] == $editedUserRow['profile']) && ($_POST['eUlanguage'] != $editedUserRow['language'])){
+			if((!executeDBquery("UPDATE `users` SET `language` = '".getKeyLanguage($_POST['eUlanguage'], 'spanish')."' WHERE `id` = '".$_POST['eUcodUser']."'"))){
+				?>
+				<script type="text/javascript">
+					alert('Error ADEDITUSER001');
+					window.location.href='admCurUsers.php?codvalue=<?php echo $_POST['eUcodUser'];  ?>';
+				</script>
+				<?php 
+			}
+		}
+		/*************************************************************************************************/
+		//2nd case: eUlogin(0), eUprofile(1), eUlanguage(0)
+		if(($_POST['eUlogin'] == $editedUserRow['login']) && ($_POST['eUprofile'] != $editedUserRow['profile']) && ($_POST['eUlanguage'] == $editedUserRow['language'])){
+			if(!executeDBquery("UPDATE `users` SET `profile`='".$_POST['eUprofile']."' WHERE `id`='".$_POST['eUcodUser']."'")){
+				?>
+				<script type="text/javascript">
+					alert('Error ADEDITUSER010');
+					window.location.href='admCurUsers.php?codvalue=<?php echo $_POST['eUcodUser'];  ?>';
+				</script>
+				<?php 
+			}
+		}
+		
+		/*************************************************************************************************/
+		//3rd case: eUlogin(0), eUprofile(1), eUlanguage(1)
+		if(($_POST['eUlogin'] == $editedUserRow['login']) && ($_POST['eUprofile'] != $editedUserRow['profile']) && ($_POST['eUlanguage'] != $editedUserRow['language'])){
+			if(!executeDBquery("UPDATE `users` SET `profile`='".$_POST['eUprofile']."', `language` = '".getKeyLanguage($_POST['eUlanguage'], 'spanish')."' WHERE `id`='".$_POST['eUcodUser']."'")){
+				?>
+				<script type="text/javascript">
+					alert('Error ADEDITUSER011');
+					window.location.href='admCurUsers.php?codvalue=<?php echo $_POST['eUcodUser'];  ?>';
+				</script>
+				<?php 
+			}
+		}
+		
+		/*************************************************************************************************/
+		//4th case: eUlogin(1), eUprofile(0), eUlanguage(0)
+		if(($_POST['eUlogin'] != $editedUserRow['login']) && ($_POST['eUprofile'] == $editedUserRow['profile']) && ($_POST['eUlanguage'] == $editedUserRow['language'])){
+			if(!normalizeLogin($_POST['eUlogin'])){
+				?>
+				<script type="text/javascript">
+					alert('El login usado no cumple los requisitos válidos.');
+					window.location.href='admCurUsers.php';
+				</script>
+				<?php
+			}
+			else{
+				if(!executeDBquery("UPDATE `users` SET `login`='".$_POST['eUlogin']."' WHERE `id`='".$_POST['eUcodUser']."'")){
+					?>
+					<script type="text/javascript">
+						alert('Error ADEDITUSER100');
+						window.location.href='admCurUsers.php?codvalue=<?php echo $_POST['eUcodUser'];  ?>';
+					</script>
+					<?php 
+				}
+			}
+		}
+		
+		/*************************************************************************************************/
+		//5th case: eUlogin(1), eUprofile(0), eUlanguage(1)
+		if(($_POST['eUlogin'] != $editedUserRow['login']) && ($_POST['eUprofile'] == $editedUserRow['profile']) && ($_POST['eUlanguage'] != $editedUserRow['language'])){
+			if(!normalizeLogin($_POST['eUlogin'])){
+				?>
+				<script type="text/javascript">
+					alert('El login usado no cumple los requisitos válidos.');
+					window.location.href='admCurUsers.php';
+				</script>
+				<?php
+			}
+			else{
+				if(!executeDBquery("UPDATE `users` SET `login`='".$_POST['eUlogin']."', `language` = '".getKeyLanguage($_POST['eUlanguage'], 'spanish')."' WHERE `id`='".$_POST['eUcodUser']."'")){
+					?>
+					<script type="text/javascript">
+						alert('Error ADEDITUSER101');
+						window.location.href='admCurUsers.php?codvalue=<?php echo $_POST['eUcodUser'];  ?>';
+					</script>
+					<?php 
+				}
+			}
+		}
+		
+		/*************************************************************************************************/
+		//6th case: eUlogin(1), eUprofile(1), eUlanguage(0)
+		if(($_POST['eUlogin'] != $editedUserRow['login']) && ($_POST['eUprofile'] != $editedUserRow['profile']) && ($_POST['eUlanguage'] == $editedUserRow['language'])){
+			if(!normalizeLogin($_POST['eUlogin'])){
+				?>
+				<script type="text/javascript">
+					alert('El login usado no cumple los requisitos válidos.');
+					window.location.href='admCurUsers.php';
+				</script>
+				<?php
+			}
+			else{
+				if(!executeDBquery("UPDATE `users` SET `login`='".$_POST['eUlogin']."', `profile`='".$_POST['eUprofile']."' WHERE `id`='".$_POST['eUcodUser']."'")){
+					?>
+					<script type="text/javascript">
+						alert('Error ADEDITUSER110');
+						window.location.href='admCurUsers.php?codvalue=<?php echo $_POST['eUcodUser'];  ?>';
+					</script>
+					<?php 
+				}
+			}
+		}
+		
+		/*************************************************************************************************/
+		//7th case: eUlogin(1), eUprofile(1), eUlanguage(1)
+		if(($_POST['eUlogin'] != $editedUserRow['login']) && ($_POST['eUprofile'] != $editedUserRow['profile']) && ($_POST['eUlanguage'] != $editedUserRow['language'])){
+			if(!normalizeLogin($_POST['eUlogin'])){
+				?>
+				<script type="text/javascript">
+					alert('El login usado no cumple los requisitos válidos.');
+					window.location.href='admCurUsers.php';
+				</script>
+				<?php
+			}
+			else{
+				if(!executeDBquery("UPDATE `users` SET `login`='".$_POST['eUlogin']."', `profile`='".$_POST['eUprofile']."', `language` = '".getKeyLanguage($_POST['eUlanguage'], 'spanish')."' WHERE `id`='".$_POST['eUcodUser']."'")){
+					?>
+					<script type="text/javascript">
+						alert('Error ADEDITUSER111');
+						window.location.href='admCurUsers.php?codvalue=<?php echo $_POST['eUcodUser'];  ?>';
+					</script>
+					<?php 
+				}
+			}
+		}
+		
+		//Save whatever change made in any of the Radio buttons
+		if(($_POST['eUemployee'] == $editedUserRow['employee']) && ($_POST['eUactive'] != $editedUserRow['active'])){
+			if(!executeDBquery("UPDATE `users` SET `active`='".$_POST['eUactive']."' WHERE `id`='".$_POST['eUcodUser']."'")){
+				?>
+				<script type="text/javascript">
+					alert('Error ADEDUSERADIO01');
+					window.location.href='admCurUsers.php?codvalue=<?php echo $_POST['eUcodUser'];  ?>';
+				</script>
+				<?php 
+			}
+		}
+		elseif(($_POST['eUemployee'] != $editedUserRow['employee']) && ($_POST['eUactive'] == $editedUserRow['active'])){
+			if(!executeDBquery("UPDATE `users` SET `employee`='".$_POST['eUemployee']."' WHERE `id`='".$_POST['eUcodUser']."'")){
+				?>
+				<script type="text/javascript">
+					alert('Error ADEDUSERADIO10');
+					window.location.href='admCurUsers.php?codvalue=<?php echo $_POST['eUcodUser'];  ?>';
+				</script>
+				<?php 
+			}
+		}
+		elseif(($_POST['eUemployee'] != $editedUserRow['employee']) && ($_POST['eUactive'] != $editedUserRow['active'])){
+			if(!executeDBquery("UPDATE `users` SET `employee`='".$_POST['eUemployee']."', `active`='".$_POST['eUactive']."' WHERE `id`='".$_POST['eUcodUser']."'")){
+				?>
+				<script type="text/javascript">
+					alert('Error ADEDUSERADIO11');
+					window.location.href='admCurUsers.php?codvalue=<?php echo $_POST['eUcodUser'];  ?>';
+				</script>
+				<?php 
+			}
+		}		
+
+		//If everything was OK on user's edit...
+
+		if (isset($_POST['eUsersend'])) {
+			echo "<script type='text/javascript'>";
+			echo "	alert('El usuario " . $editedUserRow['login'] . " ha sido actualizado con éxito.');";
+			echo "	window.location.href='admCurUsers.php';";
+			echo "</script>";
+		}
+	
+	/***************  Fin del bloque que valida el contenido enviado en el formulario  ***************/
+	}
+	?>
+
+
+
+
+
 	<?php
 
 	} //del "else" de $_SESSION.
@@ -532,6 +917,22 @@
 	<script src="../../common/js/functions.js"></script>
 	<script src="../../common/js/application.js"></script>
 	<script src="../../common/js/docs.min.js"></script>
+
+	<!-- Own document functions -->
+	<!-- Show modal if password has to be changed -->
+	<?php 
+
+		if (isset($_GET['codvalue'])) {
+			echo "<script type='text/javascript'>";
+			echo "	$(document).ready(function(){";
+			echo "		$('#editUserModal').modal('show');";
+			echo "		$('#editUserModal').on('hidden.bs.modal', function () {";
+ 			echo "			window.location.href='admCurUsers.php';";
+			echo "		});";
+			echo "	});  ";
+			echo "</script> ";
+		}
+	?>
 
 </body>
 </html>
