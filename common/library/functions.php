@@ -34,7 +34,7 @@ function deleteDBrow($dbtable, $primaryname, $primaryvalue){
 
 	$query = "DELETE FROM `$dbtable` WHERE `$primaryname`='$primaryvalue'";
 
-	if(mysqli_query($conexion, $query) or die("Error al borrar registro de BD: ".mysqli_error())){
+	if(mysqli_query($conexion, $query) or die("Error al borrar registro de BD: ".mysqli_error($conexion))){
 		mysqli_close($conexion);
 		return 1;
 	}
@@ -52,7 +52,7 @@ function deleteDBrow($dbtable, $primaryname, $primaryvalue){
 function executeDBquery($query){
 	$conexion = connectDB();
 
-	if(mysqli_query($conexion, $query) or die("Error en la llamada de BD: ".mysqli_error())){
+	if(mysqli_query($conexion, $query) or die("Error en la llamada de BD: ".mysqli_error($conexion))){
 		mysqli_close($conexion);
 		return 1;
 	}
@@ -97,7 +97,7 @@ function getDBcolumnname($dbtable, $column){
  */
 function getDBcolumnvalue($fieldrequested, $dbtable, $fieldsupported, $infosupported){
 	$conexion = connectDB();
-	$result = mysqli_query($conexion, "SELECT `$fieldrequested` FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error al extraer array coincidente: ".mysqli_error());
+	$result = mysqli_query($conexion, "SELECT `$fieldrequested` FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error al extraer array coincidente: ".mysqli_error($conexion));
 	$i = 0;
 	if(mysqli_num_rows($result) > 0){
 		while($column = mysqli_fetch_row($result)){
@@ -124,7 +124,7 @@ function getDBcolumnvalue($fieldrequested, $dbtable, $fieldsupported, $infosuppo
 function getDBcompletecolumnID($columnrequested, $dbtable, $id){
 	$conexion = connectDB();
 
-	$result = mysqli_query($conexion, "SELECT `$columnrequested` FROM `$dbtable` ORDER BY `$id`") or die("Error en getDBcompletecolumnID: ".mysqli_error());
+	$result = mysqli_query($conexion, "SELECT `$columnrequested` FROM `$dbtable` ORDER BY `$id`") or die("Error en getDBcompletecolumnID: ".mysqli_error($conexion));
 
 	$i = 0;
 	if(mysqli_num_rows($result) > 0){
@@ -168,7 +168,7 @@ function getDBnumcolumns($dbtable){
  */
 function getDBrow($dbtable, $fieldsupported, $infosupported){
 	$conexion = connectDB();
-	$result = mysqli_query($conexion, "SELECT * FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error buscando el registro: ".mysqli_error());
+	$result = mysqli_query($conexion, "SELECT * FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error buscando el registro: ".mysqli_error($conexion));
 	if(mysqli_num_rows($result) <= 0 ){
 		mysqli_free_result($result);
 		mysqli_close($conexion);
@@ -190,7 +190,7 @@ function getDBrow($dbtable, $fieldsupported, $infosupported){
 function getDBrowsnumber($dbtable){
 	$conexion = connectDB();
 
-	$result = mysqli_query($conexion, "SELECT COUNT(*) FROM `$dbtable`") or die("Error en getDBrowsnumber: ".mysqli_error());
+	$result = mysqli_query($conexion, "SELECT COUNT(*) FROM `$dbtable`") or die("Error en getDBrowsnumber: ".mysqli_error($conexion));
 
 	$num_rows = mysqli_fetch_array($result);
 	mysqli_free_result($result);
@@ -209,7 +209,7 @@ function getDBrowsnumber($dbtable){
 function getDBsinglefield($fieldrequested, $dbtable, $fieldsupported, $infosupported){
 	$conexion = connectDB();
 
-	$result = mysqli_query($conexion, "SELECT `$fieldrequested` FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error buscando el valor: ".mysqli_error());
+	$result = mysqli_query($conexion, "SELECT `$fieldrequested` FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error buscando el valor: ".mysqli_error($conexion));
 
 	if (mysqli_num_rows($result)>0){
 		$fila = mysqli_fetch_array($result);
@@ -236,7 +236,7 @@ function getDBsinglefield($fieldrequested, $dbtable, $fieldsupported, $infosuppo
  */
 function getDBsinglefield2($fieldreq, $dbtable, $fieldsup1, $infosup1, $fieldsup2, $infosup2){
 	$conexion = connectDB();
-	$result = mysqli_query($conexion, "SELECT `$fieldreq` FROM `$dbtable` WHERE `$fieldsup1`='$infosup1' AND `$fieldsup2`='$infosup2'") or die("Error buscando el valor: ".mysqli_error());
+	$result = mysqli_query($conexion, "SELECT `$fieldreq` FROM `$dbtable` WHERE `$fieldsup1`='$infosup1' AND `$fieldsup2`='$infosup2'") or die("Error buscando el valor: ".mysqli_error($conexion));
 	if(mysqli_num_rows($result)>0){
 		$fila = mysqli_fetch_array($result);
 		$singleDBfield = $fila[$fieldreq];
@@ -259,7 +259,7 @@ function getPendingCVs() {
 
 	$connection = connectDB();
 
-	$result = mysqli_query($connection, "SELECT COUNT( * ) FROM cvitaes WHERE cvStatus = 'pending'") or die ("Error calculando el número de CVs pendientes: ".mysqli_error());
+	$result = mysqli_query($connection, "SELECT COUNT( * ) FROM cvitaes WHERE cvStatus = 'pending'") or die ("Error calculando el número de CVs pendientes: ".mysqli_error($connection));
 	
 	if (mysqli_num_rows($result)>0){
 		$fila = mysqli_fetch_array($result);
@@ -272,6 +272,20 @@ function getPendingCVs() {
 		mysqli_free_result($result);
 		mysqli_close($connection);
 	}
+}
+
+
+/* Gets the translation for language
+ * Entry (keyLanguage): Language key on DB
+ * Entry (languageToBeTranslated): Desired language to $keyLanguage be translated
+ * Exit (singleDBfield): amount of pending CVs
+ */
+function getLanguageTranslation($keyLanguage, $languageToBeTranslated)
+{
+	$connection = connectDB();
+
+	$result = mysqli_query($connection, "SELECT `$languageToBeTranslated` FROM `siteLanguages` WHERE `key` = '$keyLanguage'") or die ("Error translating the language: ".mysqli_error($connection));
+	return mysqli_fetch_array($result)[0];
 }
 
 

@@ -333,7 +333,7 @@
 														else{
 															echo "<td>No</td>";
 														}
-														echo "<td>" . $showedUserRow['language'] . "</td>";
+														echo "<td>" . getLanguageTranslation($showedUserRow['language'],'spanish') . "</td>";
 														echo "<td>" . $showedUserRow['created'] . "</td>";
 														echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
 														echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
@@ -371,9 +371,13 @@
 												<select name="newULanguage" class="form-control">
 													<option selected disabled value=''>Idioma</option>
 													<?php 
-														$siteLanguages = getDBcompletecolumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'siteLanguages', 'id');
-														foreach($siteLanguages as $i){
-															echo "<option value=" . $i . ">" . $i . "</option>";
+														$userLanguage = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
+														$siteLanguages = getDBcompletecolumnID($userLanguage, 'siteLanguages', 'id');
+														$languageKeys = getDBcompletecolumnID('key', 'siteLanguages', 'id');
+														
+														$i = 0;
+														for ($i=0; $i < count($siteLanguages); $i++) { 
+															echo "<option value=" . $languageKeys[$i] . ">" . $siteLanguages[$i] . "</option>";
 														}
 													?>
 												</select>
@@ -426,7 +430,7 @@
 														else{
 															echo "<td>No</td>";
 														}
-														echo "<td>" . $showedUserRow['language'] . "</td>";
+														echo "<td>" . getLanguageTranslation($showedUserRow['language'],'spanish') . "</td>";
 														echo "<td>" . $showedUserRow['created'] . "</td>";
 														echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
 														echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
@@ -463,9 +467,13 @@
 												<select name="newULanguage" class="form-control">
 													<option selected disabled value=''>Idioma</option>
 													<?php 
-														$siteLanguages = getDBcompletecolumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'siteLanguages', 'id');
-														foreach($siteLanguages as $i){
-															echo "<option value=" . $i . ">" . $i . "</option>";
+														$userLanguage = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
+														$siteLanguages = getDBcompletecolumnID($userLanguage, 'siteLanguages', 'id');
+														$languageKeys = getDBcompletecolumnID('key', 'siteLanguages', 'id');
+														
+														$i = 0;
+														for ($i=0; $i < count($siteLanguages); $i++) { 
+															echo "<option value=" . $languageKeys[$i] . ">" . $siteLanguages[$i] . "</option>";
 														}
 													?>
 												</select>
