@@ -214,9 +214,7 @@
 									<?php
 								}
 								else{
-									//Genero una contraseña aleatoria
 									$initialPass = getRandomPass();
-									//GENERAR LA FECHA DE CADUCIDAD QUE ESTARA INDICADA POR UN VALOR EN LA TABLA "otherOptions"
 									$expirationDate = addMonthsToDate(getDBsinglefield('value', 'otherOptions', 'key', 'expirationMonths'));
 									/*
 									if(!executeDBquery("INSERT INTO `users` (`id`, `login`, `pass`, `profile`, `active`, `language`, `needPass`, `created`, `passExpiration`) VALUES 
@@ -233,13 +231,12 @@
 										<?php
 									}
 									else{
-										//SUMAR +1 AL PERFIL DEL USUARIO
+										//Adding 1 user to newUser's profile
 										$profileUsers = getDBsinglefield('numUsers', 'profiles', 'name', $_POST['newUProfile']);
 										$profileUsers += 1;
 										executeDBquery("UPDATE `profiles` SET `numUsers`='".$profileUsers."' WHERE `name`='".$_POST['newUProfile']."'");
 										?>
 										<script type="text/javascript">
-											//alert('Usuario creado con éxito');
 											alert('Usuario <?php echo $newUser; ?> creado con éxito. Su contraseña por defecto es: <?php echo $initialPass; ?>');
 											window.location.href='admCurUsers.php';
 										</script>
@@ -250,10 +247,10 @@
 						}
 						
 						if(isset($_POST['newUsubmitC'])){
-							$user_number = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
-							$user_number=$user_number+1;
-							$user_number=sprintf("%06d",$user_number);
-							$newUser="pa_".$user_number;
+							$userNumber = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
+							$userNumber=$userNumber+1;
+							$userNumber=sprintf("%06d",$userNumber);
+							$newUser="pa_".$userNumber;
 							if(getDBsinglefield('login', 'users', 'login', $newUser)){
 								?>
 								<script type="text/javascript">
@@ -263,9 +260,7 @@
 								<?php
 							}
 							else{
-								//Genero una contraseña aleatoria
 								$initialPass = getRandomPass();
-								//GENERAR LA FECHA DE CADUCIDAD QUE ESTARA INDICADA POR UN VALOR EN LA TABLA "otherOptions"
 								$expirationDate = addMonthsToDate(getDBsinglefield('value', 'otherOptions', 'key', 'expirationMonths'));
 								if(!executeDBquery("INSERT INTO `users` (`id`, `login`, `pass`, `profile`, `active`, `language`, `needPass`, `created`, `passExpiration`) VALUES 
 								(NULL, '".utf8_decode($newUser)."', '".$initialPass."', 'Candidato', '1', 'spanish', '1', CURRENT_TIMESTAMP, '".$expirationDate."')")){
@@ -277,10 +272,14 @@
 									<?php
 								}
 								else{
-									//SUMAR +1 AL PERFIL DEL USUARIO
+									//Adding 1 user to newUser's profile
 									$profileUsers = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
 									$profileUsers += 1;
 									executeDBquery("UPDATE `profiles` SET `numUsers`='".$profileUsers."' WHERE `name`='Candidato'");
+									//Creating newUser's folder to store his/her data when updating his/her CV
+									$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$newUser."/";
+									mkdir($userDir,0777);
+									chmod($userDir, 0777);
 									?>
 									<script type="text/javascript">
 										alert('Usuario <?php echo $newUser; ?> creado con éxito. Su contraseña por defecto es: <?php echo $initialPass; ?>');
