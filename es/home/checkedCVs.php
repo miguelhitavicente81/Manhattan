@@ -195,7 +195,7 @@
 
 					<?php 
 
-						if((getDBrowsnumber('cVitaes') == 0) || (count($cvIDs = getDBcolumnvalue('id', 'cVitaes', 'cvStatus', 'checked')) == 0)){
+						if((getDBrowsnumber('cvitaes') == 0) || (count($cvIDs = getDBcolumnvalue('id', 'cvitaes', 'cvStatus', 'checked')) == 0)){
 						echo 'No hay CVs clasificados';
 					}
 					else{
@@ -213,7 +213,7 @@
 							<tbody>
 							<?php 
 							foreach($cvIDs as $i){
-								$cvRow = getDBrow('cVitaes', 'id', $i);
+								$cvRow = getDBrow('cvitaes', 'id', $i);
 								echo "<tr>";
 								echo "<td><a href='editCurCV.php?codvalue=" . $cvRow['nie'] . "'>" . $cvRow['nie'] . "</a></td>";
 								echo "<td>" . $cvRow['name'] . "</td>";
