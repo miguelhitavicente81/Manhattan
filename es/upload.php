@@ -76,7 +76,6 @@
 		var rowNum = 0;
 		function addRow1(frm){
 			rowNum ++;
-			//var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="-" onclick="removeRow1('+rowNum+');"></p>';
 			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="Eliminar" onclick="removeRow1('+rowNum+');"></p>';
 			jQuery('#itemRows').append(row);
 			frm.add_idiomas.value = '';
@@ -91,11 +90,9 @@
 		var rowNum = 0;
 		function addRow3(frm){
 			rowNum ++;
-			//var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nfor[]" size="4" value="'+frm.add_nfor.value+'"><input type="text" name="forma[]" value="'+frm.add_for.value+'"> <input type="button" value="Eliminar" onclick="removeRow3('+rowNum+');"></p>';
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nfor[]" size="30" value="'+frm.add_nfor.value+'"><input type="button" value="Eliminar" onclick="removeRow3('+rowNum+');"></p>';
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="educ[]" size="30" value="'+frm.add_educ.value+'"><input type="button" value="Eliminar" onclick="removeRow3('+rowNum+');"></p>';
 			jQuery('#itemRows3').append(row);
-			//frm.add_for.value = '';
-			frm.add_nfor.value = '';
+			frm.add_educ.value = '';
 		}
 		
 		function removeRow3(rnum){
@@ -104,11 +101,13 @@
 		
 		function addRow4(frm){
 			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="dur[]" value="'+frm.add_dur.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="Eliminar" onclick="removeRow4('+rowNum+');"></p>';
+			//var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="dur[]" value="'+frm.add_dur.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="Eliminar" onclick="removeRow4('+rowNum+');"></p>';
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="expstart[]" value="'+frm.add_expstart.value+'"><input type="text" name="expend[]" value="'+frm.add_expend.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="Eliminar" onclick="removeRow4('+rowNum+');"></p>';
 			jQuery('#itemRows4').append(row);
 			frm.add_empr.value = '';
 			frm.add_categ.value = '';
-			frm.add_dur.value = '';
+			frm.add_expstart.value = '';
+			frm.add_expend.value = '';
 			frm.add_desc.value = '';
 		}
 		
@@ -164,7 +163,6 @@
 		var result = true;
 		var message = "Por favor revise lo siguiente:\n";
 		
-		//if(form.elements["blankname"].value == ""){
 		if(form.elements["blankname"].value == null || form.elements["blankname"].value.length == 0 || /^\s+$/.test(form.elements["blankname"].value) ){
 			message += "El campo nombre no puede estar vacío.\n";
 			result = false;
@@ -181,7 +179,6 @@
 			message += "El campo NIE no puede estar vacío.\n";
 			result = false;
 		}
-		//if(checkNIE(form.elements["blanknie"].value) == false){
 		if(!checkNIE(form.elements["blanknie"].value)){
 			//message += "El campo NIE no está debidamente escrito\n";
 			message += "Revise su NIE (debe incluir la letra en mayúscula)\n";
@@ -204,7 +201,6 @@
 			result = false;
 		}
 		if(form.elements["blankaddrpostalcode"].value == "" || form.elements["blankaddrpostalcode"].value.length != 5 || /^\s+$/.test(form.elements["blankaddrpostalcode"].value) ){
-			//message += "El campo Código Postal no puede estar vacío.\n";
 			message += "El campo Código Postal debe estar formado por 5 números.\n";
 			result = false;
 		}
@@ -220,14 +216,11 @@
 			message += "El campo Población no puede estar vacío.\n";
 			result = false;
 		}
-		//var phonePattern = new RegExp("^[0-9]{9}$");
-		//var phonePattern = new RegExp("^[1-9][0-9]{8}$");
 		var phonePattern = new RegExp("^[9][0-9]{8}$");
 		if(form.elements["blankphone"].value == "" || !phonePattern.test(form.elements["blankphone"].value)){
 			message += "El campo Teléfono debe estar formado por 9 dígitos, comenzando por 9.\n";
 			result = false;
 		}
-		//var mobPattern = new RegExp("^[6-7][0-9]{8}$");
 		var mobPattern = new RegExp("^[6|7][0-9]{8}$");
 		if(form.elements["blankmobile"].value == "" || !mobPattern.test(form.elements["blankmobile"].value)){
 			message += "El campo Móvil debe estar formado por 9 dígitos, comenzando por 6 ó 7.\n";
@@ -243,8 +236,6 @@
 			message += "Debe seleccionar su Estado civil.\n";
 			result = false;
 		}
-		//<input type="checkbox" name="blanklopd" /> He leído y acepto las condiciones de uso y política de privacidad<br>
-		//if(!this.form.blanklopd.checked){
 		if(!document.formu.blanklopd.checked){
 			message += "Debe aceptar las condiciones de uso y privacidad para continuar.\n";
 			result = false;
@@ -261,119 +252,164 @@
 <body>
 
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
-require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/SimpleImage.php');
-
-if(isset($_POST['push_button'])){
-#echo "entro en el if $_POST[senduser]";
-
-	foreach ($_POST as $key => $entry){
-			#echo $key;
-		if(is_array($entry)){
-			if($key == categ){
-				//str_cated es 'occupation'
-				$str_categ = implode(',',$entry);
-			}
-			if($key == nfor){
-				//str_nfor es 'studyType'
-				$str_nfor = implode(',',$entry);
-			}
-			if($key == forma){
-				//str_forma es 'studyName'
-				$str_forma = implode(',',$entry);
-			}
-			if($key == idiomas){
-				//str_idiomas es 'language'
-				$str_idiomas = implode(',',$entry);
-			}
-			if($key == nidiomas){
-				//str_nidiomas es 'langLevel'
-				$str_nidiomas = implode(',',$entry);
-			}
-			if($key == dur){
-				//esto deberían ser 2 campos, que se correspondiesen con 'experStart' y 'experEnd'
-				$str_dur = implode(',',$entry);
-			}
-			if($key == prof){
-				//str_prof es 'experPos'
-				$str_prof = implode(',',$entry);
-			}
-			if($key == empr){
-				//str_empr es 'experCompany'
-				$str_empr = implode(',',$entry);
-			}
-			if($key == desc){
-				//str_desc es 'experDesc'
-				$str_desc = implode(',',$entry);
-			}
-			if($key == nat){
-				//str_desc es 'experDesc'
-				$str_nat = implode(',',$entry);
-			}
-			
-			#print $key . ": " . implode(',',$entry) . "<br>";
-		
-	     }
-	     else {
-	       #print $key . ": " . $entry . "<br>";
-	     }
-	}
+	require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
+	require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/SimpleImage.php');
 	
-
-}
-if (isset($_POST['push_button'])){
-$user_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
-mkdir($user_dir,0777);
-chmod($user_dir, 0777);
-	echo "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
-	`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
-	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
-	'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
-	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
-	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
-	'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
-	'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')";
-	executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-	`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
-	`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
-	(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
-	'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-	'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
-	'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
-	'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
-	'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
-	'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')");
-
-
+	if(isset($_POST['push_button'])){
+	#echo "entro en el if $_POST[senduser]";
+	
+		foreach ($_POST as $key => $entry){
+				#echo $key;
+			if(is_array($entry)){
+				if($key == categ){
+					//str_categ es 'occupation' en la BD (QUE AHORA MISMO NO ESTÁ USADO)
+					$str_categ = implode(',',$entry);
+				}
+				if($key == nfor){
+					//str_nfor es 'studyType' en la BD (QUE AHORA MISMO NO ESTÁ USADO)
+					$str_nfor = implode(',',$entry);
+				}
+				if($key == forma){
+					//str_forma es 'studyName' en la BD (QUE AHORA MISMO NO ESTÁ USADO)
+					$str_forma = implode(',',$entry);
+				}
+				if($key == idiomas){
+					//str_idiomas es 'language' en BD (en addRow1)
+					$str_idiomas = implode(',',$entry);
+				}
+				if($key == nidiomas){
+					//str_nidiomas es 'langLevel' en BD (en addRow1)
+					$str_nidiomas = implode(',',$entry);
+				}
+				if($key == educ){
+					//str_educ es 'education' en BD (en addRow3)
+					$str_educ = implode(',', $entry);
+				}
+				if($key == expstart){
+					//str_expstart es 'experStart' en BD (en addRow4)
+					$str_expstart = implode(',',$entry);
+				}
+				if($key == expend){
+					//str_expend es 'experEnd' en BD (en addRow4)
+					$str_expend = implode(',',$entry);
+				}
+				if($key == prof){
+					//str_prof es 'experPos'
+					$str_prof = implode(',',$entry);
+				}
+				if($key == empr){
+					//str_empr es 'experCompany'
+					$str_empr = implode(',',$entry);
+				}
+				if($key == desc){
+					//str_desc es 'experDesc'
+					$str_desc = implode(',',$entry);
+				}
+				if($key == nat){
+					//str_nat es 'nationalities' en la BD
+					$str_nat = implode(',',$entry);
+				}
+				
+				#print $key . ": " . implode(',',$entry) . "<br>";
+			
+		     }
+		     else {
+		       #print $key . ": " . $entry . "<br>";
+		     }
+		}
+		
+	/*
+	}
+	if(isset($_POST['push_button'])){
+	*/
+		/*
+	$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
+	mkdir($userDir,0777);
+	chmod($userDir, 0777);
+		*/
+		/*
+		echo "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
+		`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
+		(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
+		'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+		'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
+		'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
+		'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
+		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
+		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')";
+		*/
+		/*
+		executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
+		`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
+		(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
+		'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+		'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
+		'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
+		'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
+		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
+		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')");
+		*/
+		/*
+		executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
+		`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
+		(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
+		'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
+		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', '".$str_idiomas."', '".$str_nidiomas."',
+		'".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
+		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
+		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')");
+		*/
+		
+		executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
+		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
+		`checkLOPD`, `cvDate`, `userLogin`, `salary`) VALUES 
+		(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
+		'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
+		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', '".$str_idiomas."', '".$str_nidiomas."',
+		'".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
+		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
+		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_SESSION['blanksalary']."')");
+		
+		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		$tot = count($_FILES["archivos"]["name"]);
 		//este for recorre el arreglo
 		for ($i = 0; $i < $tot; $i++){
-			move_uploaded_file( $_FILES['archivos']['tmp_name'][$i],$user_dir.$_FILES['archivos']['name'][$i]);
+			move_uploaded_file( $_FILES['archivos']['tmp_name'][$i],$userDir.$_FILES['archivos']['name'][$i]);
 			//con el indice $i, podemos obtener la propiedad que desemos de cada archivo
 			//para trabajar con este
 			$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
 			$name = $_FILES["archivos"]["name"][$i];
-			
 		}
-	
-
-$uploadfile = $user_dir . "foto";
-
-echo $uploadfile;
-if (move_uploaded_file($_FILES['foto']['tmp_name'], $uploadfile)) {
-$image = new SimpleImage(); 
-$image->load($uploadfile); 
-$image->resize(200,250); 
-$image->save($uploadfile."r.jpg"); 
-unlink($uploadfile);
-    #echo "El archivo es válido y fue cargado exitosamente.\n";
-} else {
-    #echo "¡Posible ataque de carga de archivos!\n";
-}
-
-}
+		
+		$uploadFile = $userDir . "foto";
+		
+		echo $uploadFile;
+		if(move_uploaded_file($_FILES['foto']['tmp_name'], $uploadFile)){
+			$image = new SimpleImage(); 
+			$image->load($uploadFile); 
+			$image->resize(200,250); 
+			$image->save($uploadFile."r.jpg"); 
+			unlink($uploadFile);
+			#echo "El archivo es válido y fue cargado exitosamente.\n";
+		}
+		else{
+			#echo "¡Posible ataque de carga de archivos!\n";
+		}
+		//MARCAR AL USUARIO COMO NO ACTIVO Y EXPULSARLE
+		executeDBquery("UPDATE `users` SET `active`='0' WHERE `login`='".$_SESSION['loglogin']."'");
+		?>
+		<script type="text/javascript">
+			alert('CV insertado con éxito. Gracias!');
+			window.location.href='./endsession.php';
+		</script>
+		<?php
+	}//del (isset($_POST[]))
 	
 /***************  Fin del bloque que valida el contenido enviado en el formulario  ***************/
 
@@ -385,11 +421,11 @@ unlink($uploadfile);
 	<table>
 		<tr>
 			<td><label class='control-label'>Nombre</label></td>
-			<td><input type="text" name="blankname" size="30" maxlength="20" required/></td>
+			<td><input type="text" name="blankname" size="30" maxlength="30" required/></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Apellidos</label></td>
-			<td><input type="text" name="blanksurname" size="30" maxlength="30" required/></td>
+			<td><input type="text" name="blanksurname" size="30" maxlength="50" required/></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Fecha de Nacimiento</label></td>
@@ -397,7 +433,7 @@ unlink($uploadfile);
 		</tr>
 		<tr>
 			<td><label class='control-label'>DNI/NIE</label></td>
-			<td><input type="text" name="blanknie" size="30" maxlength="12" required placeholder="Max. 12 caracteres"/></td>
+			<td><input type="text" name="blanknie" size="30" maxlength="12" required placeholder="Max. 12 caracteres" onkeyup="this.value=this.value.toUpperCase();" /></td>
 		</tr>
 		
 		<!-- <td><span class="form-sub-label-container"><select class="form-dropdown form-address-country" name="q13_direccion13[country]" id="input_13_country"> -->
@@ -653,8 +689,9 @@ unlink($uploadfile);
 				<option value="other"> Other </option>
 			</select>
 			
-			<input onclick="addRow5(this.form);" type="button" value="Pulse para incluir" /></td>
+			<input onclick="addRow5(this.form);" type="button" value="Incluir" />
 			</div>
+			</td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Sexo</label></td>
@@ -696,20 +733,20 @@ unlink($uploadfile);
 					<option value="Vía">Vía</option>
 				</select>
 				<input type="text" name="blankaddrname" size="50" maxlength="50" required placeholder="Nombre" />
-				<input type="text" name="blankaddrnum" size="5" maxlength="10" required placeholder="Num" />
-				<input type="text" name="blankaddrportal" size="5" maxlength="10" required placeholder="Portal" />
-				<input type="text" name="blankaddrstair" size="5" maxlength="10" required placeholder="Escalera" />
-				<input type="text" name="blankaddrfloor" size="5" maxlength="10" required placeholder="Piso" />
-				<input type="text" name="blankaddrdoor" size="5" maxlength="10" required placeholder="Puerta" /><br>
+				<input type="text" name="blankaddrnum" size="5" maxlength="10" required placeholder="Num" onkeyup="this.value=this.value.toUpperCase();" />
+				<input type="text" name="blankaddrportal" size="5" maxlength="10" placeholder="Portal" onkeyup="this.value=this.value.toUpperCase();" />
+				<input type="text" name="blankaddrstair" size="5" maxlength="10" placeholder="Escalera" onkeyup="this.value=this.value.toUpperCase();" />
+				<input type="text" name="blankaddrfloor" size="5" maxlength="10" placeholder="Piso" />
+				<input type="text" name="blankaddrdoor" size="5" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();" /><br>
 				<input type="text" name="blankaddrpostalcode" size="10" maxlength="10" required placeholder="Código Postal" />
-				<input type="text" name="blankaddrcountry" size="20" maxlength="50" required placeholder="Pais" />				
+				<input type="text" name="blankaddrcountry" size="20" maxlength="50" required placeholder="Pais" />
 				<input type="text" name="blankaddrprovince" size="20" maxlength="50" required placeholder="Provincia" />
 				<input type="text" name="blankaddrcity" size="50" maxlength="50" required placeholder="Población" />
 			</td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Fijo</label></td>
-			<td><input type="text" name="blankphone" size="30" maxlength="9" required /></td>
+			<td><input type="text" name="blankphone" size="30" maxlength="9" required placeholder="9XXXXXXXX" /></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Móvil</label></td>
@@ -756,17 +793,26 @@ unlink($uploadfile);
 		</tr>
 		<tr>
 			<td><label class='control-label'>Hijos</label></td>
-			<td><input type="number" name="blanksons" maxlength="2" required min="0"></td>
-		</tr>
-		
-		<!-- AQUI TENGO QUE CARGAR DINAMICAMENTE LAS FOTOS -->
-		<tr>
-			<td><label class='control-label'>Foto</label></td>
-			<td><input type="file" name="foto" required file-accept="jpg, jpeg, png, gif" file-maxsize="1024" /></td>
+			<td><input type="number" name="blanksons" maxlength="2" min="0"></td>
 		</tr>
 		
 		<tr>
-			<td><label class='control-label'>Documentos adicionales</label></td>
+			<td>
+				<div class="tooltip-demo">
+					<label class='control-label'>Foto</label>
+					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Tipos admitidos: JPG, JPEG o PNG. Máx: 1024Kb"></span>
+				</div>
+			</td>
+			<td><input type="file" name="foto" required file-accept="jpg, jpeg, png" file-maxsize="1024" /></td>
+		</tr>
+		
+		<tr>
+			<td>
+				<div class="tooltip-demo">
+					<label class='control-label'>Documentos adicionales</label>
+					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Tipos admitidos: PDF, DOC, DOCX, XLS, XLSX, CSV, TXT, RTF o ZIP. Máx: 1024Kb"></span>
+				</div>
+			</td>
 			<td id="adjuntos"><input type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, zip" file-maxsize="1024" />
 			</td><td><input onclick="addCampo();" type="button" value="+" />
 			</td>
@@ -776,21 +822,6 @@ unlink($uploadfile);
 			<td><label class='control-label'>Nivel de idiomas</label></td>
 			<td>
 				<div id="itemRows">
-					<!-- 
-					<select name="add_idiomas">
-						<option selected value="">-- Idioma --</option>
-						<option value="german">Alemán</option>
-						<option value="english">Inglés</option>
-						<option value="spanish">Español</option>
-						<option value="french">Francés</option>
-						<option value="portuguese">Portugués</option>
-						<option value="italian">Italiano</option>
-						<option value="greek">Griego</option>
-						<option value="ruse">Ruso</option>
-						<option value="chinese">Chino</option>
-						<option value="japanese">Japonés</option>
-					</select>
-					-->
 					<select name="add_idiomas">
 						<option selected disabled value="">-- Idioma --</option>
 						<?php
@@ -810,7 +841,7 @@ unlink($uploadfile);
 						<option value="C2">C2</option>
 						<option value="mothertongue">Lengua Materna</option>
 					</select>
-					<input onclick="addRow1(this.form);" type="button" value="Pulse para incluir" />
+					<input onclick="addRow1(this.form);" type="button" value="Incluir" />
 				</div>
 			</td>
 		</tr>
@@ -819,57 +850,35 @@ unlink($uploadfile);
 			<td>
 				<div class="tooltip-demo">
 					<label class='control-label'>Educación</label>
-					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Si su título no aparece incluído en el listado, póngase en contacto con nosotros a través de pa@pa.com o llamando al 902 202 122"></span>
+					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Si su título no aparece en el listado, póngase en contacto con nosotros a través de administracion@perspectiva-alemania.com"></span>
 				</div>
 			</td>
 			<td>
 				<div id="itemRows3">
-					<select name="add_nfor">
+					<!-- <select name="add_nfor"> -->
+					<select name="add_educ">
 						<option selected value="">Estudié...</option>
 						<?php 
-						/*
-						$eduKeys = getDBcompletecolumnID('key', 'studies', 'id');
-						foreach($eduKeys as $i){
-							echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
-						}
-						*/
 						$eduNames = getDBcompleteColumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'studies', 'id');
 						foreach($eduNames as $i){
-							//echo "<option value=" . utf8_encode($i) . ">" . utf8_encode($i) . "</option>";
 							echo "<option value=" . $i . ">" . $i . "</option>";
 						}
 						?>
 					</select>
-					<input onclick="addRow3(this.form);" type="button" value="Pulse para incluir" />
+					<input onclick="addRow3(this.form);" type="button" value="Incluir" />
 				</div>
 			</td>
 		</tr>
-		<!-- </div> -->
-		<!-- 
-		<tr>
-			<td><label class='control-label'>Educación</label></td>
-			<td>
-			<div id="itemRows3">
-			<select name="add_nfor">
-				<option selected value="">Sin estudios</option>
-				<option value="basic">Educación obligatoria</option>
-				<option value="secondary">Bachillerato</option>
-				<option value="vocational">Formación profesional</option>
-				<option value="bfa">Diplomatura</option>
-				<option value="bachelor">Licenciatura</option>
-			</select>
-			<input type="text" name="add_for" placeholder="Formacion" /><input onclick="addRow3(this.form);" type="button" value="Pulse para incluir" /></td></div>
-		</tr>
-		-->
 		<tr>
 			<td><label class='control-label'>Qué has hecho estos últimos años...</label></td>
 			<td>
 			<div id="itemRows4">
-			<input type="text" name="add_empr" size="30" placeholder="Empresa" />
-			<input type="text" name="add_categ" size="30" placeholder="Posición" />
-			<input type="text" name="add_dur" size="10" placeholder="Duración" />
-			<textarea name="add_desc" rows="5" cols="40" placeholder="Incluya una descripción de su experiencia en este puesto..."></textarea>
-			<input onclick="addRow4(this.form);" type="button" value="Pulse para incluir" /></td></div>
+			<input type="text" name="add_empr" size="25" placeholder="Empresa" />
+			<input type="text" name="add_categ" size="25" placeholder="Posición" /><br>
+			<input type="text" name="add_expstart" size="8" placeholder="Inicio" />
+			<input type="text" name="add_expend" size="8" placeholder="Fin(MM-YYYY)" />
+			<textarea name="add_desc" rows="3" cols="30" placeholder="Incluya una descripción de su experiencia en este puesto..."></textarea>
+			<input onclick="addRow4(this.form);" type="button" value="Incluir" /></div>
 			</td>
 		</tr>
 		
@@ -880,7 +889,7 @@ unlink($uploadfile);
 		
 		<tr>
 			<td><label class='control-label'>Otros datos de interés</label></td>
-			<td><textarea name="blankother" rows="5" cols="40" placeholder="Indique todo aquello que estime oportuno y aparezca en ningún otro campo..."></textarea></td>
+			<td><textarea name="blankother" rows="3" cols="40" placeholder="Indique todo aquello que estime oportuno y aparezca en ningún otro campo..."></textarea></td>
 		</tr>
 		
 		<tr>

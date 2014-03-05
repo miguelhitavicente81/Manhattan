@@ -193,19 +193,11 @@
 						</ul> <!-- class="nav bs-sidenav" -->
 					</div> <!-- id="sidebar-navigation-list"  -->
 				</div> <!-- col-md-3 -->
-
-
+				
 				<div class="col-md-9 scrollable" role="main"> 			
-
 					<div class="bs-docs-section">
-
 						<h2 class="page-header">Gestión de usuarios</h2>
-
-						</span>
-
-
 						<?php 
-						//if(isset($_POST['NewUsubmit'])){ SI FUERA NECESARIO
 						if(isset($_POST['newUsubmit'])){
 							if (isset($_POST['newUName']) && !empty($_POST['newUName'])){
 								$newUser = $_POST['newUName'];
@@ -222,12 +214,14 @@
 									<?php
 								}
 								else{
-									//Genero una contraseña aleatoria
 									$initialPass = getRandomPass();
-									//GENERAR LA FECHA DE CADUCIDAD QUE ESTARA INDICADA POR UN VALOR EN LA TABLA "otherOptions"
 									$expirationDate = addMonthsToDate(getDBsinglefield('value', 'otherOptions', 'key', 'expirationMonths'));
+									/*
 									if(!executeDBquery("INSERT INTO `users` (`id`, `login`, `pass`, `profile`, `active`, `language`, `needPass`, `created`, `passExpiration`) VALUES 
 									(NULL, '".utf8_decode($newUser)."', '".$initialPass."', '".utf8_decode($_POST['newUProfile'])."', '1', '".utf8_decode($_POST['newULanguage'])."', '1', CURRENT_TIMESTAMP, '".$expirationDate."')")){
+									*/
+									if(!executeDBquery("INSERT INTO `users` (`id`, `login`, `pass`, `profile`, `employee`, `active`, `language`, `needPass`, `created`, `passExpiration`) VALUES 
+									(NULL, '".utf8_decode($newUser)."', '".$initialPass."', '".utf8_decode($_POST['newUProfile'])."', '1', '1', '".utf8_decode($_POST['newULanguage'])."', '1', CURRENT_TIMESTAMP, '".$expirationDate."')")){
 									
 										?>
 										<script type="text/javascript">
@@ -237,14 +231,13 @@
 										<?php
 									}
 									else{
-										//SUMAR +1 AL PERFIL DEL USUARIO
+										//Adding 1 user to newUser's profile
 										$profileUsers = getDBsinglefield('numUsers', 'profiles', 'name', $_POST['newUProfile']);
 										$profileUsers += 1;
 										executeDBquery("UPDATE `profiles` SET `numUsers`='".$profileUsers."' WHERE `name`='".$_POST['newUProfile']."'");
 										?>
 										<script type="text/javascript">
-											//alert('Usuario creado con éxito');
-											alert('Usuario creado con éxito. Su contraseña por defecto es: <?php echo $initialPass; ?>');
+											alert('Usuario <?php echo $newUser; ?> creado con éxito. Su contraseña por defecto es: <?php echo $initialPass; ?>');
 											window.location.href='admCurUsers.php';
 										</script>
 										<?php
@@ -253,61 +246,51 @@
 							}
 						}
 						
-						
-						
-						
 						if(isset($_POST['newUsubmitC'])){
-								$user_number = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
-								$user_number=$user_number+1;
-								$user_number=sprintf("%06d",$user_number);
-								$newUser="pa_".$user_number;
-								$newUser = dropAccents($newUser);
-								if(getDBsinglefield('login', 'users', 'login', $newUser)){
+							$userNumber = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
+							$userNumber=$userNumber+1;
+							$userNumber=sprintf("%06d",$userNumber);
+							$newUser="pa_".$userNumber;
+							if(getDBsinglefield('login', 'users', 'login', $newUser)){
+								?>
+								<script type="text/javascript">
+									alert('El usuario que se intenta crear ya existe');
+									window.location.href='admCurUsers.php';
+								</script>
+								<?php
+							}
+							else{
+								$initialPass = getRandomPass();
+								$expirationDate = addMonthsToDate(getDBsinglefield('value', 'otherOptions', 'key', 'expirationMonths'));
+								if(!executeDBquery("INSERT INTO `users` (`id`, `login`, `pass`, `profile`, `active`, `language`, `needPass`, `created`, `passExpiration`) VALUES 
+								(NULL, '".utf8_decode($newUser)."', '".$initialPass."', 'Candidato', '1', 'spanish', '1', CURRENT_TIMESTAMP, '".$expirationDate."')")){
 									?>
 									<script type="text/javascript">
-										alert('El usuario que se intenta crear ya existe');
+										alert('Error al insertar el nuevo usuario');
 										window.location.href='admCurUsers.php';
 									</script>
 									<?php
 								}
 								else{
-									//Genero una contraseña aleatoria
-									$initialPass = getRandomPass();
-									//GENERAR LA FECHA DE CADUCIDAD QUE ESTARA INDICADA POR UN VALOR EN LA TABLA "otherOptions"
-									$expirationDate = addMonthsToDate(getDBsinglefield('value', 'otherOptions', 'key', 'expirationMonths'));
-									if(!executeDBquery("INSERT INTO `users` (`id`, `login`, `pass`, `profile`, `active`, `language`, `needPass`, `created`, `passExpiration`) VALUES 
-									(NULL, '".utf8_decode($newUser)."', '".$initialPass."', 'Candidato', '1', 'spanish', '1', CURRENT_TIMESTAMP, '".$expirationDate."')")){
-										?>
-										<script type="text/javascript">
-											alert('Error al insertar el nuevo usuario');
-											window.location.href='admCurUsers.php';
-										</script>
-										<?php
-									}
-									else{
-										//SUMAR +1 AL PERFIL DEL USUARIO
-										$profileUsers = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
-										$profileUsers += 1;
-										executeDBquery("UPDATE `profiles` SET `numUsers`='".$profileUsers."' WHERE `name`='Candidato'");
-										?>
-										<script type="text/javascript">
-											//alert('Usuario creado con éxito');
-											alert('Usuario creado con éxito <?php echo $newUser;?>. Su contraseña por defecto es: <?php echo $initialPass; ?>');
-											window.location.href='admCurUsers.php';
-										</script>
-										<?php
-									}
+									//Adding 1 user to newUser's profile
+									$profileUsers = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
+									$profileUsers += 1;
+									executeDBquery("UPDATE `profiles` SET `numUsers`='".$profileUsers."' WHERE `name`='Candidato'");
+									//Creating newUser's folder to store his/her data when updating his/her CV
+									$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$newUser."/";
+									mkdir($userDir,0777);
+									chmod($userDir, 0777);
+									?>
+									<script type="text/javascript">
+										alert('Usuario <?php echo $newUser; ?> creado con éxito. Su contraseña por defecto es: <?php echo $initialPass; ?>');
+										window.location.href='admCurUsers.php';
+									</script>
+									<?php
 								}
-							
+							}
 						}
-						
-						
-						
-						?>
-
-					<?php 
 						if($_SESSION['logprofile'] == 'SuperAdmin'){
-					?>
+							?>
 							<div class="panel panel-default"> <!-- Panel de Usuarios Existentes -->
 								<div class="panel-heading">
 									<h3 class="panel-title">Usuarios Existentes</h3>
@@ -404,13 +387,10 @@
 									
 								</div>
 							</div> <!-- Panel de Usuarios existentes -->	
-
 						<?php 
 						}
 						elseif($_SESSION['logprofile'] == 'Administrador'){
-						?>
-
-
+							?>
 							<div class="panel panel-default"> <!-- Panel de Usuarios Existentes -->
 								<div class="panel-heading">
 									<h3 class="panel-title">Usuarios Existentes</h3>
@@ -502,8 +482,16 @@
 						<?php 
 						}
 						else{
+							/*
 							echo "No dispone de permisos para visualizar esta página";
-							echo "<button onclick='location.href=\"../home.php\"'>Inicio</button>";  
+							echo "<button onclick='location.href=\"../home.php\"'>Inicio</button>";
+							*/
+							//This code prevents app to enter in infinite-loop when other non-granted user could enter to this site
+							?>
+							<script type="text/javascript">
+								window.location.href='../home.php';
+							</script>
+							<?php
 						}
 						?>
 						
@@ -511,16 +499,11 @@
 				</div> <!-- col-md-9 scrollable role=main -->
 			</div> <!-- row -->
 		</div> <!-- class="container bs-docs-container" -->
-
-
-
-
 	<?php
 
-		} //del "else" de $_SESSION.
+	} //del "else" de $_SESSION.
 
 	?>
-
 
 <!-- Footer bar & info
 	================================================== -->
