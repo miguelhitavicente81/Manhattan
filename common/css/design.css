@@ -28,7 +28,7 @@
 /* Document body settings
 -------------------------------------------------- */
 body {
-	font-family: 'Helvetica Neue','Roboto', sans-serif;
+	font-family: 'Helvetica Neue', 'Roboto', sans-serif;
 	margin-top: 150px;
 	margin-bottom: 40px;
 	background-color: initial;
@@ -217,7 +217,7 @@ body {
 }
 .form-signin input {
 	/* font-family: 'Ubuntu Mono', monospace;*/
-	font-family: Menlo,Monaco,Consolas,'Ubuntu Mono',monospace;
+	font-family: Monaco, Menlo, Consolas, 'Ubuntu Mono', monospace;
 }
 .form-signin input[type="login"] {
 	margin-bottom: -1px;
