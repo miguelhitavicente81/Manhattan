@@ -76,7 +76,8 @@
 		var rowNum = 0;
 		function addRow1(frm){
 			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="Eliminar" onclick="removeRow1('+rowNum+');"></p>';
+			//var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="Eliminar" onclick="removeRow1('+rowNum+');"></p>';
+			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"> <input type="button" value="Eliminar" onclick="removeRow1('+rowNum+');"></p>';
 			jQuery('#itemRows').append(row);
 			frm.add_idiomas.value = '';
 			frm.add_nidiomas.value = '';
@@ -328,42 +329,6 @@
 	chmod($userDir, 0777);
 		*/
 		/*
-		echo "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
-		`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
-		(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
-		'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-		'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
-		'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
-		'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
-		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
-		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')";
-		*/
-		/*
-		executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
-		`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
-		(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
-		'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-		'".$_POST['blankaddrdoor']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
-		'".$_POST['blankphone']."', '".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
-		'".$str_idiomas."', '".$str_nidiomas."', '".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
-		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
-		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')");
-		*/
-		/*
-		executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `occupation`, `studyType`, `studyName`, 
-		`experCompany`, `experPos`, `experStart`, `experEnd`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, `checkLOPD`, `cvDate`, `userLogin`) VALUES 
-		(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
-		'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
-		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', '".$str_idiomas."', '".$str_nidiomas."',
-		'".$str_prof."', '".$str_nfor."', '".$str_forma."', '".$str_empr."', '".$str_prof."', '".$str_dur."', '".$str_dur."', '".$str_desc."', '".$_POST['blankother']."', 
-		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
-		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."')");
-		*/
-		
 		executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
 		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
@@ -375,8 +340,21 @@
 		'".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
 		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
 		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_SESSION['blanksalary']."')");
-		
+		*/
+		executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
+		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
+		`checkLOPD`, `cvDate`, `userLogin`, `salary`) VALUES 
+		(NULL, '".$_POST['blanknie']."', 'pending', '".$_POST['blankname']."', '".$_POST['blanksurname']."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
+		'".$_POST['blankaddrtype']."', '".$_POST['blankaddrname']."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".$_POST['blankaddrcountry']."', '".$_POST['blankaddrprovince']."', '".$_POST['blankaddrcity']."',
+		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', '".$str_idiomas."', '".$str_nidiomas."',
+		'".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
+		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
+		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_SESSION['blanksalary']."')");
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
+		
+		
 		$tot = count($_FILES["archivos"]["name"]);
 		//este for recorre el arreglo
 		for ($i = 0; $i < $tot; $i++){
@@ -738,7 +716,7 @@
 				<input type="text" name="blankaddrstair" size="5" maxlength="10" placeholder="Escalera" onkeyup="this.value=this.value.toUpperCase();" />
 				<input type="text" name="blankaddrfloor" size="5" maxlength="10" placeholder="Piso" />
 				<input type="text" name="blankaddrdoor" size="5" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();" /><br>
-				<input type="text" name="blankaddrpostalcode" size="10" maxlength="10" required placeholder="Código Postal" />
+				<input type="text" name="blankaddrpostalcode" size="10" maxlength="5" required placeholder="Código Postal" />
 				<input type="text" name="blankaddrcountry" size="20" maxlength="50" required placeholder="Pais" />
 				<input type="text" name="blankaddrprovince" size="20" maxlength="50" required placeholder="Provincia" />
 				<input type="text" name="blankaddrcity" size="50" maxlength="50" required placeholder="Población" />
@@ -750,7 +728,7 @@
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Móvil</label></td>
-			<td><input type="text" name="blankmobile" size="30" maxlength="12" required /></td>
+			<td><input type="text" name="blankmobile" size="30" maxlength="9" required /></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Correo Electrónico</label></td>
@@ -781,24 +759,14 @@
 		<tr>
 			<td><label class='control-label'>Estado Civil</label></td>
 			<td>
-			<!--
-			<select name="blankmarital" required>
-				<option selected value="">-- Estado --</option>
-				<option value="single">Soltero/a</option>
-				<option value="married">Casado/a</option>
-				<option value="divorced">Divorciado/a</option>
-				<option value="widow">Viudo/a</option>
-				<option value="separated">Separado/a</option>
-			</select>
-			-->
 			<select name="blankmarital" required>
 				<option selected disabled value="">-- Estado --</option>
 				<?php
 				$userLang = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
 				$maritStatus = getDBcompletecolumnID($userLang, 'maritalStatus', 'id');
-				 foreach($maritStatus as $i){
-				 	echo "<option value=" . getDBsinglefield('key', 'maritalStatus', $userLang, $i) . ">" . $i . "</option>";
-				 }
+				foreach($maritStatus as $i){
+					echo "<option value=" . getDBsinglefield('key', 'maritalStatus', $userLang, $i) . ">" . $i . "</option>";
+				}
 				?>
 			</select>
 			</td>
@@ -837,10 +805,18 @@
 					<select name="add_idiomas">
 						<option selected disabled value="">-- Idioma --</option>
 						<?php
+						/*
 						$langNames = getDBcompletecolumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'languages', 'id');
 						 foreach($langNames as $i){
 						 	echo "<option value=" . $i . ">" . $i . "</option>";
 						 }
+						 */
+						//$userLang = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
+						//$maritStatus = getDBcompletecolumnID($userLang, 'maritalStatus', 'id');
+						$langNames = getDBcompletecolumnID($userLang, 'languages', 'id');
+						foreach($langNames as $i){
+							echo "<option value=" . getDBsinglefield('key', 'languages', $userLang, $i) . ">" . $i . "</option>";
+						}
 						?>
 					</select>
 					<select name="add_nidiomas">
@@ -896,7 +872,7 @@
 		
 		<tr>
 			<td><label class='control-label'>Salario deseado</label></td>
-			<td><input type="text" name="blanksalary" size="10" placeholder="$" /><br></td>
+			<td><input type="number" name="blanksalary" size="10" placeholder="$" /><br></td>
 		</tr>
 		
 		<tr>
@@ -921,7 +897,7 @@
 		</tr>
 	</table>
 
-	<input type="checkbox" name="blanklopd" /> He leído y acepto las condiciones de uso y política de privacidad<br>
+	<input type="checkbox" name="blanklopd" required> He leído y acepto las condiciones de uso y política de privacidad<br>
 	<input  type="submit" name ="push_button" value="Enviar" />
 	<!-- <input type="reset" value="Borrar formulario" /> -->
 
