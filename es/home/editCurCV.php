@@ -19,7 +19,6 @@
 	<!-- Using the favicon for touch-devices shortcut -->
 	<link rel="apple-touch-icon" href="../../common/img/apple-touch-icon.png">
 
-
 </head>
 
 <body>
@@ -102,10 +101,6 @@
 		</div>
 
 
-
-		<!-- /* En $myFile guardo el nombre del fichero php que WC está tratando en ese instante. Necesario para mostrar
-		* el resto de menús de nivel 1 cuando navegue por ellos, y saber cuál es el activo (id='onlink')
-		*/ -->
 		<?php
 			$myFile = 'home';
 			$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
@@ -187,13 +182,17 @@
 
 						<h2 class="page-header">Validando el CV...</h2>
 
-					</span>
-
 					<?php 
 						//Aunque debería ser
 						//if(!isset($_GET['nie'])){
 						if(!isset($_GET['codvalue'])){
 							$editedCVRow = getDBrow('cvitaes', 'nie', $_POST['eCCVnie']);
+							
+							
+							
+							
+							
+							
 							
 						}
 						/***************  Fin del bloque que valida el contenido enviado en el formulario  ***************/
@@ -219,232 +218,229 @@
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>NIE</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVnie' value=" . $editedCVRow['nie'] . " />";
+											echo "<input class='form-control' type='text' name='eCCVnie' value='" . $editedCVRow['nie'] . "' />";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Fecha de nacimiento</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='date' name='eCCVbirthdate' value=" . $editedCVRow['birthdate'] . " />";
+											echo "<input class='form-control' type='date' name='eCCVbirthdate' value='" . $editedCVRow['birthdate'] . "' />";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Nacionalidad</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVnationalities' value=" . $editedCVRow['nationalities'] . " />";
+											echo "<input class='form-control' type='text' name='eCCVnationalities' value='" . $editedCVRow['nationalities'] . "' />";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Sexo</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
 											if($editedCVRow['sex'] == 0){
-												echo "<input class='form-control' type='text' name='eCCVsex' value='Hombre' disabled />";
+												echo "<input class='form-control' type='text' name='eCCVsex' disabled value='Hombre'>";
 											}
 											else{
-												echo "<input class='form-control' type='text' name='eCCVsex' value='Mujer' disabled />";
+												echo "<input class='form-control' type='text' name='eCCVsex' disabled value='Mujer'>";
 											}
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Tipo de dirección</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVaddrtype' value=" . $editedCVRow['addrType'] . " disabled />";
+											echo "<input class='form-control' type='text' name='eCCVaddrtype' disabled value='" . $editedCVRow['addrType'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Nombre dirección</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVaddrName' value='" . $editedCVRow['addrName'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVaddrName' disabled value='" . $editedCVRow['addrName'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Número</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVaddrNum' value=" . $editedCVRow['addrNum'] . " disabled />";
+											echo "<input class='form-control' type='text' name='eCCVaddrNum' disabled value='" . $editedCVRow['addrNum'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Portal</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVaddrPortal' value=" . $editedCVRow['portal'] . " disabled />";
+											echo "<input class='form-control' type='text' name='eCCVaddrPortal' disabled value='" . $editedCVRow['portal'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Escalera</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVaddrStair' value=" . $editedCVRow['stair'] . " disabled />";
+											echo "<input class='form-control' type='text' name='eCCVaddrStair' disabled value='" . $editedCVRow['stair'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Piso</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVaddrFloor' value=" . $editedCVRow['addrFloor'] . " disabled />";
+											echo "<input class='form-control' type='text' name='eCCVaddrFloor' disabled value='" . $editedCVRow['addrFloor'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Puerta</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVaddrDoor' value=" . $editedCVRow['addrDoor'] . " disabled />";
+											echo "<input class='form-control' type='text' name='eCCVaddrDoor' disabled value='" . $editedCVRow['addrDoor'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Código Postal</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVpostal' value=" . $editedCVRow['postalCode'] . " disabled />";
+											echo "<input class='form-control' type='text' name='eCCVpostal' disabled value='" . $editedCVRow['postalCode'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Localidad</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVcity' value='" . $editedCVRow['city'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVcity' disabled value='" . $editedCVRow['city'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Provincia</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVprovince' value='" . $editedCVRow['province'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVprovince' disabled value='" . $editedCVRow['province'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>País</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVcountry' value='" . $editedCVRow['country'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVcountry' disabled value='" . $editedCVRow['country'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Teléfono Fijo</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVphone' value=" . $editedCVRow['phone'] . " disabled />";
+											echo "<input class='form-control' type='text' name='eCCVphone' disabled value='" . $editedCVRow['phone'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Teléfono Móvil</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCVmobile' value=" . $editedCVRow['mobile'] . " disabled />";
+											echo "<input class='form-control' type='text' name='eCCVmobile' disabled value='" . $editedCVRow['mobile'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Correo Electrónico</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='mail' name='eCCVmail' value=" . $editedCVRow['mail'] . " disabled />";
+											echo "<input class='form-control' type='mail' name='eCCVmail' disabled value='" . $editedCVRow['mail'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Carnet de Conducir</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";									
-											echo "<input class='form-control' type='text' name='eCCVdrivingType' value=" . $editedCVRow['drivingType'] . " disabled />";
-											echo "<input class='form-control' type='date' name='eCCVdrivingDate' value=" . $editedCVRow['drivingDate'] . " />";
+											echo "<input class='form-control' type='text' name='eCCVdrivingType' disabled value='" . $editedCVRow['drivingType'] . "'>";
+											echo "<input class='form-control' type='date' name='eCCVdrivingDate' disabled value='" . $editedCVRow['drivingDate'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Estado Civil</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVmarital' value=" . $editedCVRow['marital'] . " disabled />";
+										echo "<input class='form-control' type='text' name='eCCVmarital' disabled value='" . getDBsinglefield(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'maritalStatus', 'key', $editedCVRow['marital']) . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Hijos</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVsons' value=" . $editedCVRow['sons'] . " disabled />";
+											echo "<input class='form-control' type='text' name='eCCVsons' disabled value='" . $editedCVRow['sons'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Documentos Adicionales</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCV___' value=" . $editedCVRow['sons'] . " disabled />";
+											echo "<input class='form-control' type='text' name='eCCV___' disabled value='" . $editedCVRow['sons'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Idiomas</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCV___' value=" . $editedCVRow['sons'] . " disabled />";
+											echo "<input class='form-control' type='text' name='eCCV___' disabled value='" . $editedCVRow['sons'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Profesiones</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCV___' value='" . $editedCVRow['sons'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCV___' disabled value='" . $editedCVRow['sons'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Formación</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";
-											echo "<input class='form-control' type='text' name='eCCV___' value='" . $editedCVRow['sons'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCV___' disabled value='" . $editedCVRow['sons'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Experiencia Laboral</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCV___' value='" . $editedCVRow['sons'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCV___' disabled value='" . $editedCVRow['sons'] . "'>";
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Otros detalles</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='textarea' name='eCCVotherDetails' value=" . $editedCVRow['otherDetails'] . " rows='5' cols='40' disabled />";
+											echo "<input class='form-control' type='textarea' name='eCCVotherDetails' rows='5' cols='40' disabled value='" . $editedCVRow['otherDetails'] . "'>";
 										echo "</div>";
 									echo "</div>";
-
-
-
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Habilidad 1</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVskill1' value='" . $editedCVRow['skill1'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVskill1' disabled value='" . $editedCVRow['skill1'] . "'>";
 										echo "</div>";											
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Habilidad 2</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVskill2' value='" . $editedCVRow['skill2'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVskill2' disabled value='" . $editedCVRow['skill2'] . "'>";
 										echo "</div>";											
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Habilidad 3</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVskill3' value='" . $editedCVRow['skill3'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVskill3' disabled value='" . $editedCVRow['skill3'] . "'>";
 										echo "</div>";											
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Habilidad 4</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVskill4' value='" . $editedCVRow['skill4'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVskill4' disabled value='" . $editedCVRow['skill4'] . "'>";
 										echo "</div>";											
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Habilidad 5</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVskill5' value='" . $editedCVRow['skill5'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVskill5' disabled value='" . $editedCVRow['skill5'] . "'>";
 										echo "</div>";											
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Habilidad 6</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVskill6' value='" . $editedCVRow['skill6'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVskill6' disabled value='" . $editedCVRow['skill6'] . "'>";
 										echo "</div>";											
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Habilidad 7</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVskill7' value='" . $editedCVRow['skill7'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVskill7' disabled value='" . $editedCVRow['skill7'] . "'>";
 										echo "</div>";											
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Habilidad 8</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVskill8' value='" . $editedCVRow['skill8'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVskill8' disabled value='" . $editedCVRow['skill8'] . "'>";
 										echo "</div>";											
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Habilidad 9</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVskill9' value='" . $editedCVRow['skill9'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVskill9' disabled value='" . $editedCVRow['skill9'] . "'>";
 										echo "</div>";											
 									echo "</div>";
 									echo "<div class='form-group'>";										
 										echo "<label class='control-label col-xs-12 col-sm-2'>Habilidad 10</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
-											echo "<input class='form-control' type='text' name='eCCVskill10' value='" . $editedCVRow['skill10'] . "' disabled />";
+											echo "<input class='form-control' type='text' name='eCCVskill10' disabled value='" . $editedCVRow['skill10'] . "'>";
 										echo "</div>";											
 									echo "</div>";
 

@@ -781,6 +781,7 @@
 		<tr>
 			<td><label class='control-label'>Estado Civil</label></td>
 			<td>
+			<!--
 			<select name="blankmarital" required>
 				<option selected value="">-- Estado --</option>
 				<option value="single">Soltero/a</option>
@@ -788,6 +789,17 @@
 				<option value="divorced">Divorciado/a</option>
 				<option value="widow">Viudo/a</option>
 				<option value="separated">Separado/a</option>
+			</select>
+			-->
+			<select name="blankmarital" required>
+				<option selected disabled value="">-- Estado --</option>
+				<?php
+				$userLang = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
+				$maritStatus = getDBcompletecolumnID($userLang, 'maritalStatus', 'id');
+				 foreach($maritStatus as $i){
+				 	echo "<option value=" . getDBsinglefield('key', 'maritalStatus', $userLang, $i) . ">" . $i . "</option>";
+				 }
+				?>
 			</select>
 			</td>
 		</tr>
