@@ -371,11 +371,7 @@
 												<select name="newULanguage" class="form-control">
 													<option selected disabled value=''>Idioma</option>
 													<?php 
-<<<<<<< HEAD
 														$siteLanguages = getDBcompletecolumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'siteLanguages', 'id');
-=======
-														$siteLanguages = getDBcompletecolumnID('spanish', 'siteLanguages', 'id');
->>>>>>> upstream/development
 														foreach($siteLanguages as $i){
 															echo "<option value=" . $i . ">" . $i . "</option>";
 														}
@@ -467,11 +463,7 @@
 												<select name="newULanguage" class="form-control">
 													<option selected disabled value=''>Idioma</option>
 													<?php 
-<<<<<<< HEAD
 														$siteLanguages = getDBcompletecolumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'siteLanguages', 'id');
-=======
-														$siteLanguages = getDBcompletecolumnID('spanish', 'siteLanguages', 'id');
->>>>>>> upstream/development
 														foreach($siteLanguages as $i){
 															echo "<option value=" . $i . ">" . $i . "</option>";
 														}
