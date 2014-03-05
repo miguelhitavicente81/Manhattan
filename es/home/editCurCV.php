@@ -193,15 +193,15 @@
 						//Aunque debería ser
 						//if(!isset($_GET['nie'])){
 						if(!isset($_GET['codvalue'])){
-							$editedCVRow = getDBrow('cVitaes', 'nie', $_POST['eCCVnie']);
+							$editedCVRow = getDBrow('cvitaes', 'nie', $_POST['eCCVnie']);
 							
 						}
 						/***************  Fin del bloque que valida el contenido enviado en el formulario  ***************/
 						
 						/***************  Aquí comienza el bloque que permite mostrar el formulario  ***************/
 						else{
-							//$editedCVRow = getDBrow('cVitaes', 'nie', $_GET['nie']);
-							$editedCVRow = getDBrow('cVitaes', 'nie', $_GET['codvalue']);
+							//$editedCVRow = getDBrow('cvitaes', 'nie', $_GET['nie']);
+							$editedCVRow = getDBrow('cvitaes', 'nie', $_GET['codvalue']);
 							echo '<fieldset id="auto0">';
 								echo '<form id="editedCV" class="form-horizontal" role="form" name="editedCV" method="post" action=editCurCV.php">';
 									echo "<div class='form-group'>";
