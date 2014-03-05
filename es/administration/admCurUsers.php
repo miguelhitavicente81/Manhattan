@@ -118,7 +118,7 @@
 			<div class="row">
 				<div class="col-md-3">
 					<div id="sidebar-navigation-list" class="bs-sidebar hidden-print affix-top" role="complementary">
-						<ul class="nav bs-sidenav">
+						<ul class="nav bs-sidenav">							
 							<?php 
 							$mainKeysRow = getDBcompletecolumnID('key', 'mainNames', 'id');
 							$mainNamesRow = getDBcompletecolumnID('esName', 'mainNames', 'id');
@@ -371,8 +371,12 @@
 												<select name="newULanguage" class="form-control">
 													<option selected disabled value=''>Idioma</option>
 													<?php 
+<<<<<<< HEAD
 														//$siteLanguages = getDBcompletecolumnID('esName', 'siteLanguages', 'id');
 														$siteLanguages = getDBcompletecolumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'siteLanguages', 'id');
+=======
+														$siteLanguages = getDBcompletecolumnID('spanish', 'siteLanguages', 'id');
+>>>>>>> upstream/development
 														foreach($siteLanguages as $i){
 															echo "<option value=" . $i . ">" . $i . "</option>";
 														}
@@ -464,8 +468,12 @@
 												<select name="newULanguage" class="form-control">
 													<option selected disabled value=''>Idioma</option>
 													<?php 
+<<<<<<< HEAD
 														//$siteLanguages = getDBcompletecolumnID('esName', 'siteLanguages', 'id');
 														$siteLanguages = getDBcompletecolumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'siteLanguages', 'id');
+=======
+														$siteLanguages = getDBcompletecolumnID('spanish', 'siteLanguages', 'id');
+>>>>>>> upstream/development
 														foreach($siteLanguages as $i){
 															echo "<option value=" . $i . ">" . $i . "</option>";
 														}

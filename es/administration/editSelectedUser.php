@@ -259,7 +259,7 @@
 												echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUlanguage'>Idioma: </label>";
 												echo "<div class='col-sm-10'>";
 												echo "<select class='form-control' name='eUlanguage'>";													
-												$languagesColumn = getDBcompletecolumnID('esName', 'siteLanguages', 'id');
+												$languagesColumn = getDBcompletecolumnID('spanish', 'siteLanguages', 'id');
 												foreach($languagesColumn as $i){
 													if($i == $editedUserRow['language']){
 														echo "<option selected value=" . $i . ">" . $i . "</option>";
