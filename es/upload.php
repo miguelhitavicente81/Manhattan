@@ -262,10 +262,6 @@
 		foreach ($_POST as $key => $entry){
 				#echo $key;
 			if(is_array($entry)){
-				if($key == categ){
-					//str_categ es 'occupation' en la BD (QUE AHORA MISMO NO ESTÁ USADO)
-					$str_categ = implode(',',$entry);
-				}
 				if($key == nfor){
 					//str_nfor es 'studyType' en la BD (QUE AHORA MISMO NO ESTÁ USADO)
 					$str_nfor = implode(',',$entry);
@@ -275,39 +271,43 @@
 					$str_forma = implode(',',$entry);
 				}
 				if($key == idiomas){
-					//str_idiomas es 'language' en BD (en addRow1)
+					//str_idiomas es 'language' en la BD (en addRow1)
 					$str_idiomas = implode(',',$entry);
 				}
 				if($key == nidiomas){
-					//str_nidiomas es 'langLevel' en BD (en addRow1)
+					//str_nidiomas es 'langLevel' en la BD (en addRow1)
 					$str_nidiomas = implode(',',$entry);
 				}
 				if($key == educ){
-					//str_educ es 'education' en BD (en addRow3)
+					//str_educ es 'education' en la BD (en addRow3)
 					$str_educ = implode(',', $entry);
 				}
-				if($key == expstart){
-					//str_expstart es 'experStart' en BD (en addRow4)
-					$str_expstart = implode(',',$entry);
-				}
-				if($key == expend){
-					//str_expend es 'experEnd' en BD (en addRow4)
-					$str_expend = implode(',',$entry);
-				}
 				if($key == prof){
-					//str_prof es 'experPos'
+					//str_prof es '' (QUE AHORA MISMO NO ESTÁ USADO)
 					$str_prof = implode(',',$entry);
 				}
 				if($key == empr){
-					//str_empr es 'experCompany'
+					//str_empr es 'experCompany' en la BD (en addRow4)
 					$str_empr = implode(',',$entry);
 				}
+				if($key == categ){
+					//str_categ es 'experPos' en la BD (en addRow4)
+					$str_categ = implode(',',$entry);
+				}
+				if($key == expstart){
+					//str_expstart es 'experStart' en la BD (en addRow4)
+					$str_expstart = implode(',',$entry);
+				}
+				if($key == expend){
+					//str_expend es 'experEnd' en la BD (en addRow4)
+					$str_expend = implode(',',$entry);
+				}
 				if($key == desc){
-					//str_desc es 'experDesc'
+					//str_desc es 'experDesc' en la BD (en addRow4)
 					$str_desc = implode(',',$entry);
 				}
 				if($key == nat){
-					//str_nat es 'nationalities' en la BD
+					//str_nat es 'nationalities' en la BD (en addRow5)
 					$str_nat = implode(',',$entry);
 				}
 				
@@ -319,6 +319,34 @@
 		     }
 		}
 		
+		$tot = count($_FILES["archivos"]["name"]);
+		//este for recorre el arreglo
+		for ($i = 0; $i < $tot; $i++){
+			move_uploaded_file( $_FILES['archivos']['tmp_name'][$i],$userDir.$_FILES['archivos']['name'][$i]);
+			//con el indice $i, podemos obtener la propiedad que desemos de cada archivo
+			//para trabajar con este
+			$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
+			$name = $_FILES["archivos"]["name"][$i];
+		}
+		
+		$uploadFile = $userDir . "foto";
+		
+		echo $uploadFile;
+		echo '--> '.$_SESSION['loglogin'].' <--';
+		if(move_uploaded_file($_FILES['foto']['tmp_name'], $uploadFile)){
+			$image = new SimpleImage(); 
+			$image->load($uploadFile); 
+			$image->resize(200,250); 
+			$image->save($uploadFile."r.jpg"); 
+			unlink($uploadFile);
+			echo '--> WAY!! <--';
+			#echo "El archivo es válido y fue cargado exitosamente.\n";
+		}
+		else{
+			echo '--> Que Mal!! <--';
+			#echo "¡Posible ataque de carga de archivos!\n";
+		}
+		exit();
 	/*
 	}
 	if(isset($_POST['push_button'])){
@@ -339,7 +367,7 @@
 		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', '".$str_idiomas."', '".$str_nidiomas."',
 		'".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
 		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
-		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_SESSION['blanksalary']."')");
+		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')");
 		*/
 		executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
@@ -351,10 +379,10 @@
 		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', '".$str_idiomas."', '".$str_nidiomas."',
 		'".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
 		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
-		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_SESSION['blanksalary']."')");
+		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')");
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		
-		
+		/*
 		$tot = count($_FILES["archivos"]["name"]);
 		//este for recorre el arreglo
 		for ($i = 0; $i < $tot; $i++){
@@ -379,6 +407,7 @@
 		else{
 			#echo "¡Posible ataque de carga de archivos!\n";
 		}
+		*/
 		//MARCAR AL USUARIO COMO NO ACTIVO Y EXPULSARLE
 		executeDBquery("UPDATE `users` SET `active`='0' WHERE `login`='".$_SESSION['loglogin']."'");
 		?>
@@ -861,12 +890,13 @@
 			<td><label class='control-label'>Qué has hecho estos últimos años...</label></td>
 			<td>
 			<div id="itemRows4">
-			<input type="text" name="add_empr" size="25" placeholder="Empresa" />
-			<input type="text" name="add_categ" size="25" placeholder="Posición" /><br>
-			<input type="text" name="add_expstart" size="8" placeholder="Inicio" />
-			<input type="text" name="add_expend" size="8" placeholder="Fin(MM-YYYY)" />
-			<textarea name="add_desc" rows="3" cols="30" placeholder="Incluya una descripción de su experiencia en este puesto..."></textarea>
-			<input onclick="addRow4(this.form);" type="button" value="Incluir" /></div>
+				<input type="text" name="add_empr" size="25" placeholder="Empresa" />
+				<input type="text" name="add_categ" size="25" placeholder="Posición" /><br>
+				<input type="text" name="add_expstart" size="8" placeholder="Inicio" />
+				<input type="text" name="add_expend" size="8" placeholder="Fin(MM-YYYY)" />
+				<textarea name="add_desc" rows="3" cols="30" placeholder="Incluya una descripción de su experiencia en este puesto..."></textarea>
+				<input onclick="addRow4(this.form);" type="button" value="Incluir" />
+			</div>
 			</td>
 		</tr>
 		
