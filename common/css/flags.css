@@ -1,10 +1,33 @@
-.flag {
-	width: 16px;
-	height: 11px;
-	background:url(../img/flags.png) no-repeat
+@media (max-width: 768px) {
+	.flag {
+		display: block;
+		vertical-align: text-top;
+		margin-top: 5px;
+		width: 16px;
+		height: 11px;
+		background:url(../img/flags.png) no-repeat
+	}
+
+	.flag.flag-de {background-position: -16px 0}
+	.flag.flag-es {background-position: -32px 0}
+	.flag.flag-gb {background-position: 0 -11px}
+	.flag.flag-us {background-position: -16px -11px}
+
 }
 
-.flag.flag-de {background-position: -16px 0}
-.flag.flag-es {background-position: -32px 0}
-.flag.flag-gb {background-position: 0 -11px}
-.flag.flag-us {background-position: -16px -11px}
+@media (min-width: 768px) {
+	.flag {
+		display: inline-block;
+		height: 32px;
+		width: 32px;
+		vertical-align: text-top;
+		line-height: 32px;
+		background: url(../img/flags32.png) no-repeat;
+	}
+
+	.flag.flag-de {background-position: 0 -2304px}
+	.flag.flag-es {background-position: 0 -2656px}
+	.flag.flag-gb {background-position: 0 -2912px}
+	.flag.flag-us {background-position: 0 -7328px}
+
+}
