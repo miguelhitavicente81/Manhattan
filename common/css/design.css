@@ -12,12 +12,13 @@
 -------------------------------------------------- */
 /*@import url(styles.css);*/
 @import url(docs.css);
+@import url(flags.css);
 
 
 /* Fonts family imports
 -------------------------------------------------- */
 /* Standard fonts */
-@import url(http://fonts.googleapis.com/css?family=Ubuntu|Roboto);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu|Roboto|Source+Sans+Pro);
 /* Monospaced fonts */
 @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono|Roboto+Slab);
 
@@ -28,7 +29,7 @@
 /* Document body settings
 -------------------------------------------------- */
 body {
-	font-family: 'Helvetica Neue', 'Roboto', sans-serif;
+	font-family: 'Helvetica Neue', 'Source Sans Pro', 'Roboto', sans-serif;
 	margin-top: 150px;
 	margin-bottom: 40px;
 	background-color: initial;
@@ -48,6 +49,14 @@ body {
 
 /* Top navbar redefinition
 -------------------------------------------------- */
+.flags-set {
+	position: absolute;
+	bottom: 5px;
+	right: 0px;
+	margin-right: 25px;
+
+}
+
 .navbar-inverse, .navbar-default, .navbar-fixed-top {
 	background-color:#222;
 	border-color:#3C8DC5;
@@ -68,11 +77,32 @@ body {
 	display: block;
 }
 
+
+/* Dropdown menu redefinitions
+-------------------------------------------------- */
 .navbar-nav>li>.dropdown-menu { min-width: 200px; }
 
 .navbar-nav>li>.dropdown-menu>.dropdown-header { padding-left: 10px; padding-right: 10px; }
 
 .navbar-nav>li>.dropdown-menu>li>a { padding-left: 10px; padding-right: 10px; }
+
+.navbar-nav>li>.dropdown-menu>li>a:hover {
+
+	background-image: -webkit-linear-gradient(top,#428bca 0,#428bca 100%);
+	background-image: linear-gradient(to bottom,#428bca 0,#428bca 100%);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff428bca', endColorstr='#ff428bca', GradientType=0);
+	background-color: #428bca;
+	color: #FFFFFF;
+
+}
+
+@media (max-width: 768px) {
+	.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
+		background-color: #428bca;
+		color: #FFFFFF;
+	}
+}
 
 
 /* Tabbed navbar redefinitions
@@ -380,14 +410,15 @@ body {
 	display: inline-block;
 	min-width: 5px;
 	padding: 3px 7px;
-	font-size: 10px;
+	/*font-size: 10px;*/
 	font-weight: 700;
 	color: #fff;
 	line-height: 1;
 	vertical-align: baseline;
 	white-space: nowrap;
 	text-align: center;
-	background-color: #999;
+	/*background-color: #999;*/
+	background-color: #3C8DC5;
 	border-radius: 10px;
 }
 
