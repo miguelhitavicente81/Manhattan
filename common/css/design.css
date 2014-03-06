@@ -53,8 +53,12 @@ body {
 	position: absolute;
 	bottom: 5px;
 	right: 0px;
-	margin-right: 25px;
-
+	margin-right: 5px;
+}
+@media (min-width: 768px) {
+	.flags-set {
+		margin-right: 25px;
+	}
 }
 
 .navbar-inverse, .navbar-default, .navbar-fixed-top {
