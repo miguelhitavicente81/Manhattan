@@ -189,7 +189,7 @@
 						<?php 
 
 							if(($userRow['profile'] == 'Administrador') || ($userRow['profile'] == 'SuperAdmin')){
-								if((getDBrowsnumber('cVitaes') == 0) || ($pendingCVs == 0)){
+								if((getDBrowsnumber('cvitaes') == 0) || ($pendingCVs == 0)){
 									echo "<h1 class='page-header'>Noticias <br><small>No existen CVs por clasificar</small></h1>";
 								}
 								else{

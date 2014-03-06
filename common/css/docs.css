@@ -564,11 +564,12 @@ body {
   padding-bottom: 2px;
   padding-left: 30px;
   font-size: 12px;
-  font-weight: normal;
+  font-weight: 200;
 }
 .bs-sidebar .nav .nav > li > a:hover,
 .bs-sidebar .nav .nav > li > a:focus {
   padding-left: 29px;
+  font-weight: normal;
 }
 .bs-sidebar .nav .nav > .active > a,
 .bs-sidebar .nav .nav > .active:hover > a,
