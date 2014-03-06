@@ -257,7 +257,18 @@
 	if(isset($_POST['push_button'])){
 	#echo "entro en el if $_POST[senduser]";
 		
-		if()
+		if(!checkFullNameES($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
+			?>
+			<div class="top-alert-container">
+				<div class="alert alert-warning alert-error top-alert fade in">
+					<a href="#" class="close" data-dismiss="alert">&times;</a>
+					<strong>Opppsss!</strong> <?php echo $keyError; ?>
+				</div>
+			</div>
+
+			<?php $wannaGoTo ='index.html';
+		}
+		
 	
 		foreach ($_POST as $key => $entry){
 				#echo $key;
