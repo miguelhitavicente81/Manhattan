@@ -68,11 +68,25 @@ body {
 	display: block;
 }
 
+
+/* Dropdown menu redefinitions
+-------------------------------------------------- */
 .navbar-nav>li>.dropdown-menu { min-width: 200px; }
 
 .navbar-nav>li>.dropdown-menu>.dropdown-header { padding-left: 10px; padding-right: 10px; }
 
 .navbar-nav>li>.dropdown-menu>li>a { padding-left: 10px; padding-right: 10px; }
+
+.navbar-nav>li>.dropdown-menu>li>a:hover {
+
+	background-image: -webkit-linear-gradient(top,#428bca 0,#428bca 100%);
+	background-image: linear-gradient(to bottom,#428bca 0,#428bca 100%);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff428bca', endColorstr='#ff428bca', GradientType=0);
+	background-color: #428bca;
+	color: #FFFFFF;
+
+}
 
 
 /* Tabbed navbar redefinitions
