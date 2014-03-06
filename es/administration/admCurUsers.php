@@ -606,7 +606,7 @@
 									echo "<div class='form-group'>";
 									echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUuser'>NIE: </label>";
 									echo "<div class='col-sm-10'>";
-									echo "<input class='form-control' type='text' name='eUuser' value='" . getDBsinglefield('nie', 'cVitaes', 'userLogin', $editedUserRow['login']) . "' disabled /><br/>";
+									echo "<input class='form-control' type='text' name='eUuser' value='" . getDBsinglefield('nie', 'cvitaes', 'userLogin', $editedUserRow['login']) . "' disabled /><br/>";
 									echo "</div>";
 									echo "</div>";
 								}
