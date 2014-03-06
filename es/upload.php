@@ -76,7 +76,6 @@
 		var rowNum = 0;
 		function addRow1(frm){
 			rowNum ++;
-			//var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"> <input type="button" value="Eliminar" onclick="removeRow1('+rowNum+');"></p>';
 			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"> <input type="button" value="Eliminar" onclick="removeRow1('+rowNum+');"></p>';
 			jQuery('#itemRows').append(row);
 			frm.add_idiomas.value = '';
@@ -102,7 +101,6 @@
 		
 		function addRow4(frm){
 			rowNum ++;
-			//var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="dur[]" value="'+frm.add_dur.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="Eliminar" onclick="removeRow4('+rowNum+');"></p>';
 			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="expstart[]" value="'+frm.add_expstart.value+'"><input type="text" name="expend[]" value="'+frm.add_expend.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="Eliminar" onclick="removeRow4('+rowNum+');"></p>';
 			jQuery('#itemRows4').append(row);
 			frm.add_empr.value = '';
@@ -258,6 +256,8 @@
 	
 	if(isset($_POST['push_button'])){
 	#echo "entro en el if $_POST[senduser]";
+		
+		if()
 	
 		foreach ($_POST as $key => $entry){
 				#echo $key;
@@ -323,8 +323,7 @@
 		//este for recorre el arreglo
 		for ($i = 0; $i < $tot; $i++){
 			move_uploaded_file( $_FILES['archivos']['tmp_name'][$i],$userDir.$_FILES['archivos']['name'][$i]);
-			//con el indice $i, podemos obtener la propiedad que desemos de cada archivo
-			//para trabajar con este
+			//con el indice $i, podemos obtener la propiedad que desemos de cada archivo para trabajar con este
 			$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
 			$name = $_FILES["archivos"]["name"][$i];
 		}
@@ -408,7 +407,7 @@
 			#echo "¡Posible ataque de carga de archivos!\n";
 		}
 		*/
-		//MARCAR AL USUARIO COMO NO ACTIVO Y EXPULSARLE
+		//blocks candidate and redirects her/him to index.html
 		executeDBquery("UPDATE `users` SET `active`='0' WHERE `login`='".$_SESSION['loglogin']."'");
 		?>
 		<script type="text/javascript">
