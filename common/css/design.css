@@ -97,6 +97,13 @@ body {
 
 }
 
+@media (max-width: 768px) {
+	.navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
+		background-color: #428bca;
+		color: #FFFFFF;
+	}
+}
+
 
 /* Tabbed navbar redefinitions
 -------------------------------------------------- */
