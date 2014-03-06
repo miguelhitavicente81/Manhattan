@@ -17,7 +17,7 @@
 /* Fonts family imports
 -------------------------------------------------- */
 /* Standard fonts */
-@import url(http://fonts.googleapis.com/css?family=Ubuntu|Roboto);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu|Roboto|Source+Sans+Pro);
 /* Monospaced fonts */
 @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono|Roboto+Slab);
 
@@ -28,7 +28,7 @@
 /* Document body settings
 -------------------------------------------------- */
 body {
-	font-family: 'Helvetica Neue', 'Roboto', sans-serif;
+	font-family: 'Helvetica Neue', 'Source Sans Pro', 'Roboto', sans-serif;
 	margin-top: 150px;
 	margin-bottom: 40px;
 	background-color: initial;
@@ -380,14 +380,15 @@ body {
 	display: inline-block;
 	min-width: 5px;
 	padding: 3px 7px;
-	font-size: 10px;
+	/*font-size: 10px;*/
 	font-weight: 700;
 	color: #fff;
 	line-height: 1;
 	vertical-align: baseline;
 	white-space: nowrap;
 	text-align: center;
-	background-color: #999;
+	/*background-color: #999;*/
+	background-color: #3C8DC5;
 	border-radius: 10px;
 }
 
