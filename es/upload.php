@@ -256,8 +256,6 @@
 	
 	if(isset($_POST['push_button'])){
 	#echo "entro en el if $_POST[senduser]";
-		
-		if()
 	
 		foreach ($_POST as $key => $entry){
 				#echo $key;
