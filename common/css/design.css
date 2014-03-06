@@ -12,6 +12,7 @@
 -------------------------------------------------- */
 /*@import url(styles.css);*/
 @import url(docs.css);
+@import url(flags.css);
 
 
 /* Fonts family imports
@@ -48,6 +49,14 @@ body {
 
 /* Top navbar redefinition
 -------------------------------------------------- */
+.flags-set {
+	position: absolute;
+	bottom: 5px;
+	right: 0px;
+	margin-right: 25px;
+
+}
+
 .navbar-inverse, .navbar-default, .navbar-fixed-top {
 	background-color:#222;
 	border-color:#3C8DC5;
