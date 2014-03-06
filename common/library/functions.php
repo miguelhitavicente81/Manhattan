@@ -362,7 +362,35 @@ function suggestPassword($curDate, $curExpirate, &$days){
  *******************************************************************************/
 
 
-/* Checks whether a DNI (native) or NIE (abroad people with national document) is properly or not
+/* Checks whether a Birthdate is well-formatted and under current date
+ * Entry (birth): Date in format YYYY-MM-DD
+ * Exit (): Boolean that confirms if date is correct or not
+ */
+function checkBirthdate($birth){
+	$auxDateArray = explode('-', $birth);
+	$auxDateMonth = $auxDateArray[1];
+	$auxDateYear = $auxDateArray[0];
+	$auxDateDay = $auxDateArray[2];
+	/*
+	echo 'Tal como viene es... '.$birth;
+	echo 'Es el día '.$auxDateDay.' del mes '.$auxDateMonth.' del Año: '.$auxDateYear.'.';
+	*/
+	$current = strtotime(date('Y-m-d'));
+	$birthdate = strtotime($birth);
+	
+	//if(checkdate($auxDateMonth, $auxDateDay, $auxDateYear)){
+	//if((!checkdate($auxDateMonth, $auxDateDay, $auxDateYear) || ($birthdate > $current)){
+	if((!checkdate($auxDateMonth, $auxDateDay, $auxDateYear)) || ($birthdate > $current)){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+
+
+/* Checks whether a DNI (native) or NIE (abroad people with national document) is well-formatted and written or not
  * Entry (nie): String
  * Exit (): Boolean
  */
@@ -407,8 +435,10 @@ function checkDNI_NIE($nie){
  * Exit (outSurname): Returned string for Surname
  */
 function checkFullNameES($inName, $inSurname, &$outName, &$outSurname, &$checkError){
-	$outName = trim(htmlentities(mysqli_real_escape_string($inName)));
-	$outSurname = trim(htmlentities(mysqli_real_escape_string($inSurname)));
+	$connection = connectDB();
+	
+	$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName)));
+	$outSurname = trim(htmlentities(mysqli_real_escape_string($connection, $inSurname)));
 	if((strlen($outName) < 2) || (strlen($outSurname) < 2)){
 		$checkError = "Nombre y Apellidos deben tener al menos 2 caracteres cada uno.";
 		return false;
