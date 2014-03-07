@@ -256,61 +256,73 @@
 	
 	if(isset($_POST['push_button'])){
 	#echo "entro en el if $_POST[senduser]";
+		/*
+		if(!checkFullNameES($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
+			?>
+			<script type="text/javascript">
+				alert('<?php echo $checkError; ?>');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		elseif(!checkBirthdate($_POST['blankbirthdate'])){
+			?>
+			<script type="text/javascript">
+				alert('La fecha introducida es incorrecta');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		*/
+		if(!checkDNI_NIE($_POST['blanknie'])){
+			?>
+			<script type="text/javascript">
+				alert('El NIE no está correctamente introducido');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
 	
 		foreach ($_POST as $key => $entry){
 				#echo $key;
 			if(is_array($entry)){
-				if($key == nfor){
-					//str_nfor es 'studyType' en la BD (QUE AHORA MISMO NO ESTÁ USADO)
-					$str_nfor = implode(',',$entry);
-				}
-				if($key == forma){
-					//str_forma es 'studyName' en la BD (QUE AHORA MISMO NO ESTÁ USADO)
-					$str_forma = implode(',',$entry);
-				}
 				if($key == idiomas){
 					//str_idiomas es 'language' en la BD (en addRow1)
-					$str_idiomas = implode(',',$entry);
+					$str_idiomas = implode('|',$entry);
 				}
 				if($key == nidiomas){
 					//str_nidiomas es 'langLevel' en la BD (en addRow1)
-					$str_nidiomas = implode(',',$entry);
+					$str_nidiomas = implode('|',$entry);
 				}
 				if($key == educ){
 					//str_educ es 'education' en la BD (en addRow3)
-					$str_educ = implode(',', $entry);
-				}
-				if($key == prof){
-					//str_prof es '' (QUE AHORA MISMO NO ESTÁ USADO)
-					$str_prof = implode(',',$entry);
+					$str_educ = implode('|', $entry);
 				}
 				if($key == empr){
 					//str_empr es 'experCompany' en la BD (en addRow4)
-					$str_empr = implode(',',$entry);
+					$str_empr = implode('|',$entry);
 				}
 				if($key == categ){
 					//str_categ es 'experPos' en la BD (en addRow4)
-					$str_categ = implode(',',$entry);
+					$str_categ = implode('|',$entry);
 				}
 				if($key == expstart){
 					//str_expstart es 'experStart' en la BD (en addRow4)
-					$str_expstart = implode(',',$entry);
+					$str_expstart = implode('|',$entry);
 				}
 				if($key == expend){
 					//str_expend es 'experEnd' en la BD (en addRow4)
-					$str_expend = implode(',',$entry);
+					$str_expend = implode('|',$entry);
 				}
 				if($key == desc){
 					//str_desc es 'experDesc' en la BD (en addRow4)
-					$str_desc = implode(',',$entry);
+					$str_desc = implode('|',$entry);
 				}
 				if($key == nat){
 					//str_nat es 'nationalities' en la BD (en addRow5)
-					$str_nat = implode(',',$entry);
+					$str_nat = implode('|',$entry);
 				}
-				
 				#print $key . ": " . implode(',',$entry) . "<br>";
-			
 		     }
 		     else {
 		       #print $key . ": " . $entry . "<br>";
@@ -348,11 +360,6 @@
 	}
 	if(isset($_POST['push_button'])){
 	*/
-		/*
-	$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
-	mkdir($userDir,0777);
-	chmod($userDir, 0777);
-		*/
 		/*
 		executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
@@ -425,15 +432,15 @@
 	<table>
 		<tr>
 			<td><label class='control-label'>Nombre</label></td>
-			<td><input type="text" name="blankname" size="30" maxlength="30" required/></td>
+			<td><input type="text" name="blankname" size="30" maxlength="30"/></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Apellidos</label></td>
-			<td><input type="text" name="blanksurname" size="30" maxlength="50" required/></td>
+			<td><input type="text" name="blanksurname" size="30" maxlength="50"/></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Fecha de Nacimiento</label></td>
-			<td><input type="date" name="blankbirthdate" required/></td>
+			<td><input type="date" name="blankbirthdate"/></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>DNI/NIE</label></td>
@@ -700,14 +707,14 @@
 		<tr>
 			<td><label class='control-label'>Sexo</label></td>
 			<td>
-				<input type="radio" name="blanksex" value="0" required> Hombre
+				<input type="radio" name="blanksex" value="0"> Hombre
 				<input type="radio" name="blanksex" value="1" > Mujer
 			</td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Dirección</label></td>
 			<td>
-				<select name="blankaddrtype" required>
+				<select name="blankaddrtype">
 					<option value="" selected>-- Tipo --</option>
 					<option value="Acceso">Acceso</option>
 					<option value="Acera">Acera</option>
@@ -736,29 +743,29 @@
 					<option value="Urbanización">Urbanización</option>
 					<option value="Vía">Vía</option>
 				</select>
-				<input type="text" name="blankaddrname" size="50" maxlength="50" required placeholder="Nombre" />
-				<input type="text" name="blankaddrnum" size="5" maxlength="10" required placeholder="Num" onkeyup="this.value=this.value.toUpperCase();" />
+				<input type="text" name="blankaddrname" size="50" maxlength="50" placeholder="Nombre" />
+				<input type="text" name="blankaddrnum" size="5" maxlength="10" placeholder="Num" onkeyup="this.value=this.value.toUpperCase();" />
 				<input type="text" name="blankaddrportal" size="5" maxlength="10" placeholder="Portal" onkeyup="this.value=this.value.toUpperCase();" />
 				<input type="text" name="blankaddrstair" size="5" maxlength="10" placeholder="Escalera" onkeyup="this.value=this.value.toUpperCase();" />
 				<input type="text" name="blankaddrfloor" size="5" maxlength="10" placeholder="Piso" />
 				<input type="text" name="blankaddrdoor" size="5" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();" /><br>
-				<input type="text" name="blankaddrpostalcode" size="10" maxlength="5" required placeholder="Código Postal" />
-				<input type="text" name="blankaddrcountry" size="20" maxlength="50" required placeholder="Pais" />
-				<input type="text" name="blankaddrprovince" size="20" maxlength="50" required placeholder="Provincia" />
-				<input type="text" name="blankaddrcity" size="50" maxlength="50" required placeholder="Población" />
+				<input type="text" name="blankaddrpostalcode" size="10" maxlength="5" placeholder="Código Postal" />
+				<input type="text" name="blankaddrcountry" size="20" maxlength="50" placeholder="Pais" />
+				<input type="text" name="blankaddrprovince" size="20" maxlength="50" placeholder="Provincia" />
+				<input type="text" name="blankaddrcity" size="50" maxlength="50" placeholder="Población" />
 			</td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Fijo</label></td>
-			<td><input type="text" name="blankphone" size="30" maxlength="9" required placeholder="9XXXXXXXX" /></td>
+			<td><input type="text" name="blankphone" size="30" maxlength="9" placeholder="9XXXXXXXX" /></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Móvil</label></td>
-			<td><input type="text" name="blankmobile" size="30" maxlength="9" required /></td>
+			<td><input type="text" name="blankmobile" size="30" maxlength="9" /></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Correo Electrónico</label></td>
-			<td><input type="email" name="blankmail" size="30" 	required placeholder="correo@ejemplo.com" /></td>
+			<td><input type="email" name="blankmail" size="30" placeholder="correo@ejemplo.com" /></td>
 		</tr>
 		
 		<tr>
@@ -785,7 +792,7 @@
 		<tr>
 			<td><label class='control-label'>Estado Civil</label></td>
 			<td>
-			<select name="blankmarital" required>
+			<select name="blankmarital">
 				<option selected disabled value="">-- Estado --</option>
 				<?php
 				$userLang = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
@@ -809,7 +816,7 @@
 					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Tipos admitidos: JPG, JPEG o PNG. Máx: 1024Kb"></span>
 				</div>
 			</td>
-			<td><input type="file" name="foto" required file-accept="jpg, jpeg, png" file-maxsize="1024" /></td>
+			<td><input type="file" name="foto" file-accept="jpg, jpeg, png" file-maxsize="1024" /></td>
 		</tr>
 		
 		<tr>
@@ -924,7 +931,7 @@
 		</tr>
 	</table>
 
-	<input type="checkbox" name="blanklopd" required> He leído y acepto las condiciones de uso y política de privacidad<br>
+	<input type="checkbox" name="blanklopd"> He leído y acepto las condiciones de uso y política de privacidad<br>
 	<input  type="submit" name ="push_button" value="Enviar" />
 	<!-- <input type="reset" value="Borrar formulario" /> -->
 
