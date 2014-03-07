@@ -125,6 +125,7 @@
 		}
 	</script>
 	
+	<!-- 
 	<script type="text/javascript">
 		function checkNIE(dni){
 			var numero;
@@ -155,8 +156,8 @@
 			}
 		}
 	</script>
-	
-	
+	-->
+	<!-- 
 	<script type="text/javascript">
 	function checkFormES(form){
 		var result = true;
@@ -245,6 +246,7 @@
 		this.form=form;
 	}
 	</script>
+	-->
 	
 </head>
 
@@ -256,33 +258,6 @@
 	
 	if(isset($_POST['push_button'])){
 	#echo "entro en el if $_POST[senduser]";
-		/*
-		if(!checkFullNameES($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
-			?>
-			<script type="text/javascript">
-				alert('<?php echo $checkError; ?>');
-				window.location.href='home.php';
-			</script>
-			<?php 
-		}
-		elseif(!checkBirthdate($_POST['blankbirthdate'])){
-			?>
-			<script type="text/javascript">
-				alert('La fecha introducida es incorrecta');
-				window.location.href='home.php';
-			</script>
-			<?php 
-		}
-		*/
-		if(!checkDNI_NIE($_POST['blanknie'])){
-			?>
-			<script type="text/javascript">
-				alert('El NIE no está correctamente introducido');
-				window.location.href='home.php';
-			</script>
-			<?php 
-		}
-	
 		foreach ($_POST as $key => $entry){
 				#echo $key;
 			if(is_array($entry)){
@@ -318,9 +293,21 @@
 					//str_desc es 'experDesc' en la BD (en addRow4)
 					$str_desc = implode('|',$entry);
 				}
+				/*
 				if($key == nat){
 					//str_nat es 'nationalities' en la BD (en addRow5)
 					$str_nat = implode('|',$entry);
+				}
+				*/
+				if($key == nat){
+					//str_nat es 'nationalities' en la BD (en addRow5)
+					if(isset($key)){
+						//This is made to avoid as possible SQL Injection
+						checkNationality($entry, $outNations);
+						$str_nat = $outNations;
+						//echo 'str_nat es: '.$str_nat;
+					}
+					//$str_nat = implode('|',$entry);
 				}
 				#print $key . ": " . implode(',',$entry) . "<br>";
 		     }
@@ -328,6 +315,56 @@
 		       #print $key . ": " . $entry . "<br>";
 		     }
 		}
+		
+		/*
+		if(!checkFullNameES($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
+			?>
+			<script type="text/javascript">
+				alert('<?php echo $checkError; ?>');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		elseif(!checkBirthdate($_POST['blankbirthdate'])){
+			?>
+			<script type="text/javascript">
+				alert('La fecha introducida es incorrecta');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		elseif(!checkDNI_NIE($_POST['blanknie'])){
+			?>
+			<script type="text/javascript">
+				alert('El NIE no está correctamente introducido');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		elseif(!isset($str_nat)){
+			?>
+			<script type="text/javascript">
+				alert('Incluya al menos 1 nacionalidad, por favor');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		*/
+		
+		
+		
+		/*
+		if(!filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)){
+			?>
+			<script type="text/javascript">
+				alert('Introduzca un email válido, por favor');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		*/
+		
+		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		
 		$tot = count($_FILES["archivos"]["name"]);
 		//este for recorre el arreglo
@@ -384,9 +421,10 @@
 		'".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
 		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
 		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')");
-		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		
 		/*
+		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
+		
 		$tot = count($_FILES["archivos"]["name"]);
 		//este for recorre el arreglo
 		for ($i = 0; $i < $tot; $i++){
@@ -444,7 +482,7 @@
 		</tr>
 		<tr>
 			<td><label class='control-label'>DNI/NIE</label></td>
-			<td><input type="text" name="blanknie" size="30" maxlength="12" required placeholder="Max. 12 caracteres" onkeyup="this.value=this.value.toUpperCase();" /></td>
+			<td><input type="text" name="blanknie" size="30" maxlength="12" placeholder="Max. 12 caracteres" onkeyup="this.value=this.value.toUpperCase();" /></td>
 		</tr>
 		
 		<!-- <td><span class="form-sub-label-container"><select class="form-dropdown form-address-country" name="q13_direccion13[country]" id="input_13_country"> -->
