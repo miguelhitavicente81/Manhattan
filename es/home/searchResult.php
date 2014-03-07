@@ -336,7 +336,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . "../../common/cppdf");
 	================================================== -->
 	<!-- Bootstrap core JavaScript -->
 	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 	<!-- Site own functions -->
 	<script src="../../common/js/functions.js"></script>

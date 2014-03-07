@@ -4,8 +4,8 @@
 
 /* Bootstrap core CSS (v3.1.1)
 -------------------------------------------------- */
-@import url(http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css);
-@import url(http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css);
+@import url(https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css);
+@import url(https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css);
 
 
 /* Some others CSS used in the site
@@ -18,9 +18,9 @@
 /* Fonts family imports
 -------------------------------------------------- */
 /* Standard fonts */
-@import url(http://fonts.googleapis.com/css?family=Ubuntu|Roboto|Source+Sans+Pro);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu|Roboto|Source+Sans+Pro);
 /* Monospaced fonts */
-@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono|Roboto+Slab);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono|Roboto+Slab);
 
 
 
