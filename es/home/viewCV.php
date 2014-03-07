@@ -18,7 +18,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="David Alfonso Ginés Prieto, Miguel Hita Vicente y Miguel Ángel Melón Pérez">
 	
-	<title>CVs encontrados</title>
+	<title>Visualización de CV</title>
 	
 	<!-- Custom styles for this template -->
 	<link href="../../common/css/design.css" rel="stylesheet">
@@ -113,8 +113,6 @@
 				</form>
 			</div>
 		</div> <!-- exitRequest Modal -->
-		<script type="text/php">
-
 
 
 
@@ -128,14 +126,6 @@
 
 			$pendingCVs = getPendingCVs();
 		?>
-
-
-
-		<script type="text/javascript">
-			function insert() {
-				alert('Nota Añadida');
-			}
-		</script> 
 
 
 		<?php
@@ -228,8 +218,8 @@
 				$tot=count($exp_start_a);
 				$texto_pdf=$texto_pdf."<table>";
 				for ($i=0;$i<$tot;$i++){
-				$texto_pdf = $texto_pdf."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."<b></td><td><b>".$exp_comp_a[$i]."<br>".$exp_pos_a[$i]."</b><br>".$exp_desc_a[$i]."</td></tr>";
-				$texto = $texto."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."<b></td><td><b>".dropAccents($exp_comp_a[$i])."<br>".dropAccents($exp_pos_a[$i])."</b><br>".dropAccents($exp_desc_a[$i])."</td></tr>";
+				$texto_pdf = $texto_pdf."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."</b></td><td><b>".$exp_comp_a[$i]."<br>".$exp_pos_a[$i]."</b><br>".$exp_desc_a[$i]."</td></tr>";
+				$texto = $texto."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."</b></td><td><b>".dropAccents($exp_comp_a[$i])."<br>".dropAccents($exp_pos_a[$i])."</b><br>".dropAccents($exp_desc_a[$i])."</td></tr>";
 				}
 				$texto_pdf = $texto_pdf."<br><br></table><img src='../../common/img/formacion.jpg' /><br><br>";
 				$texto = $texto."<br><br></table><img src='../../common/img/formacion.jpg' /><br><br>";
@@ -247,8 +237,8 @@
 				$texto_pdf=$texto_pdf."<table>";
 				$texto=$texto."<table>";
 				for ($i=0;$i<$tot;$i++){
-				$texto_pdf = $texto_pdf."<tr><td><center><b>-".$lang_a[$i].".<b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
-				$texto= $texto."<tr><td><center><b>-".$lang_a[$i].".<b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
+				$texto_pdf = $texto_pdf."<tr><td><center><b>-".$lang_a[$i].".</b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
+				$texto= $texto."<tr><td><center><b>-".$lang_a[$i].".</b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
 				}
 				$texto_pdf=$texto_pdf."</table><br><br>";
 				$texto=$texto."</table><br><br>";
@@ -315,8 +305,8 @@
 				$tot=count($exp_start_a);
 				$texto_pdf=$texto_pdf."<table>";
 				for ($i=0;$i<$tot;$i++){
-				$texto_pdf = $texto_pdf."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."<b></td><td><b>".$exp_comp_a[$i]."<br>".$exp_pos_a[$i]."</b><br>".$exp_desc_a[$i]."</td></tr>";
-				$texto = $texto."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."<b></td><td><b>".dropAccents($exp_comp_a[$i])."<br>".dropAccents($exp_pos_a[$i])."</b><br>".dropAccents($exp_desc_a[$i])."</td></tr>";
+				$texto_pdf = $texto_pdf."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."</b></td><td><b>".$exp_comp_a[$i]."<br>".$exp_pos_a[$i]."</b><br>".$exp_desc_a[$i]."</td></tr>";
+				$texto = $texto."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."</b></td><td><b>".dropAccents($exp_comp_a[$i])."<br>".dropAccents($exp_pos_a[$i])."</b><br>".dropAccents($exp_desc_a[$i])."</td></tr>";
 				}
 				$texto_pdf = $texto_pdf."<br><br></table><img src='../../common/img/formacion.jpg' /><br><br>";
 				$texto = $texto."<br><br></table><img src='../../common/img/formacion.jpg' /><br><br>";
@@ -334,8 +324,8 @@
 				$texto_pdf=$texto_pdf."<table>";
 				$texto=$texto."<table>";
 				for ($i=0;$i<$tot;$i++){
-				$texto_pdf = $texto_pdf."<tr><td><center><b>-".$lang_a[$i].".<b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
-				$texto= $texto."<tr><td><center><b>-".$lang_a[$i].".<b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
+				$texto_pdf = $texto_pdf."<tr><td><center><b>-".$lang_a[$i].".</b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
+				$texto= $texto."<tr><td><center><b>-".$lang_a[$i].".</b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
 				}
 				$texto_pdf=$texto_pdf."</table><br><br>";
 				$texto=$texto."</table><br><br>";
@@ -352,7 +342,7 @@
 				$texto_pdf = $texto_pdf."<br>".dropAccents($fila[$skill]);
 				$texto= $texto."<br>".dropAccents($fila[$skill]);
 				}
-				if (strlen($nota)>0){$texto=$texto."<div class=cuadronegro><h3>EVALUACION PERSPECTIVA ALEMANIA </h3><br>".$nota."</div>";$texto_pdf=$texto_pdf."<div class=cuadronegro><h3>EVALUACION POR PERSPECTIVA ALEMANIA</h3> <br><br>".$nota."</div>";}
+				if (strlen($nota)>0){$texto=$texto."<div class='cuadronegro'><h3>EVALUACION PERSPECTIVA ALEMANIA </h3><br>".$nota."</div>";$texto_pdf=$texto_pdf."<div class='cuadronegro'><h3>EVALUACION POR PERSPECTIVA ALEMANIA</h3> <br><br>".$nota."</div>";}
 				$texto_pdf=$texto_pdf."</div>";
 										$dompdf = new DOMPDF();
 						require_once "dompdf_config.inc.php";
@@ -439,8 +429,8 @@
 				$tot=count($exp_start_a);
 				$texto_pdf=$texto_pdf."<table>";
 				for ($i=0;$i<$tot;$i++){
-				$texto_pdf = $texto_pdf."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."<b></td><td><b>".$exp_comp_a[$i]."<br>".$exp_pos_a[$i]."</b><br>".$exp_desc_a[$i]."</td></tr>";
-				$texto = $texto."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."<b></td><td><b>".dropAccents($exp_comp_a[$i])."<br>".dropAccents($exp_pos_a[$i])."</b><br>".dropAccents($exp_desc_a[$i])."</td></tr>";
+				$texto_pdf = $texto_pdf."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."</b></td><td><b>".$exp_comp_a[$i]."<br>".$exp_pos_a[$i]."</b><br>".$exp_desc_a[$i]."</td></tr>";
+				$texto = $texto."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."</b></td><td><b>".dropAccents($exp_comp_a[$i])."<br>".dropAccents($exp_pos_a[$i])."</b><br>".dropAccents($exp_desc_a[$i])."</td></tr>";
 				}
 				$texto_pdf = $texto_pdf."<br><br></table><img src='../../common/img/formacion.jpg' /><br><br>";
 				$texto = $texto."<br><br></table><img src='../../common/img/formacion.jpg' /><br><br>";
@@ -458,8 +448,8 @@
 				$texto_pdf=$texto_pdf."<table>";
 				$texto=$texto."<table>";
 				for ($i=0;$i<$tot;$i++){
-				$texto_pdf = $texto_pdf."<tr><td><center><b>-".$lang_a[$i].".<b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
-				$texto= $texto."<tr><td><center><b>-".$lang_a[$i].".<b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
+				$texto_pdf = $texto_pdf."<tr><td><center><b>-".$lang_a[$i].".</b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
+				$texto= $texto."<tr><td><center><b>-".$lang_a[$i].".</b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
 				}
 				$texto_pdf=$texto_pdf."</table><br><br>";
 				$texto=$texto."</table><br><br>";
@@ -476,7 +466,7 @@
 				$texto_pdf = $texto_pdf."<br>".dropAccents($fila[$skill]);
 				$texto= $texto."<br>".dropAccents($fila[$skill]);
 				}
-				if (strlen($nota)>0){$texto=$texto."<div class=cuadronegro><h3>EVALUACION PERSPECTIVA ALEMANIA </h3><br>".$nota."</div>";$texto_pdf=$texto_pdf."<div class=cuadronegro><h3>EVALUACION POR PERSPECTIVA ALEMANIA</h3> <br><br>".$nota."</div>";}
+				if (strlen($nota)>0){$texto=$texto."<div class='cuadronegro'><h3>EVALUACION PERSPECTIVA ALEMANIA </h3><br>".$nota."</div>";$texto_pdf=$texto_pdf."<div class='cuadronegro'><h3>EVALUACION POR PERSPECTIVA ALEMANIA</h3> <br><br>".$nota."</div>";}
 				$texto_pdf=$texto_pdf."</div>";
 				}
 			}
@@ -505,7 +495,7 @@
 								else 
 									echo "<a class='btn btn-default btn-sm' disabled><span class='glyphicon glyphicon-chevron-left'></span></a>";
 						?>
-							<a href="<?php echo "../../cvs/".$pagetext.".pdf" ?>" class="btn btn-default btn-sm" data-toggle='tooltip' data-original-title='Descargar CV en PDF'><span class='glyphicon glyphicon-download-alt'></span></a>
+							<a href="<?php echo "../../cvs/".$pagetext.".pdf" ?>" target="_blank" class="btn btn-default btn-sm" data-toggle='tooltip' data-original-title='Descargar CV en PDF'><span class='glyphicon glyphicon-download-alt'></span></a>
 						<?php 	if(strlen($id_o[$ind_n])>0) 
 									echo "<a href='viewCV.php?id_bb=$ind_n&reportType=".$report."' class='btn btn-default btn-sm' data-toggle='tooltip' data-original-title='Siguiente'><span class='glyphicon glyphicon-chevron-right'></span></a>";
 								else 
@@ -519,8 +509,7 @@
 						<h3 class="panel-title">CV de <?php echo $currentName;?></h3>
 					</div>
 					<div class="panel-body scrollable" > <!-- panel-body -->
-						<?php echo $texto;
-		 ?>
+						<?php echo $texto; ?>
 					</div> <!-- panel-body -->
 				</div> <!-- Panel -->
 
