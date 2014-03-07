@@ -3,6 +3,7 @@ session_start();
 error_reporting (E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
 set_time_limit(1800);
 set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_path());
+set_include_path(get_include_path() . PATH_SEPARATOR . "../../common/cppdf");
 ?>
 <html lang="es">
 <head>
@@ -248,51 +249,26 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 								echo "	</tr>";
 								echo "</thead>";
 								while ($fila = $resultado->fetch_assoc()) {
-									$pdf = new Cezpdf('A4'); // Seleccionamos tipo de hoja para el informe
-									$pdf->selectFont('fonts/Helvetica.afm'); //seleccionamos fuente a utilizar
-
-
+							
 									$pdf_file_name = "";
 									$pdf_file_name = $fila['userLogin'];
 									$imagen_o=$output_dir.$fila['userLogin']."/fotor.jpg";
-									echo $imagen_o;
+									$logo=$output_dir."/logo.png";
 									$id[$fila['id']] = $fila['nie'];
 									if ($fila['sex']==0){ $fila['sex'] = "hombre"; }
 									if ($fila['sex']==1){ $fila['sex'] = "mujer"; }
 									if ($_POST[reportType] == "custom_report"){
 									$reportType=custom_report;
-									$pdf->ezImage("$imagen_o",0,0,'none','right');
-									while (list($clave, $valor) = each($fila)) {
-									foreach( $_POST[per] as $value ) {
-									if($clave == $value){
-											$pdf->ezText("<b>$clave</b> $valor");}
 									}
-									}
-									}
-									
 									if ($_POST[reportType] == "blind_report"){
 									$reportType=blind_report;
-									$pdf->ezImage("$imagen_o",0,0,'none','right');
-									while (list($clave, $valor) = each($fila)){
-											if(($clave == postalCode) || ($clave == country) || ($clave == province) || ($clave == city) || ($clave == drivingType) || ($clave == language) || ($clave == langLevel) || ($clave == occupation) || ($clave == studyType) || ($clave == studyName)){
-											$pdf->ezText("<b>$clave</b> $valor");}
-									}
 									}
 									if ($_POST[reportType] == "full_report"){
 									$reportType=full_report;
-									$pdf->ezImage("$imagen_o",0,0,'none','right');
-									while (list($clave, $valor) = each($fila)){
-										
-											$pdf->ezText("<b>$clave</b> $valor");
 									}
-									}
-									$documento_pdf = $pdf->ezOutput();
-									chdir($output_dir);
-									$nf=$pdf_file_name.".pdf";
-									$filezip = $output_dir . $numero . ".zip";
-									$fichero = fopen($nf,'wb') or die ("No se abrio $nf") ;
-									fwrite ($fichero, $documento_pdf);
-									fclose ($fichero);
+
+								
+									
 											
 										echo "<tr>";
 										echo "	<td>".$fila[$valores_mostrar[0]]."</td>";
@@ -359,7 +335,7 @@ set_include_path('../../common/0.12-rc12/src/' . PATH_SEPARATOR . get_include_pa
 <!-- Scripts. Placed at the end of the document so the pages load faster.
 	================================================== -->
 	<!-- Bootstrap core JavaScript -->
-	<script src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
 	<!-- Site own functions -->
