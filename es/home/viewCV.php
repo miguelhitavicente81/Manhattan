@@ -404,6 +404,80 @@
 									$fichero = fopen($nf,'wb') or die ("No se abrio $nf") ;
 									fwrite ($fichero, $documento_pdf);
 									fclose ($fichero);
+				$texto_pdf=$texto_pdf."<div id=header><img center src='../../common/img/logo.jpg' width='300px' height='100px'/></div>";
+				$imagen=$fila['userLogin']."/fotor.jpg";
+				$texto_pdf = $texto_pdf."<div id=foto><img src='../../cvs/".$imagen."' width='120px' height='150px'/></div>";
+				$texto = $texto . "<img class='pull-right img-circle img-thumbnail' src='../../cvs/".$imagen."' width='100px' height='100px'/><br>";
+
+				//print"<img src=../../cvs/".$imagen." width=\"100px\" height=\"100px\"\/>";
+					
+				// Añadido tras el merge de Miguel Hita
+				$texto_pdf=$texto_pdf."<div id=cuerpo>";
+				$texto_pdf=$texto_pdf."<b>Fecha de Nacimiento:</b><br>";
+				$texto_pdf=$texto_pdf."<b>Nacionalidad:</b><br>";
+				$texto_pdf=$texto_pdf."<b>NIF/NIE:</b><br>";
+				$texto_pdf=$texto_pdf."<b>Direccion:</b><br>";
+				$texto_pdf=$texto_pdf."<b>Poblacion:</b> ".$fila[province]."<br>";
+				$texto_pdf=$texto_pdf."<b>Telefono Fijo:</b><br>";
+				$texto_pdf=$texto_pdf."<b>Telefono Movil:</b><br>";
+				$texto_pdf=$texto_pdf."<b>Correo Electronico:</b><br><br>";
+				$texto=$texto."<h2>".$fila[name]." ".$fila[surname]."</h2>";
+				$texto=$texto."<b>Fecha de Nacimiento</b>: ".$fila[birthdate]."<br>";
+				$texto=$texto."<b>Nacionalidad:</b> ".$fila[nationalities]."<br>";
+				$texto=$texto."<b>NIF/NIE:</b> ".$fila[nie]."<br>";
+				$texto=$texto."<b>Direccion:</b> ".$fila[addrType]." ".$fila[addrName]." ".$fila[addrNum]." ".$fila[portal]." ".$fila[stair]."<br>";
+				$texto=$texto."<b>Poblacion:</b> ".$fila[province]."<br>";
+				$texto=$texto."<b>Telefono Fijo:</b> ".$fila[phone]."<br>";
+				$texto=$texto."<b>Telefono Movil:</b> ".$fila[mobile]."<br>";
+				$texto=$texto."<b>Correo Electronico:</b> ".$fila[mail]."<br><br>";
+				$texto=$texto."<img src='../../common/img/experiencia_laboral.jpg' /><br>";
+				$exp_start_a = explode("|", $fila[experStart]);
+				$exp_end_a = explode("|", $fila[experEnd]);
+				$exp_pos_a = explode("|", $fila[experPos]);
+				$exp_desc_a = explode("|", $fila[experDesc]);
+				$exp_comp_a = explode("|", $fila[experCompany]);
+				$tot=count($exp_start_a);
+				$texto_pdf=$texto_pdf."<table>";
+				for ($i=0;$i<$tot;$i++){
+				$texto_pdf = $texto_pdf."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."<b></td><td><b>".$exp_comp_a[$i]."<br>".$exp_pos_a[$i]."</b><br>".$exp_desc_a[$i]."</td></tr>";
+				$texto = $texto."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."<b></td><td><b>".dropAccents($exp_comp_a[$i])."<br>".dropAccents($exp_pos_a[$i])."</b><br>".dropAccents($exp_desc_a[$i])."</td></tr>";
+				}
+				$texto_pdf = $texto_pdf."<br><br></table><img src='../../common/img/formacion.jpg' /><br><br>";
+				$texto = $texto."<br><br></table><img src='../../common/img/formacion.jpg' /><br><br>";
+				$educ_a = explode("|", $fila[education]);
+				$tot=count($educ_a);
+				for ($i=0;$i<$tot;$i++){
+				$texto_pdf = $texto_pdf.$educ_a[$i]."<br>";
+				$texto = $texto.$educ_a[$i]."<br>";
+				}
+				$lang_a = explode("|", $fila[language]);
+				$langT_a = explode("|", $fila[langLevel]);
+				$tot=count($lang_a);
+				$texto_pdf = $texto_pdf."<br><br><img src='../../common/img/idiomas.jpg' /><br><br>";
+				$texto = $texto."<br><br><img src='../../common/img/idiomas.jpg' /><br><br>";
+				$texto_pdf=$texto_pdf."<table>";
+				$texto=$texto."<table>";
+				for ($i=0;$i<$tot;$i++){
+				$texto_pdf = $texto_pdf."<tr><td><center><b>-".$lang_a[$i].".<b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
+				$texto= $texto."<tr><td><center><b>-".$lang_a[$i].".<b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
+				}
+				$texto_pdf=$texto_pdf."</table><br><br>";
+				$texto=$texto."</table><br><br>";
+				$texto_pdf = $texto_pdf."<br><br><img src='../../common/img/interes.jpg' /><br><br>";
+				$texto_pdf=$texto_pdf."<b>-Tipo de carne de conducir y Fecha :</b>  ".$fila[drivingType]."/".$fila[drivingDate]."<br>";
+				$texto_pdf=$texto_pdf."<b>-Hijos: </b> ".$fila[sons]."<br>";
+				$texto= $texto."<br><br><img src='../../common/img/interes.jpg' /><br><br>";
+				$texto=$texto."<b>-Tipo de carne de conducir y Fecha :</b> ".$fila[drivingType]."/".$fila[drivingDate]."<br>";
+				$texto=$texto."<b>-Hijos: </b> ".$fila[sons]."<br><br>";
+				$texto_pdf = $texto_pdf."<br><br><img src='../../common/img/palabras.jpg' /><br>";
+				$texto= $texto."<br><br><img src='../../common/img/palabras.jpg' /><br>";
+				for($i=0;$i<10;$i++){
+				$skill="skill".$i;
+				$texto_pdf = $texto_pdf."<br>".dropAccents($fila[$skill]);
+				$texto= $texto."<br>".dropAccents($fila[$skill]);
+				}
+				if (strlen($nota)>0){$texto=$texto."<div class=cuadronegro><h3>EVALUACION PERSPECTIVA ALEMANIA </h3><br>".$nota."</div>";$texto_pdf=$texto_pdf."<div class=cuadronegro><h3>EVALUACION POR PERSPECTIVA ALEMANIA</h3> <br><br>".$nota."</div>";}
+				$texto_pdf=$texto_pdf."</div>";
 				}
 			}
 
