@@ -629,17 +629,20 @@
 									echo "</div>";
 								}
 
+								$isDisabled = '';
+								if ($_SESSION['logprofile'] == 'Administrador') $isDisabled = 'disabled';
+
 								echo "<div class='form-group'>";
 								echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUactive'>Activo: </label>";
 								echo "<div class='col-sm-10'>";
 								echo "<div class='radio-inline'>";
 								if($editedUserRow['active'] == 0){
-									echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUactive' value='0' checked>No</label>";
-									echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUactive' value='1'>Si</label>";
+									echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUactive' value='0'" . $isDisabled . " checked>No</label>";
+									echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUactive' value='1'" . $isDisabled . ">Si</label>";
 								}
 								else{
-									echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUactive' value='0'>No</label>";
-									echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUactive' value='1' checked>Si</label>";
+									echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUactive' value='0'" . $isDisabled . ">No</label>";
+									echo "<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='eUactive' value='1'" . $isDisabled . " checked>Si</label>";
 								}
 								echo "</div>";
 								echo "</div>";
