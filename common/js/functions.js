@@ -372,3 +372,55 @@ function newLanguage() {
 		document.getElementById("addingField").appendChild(newClose);
 	}
 }
+
+
+
+
+
+
+
+
+/*******************************************************************************************************************************
+ * *************************************************************************************************************************** *
+ * *************************************************************************************************************************** *
+ * **********************************                                                       ********************************** *
+ * **********************************         GROUP OF FUNCTIONS DEVELOPED IN AJAX          ********************************** *
+ * **********************************                                                       ********************************** *
+ * *************************************************************************************************************************** *
+ * *************************************************************************************************************************** *
+ *******************************************************************************************************************************/
+
+
+
+/*************************************************************************************************************************
+ * ****************   GROUP OF FUNCTIONS USED TO CONTROL ADDRESS DEPENDANT BLOCK OF TEXTBOXES/SELECTS   **************** *
+ *************************************************************************************************************************/
+
+/* Para las 4 funciones siguientes, la variable de tipo XMLHttpRequest debe ser global para todas ellas.
+ * Si la creamos de manera independiente dentro de cada función los SELECT dependientes no funcionarán
+ */
+function ajaxGetAddress(str){
+	if(str==""){
+		document.getElementById("txtHint").innerHTML="";
+		return;
+	}
+	if(window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else{// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlhttp.onreadystatechange=function(){
+		if(xmlhttp.readyState==4 && xmlhttp.status==200){
+			document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+		}
+	}
+	//xmlhttp.open("GET","getcd.php?q="+str,true);
+	xmlhttp.open("GET","getPostalData.php?value="+str,true);
+	xmlhttp.send();
+}
+
+
+
+
+

@@ -65,6 +65,7 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script src="../common/js/functions.js"></script>
 	<link rel="stylesheet" href="/resources/demos/style.css">
 	
 	<script>
@@ -247,6 +248,30 @@
 	}
 	</script>
 	-->
+	<!-- 
+	<script type="text/javascript">
+		function ajaxGetAddress(str){
+			if(str==""){
+				document.getElementById("txtHint").innerHTML="";
+				return;
+			}
+			if(window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();
+			}
+			else{// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange=function(){
+				if(xmlhttp.readyState==4 && xmlhttp.status==200){
+					document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
+				}
+			}
+			//xmlhttp.open("GET","getcd.php?q="+str,true);
+			xmlhttp.open("GET","getPostalData.php?value="+str,true);
+			xmlhttp.send();
+		}
+	</script>
+	-->
 	
 </head>
 
@@ -350,7 +375,8 @@
 			<?php 
 		}
 		*/
-		
+		//Sex and Type of address are automatically detected as restricted fields
+		//if(!)
 		
 		
 		/*
@@ -787,10 +813,37 @@
 				<input type="text" name="blankaddrstair" size="5" maxlength="10" placeholder="Escalera" onkeyup="this.value=this.value.toUpperCase();" />
 				<input type="text" name="blankaddrfloor" size="5" maxlength="10" placeholder="Piso" />
 				<input type="text" name="blankaddrdoor" size="5" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();" /><br>
-				<input type="text" name="blankaddrpostalcode" size="10" maxlength="5" placeholder="Código Postal" />
+				<!-- 
+				<input type="number" name="blankaddrpostalcode" size="10" maxlength="5" placeholder="Cód. Postal" />
 				<input type="text" name="blankaddrcountry" size="20" maxlength="50" placeholder="Pais" />
 				<input type="text" name="blankaddrprovince" size="20" maxlength="50" placeholder="Provincia" />
 				<input type="text" name="blankaddrcity" size="50" maxlength="50" placeholder="Población" />
+				-->
+				<!-- 
+				<input type="number" name="blankaddrpostalcode" size="10" maxlength="5" placeholder="Cód. Postal" />
+				<input type="text" name="blankaddrcity" size="50" maxlength="50" placeholder="Población" />
+				<input type="text" name="blankaddrprovince" size="20" maxlength="50" placeholder="Provincia" />
+				<input type="text" name="blankaddrcountry" size="20" maxlength="50" placeholder="Pais" />
+				-->
+				<!-- <input type="number" name="blankaddrpostalcode" size="10" maxlength="5" placeholder="Cód. Postal" onchange="ajaxGetAddres()">  -->
+				Cód.Postal <select name="blankcode" onchange="ajaxGetAddress(this.value)">
+					<option value "">Elija su CP</option>
+					<?php 
+					//$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'id');
+					$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'postalCode');
+					foreach($cpCol as $i){
+						echo "<option value=" . $i . ">" . $i . "</option>";
+					}
+					?>
+					<!-- 
+					<option value="01001">01001</option>
+					<option value="01002">01002</option>
+					<option value="01007">01007</option>
+					<option value="01013">01013</option>
+					-->
+				</select>
+				<!-- <div id="txtHint"><b>Info AQUI</b></div> -->
+				<div id="txtHint"><b></b></div>
 			</td>
 		</tr>
 		<tr>

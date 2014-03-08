@@ -115,8 +115,9 @@ function getDBcolumnvalue($fieldrequested, $dbtable, $fieldsupported, $infosuppo
 }
 
 
+
 /* Returns all values in one column, ordered by especified ID
- * Entry (columnrequested): Name which values want to extracted
+ * Entry (columnrequested): Name of the column which values want to be extracted
  * Entry (dbtable): Table where info is
  * Entry (id): Unique identificator used to get array ordered
  * Exit (row): Array with complete column ordered
@@ -139,6 +140,35 @@ function getDBcompletecolumnID($columnrequested, $dbtable, $id){
 	else{
 		mysqli_free_result($result);
 		mysqli_close($conexion);
+	}
+}
+
+
+
+/* Returns all DISTINCT values in one column, ordered by especified ID
+ * Entry (colRequested): Name of the column which distinct values want to be extracted
+ * Entry (dbTable): Table where info is
+ * Entry (id): Unique identificator used to get array ordered
+ * Exit (row): Array with complete column ordered
+ */
+function getDBDistCompleteColID($colRequested, $dbTable, $id){
+	$connection = connectDB();
+
+	$result = mysqli_query($connection, "SELECT DISTINCT `$colRequested` FROM `$dbTable` ORDER BY `$id`") or die("Error en getDBcompletecolumnID: ".mysqli_error($connection));
+
+	$i = 0;
+	if(mysqli_num_rows($result) > 0){
+		while($column = mysqli_fetch_row($result)){
+			$row[$i] = $column[0];
+			$i++;
+		}
+		mysqli_free_result($result);
+		mysqli_close($connection);
+		return $row;
+	}
+	else{
+		mysqli_free_result($result);
+		mysqli_close($connection);
 	}
 }
 
@@ -360,6 +390,26 @@ function suggestPassword($curDate, $curExpirate, &$days){
 /*******************************************************************************
  * ********************  PERSONAL DATA RELATED FUNCTIONS  ******************** *
  *******************************************************************************/
+
+
+/* Checks whether a complete address (Name, Number and Postal Code for this Form) are well-formatted, avoiding as possible security breachs
+ * Entry (adName): String 
+ */
+
+
+
+
+
+//AUN ESTA POR TERMINAR.....
+
+
+function fullAddress($inName, $inNumber, $adPostal, &$outName, &$outNumber){
+	$connection = connectDB();
+	
+	$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName)));
+	$outNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber)));
+}
+
 
 
 /* Checks whether a Birthdate is well-formatted and under current date
