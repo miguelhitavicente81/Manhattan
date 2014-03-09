@@ -440,7 +440,7 @@ function checkFullAddress($inName, $inNumber, &$outName, &$outNumber, &$checkErr
 		$checkError = "Introduzca el número de su dirección, por favor";
 		return false;
 	}
-	return true;
+		return true;
 }
 
 
@@ -604,7 +604,6 @@ function checkPhone($phone){
 	}
 	return true;
 }
-
 
 
 

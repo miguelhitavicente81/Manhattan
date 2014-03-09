@@ -201,7 +201,7 @@
 						else{
 							//$editedCVRow = getDBrow('cvitaes', 'nie', $_GET['nie']);
 							$editedCVRow = getDBrow('cvitaes', 'nie', $_GET['codvalue']);
-                            	$files_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$editedCVRow['userLogin']."/";
+                            $files_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$editedCVRow['userLogin']."/";
 							echo '<fieldset id="auto0">';
 								echo '<form id="editedCV" class="form-horizontal" role="form" name="editedCV" method="post" action=editCurCV.php">';
 									echo "<div class='form-group'>";
