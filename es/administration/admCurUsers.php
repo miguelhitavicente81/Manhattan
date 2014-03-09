@@ -525,8 +525,8 @@
 		<!-- Modal HTML -->
 		<div id="editUserModal" class="modal fade">
 			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
+				<div class="modal-content panel-info">
+					<div class="modal-header panel-heading">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 						<h4 class="modal-title">Usuario: <?php echo $editedUserRow['login'] ?></h4>
 					</div>
@@ -691,7 +691,7 @@
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-							<button type="submit" class="btn btn-primary" name="eUsersend">Guardar cambios</button>
+							<button type="submit" class="btn btn-primary" name="eUsersend">Guardar cambios <span class="glyphicon glyphicon-floppy-save"></button>
 						</div>
 					</form>
 				</div>

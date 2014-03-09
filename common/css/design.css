@@ -277,6 +277,17 @@ body {
 
 
 
+/* Modal overrides 
+-------------------------------------------------- */
+.modal-body {
+	overflow-y: auto;
+    max-height: 75%;
+}
+
+
+
+
+
 /* CV Viewer styles
 -------------------------------------------------- */
 .cvViewer .row{
@@ -312,10 +323,26 @@ body {
 	}
 }
 
+
+
+
+
+/* editCVModal styles
+-------------------------------------------------- */
+#editCVLabel{
+}
+@media (min-width: 768px) {
+	#editCVLabel {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+}
+
 #noPadding{
 	padding: 0px;
 	margin-right: 20px;
 }
+
 
 
 

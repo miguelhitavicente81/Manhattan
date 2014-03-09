@@ -186,15 +186,15 @@
 					</div> <!-- id="sidebar-navigation-list"  -->
 				</div> <!-- col-md-3 -->
 
-				<div class="col-md-9 scrollable" role="main"> 
+				<div class="col-md-9" role="main"> 
 					<div class="bs-docs-section">
 
 						<h2 class="page-header">Buscar CVs</h2>
-						<div class="panel panel-default">
+						<div class="panel panel-default scrollable">
 							<div class="panel-heading">
 								<h2 class="panel-title">Introduzca criterios de búsqueda</h2>
 							</div>
-							<div class="panel-body">
+							<div class="panel-body scrollable">
 								
 								<form id="searchForm" name="searchForm" class="form-horizontal" method="post" action="searchResult.php" autocomplete="off" autocapitalize="off" enctype="multipart/form-data" onsubmit="return comprobar()";>
 									<div id="form_WordKey" class="form-group">
@@ -601,6 +601,7 @@
 										</div>
 									</div>
 
+								
 									<div id="form_submit" class="form-group pull-right" style="margin: 1px;">
 										<button type="submit" name="Buscar" class="btn btn-primary" >Buscar <span class="glyphicon glyphicon-search"> </span></button>
 									</div>

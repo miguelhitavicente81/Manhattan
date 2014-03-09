@@ -65,7 +65,6 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-	<script src="../common/js/functions.js"></script>
 	<link rel="stylesheet" href="/resources/demos/style.css">
 	
 	<script>
@@ -127,6 +126,7 @@
 	</script>
 	
 	<!-- 
+
 	<script type="text/javascript">
 		function checkNIE(dni){
 			var numero;
@@ -248,30 +248,6 @@
 	}
 	</script>
 	-->
-	<!-- 
-	<script type="text/javascript">
-		function ajaxGetAddress(str){
-			if(str==""){
-				document.getElementById("txtHint").innerHTML="";
-				return;
-			}
-			if(window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
-				xmlhttp=new XMLHttpRequest();
-			}
-			else{// code for IE6, IE5
-				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-			}
-			xmlhttp.onreadystatechange=function(){
-				if(xmlhttp.readyState==4 && xmlhttp.status==200){
-					document.getElementById("txtHint").innerHTML=xmlhttp.responseText;
-				}
-			}
-			//xmlhttp.open("GET","getcd.php?q="+str,true);
-			xmlhttp.open("GET","getPostalData.php?value="+str,true);
-			xmlhttp.send();
-		}
-	</script>
-	-->
 	
 </head>
 
@@ -375,6 +351,7 @@
 			</script>
 			<?php 
 		}
+<<<<<<< HEAD
 		//Sex and Type of address are automatically detected as restricted fields
 		elseif(!checkFullAddress($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
 			?>
@@ -400,6 +377,13 @@
 			</script>
 			<?php 
 		}
+=======
+		*/
+		
+		
+		
+		/*
+>>>>>>> upstream/development
 		if(!filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)){
 			?>
 			<script type="text/javascript">

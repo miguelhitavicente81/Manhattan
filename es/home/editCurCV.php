@@ -201,6 +201,7 @@
 						else{
 							//$editedCVRow = getDBrow('cvitaes', 'nie', $_GET['nie']);
 							$editedCVRow = getDBrow('cvitaes', 'nie', $_GET['codvalue']);
+                            	$files_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$editedCVRow['userLogin']."/";
 							echo '<fieldset id="auto0">';
 								echo '<form id="editedCV" class="form-horizontal" role="form" name="editedCV" method="post" action=editCurCV.php">';
 									echo "<div class='form-group'>";
@@ -384,6 +385,17 @@
 										echo "</div>";
 									echo "</div>";
 									echo "<div class='form-group'>";										
+                                                                                echo "<label class='control-label col-xs-12 col-sm-2'>Ficheros</label>";
+                                                                                echo "<div class='col-xs-12 col-sm-6'>";
+                                                                                $files  = scandir($files_dir);
+                                                                                foreach ($files as $value){
+                                                                                if (preg_match("/\w+/i", $value)) {
+                                                                                echo "<a href=downloadFileSingle.php?doc=".$value.">$value</a><br>";
+                                                                                }
+                                                                                }
+                                                                                echo "</div>";
+                                                                        echo "</div>";
+                                                                        echo "<div class='form-group'>";
 										echo "<label class='control-label col-xs-12 col-sm-2'>Habilidad 1</label>";
 										echo "<div class='col-xs-12 col-sm-6'>";											
 											echo "<input class='form-control' type='text' name='eCCVskill1' disabled value='" . $editedCVRow['skill1'] . "'>";
