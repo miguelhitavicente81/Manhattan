@@ -392,70 +392,49 @@ function suggestPassword($curDate, $curExpirate, &$days){
  *******************************************************************************/
 
 
-/* Checks whether a complete address (Name, Number and Postal Code for this Form) are well-formatted, avoiding as possible security breachs
- * Entry (adName): String 
+/* Checks whether a complete address (Name and Number for this Form) are well-formatted, avoiding as possible security breachs
+ * Entry (inName): String which contains name of the address
+ * Entry (inNumber): String which contains number/letter for given address name
  */
-
-
-
-
-
-//AUN ESTA POR TERMINAR.....
-
-
-function fullAddress($inName, $inNumber, $adPostal, &$outName, &$outNumber){
+function checkFullAddress($inName, $inNumber, &$outName, &$outNumber, &$checkError){
 	$connection = connectDB();
 	
 	$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName)));
 	$outNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber)));
-}
-
-
-
-/* Checks whether a Birthdate is well-formatted and under current date
- * Entry (birth): Date in format YYYY-MM-DD
- * Exit (): Boolean that confirms if date is correct or not
- */
-function checkBirthdate($birth){
-	$auxDateArray = explode('-', $birth);
-	$auxDateMonth = $auxDateArray[1];
-	$auxDateYear = $auxDateArray[0];
-	$auxDateDay = $auxDateArray[2];
-	/*
-	echo 'Tal como viene es... '.$birth;
-	echo 'Es el día '.$auxDateDay.' del mes '.$auxDateMonth.' del Año: '.$auxDateYear.'.';
-	*/
-	$current = strtotime(date('Y-m-d'));
-	$birthdate = strtotime($birth);
 	
-	//if(checkdate($auxDateMonth, $auxDateDay, $auxDateYear)){
-	//if((!checkdate($auxDateMonth, $auxDateDay, $auxDateYear) || ($birthdate > $current)){
-	if((!checkdate($auxDateMonth, $auxDateDay, $auxDateYear)) || ($birthdate > $current)){
+	if(strlen($outName) < 2){
+		$checkError = "Introduzca una dirección válida, por favor.";
 		return false;
 	}
-	else{
-		return true;
+	elseif(strlen($outNumber) < 1){
+		$checkError = "Introduzca el número de su dirección, por favor";
+		return false;
 	}
+	return true;
 }
 
 
 
 /* Checks whether a DNI (native) or NIE (abroad people with national document) is well-formatted and written or not
  * Entry (nie): String
- * Exit (): Boolean
+ * Exit: Boolean
  */
 function checkDNI_NIE($nie){
-	if(strlen($nie) != 9){
+	$connection = connectDB();
+	
+	$outNie = trim(htmlentities(mysqli_real_escape_string($connection, $nie)));
+	
+	if(strlen($outNie) != 9){
 		return false;      
 	}
 	//Possible values for end letter
 	$letterValues = array(0 => 'T', 1 => 'R', 2 => 'W', 3 => 'A', 4 => 'G', 5 => 'M', 6 => 'Y', 7 => 'F', 8 => 'P', 9 => 'D', 10 => 'X', 11 => 'B',
-	12 => 'N', 13 => 'J', 14 => 'Z', 15 => 'S', 16 => 'Q', 17 => 'V', 18 => 'H', 19 => 'L', 20 => 'C', 21 => 'K',22 => 'E');
+	12 => 'N', 13 => 'J', 14 => 'Z', 15 => 'S', 16 => 'Q', 17 => 'V', 18 => 'H', 19 => 'L', 20 => 'C', 21 => 'K', 22 => 'E');
 	
 	//Checks if matches with an original DNI
-	if(preg_match('/^[0-9]{8}[A-Z]$/i', $nie)){
+	if(preg_match('/^[0-9]{8}[A-Z]$/i', $outNie)){
 		//Checking letter match
-		if(strtoupper($nie[strlen($nie) - 1]) != $letterValues[((int) substr($nie, 0, strlen($nie) - 1)) % 23]){
+		if(strtoupper($outNie[strlen($outNie) - 1]) != $letterValues[((int) substr($outNie, 0, strlen($outNie) - 1)) % 23]){
 			return false;
 		}
 		else{
@@ -463,9 +442,9 @@ function checkDNI_NIE($nie){
 		}
 	}
 	//Checks if matches with an original NIE
-	elseif(preg_match('/^[XYZ][0-9]{7}[A-Z]$/i', $nie)){
+	elseif(preg_match('/^[XYZ][0-9]{7}[A-Z]$/i', $outNie)){
 		//Checking letter match
-		if(strtoupper($nie[strlen($nie) - 1]) != $letterValues[((int) substr($nie, 1, strlen($nie) - 2)) % 23]){
+		if(strtoupper($outNie[strlen($outNie) - 1]) != $letterValues[((int) substr($outNie, 1, strlen($outNie) - 2)) % 23]){
 			return false;
 		}
 		else{
@@ -475,6 +454,46 @@ function checkDNI_NIE($nie){
 	//If function arrives here is because entry string is not valid
 	return false; 
 }
+
+
+
+/* Checks whether both Driving License fields are properly fullfilled
+ * Entry (type): String
+ * Entry (date): Date in format YYYY-MM-DD
+ * Exit: Boolean
+ */
+/*
+function checkDrivingLicense($type, $licDate, &$checkError){
+	if(isset($type) && !isset($licDate)){
+		$keyError = "Ha olvidado indicar la fecha en que obtuvo su permiso de conducir";
+		return false;
+	}
+	if(!isset($type) && isset($licDate)){
+		$keyError = "Ha olvidado indicar qué tipo de permiso de conducir posee";
+		return false;
+	}
+	$keyError = "";
+	return true;
+}
+*/
+function checkDrivingLicense($type, $licDate, &$checkError){
+	if((strlen($type) > 0) && (strlen($licDate) == 0)){
+		$checkError = "Ha olvidado indicar la fecha en que obtuvo su permiso de conducir";
+		return false;
+	}
+	elseif((strlen($type) == 0) && (strlen($licDate) > 0)){
+		$checkError = "Ha olvidado indicar qué tipo de permiso de conducir posee";
+		return false;
+	}
+	elseif(!isPreviousDate($licDate)){
+		//$checkError = "La fecha de permiso de conducir no puede ser futura";
+		$checkError = "Ha indicado una fecha de permiso de conducir futura";
+		return false;
+	}
+	$checkError = "";
+	return true;
+}
+
 
 
 
@@ -499,55 +518,61 @@ function checkFullNameES($inName, $inSurname, &$outName, &$outSurname, &$checkEr
 
 
 
+/* Checks whether a MOBILE phone number is valid or not
+ * Entry (mobile): Integer which contains a number
+ * Exit: Boolean
+ */
+function checkMobile($mobile){
+	$connection = connectDB();
+	
+	$outMobile = trim(htmlentities(mysqli_real_escape_string($connection, $mobile)));
+	
+	if(strlen($outMobile) != 9){
+		return false;
+	}
+	elseif(!preg_match('/^[6-7][0-9]{8}$/', $outMobile)){
+		return false;
+	}
+	return true;
+}
+
+
+
 /* Checks whether field Nationality in form is properly fulfilled
  * Entry (inNations): Input string acting as an array with 1 or more nationalities
  * Exit (outNations): Output string acting as an array for nationalities
  * Exit: Boolean
  */
-/*
-function checkNationality($inNations, &$outNations){
-	$connection = connectDB();
-	echo 'Todo junto como STRING de entrada es '.$inNations.'<br>';
-	$delimit = "|";
-	$nationArray = explode($delimit, $inNations);
-	foreach($nationArray as $i){
-		echo '->'.$i.'<-<br>';
-		$outSingleNation = trim(htmlentities(mysqli_real_escape_string($connection, $i)));
-		echo 'outSingleNation es ... '.$outSingleNation.'<br>';
-		//$outNations = implode($delimit,$outSingleNation);
-		$outNations = implode("|",$outSingleNation);
-		echo 'El STRING devuelto por IMPLODE es '.$outNations.'<br>';
-	}
-}
-*/
-/* Checks whether field Nationality in form is properly fulfilled
- * Entry (inNations): Input array with 1 or more nationalities
- * Exit (outNations): Output string acting as an array for nationalities
- * Exit: Boolean
- */
-/*
-function checkNationality($inNations, &$outNations){
-	$connection = connectDB();
-	
-	foreach($inNations as $nation){
-		echo 'Esta posición es... '.$nation.'<br>';
-		$outSingleNation = trim(htmlentities(mysqli_real_escape_string($connection, $nation)));
-		$outNations = implode("|",$outSingleNation);
-	}
-}
-*/
 function checkNationality($inNations, &$outNations){
 	$connection = connectDB();
 	
 	$outArray = array();
 	$numNats = count($inNations);
-	//echo 'numNats es: '.$numNats.'<br>';
 	for($i=0; $i<$numNats; $i++){
 		$outSingleNation = trim(htmlentities(mysqli_real_escape_string($connection, $inNations[$i])));
 		$outArray[$i] = $outSingleNation;
-		//echo '-->'.$outArray[$i].'<--';
 	}
 	$outNations = implode("|",$outArray);
+}
+
+
+
+/* Checks whether a phone number is valid or not
+ * Entry (phone): Integer which contains a number
+ * Exit: Boolean
+ */
+function checkPhone($phone){
+	$connection = connectDB();
+	
+	$outPhone = trim(htmlentities(mysqli_real_escape_string($connection, $phone)));
+	
+	if(strlen($outPhone) != 9){
+		return false;
+	}
+	elseif(!preg_match('/^[9][0-9]{8}$/', $outPhone)){
+		return false;
+	}
+	return true;
 }
 
 
@@ -600,6 +625,58 @@ function normalizeLogin($incomingLogin){
 function addMonthsToDate($monthsNumber){
 	$endDate = date('Y-m-d', strtotime('+'.$monthsNumber.' month'));
 	return $endDate;
+}
+
+
+
+/* Checks whether a Birthdate is well-formatted and under current date
+ * Entry (birth): Date in format YYYY-MM-DD
+ * Exit: Boolean that confirms if date is correct or not
+ */
+function checkBirthdate($birth){
+	$auxDateArray = explode('-', $birth);
+	$auxDateMonth = $auxDateArray[1];
+	$auxDateYear = $auxDateArray[0];
+	$auxDateDay = $auxDateArray[2];
+	/*
+	echo 'Tal como viene es... '.$birth;
+	echo 'Es el día '.$auxDateDay.' del mes '.$auxDateMonth.' del Año: '.$auxDateYear.'.';
+	*/
+	$current = strtotime(date('Y-m-d'));
+	$birthdate = strtotime($birth);
+	
+	//if(checkdate($auxDateMonth, $auxDateDay, $auxDateYear)){
+	//if((!checkdate($auxDateMonth, $auxDateDay, $auxDateYear) || ($birthdate > $current)){
+	if((!checkdate($auxDateMonth, $auxDateDay, $auxDateYear)) || ($birthdate > $current)){
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+
+
+/* Checks whether a given input date is well-formatted and is if it is also older than current date
+ * Entry (prevDate): Date in format YYYY-MM-DD
+ * Exit: Boolean that confirms if date is correct and older than current or not
+ */
+function isPreviousDate($prevDate){
+	$auxDateArray = explode('-', $prevDate);
+	$auxDateMonth = $auxDateArray[1];
+	$auxDateYear = $auxDateArray[0];
+	$auxDateDay = $auxDateArray[2];
+	
+	//Converting common dates to UNIX date to be compared each other
+	$current = strtotime(date('Y-m-d'));
+	$initDate = strtotime($prevDate);
+	
+	if((!checkdate($auxDateMonth, $auxDateDay, $auxDateYear)) || ($initDate > $current)){
+		return false;
+	}
+	else{
+		return true;
+	}
 }
 
 
