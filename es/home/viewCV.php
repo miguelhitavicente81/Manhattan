@@ -217,6 +217,7 @@
 				$exp_comp_a = explode("|", $fila[experCompany]);
 				$tot=count($exp_start_a);
 				$texto_pdf=$texto_pdf."<table>";
+				$texto = $texto . "<table class='table table-striped table-hover'>";
 				for ($i=0;$i<$tot;$i++){
 				$texto_pdf = $texto_pdf."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."</b></td><td><b>".$exp_comp_a[$i]."<br>".$exp_pos_a[$i]."</b><br>".$exp_desc_a[$i]."</td></tr>";
 				$texto = $texto."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."</b></td><td><b>".dropAccents($exp_comp_a[$i])."<br>".dropAccents($exp_pos_a[$i])."</b><br>".dropAccents($exp_desc_a[$i])."</td></tr>";
@@ -235,7 +236,7 @@
 				$texto_pdf = $texto_pdf."<br><br><img src='../../common/img/idiomas.jpg' /><br><br>";
 				$texto = $texto."<br><br><img src='../../common/img/idiomas.jpg' /><br><br>";
 				$texto_pdf=$texto_pdf."<table>";
-				$texto=$texto."<table>";
+				$texto=$texto."<table class='table table-striped table-hover'>";
 				for ($i=0;$i<$tot;$i++){
 				$texto_pdf = $texto_pdf."<tr><td><center><b>-".$lang_a[$i].".</b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
 				$texto= $texto."<tr><td><center><b>-".$lang_a[$i].".</b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
@@ -304,6 +305,7 @@
 				$exp_comp_a = explode("|", $fila[experCompany]);
 				$tot=count($exp_start_a);
 				$texto_pdf=$texto_pdf."<table>";
+				$texto = $texto . "<table class='table table-striped table-hover'>";
 				for ($i=0;$i<$tot;$i++){
 				$texto_pdf = $texto_pdf."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."</b></td><td><b>".$exp_comp_a[$i]."<br>".$exp_pos_a[$i]."</b><br>".$exp_desc_a[$i]."</td></tr>";
 				$texto = $texto."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."</b></td><td><b>".dropAccents($exp_comp_a[$i])."<br>".dropAccents($exp_pos_a[$i])."</b><br>".dropAccents($exp_desc_a[$i])."</td></tr>";
@@ -322,7 +324,7 @@
 				$texto_pdf = $texto_pdf."<br><br><img src='../../common/img/idiomas.jpg' /><br><br>";
 				$texto = $texto."<br><br><img src='../../common/img/idiomas.jpg' /><br><br>";
 				$texto_pdf=$texto_pdf."<table>";
-				$texto=$texto."<table>";
+				$texto=$texto."<table class='table table-striped table-hover'>";
 				for ($i=0;$i<$tot;$i++){
 				$texto_pdf = $texto_pdf."<tr><td><center><b>-".$lang_a[$i].".</b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
 				$texto= $texto."<tr><td><center><b>-".$lang_a[$i].".</b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
@@ -428,6 +430,7 @@
 				$exp_comp_a = explode("|", $fila[experCompany]);
 				$tot=count($exp_start_a);
 				$texto_pdf=$texto_pdf."<table>";
+				$texto = $texto . "<table class='table table-striped table-hover'>";
 				for ($i=0;$i<$tot;$i++){
 				$texto_pdf = $texto_pdf."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."</b></td><td><b>".$exp_comp_a[$i]."<br>".$exp_pos_a[$i]."</b><br>".$exp_desc_a[$i]."</td></tr>";
 				$texto = $texto."<tr><td><b>".$exp_start_a[$i]."/".$exp_end_a[$i]."</b></td><td><b>".dropAccents($exp_comp_a[$i])."<br>".dropAccents($exp_pos_a[$i])."</b><br>".dropAccents($exp_desc_a[$i])."</td></tr>";
@@ -446,7 +449,7 @@
 				$texto_pdf = $texto_pdf."<br><br><img src='../../common/img/idiomas.jpg' /><br><br>";
 				$texto = $texto."<br><br><img src='../../common/img/idiomas.jpg' /><br><br>";
 				$texto_pdf=$texto_pdf."<table>";
-				$texto=$texto."<table>";
+				$texto=$texto."<table class='table table-striped table-hover'>";
 				for ($i=0;$i<$tot;$i++){
 				$texto_pdf = $texto_pdf."<tr><td><center><b>-".$lang_a[$i].".</b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
 				$texto= $texto."<tr><td><center><b>-".$lang_a[$i].".</b></td><td><b>".$langT_a[$i]."</b><br></center></td></tr>";
