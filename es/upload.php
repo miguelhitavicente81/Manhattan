@@ -125,130 +125,6 @@
 		}
 	</script>
 	
-	<!-- 
-
-	<script type="text/javascript">
-		function checkNIE(dni){
-			var numero;
-			var let;
-			var letra;
-			var expresion_regular_dni;
-			
-			expresion_regular_dni = /^\d{8}[a-zA-Z]$/;
-	
-			if(expresion_regular_dni.test (dni) == true){
-				numero = dni.substr(0,dni.length-1);
-				let = dni.substr(dni.length-1,1);
-				numero = numero % 23;
-				letra='TRWAGMYFPDXBNJZSQVHLCKET';
-				letra=letra.substring(numero,numero+1);
-				if(letra!=let){
-					//alert('Dni erroneo, la letra del NIF no se corresponde');
-					return false;
-				}
-				else{
-					//alert('Dni correcto');
-					return true;
-				}
-			}
-			else{
-				//alert('Dni erroneo, formato no válido');
-				return false;
-			}
-		}
-	</script>
-	-->
-	<!-- 
-	<script type="text/javascript">
-	function checkFormES(form){
-		var result = true;
-		var message = "Por favor revise lo siguiente:\n";
-		
-		if(form.elements["blankname"].value == null || form.elements["blankname"].value.length == 0 || /^\s+$/.test(form.elements["blankname"].value) ){
-			message += "El campo nombre no puede estar vacío.\n";
-			result = false;
-		}
-		if(form.elements["blanksurname"].value == null || form.elements["blanksurname"].value.length == 0 || /^\s+$/.test(form.elements["blanksurname"].value) ){
-			message += "El campo apellido no puede estar vacío.\n";
-			result = false;
-		}
-		if(form.elements["blankbirthdate"].value == ""){
-			message += "El campo fecha no puede estar vacío.\n";
-			result = false;
-		}
-		if(form.elements["blanknie"].value == "" || /^\s+$/.test(form.elements["blanknie"].value) ){
-			message += "El campo NIE no puede estar vacío.\n";
-			result = false;
-		}
-		if(!checkNIE(form.elements["blanknie"].value)){
-			//message += "El campo NIE no está debidamente escrito\n";
-			message += "Revise su NIE (debe incluir la letra en mayúscula)\n";
-			result = false;
-		}
-		if(form.elements["blanknationality"].value == ""){
-			message += "El campo Nacionalidad no puede estar vacío.\n";
-			result = false;
-		}
-		if(form.elements["blanksex"].value == ""){
-			message += "Debe seleccionar el Sexo.\n";
-			result = false;
-		}
-		if(form.elements["blankaddrtype"].value == ""){
-			message += "Debe seleccionar el tipo de dirección.\n";
-			result = false;
-		}
-		if(form.elements["blankaddrname"].value == "" || /^\s+$/.test(form.elements["blankaddrname"].value) ){
-			message += "El campo Nombre de la Dirección no puede estar vacío.\n";
-			result = false;
-		}
-		if(form.elements["blankaddrpostalcode"].value == "" || form.elements["blankaddrpostalcode"].value.length != 5 || /^\s+$/.test(form.elements["blankaddrpostalcode"].value) ){
-			message += "El campo Código Postal debe estar formado por 5 números.\n";
-			result = false;
-		}
-		if(form.elements["blankaddrcountry"].value == "" || /^\s+$/.test(form.elements["blankaddrcountry"].value) ){
-			message += "El campo País no puede estar vacío.\n";
-			result = false;
-		}
-		if(form.elements["blankaddrprovince"].value == "" || /^\s+$/.test(form.elements["blankaddrprovince"].value) ){
-			message += "El campo Provincia no puede estar vacío.\n";
-			result = false;
-		}
-		if(form.elements["blankaddrcity"].value == "" || /^\s+$/.test(form.elements["blankaddrcity"].value) ){
-			message += "El campo Población no puede estar vacío.\n";
-			result = false;
-		}
-		var phonePattern = new RegExp("^[9][0-9]{8}$");
-		if(form.elements["blankphone"].value == "" || !phonePattern.test(form.elements["blankphone"].value)){
-			message += "El campo Teléfono debe estar formado por 9 dígitos, comenzando por 9.\n";
-			result = false;
-		}
-		var mobPattern = new RegExp("^[6|7][0-9]{8}$");
-		if(form.elements["blankmobile"].value == "" || !mobPattern.test(form.elements["blankmobile"].value)){
-			message += "El campo Móvil debe estar formado por 9 dígitos, comenzando por 6 ó 7.\n";
-			result = false;
-		}
-		//var mailPattern = new RegExp(?:[a-z0-9!#$%&'*+/=?^_{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\]);
-		var mailPattern = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-		if(form.elements["blankmail"].value == "" || !mailPattern.test(form.elements["blankmail"].value)){
-			message += "El campo Mail no es válido o esta vacío.\n";
-			result = false;
-		}
-		if(form.elements["blankmarital"].value == ""){
-			message += "Debe seleccionar su Estado civil.\n";
-			result = false;
-		}
-		if(!document.formu.blanklopd.checked){
-			message += "Debe aceptar las condiciones de uso y privacidad para continuar.\n";
-			result = false;
-		}
-		if(result == false){
-			alert(message);
-		}
-		this.form=form;
-	}
-	</script>
-	-->
-	
 </head>
 
 <body>
@@ -317,7 +193,6 @@
 		     }
 		}
 		
-		/*
 		if(!checkFullNameES($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
 			?>
 			<script type="text/javascript">
@@ -326,7 +201,6 @@
 			</script>
 			<?php 
 		}
-		//elseif(!checkBirthdate($_POST['blankbirthdate'])){
 		elseif(!isPreviousDate($_POST['blankbirthdate'])){
 			?>
 			<script type="text/javascript">
@@ -351,7 +225,6 @@
 			</script>
 			<?php 
 		}
-<<<<<<< HEAD
 		//Sex and Type of address are automatically detected as restricted fields
 		elseif(!checkFullAddress($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
 			?>
@@ -377,13 +250,6 @@
 			</script>
 			<?php 
 		}
-=======
-		*/
-		
-		
-		
-		/*
->>>>>>> upstream/development
 		if(!filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)){
 			?>
 			<script type="text/javascript">
@@ -392,11 +258,7 @@
 			</script>
 			<?php 
 		}
-		*/
-		//if(isset($_POST['blankdrivingtype']) || isset($_POST['blankdrivingdate'])){
 		if((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
-			//echo 'Tipo: '.$_POST['blankdrivingtype'].' y su tamaño es '.count($_POST['blankdrivingtype']).' y su longitud es '.strlen($_POST['blankdrivingtype']);
-			//echo 'Fecha: '.$_POST['blankdrivingdate'].' y su tamaño es '.count($_POST['blankdrivingdate']).' y su longitud es '.strlen($_POST['blankdrivingdate']);
 			if(!checkDrivingLicense($_POST['blankdrivingtype'], $_POST['blankdrivingdate'], $checkError)){
 				?>
 				<script type="text/javascript">
@@ -407,7 +269,7 @@
 			}
 		}
 		echo 'Hijos '.$_POST['blanksons'];
-		
+		/*
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		
 		$tot = count($_FILES["archivos"]["name"]);
@@ -426,7 +288,7 @@
 		if(move_uploaded_file($_FILES['foto']['tmp_name'], $uploadFile)){
 			$image = new SimpleImage(); 
 			$image->load($uploadFile); 
-			$image->resize(200,250); 
+			$image->resize(250,250); 
 			$image->save($uploadFile."r.jpg"); 
 			unlink($uploadFile);
 			echo '--> WAY!! <--';
@@ -436,7 +298,8 @@
 			echo '--> Que Mal!! <--';
 			#echo "¡Posible ataque de carga de archivos!\n";
 		}
-		exit();
+		//exit();
+		 */
 	/*
 	}
 	if(isset($_POST['push_button'])){
@@ -478,14 +341,22 @@
 		'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
 		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
 		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
+		echo "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
+		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
+		`checkLOPD`, `cvDate`, `userLogin`, `salary`) VALUES 
+		(NULL, '".$_POST['blanknie']."', 'pending', '".$outName."', '".$outSurname."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
+		'".$_POST['blankaddrtype']."', '".$outAddrName."', '".$outAddrNumber."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".$_POST['blankaddrcountry']."', '".$_POST['blankaddrprovince']."', '".$_POST['blankaddrcity']."',
+		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
+		'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
+		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
+		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
 		
-		/*
-		if(!executeDBquery($insertCVQuery)){
-		}
-		*/
+		executeDBquery($insertCVQuery);
 		
 		
-		/*
+		
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		
 		$tot = count($_FILES["archivos"]["name"]);
@@ -504,7 +375,7 @@
 		if(move_uploaded_file($_FILES['foto']['tmp_name'], $uploadFile)){
 			$image = new SimpleImage(); 
 			$image->load($uploadFile); 
-			$image->resize(200,250); 
+			$image->resize(250,250); 
 			$image->save($uploadFile."r.jpg"); 
 			unlink($uploadFile);
 			#echo "El archivo es válido y fue cargado exitosamente.\n";
@@ -512,7 +383,6 @@
 		else{
 			#echo "¡Posible ataque de carga de archivos!\n";
 		}
-		*/
 		//blocks candidate and redirects her/him to index.html
 		executeDBquery("UPDATE `users` SET `active`='0' WHERE `login`='".$_SESSION['loglogin']."'");
 		?>

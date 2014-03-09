@@ -246,8 +246,10 @@
 						}
 						
 						if(isset($_POST['newUsubmitC'])){
-							$userNumber = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
+							//$userNumber = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
+							$userNumber = getDBsinglefield('value', 'otherOptions', 'key', 'lastCandidate');
 							$userNumber=$userNumber+1;
+							executeDBquery("UPDATE `otherOptions` SET `value`='".$userNumber."' WHERE `key`='lastCandidate'");
 							$userNumber=sprintf("%06d",$userNumber);
 							$newUser="pa_".$userNumber;
 							if(getDBsinglefield('login', 'users', 'login', $newUser)){
@@ -292,7 +294,10 @@
 						elseif(isset($_GET['hiddenGET'])){
 							switch($_GET['hiddenGET']){
 								case 'hDelUser':
-									$toDeleteUser = getDBsinglefield('login', 'users', 'id', $_GET['codvalue']);
+									echo 'codvalue es '.$_GET['codvalue'].'<br>';
+									$userRow = getDBrow('users', 'id', $_GET['codvalue']);
+									print_r($userRow);
+									//$toDeleteUser = getDBsinglefield('login', 'users', 'id', $_GET['codvalue']);
 									if(!deleteDBrow('cvitaes', 'userLogin', getDBsinglefield('login', 'users', 'id', $_GET['codvalue']))){
 										?>
 										<script type="text/javascript">
@@ -311,16 +316,24 @@
 											<?php 
 										}
 										else{
-											$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$toDeleteUser."/";
+											echo "HOOLA";
+											$numProfileUsers = getDBsinglefield('numUsers', 'profiles', 'name', $userRow['profile']);
+											$numProfileUsers--;
+											executeDBquery("UPDATE `profiles` SET `numUsers`='".$numProfileUsers."' WHERE `name`='".$userRow['profile']."'");
+											//$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$toDeleteUser."/";
+											$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$userRow['login']."/";
 											//chdir($userDir);
 											$files  = scandir($userDir);
+											print_r($files);
 											foreach ($files as $value){
-												if (preg_match("/\w+/i", $value)) {
+												
 													//echo "<a href=downloadFileSingle.php?doc=".$value.">$value</a><br>";
 													echo 'Ahora borra...'.$value.'<br>';
-													unlink($value);
-												}
+													unlink($userDir.$value);
+												
+									
 											}
+											exit();
 											rmdir($userDir);
 										}
 									}
