@@ -770,14 +770,6 @@
 					<select name="add_idiomas">
 						<option selected disabled value="">-- Idioma --</option>
 						<?php
-						/*
-						$langNames = getDBcompletecolumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'languages', 'id');
-						 foreach($langNames as $i){
-						 	echo "<option value=" . $i . ">" . $i . "</option>";
-						 }
-						 */
-						//$userLang = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
-						//$maritStatus = getDBcompletecolumnID($userLang, 'maritalStatus', 'id');
 						$langNames = getDBcompletecolumnID($userLang, 'languages', 'id');
 						foreach($langNames as $i){
 							echo "<option value=" . getDBsinglefield('key', 'languages', $userLang, $i) . ">" . $i . "</option>";
