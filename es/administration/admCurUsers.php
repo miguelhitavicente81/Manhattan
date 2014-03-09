@@ -36,7 +36,7 @@
 	}
 	else {
 		$lastUpdate = $_SESSION['lastupdate'];
-		$curUpdate = date('Y-m-j H:i:s');
+		$curUpdate = date('Y-m-d H:i:s');
 		$elapsedTime = (strtotime($curUpdate)-strtotime($lastUpdate));
 		if($elapsedTime > $_SESSION['sessionexpiration']){
 			?>
@@ -219,10 +219,6 @@
 								else{
 									$initialPass = getRandomPass();
 									$expirationDate = addMonthsToDate(getDBsinglefield('value', 'otherOptions', 'key', 'expirationMonths'));
-									/*
-									if(!executeDBquery("INSERT INTO `users` (`id`, `login`, `pass`, `profile`, `active`, `language`, `needPass`, `created`, `passExpiration`) VALUES 
-									(NULL, '".utf8_decode($newUser)."', '".$initialPass."', '".utf8_decode($_POST['newUProfile'])."', '1', '".utf8_decode($_POST['newULanguage'])."', '1', CURRENT_TIMESTAMP, '".$expirationDate."')")){
-									*/
 									if(!executeDBquery("INSERT INTO `users` (`id`, `login`, `pass`, `profile`, `employee`, `active`, `language`, `needPass`, `created`, `passExpiration`) VALUES 
 									(NULL, '".utf8_decode($newUser)."', '".$initialPass."', '".utf8_decode($_POST['newUProfile'])."', '1', '1', '".utf8_decode($_POST['newULanguage'])."', '1', CURRENT_TIMESTAMP, '".$expirationDate."')")){
 									
@@ -292,6 +288,54 @@
 								}
 							}
 						}
+						
+						elseif(isset($_GET['hiddenGET'])){
+							switch($_GET['hiddenGET']){
+								case 'hDelUser':
+									$toDeleteUser = getDBsinglefield('login', 'users', 'id', $_GET['codvalue']);
+									if(!deleteDBrow('cvitaes', 'userLogin', getDBsinglefield('login', 'users', 'id', $_GET['codvalue']))){
+										?>
+										<script type="text/javascript">
+											alert('Error deleting User CV.');
+											window.location.href='admCurUsers.php';
+										</script>
+										<?php 
+									}
+									else{
+										if(!deleteDBrow('users', 'id', $_GET['codvalue'])){
+											?>
+											<script type="text/javascript">
+												alert('Error deleting User.');
+												window.location.href='admCurUsers.php';
+											</script>
+											<?php 
+										}
+										else{
+											$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$toDeleteUser."/";
+											//chdir($userDir);
+											$files  = scandir($userDir);
+											foreach ($files as $value){
+												if (preg_match("/\w+/i", $value)) {
+													//echo "<a href=downloadFileSingle.php?doc=".$value.">$value</a><br>";
+													echo 'Ahora borra...'.$value.'<br>';
+													unlink($value);
+												}
+											}
+											rmdir($userDir);
+										}
+									}
+								break;
+							}
+							?>
+							<script type="text/javascript">
+								window.location.href='admCurUsers.php';
+							</script>
+							<?php 
+						}//end of GET
+						/*****************************     End of FORM validations     *****************************/
+						
+						/*************************     Start of WebPage code as showed     *************************/
+						
 						if($_SESSION['logprofile'] == 'SuperAdmin'){
 							?>
 							<div class="panel panel-default"> <!-- Panel de Usuarios Existentes -->
@@ -340,7 +384,8 @@
 													echo "<td>" . $showedUserRow['created'] . "</td>";
 													echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
 													echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
-													echo "<td><a href=''>Borrar</a></td>";
+													//echo "<td><a href=''>Borrar</a></td>";
+													echo "<td><a href='admCurUsers.php?codvalue=" . $showedUserRow['id'] . "&hiddenGET=hDelUser' onclick='return confirmUserDeletionES();'>Borrar</a></td>";
 													echo "</tr>";
 													$k++;
 												}

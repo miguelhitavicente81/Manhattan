@@ -174,37 +174,6 @@ function fecha( cadena ) {
 
 
 
-/* Unactivates a profile
-* Called in "onclick" event from "admCurProfiles.php"
-*/
-function confirmProfileDeactivation(id) {
-	if(confirm('¿Realmente desea desactivar este perfil?')) {
-		window.location.href='editProfile.php?hiddenfield=activate&codvalue='+id;
-	}
-}
-
-
-/* Lets to SuperAdmin user to delete a profile
-* Called in "onclick" event from "admCurProfiles.php"
-*/
-function confirmProfileActivation(id) {
-	if(confirm('¿Realmente desea activar este perfil?')) {
-		window.location.href='editProfile.php?hiddenfield=activate&codvalue='+id;
-	}
-}
-
-
-/* Lets to SuperAdmin user to delete a profile
-* Called in "onclick" event from "admCurProfiles.php"
-*/
-function confirmProfileDeletion(id) {
-	if(confirm('¿Realmente desea borrar este perfil?')) {
-		window.location.href='editProfile.php?hiddenfield=delete&codvalue='+id;
-	}
-}
-
-
-
 /* Double-checks deletion of an existing language
  * Called in "admGenOptions.php"
  */
@@ -214,6 +183,38 @@ function confirmLangDeletionES(id) {
 
 
 
+/* Lets to SuperAdmin user to delete a profile
+ * Called in "onclick" event from "admCurProfiles.php"
+ */
+function confirmProfileActivation(id) {
+	if(confirm('¿Realmente desea activar este perfil?')) {
+		window.location.href='editProfile.php?hiddenfield=activate&codvalue='+id;
+	}
+}
+
+
+
+/* Unactivates a profile
+ * Called in "onclick" event from "admCurProfiles.php"
+ */
+function confirmProfileDeactivation(id) {
+	if(confirm('¿Realmente desea desactivar este perfil?')) {
+		window.location.href='editProfile.php?hiddenfield=activate&codvalue='+id;
+	}
+}
+
+
+
+/* Lets to SuperAdmin user to delete a profile
+ * Called in "onclick" event from "admCurProfiles.php"
+ */
+function confirmProfileDeletion(id) {
+	if(confirm('¿Realmente desea borrar este perfil?')) {
+		window.location.href='editProfile.php?hiddenfield=delete&codvalue='+id;
+	}
+}
+
+
 
 /* Double-checks deletion of an existing study
  * Called in "admGenOptions.php"
@@ -221,6 +222,16 @@ function confirmLangDeletionES(id) {
 function confirmStudyDeletionES(id) {
 	if(confirm('¿Confirma que desea borrar esta Educación?')) {
 	}
+}
+
+
+
+/* Double-checks deletion of an existing User
+ * Called from "onclick" method in "admCurUsers.php"
+ * Entry (id): Number/indentifier of user to be deleted if confirmed
+ */
+function confirmUserDeletionES(id) {
+	return confirm('Si se trata de un Candidato también se borrará su CV. ¿Esta seguro?');
 }
 
 
