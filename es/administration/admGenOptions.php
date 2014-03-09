@@ -33,7 +33,7 @@
 	}
 	else {
 		$lastUpdate = $_SESSION['lastupdate'];
-		$curUpdate = date('Y-m-j H:i:s');
+		$curUpdate = date('Y-m-d H:i:s');
 		$elapsedTime = (strtotime($curUpdate)-strtotime($lastUpdate));
 		if($elapsedTime > $_SESSION['sessionexpiration']){
 			?>
@@ -341,9 +341,9 @@
 						</script>
 						<?php 
 					}//del GET
-					/***************  Fin del bloque de validación de formularios o borrados  ***************/
+					/*****************************     End of FORM validations     *****************************/
 
-					/***************  Aquí comienza el bloque que muestra la página como tal  ***************/
+					/*************************     Start of WebPage code as showed     *************************/
 					?>
 
 					<div class="bs-docs-section">

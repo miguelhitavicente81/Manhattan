@@ -33,7 +33,7 @@
 	}
 	else {
 		$lastUpdate = $_SESSION['lastupdate'];
-		$curUpdate = date('Y-m-j H:i:s');
+		$curUpdate = date('Y-m-d H:i:s');
 		$elapsedTime = (strtotime($curUpdate)-strtotime($lastUpdate));
 		if($elapsedTime > $_SESSION['sessionexpiration']){
 			?>
@@ -214,7 +214,7 @@
 								else{
 									$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
 									$_SESSION['logprofile'] = $userRow['profile'];
-									$_SESSION['lastupdate'] = date('Y-m-j H:i:s');
+									$_SESSION['lastupdate'] = date('Y-m-d H:i:s');
 									$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
 									?>
 									<script type="text/javascript">
