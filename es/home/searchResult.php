@@ -199,12 +199,12 @@ set_include_path(get_include_path() . PATH_SEPARATOR . "../../common/cppdf");
 				<div class="col-md-9 scrollable" role="main"> 
 					<div class="bs-docs-section">
 
-						<h1 class="page-header">Resultados de la búsqueda
+						<h2 class="page-header">Resultados de la búsqueda
 
 							<!-- <p class="lead"> -->
 							<small>
 
-							</small></span></h1>
+							</small></span></h2>
 
 							<?php
 
