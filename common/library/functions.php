@@ -440,7 +440,7 @@ function checkFullAddress($inName, $inNumber, &$outName, &$outNumber, &$checkErr
 		$checkError = "Introduzca el número de su dirección, por favor";
 		return false;
 	}
-	return true;
+		return true;
 }
 
 
@@ -603,6 +603,60 @@ function checkPhone($phone){
 		return false;
 	}
 	return true;
+}
+
+
+
+
+/* Checks whether field Nationality in form is properly fulfilled
+ * Entry (inNations): Input string acting as an array with 1 or more nationalities
+ * Exit (outNations): Output string acting as an array for nationalities
+ * Exit: Boolean
+ */
+/*
+function checkNationality($inNations, &$outNations){
+	$connection = connectDB();
+	echo 'Todo junto como STRING de entrada es '.$inNations.'<br>';
+	$delimit = "|";
+	$nationArray = explode($delimit, $inNations);
+	foreach($nationArray as $i){
+		echo '->'.$i.'<-<br>';
+		$outSingleNation = trim(htmlentities(mysqli_real_escape_string($connection, $i)));
+		echo 'outSingleNation es ... '.$outSingleNation.'<br>';
+		//$outNations = implode($delimit,$outSingleNation);
+		$outNations = implode("|",$outSingleNation);
+		echo 'El STRING devuelto por IMPLODE es '.$outNations.'<br>';
+	}
+}
+*/
+/* Checks whether field Nationality in form is properly fulfilled
+ * Entry (inNations): Input array with 1 or more nationalities
+ * Exit (outNations): Output string acting as an array for nationalities
+ * Exit: Boolean
+ */
+/*
+function checkNationality($inNations, &$outNations){
+	$connection = connectDB();
+	
+	foreach($inNations as $nation){
+		echo 'Esta posición es... '.$nation.'<br>';
+		$outSingleNation = trim(htmlentities(mysqli_real_escape_string($connection, $nation)));
+		$outNations = implode("|",$outSingleNation);
+	}
+}
+*/
+function checkNationality($inNations, &$outNations){
+	$connection = connectDB();
+	
+	$outArray = array();
+	$numNats = count($inNations);
+	//echo 'numNats es: '.$numNats.'<br>';
+	for($i=0; $i<$numNats; $i++){
+		$outSingleNation = trim(htmlentities(mysqli_real_escape_string($connection, $inNations[$i])));
+		$outArray[$i] = $outSingleNation;
+		//echo '-->'.$outArray[$i].'<--';
+	}
+	$outNations = implode("|",$outArray);
 }
 
 

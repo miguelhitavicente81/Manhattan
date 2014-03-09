@@ -256,6 +256,13 @@
 				$texto_pdf = $texto_pdf."<br>".dropAccents($fila[$skill]);
 				$texto= $texto."<br>".dropAccents($fila[$skill]);
 				}
+                                $texto = $texto."<br><br><img src='../../common/img/archivos.jpg' /><br>";
+                                $files  = scandir($output_dir.$fila[userLogin]);
+                                foreach ($files as $value){
+                                if (preg_match("/\w+/i", $value)) {
+                                $texto=$texto."<br><a href=downloadFileSingle.php?doc=".$value.">$value</a>";
+                                }
+                                }
 				if (strlen($nota)>0){$texto=$texto."<div class=cuadronegro><h3>EVALUACION PERSPECTIVA ALEMANIA </h3><br>".$nota."</div>";$texto_pdf=$texto_pdf."<div class=cuadronegro><h3>EVALUACION POR PERSPECTIVA ALEMANIA</h3> <br><br>".$nota."</div>";}
 				$texto_pdf=$texto_pdf."</div>";
 											$dompdf = new DOMPDF();
@@ -344,6 +351,13 @@
 				$texto_pdf = $texto_pdf."<br>".dropAccents($fila[$skill]);
 				$texto= $texto."<br>".dropAccents($fila[$skill]);
 				}
+                                $texto = $texto."<br><br><img src='../../common/img/archivos.jpg' /><br>";
+                                $files  = scandir($output_dir);
+                                foreach ($files as $value){
+                                if (preg_match("/\w+/i", $value)) {
+                                echo "<a href=downloadFileSingle.php?doc=".$value.">$value</a><br>";
+                                }
+                                }
 				if (strlen($nota)>0){$texto=$texto."<div class='cuadronegro'><h3>EVALUACION PERSPECTIVA ALEMANIA </h3><br>".$nota."</div>";$texto_pdf=$texto_pdf."<div class='cuadronegro'><h3>EVALUACION POR PERSPECTIVA ALEMANIA</h3> <br><br>".$nota."</div>";}
 				$texto_pdf=$texto_pdf."</div>";
 										$dompdf = new DOMPDF();
@@ -469,6 +483,13 @@
 				$texto_pdf = $texto_pdf."<br>".dropAccents($fila[$skill]);
 				$texto= $texto."<br>".dropAccents($fila[$skill]);
 				}
+                                $texto = $texto."<br><br><img src='../../common/img/archivos.jpg' /><br>";
+                                $files  = scandir($output_dir.$fila[userLogin]);
+                                foreach ($files as $value){
+                                if (preg_match("/\w+/i", $value)) {
+                                echo "<a href=downloadFileSingle.php?doc=".$value.">$value</a><br>";
+                                }
+                                }
 				if (strlen($nota)>0){$texto=$texto."<div class='cuadronegro'><h3>EVALUACION PERSPECTIVA ALEMANIA </h3><br>".$nota."</div>";$texto_pdf=$texto_pdf."<div class='cuadronegro'><h3>EVALUACION POR PERSPECTIVA ALEMANIA</h3> <br><br>".$nota."</div>";}
 				$texto_pdf=$texto_pdf."</div>";
 				}
@@ -563,4 +584,5 @@
 
 </body>
 </html>
+
 

@@ -410,6 +410,47 @@
 		
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		
+		elseif(!checkBirthdate($_POST['blankbirthdate'])){
+			?>
+			<script type="text/javascript">
+				alert('La fecha introducida es incorrecta');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		elseif(!checkDNI_NIE($_POST['blanknie'])){
+			?>
+			<script type="text/javascript">
+				alert('El NIE no está correctamente introducido');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		elseif(!isset($str_nat)){
+			?>
+			<script type="text/javascript">
+				alert('Incluya al menos 1 nacionalidad, por favor');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		*/
+		
+		
+		
+		/*
+		if(!filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)){
+			?>
+			<script type="text/javascript">
+				alert('Introduzca un email válido, por favor');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		*/
+		
+		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
+		
 		$tot = count($_FILES["archivos"]["name"]);
 		//este for recorre el arreglo
 		for ($i = 0; $i < $tot; $i++){
