@@ -41,7 +41,7 @@ set_include_path(get_include_path() . PATH_SEPARATOR . "../../common/cppdf");
 	}
 	else {
 		$lastUpdate = $_SESSION['lastupdate'];
-		$curUpdate = date('Y-m-j H:i:s');
+		$curUpdate = date('Y-m-d H:i:s');
 		$elapsedTime = (strtotime($curUpdate)-strtotime($lastUpdate));
 		if($elapsedTime > $_SESSION['sessionexpiration']){
 			?>
