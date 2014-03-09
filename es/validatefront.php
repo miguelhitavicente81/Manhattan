@@ -46,7 +46,18 @@
 			//That's when system generates new Blowfish password
 			else{
 				$newCryptedPass = blowfishCrypt($_POST['newPassword']);
-				if(!executeDBquery("UPDATE `users` SET `pass`='".$newCryptedPass."', `needPass`='0' WHERE `login`='".$_SESSION['loglogin']."'")){
+				if($newCryptedPass == getDBsinglefield('pass', 'users', 'login', $_SESSION['loglogin'])){
+					?>
+					<div class="top-alert-container">
+						<div class="alert alert-danger alert-error top-alert fade in">
+							<a href="#" class="close" data-dismiss="alert">&times;</a>
+							<strong>Error!</strong> La nueva contraseña debe ser distinta a la anterior.
+						</div>
+					</div>
+
+					<?php 	$wannaGoTo = 'index.html';
+				}
+				elseif(!executeDBquery("UPDATE `users` SET `pass`='".$newCryptedPass."', `needPass`='0' WHERE `login`='".$_SESSION['loglogin']."'")){
 					//session_destroy(); DEBERIA DESTRUIR LA SESSION
 					?>
 					<div class="top-alert-container">
@@ -59,20 +70,32 @@
 					<?php 	$wannaGoTo = 'index.html';
 				}
 				else{
-					$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
-					$_SESSION['logprofile'] = $userRow['profile'];
-					$_SESSION['lastupdate'] = date('Y-m-j H:i:s');
-					$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
-					?>
-
-					<div class="top-alert-container">
-						<div class="alert alert-success top-alert fade in">
-							<a href="#" class="close" data-dismiss="alert">&times;</a>
-							<strong>Éxito!</strong> Se ha actualizado la contraseña.
-						</div>
-					</div>					
-
-					<?php $wannaGoTo = 'home.php';
+					if(!executeDBquery("UPDATE `users` SET `lastConnection` = CURRENT_TIMESTAMP WHERE `login` = '".$_SESSION['loglogin']."'")){
+						?>
+						<div class="top-alert-container">
+							<div class="alert alert-danger alert-error top-alert fade in">
+								<a href="#" class="close" data-dismiss="alert">&times;</a>
+								<strong>Error!</strong> No se pudo actualizar la fecha de última conexión.
+							</div>
+						</div>								
+						<?php $wannaGoTo ='index.html'; 
+					}
+					else{
+						$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
+						$_SESSION['logprofile'] = $userRow['profile'];
+						$_SESSION['lastupdate'] = date('Y-m-d H:i:s');
+						$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
+						?>
+	
+						<div class="top-alert-container">
+							<div class="alert alert-success top-alert fade in">
+								<a href="#" class="close" data-dismiss="alert">&times;</a>
+								<strong>Éxito!</strong> Se ha actualizado la contraseña.
+							</div>
+						</div>					
+	
+						<?php $wannaGoTo = 'home.php';
+					}
 				}
 			}
 		}
@@ -83,7 +106,7 @@
 			//Firstly checks if both text fields were fulfilled or not
 			if (isset($_POST['loglogin']) && !empty($_POST['loglogin']) && isset($_POST['logpasswd']) && !empty($_POST['logpasswd'])){
 				$checkedUser = $_POST["loglogin"];
-				$checkedPasswd = $_POST["logpasswd"];
+				//$checkedPasswd = $_POST["logpasswd"];
 				$userRow = getDBrow('users', 'login', $checkedUser);
 				$profileRow = getDBrow('profiles', 'name', $userRow['profile']);
 				if($userRow == 0){
@@ -134,7 +157,7 @@
 					<?php $wannaGoTo ='index.html'; 
 				}
 				else {
-					if (!$wannaExit) {	
+					if (!$wannaExit) {
 						//After all these checkings, user could be properly logged in. We start with procedure
 						$_SESSION['loglogin'] = $checkedUser; 
 
@@ -166,7 +189,7 @@
 											<div class='form-group'>
 												<label for='confirmNewPassword' class='control-label'>Repita contraseña</label>
 												<div class='center-block'>
-													<input type='password' class='form-control' name='confirmNewPassword' id='confirmNewPassword' placeholder='' required data-toggle='tooltip' title='Confirma la nueva contraseña' autocapitalize='off'>
+													<input type='password' class='form-control' name='confirmNewPassword' id='confirmNewPassword' placeholder='' required data-toggle='tooltip' title='Confirme la nueva contraseña' autocapitalize='off'>
 												</div>
 											</div>
 										</div>
@@ -194,7 +217,7 @@
 							}
 							else{
 								$_SESSION['logprofile'] = $userRow['profile'];
-								$_SESSION['lastupdate'] = date('Y-m-j H:i:s');
+								$_SESSION['lastupdate'] = date('Y-m-d H:i:s');
 								$_SESSION['sessionexpiration'] = getDBsinglefield('value', 'otherOptions', 'key', 'sessionexpiration');
 								?>
 

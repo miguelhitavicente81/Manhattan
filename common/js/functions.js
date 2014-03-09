@@ -1,14 +1,19 @@
-/****************************************************************************************************************************
-* ************************************************************************************************************************ *
-* *********************************  GROUP OF FUNCTIONS CALLED FROM AN "onsubmit" EVENT  ********************************* *
-* ************************************************************************************************************************ *
-****************************************************************************************************************************/
+
+/*************************************************************************************************************************************
+ * ********************************************************************************************************************************* *
+ * ********************************************************************************************************************************* *
+ * **********************************                                                             ********************************** *
+ * **********************************         GROUP OF FUNCTIONS DEVELOPED IN JAVASCRIPT          ********************************** *
+ * **********************************                                                             ********************************** *
+ * ********************************************************************************************************************************* *
+ * ********************************************************************************************************************************* *
+ *************************************************************************************************************************************/
 
 
 
 /* Captures 2 strings wished to match themselves to be a new password
-* Called from "validatefront.php"
-*/
+ * Called from onsubmit in "validatefront.php"
+ */
 function checkPasswordES() {
 	var formElements = document.getElementById("form");
 	var passwd1 = formElements[0];
@@ -46,10 +51,11 @@ function checkPasswordES() {
 }
 
 
+
 /* Captures 2 passwords sent from a form and tells if they both are equal each other
-* Called from "personalData.php"
-* If wished, it can be controlled here if form is also blanked, under limited characters or over-limited characters and more...
-*/
+ * Called from onsubmit in "personalData.php"
+ * If wished, it can be controlled here if form is also blanked, under limited characters or over-limited characters and more...
+ */
 function confirmProfileCreation() {
 	if(confirm('¿Realmente desea crear este perfil?')) {
 		window.location.href='admCurProfiles.php';
@@ -57,10 +63,11 @@ function confirmProfileCreation() {
 }
 
 
+
 /* Captures 2 passwords sent from a form and tells if they both are equal each other
-* Called from "personalData.php"
-* If wished, it can be controlled here if form is also blanked, under limited characters or over-limited characters and more...
-*/
+ * Called from onsubmit in "personalData.php"
+ * If wished, it can be controlled here if form is also blanked, under limited characters or over-limited characters and more...
+ */
 function equalPassword() {
 	var formElements = document.getElementById("form");	
 	var passwd1 = formElements[0];
@@ -77,9 +84,10 @@ function equalPassword() {
 }
 
 
+
 /* Subtract (Restar) an existing date to current date, returning the difference in days
-* Called from "validatefront.php"
-*/
+ * Called from onsubmit in "validatefront.php"
+ */
 function subToCurrentDateYMD() {
 	var dat = Date();
 	var curDate = Date(dat.getFullYear() + "-" + (dat.getMonth()+1) + "+" + dat.getDate());
@@ -108,6 +116,8 @@ function subToCurrentDateYMD() {
 
 }
 
+
+
 // ESTA LA DEJO DE EJEMPLO PARA VER SI DESDE ELLA PUEDO SACAR LA FUNCION ANTERIOR
 function DiferenciaFechas (formulario) {  
 
@@ -132,6 +142,8 @@ function DiferenciaFechas (formulario) {
 	return false;
 }  
 
+
+
 function fecha( cadena ) {  
 
 	//Separador para la introduccion de las fechas  
@@ -152,29 +164,14 @@ function fecha( cadena ) {
 	}  
 } 
 
-/****************************************************************************************************************************
-* ************************************************************************************************************************ *
-* *********************************  GROUP OF FUNCTIONS CALLED FROM AN "onclick" EVENT  ********************************** *
-* ************************************************************************************************************************ *
-****************************************************************************************************************************/
 
-/*
-function confirmDeactivate(id) {
-if(confirm('¿Realmente desea desactivar este perfil?')) {
-//location.href='changeProfile.php?hiddenfield=activate&codvalue='+id;
-window.location.href='changeProfile.php?hiddenfield=activate&codvalue='+id;
-}
-}
-*/
 
-/*
-function confirmActivate(id) {
-if(confirm('¿Realmente desea activar este perfil?')) {
-//location.href='changeProfile.php?hiddenfield=activate&codvalue='+id;
-window.location.href='changeProfile.php?hiddenfield=activate&codvalue='+id;
-}
-}
-*/
+
+
+/************************************************************************************************************************************
+ * ***************   GROUP OF FUNCTIONS USED TO CONFIRM ANY TYPE OF ACTION (activations, creations, deletions...)   *************** *
+ ************************************************************************************************************************************/
+
 
 
 /* Unactivates a profile
@@ -212,9 +209,9 @@ function confirmProfileDeletion(id) {
  * Called in "admGenOptions.php"
  */
 function confirmLangDeletionES(id) {
-	if(confirm('¿Confirma que desea borrar este idioma?')) {
-	}
+	return confirm('¿Confirma que desea borrar este idioma?');
 }
+
 
 
 
@@ -230,102 +227,10 @@ function confirmStudyDeletionES(id) {
 
 
 
-/**********************************************************************************************************
-* ****************************************************************************************************** *
-* **********  GROUP OF FUNCTIONS USED TO MAKE APPEAR/DISAPPEAR NEW FIELDS IN "blankform.php"  ********** *
-* ****************************************************************************************************** *
-**********************************************************************************************************/
+/************************************************************************************************************
+ * **********   GROUP OF FUNCTIONS USED TO MAKE APPEAR/DISAPPEAR NEW FIELDS IN "blankform.php"   ********** *
+ ************************************************************************************************************/
 
-
-/*
-var mailcount = 0;
-function cerrar(obj) {
-email=document.getElementById("emailNode"); 
-email.parentNode.removeChild(email.parentNode.childNodes[mailcount+7]);
-mailcount --;
-if (mailcount==0) {
-//retirar el c�digo para borrar la �ltima direcci�n de mail 
-document.getElementById("mailManagment").removeChild(document.getElementById("cerrarMail"));
-}
-}
-
-function newEntry(inputName,text) {
-newInput = document.createElement("input");
-newInput.type="text";
-newInput.name=inputName;
-newNode = document.createElement("tr");
-newNode.appendChild(document.createElement("td"));
-newNode.appendChild(document.createElement("td"));
-newNode.firstChild.appendChild(document.createTextNode(text));
-newNode.lastChild.appendChild(newInput);
-
-return newNode;
-}
-
-function newMail() {
-mailcount ++;
-email=document.getElementById("emailNode");
-//Creo el nuevo campo
-newNode=newEntry("email"+mailcount,"Email alternativo "+mailcount+":");
-//Muestro el nuevo campo
-email.parentNode.insertBefore(newNode,email);
-
-//Agregar el c�digo para borrar el �ltimo mail
-if (mailcount==1) {
-newClose = document.createElement("a");
-newClose.id="cerrarMail";
-newClose.href="javascript:cerrar(this)";
-newClose.appendChild(document.createTextNode("Borrar �ltimo"));
-document.getElementById("mailManagment").appendChild(newClose);
-}
-}
-*/
-
-
-/*
-var mailcount = 0;
-
-function cerrar(obj) {
-email=document.getElementById("blankdynamiclang"); 
-email.parentNode.removeChild(email.parentNode.childNodes[mailcount+7]);
-mailcount --;
-if (mailcount==0) {
-//retirar el c�digo para borrar la �ltima direcci�n de mail 
-document.getElementById("addingField").removeChild(document.getElementById("cerrarMail"));
-}
-}
-
-function newEntry(inputName,text) {
-newInput = document.createElement("input");
-newInput.type="text";
-newInput.name=inputName;
-newNode = document.createElement("tr");
-newNode.appendChild(document.createElement("td"));
-newNode.appendChild(document.createElement("td"));
-newNode.firstChild.appendChild(document.createTextNode(text));
-newNode.lastChild.appendChild(newInput);
-
-return newNode;
-}
-
-function newLanguage() {
-mailcount ++;
-email=document.getElementById("blankdynamiclang");
-//Creo el nuevo campo
-newNode=newEntry("email"+mailcount,"Email alternativo "+mailcount+":");
-//Muestro el nuevo campo
-email.parentNode.insertBefore(newNode,email);
-
-//Agregar el c�digo para borrar el �ltimo mail
-if (mailcount==1) {
-newClose = document.createElement("a");
-newClose.id="cerrarMail";
-newClose.href="javascript:cerrar(this)";
-newClose.appendChild(document.createTextNode("Borrar �ltimo"));
-document.getElementById("addingField").appendChild(newClose);
-}
-}
-*/
 
 
 var mailcount = 0;
