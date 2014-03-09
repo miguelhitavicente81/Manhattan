@@ -326,7 +326,8 @@
 			</script>
 			<?php 
 		}
-		elseif(!checkBirthdate($_POST['blankbirthdate'])){
+		//elseif(!checkBirthdate($_POST['blankbirthdate'])){
+		elseif(!isPreviousDate($_POST['blankbirthdate'])){
 			?>
 			<script type="text/javascript">
 				alert('La fecha introducida es incorrecta');
@@ -345,16 +346,44 @@
 		elseif(!isset($str_nat)){
 			?>
 			<script type="text/javascript">
-				alert('Incluya al menos 1 nacionalidad, por favor');
+				alert('Incluya al menos 1 nacionalidad');
 				window.location.href='home.php';
 			</script>
 			<?php 
 		}
+<<<<<<< HEAD
+		//Sex and Type of address are automatically detected as restricted fields
+		elseif(!checkFullAddress($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
+			?>
+			<script type="text/javascript">
+				alert('<?php echo $checkError; ?>');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		elseif(!checkPhone($_POST['blankphone'])){
+			?>
+			<script type="text/javascript">
+				alert('Indique un número de teléfono válido');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		elseif(!checkMobile($_POST['blankmobile'])){
+			?>
+			<script type="text/javascript">
+				alert('Indique un número de móvil válido');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+=======
 		*/
 		
 		
 		
 		/*
+>>>>>>> upstream/development
 		if(!filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)){
 			?>
 			<script type="text/javascript">
@@ -364,6 +393,20 @@
 			<?php 
 		}
 		*/
+		//if(isset($_POST['blankdrivingtype']) || isset($_POST['blankdrivingdate'])){
+		if((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
+			//echo 'Tipo: '.$_POST['blankdrivingtype'].' y su tamaño es '.count($_POST['blankdrivingtype']).' y su longitud es '.strlen($_POST['blankdrivingtype']);
+			//echo 'Fecha: '.$_POST['blankdrivingdate'].' y su tamaño es '.count($_POST['blankdrivingdate']).' y su longitud es '.strlen($_POST['blankdrivingdate']);
+			if(!checkDrivingLicense($_POST['blankdrivingtype'], $_POST['blankdrivingdate'], $checkError)){
+				?>
+				<script type="text/javascript">
+					alert('<?php echo $checkError; ?>');
+					window.location.href='home.php';
+				</script>
+				<?php 
+			}
+		}
+		echo 'Hijos '.$_POST['blanksons'];
 		
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		
@@ -411,6 +454,7 @@
 		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
 		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')");
 		*/
+		/* ESTA FUNCIONA. LA CAMBIO PARA INCLUIR LAS VARIABLES DE SEGURIDAD
 		executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
 		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
@@ -422,6 +466,24 @@
 		'".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
 		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
 		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')");
+		*/
+		$insertCVQuery = "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
+		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
+		`checkLOPD`, `cvDate`, `userLogin`, `salary`) VALUES 
+		(NULL, '".$_POST['blanknie']."', 'pending', '".$outName."', '".$outSurname."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
+		'".$_POST['blankaddrtype']."', '".$outAddrName."', '".$outAddrNumber."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".$_POST['blankaddrcountry']."', '".$_POST['blankaddrprovince']."', '".$_POST['blankaddrcity']."',
+		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
+		'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
+		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
+		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
+		
+		/*
+		if(!executeDBquery($insertCVQuery)){
+		}
+		*/
+		
 		
 		/*
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
@@ -785,7 +847,7 @@
 				<input type="text" name="blankaddrname" size="50" maxlength="50" placeholder="Nombre" />
 				<input type="text" name="blankaddrnum" size="5" maxlength="10" placeholder="Num" onkeyup="this.value=this.value.toUpperCase();" />
 				<input type="text" name="blankaddrportal" size="5" maxlength="10" placeholder="Portal" onkeyup="this.value=this.value.toUpperCase();" />
-				<input type="text" name="blankaddrstair" size="5" maxlength="10" placeholder="Escalera" onkeyup="this.value=this.value.toUpperCase();" />
+				<input type="text" name="blankaddrstair" size="5" maxlength="10" placeholder="Esc" onkeyup="this.value=this.value.toUpperCase();" />
 				<input type="text" name="blankaddrfloor" size="5" maxlength="10" placeholder="Piso" />
 				<input type="text" name="blankaddrdoor" size="5" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();" /><br>
 				<!-- 
@@ -823,11 +885,11 @@
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Fijo</label></td>
-			<td><input type="text" name="blankphone" size="30" maxlength="9" placeholder="9XXXXXXXX" /></td>
+			<td><input type="text" name="blankphone" size="30" maxlength="9" placeholder="9XXXXXXXX" ></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Móvil</label></td>
-			<td><input type="text" name="blankmobile" size="30" maxlength="9" /></td>
+			<td><input type="text" name="blankmobile" size="30" maxlength="9" ></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Correo Electrónico</label></td>
@@ -964,7 +1026,7 @@
 				<input type="text" name="add_categ" size="25" placeholder="Posición" /><br>
 				<input type="text" name="add_expstart" size="8" placeholder="Inicio" />
 				<input type="text" name="add_expend" size="8" placeholder="Fin(MM-YYYY)" />
-				<textarea name="add_desc" rows="3" cols="30" placeholder="Incluya una descripción de su experiencia en este puesto..."></textarea>
+				<textarea name="add_desc" rows="3" cols="30" placeholder="Descripción del puesto"></textarea>
 				<input onclick="addRow4(this.form);" type="button" value="Incluir" />
 			</div>
 			</td>
@@ -977,7 +1039,7 @@
 		
 		<tr>
 			<td><label class='control-label'>Otros datos de interés</label></td>
-			<td><textarea name="blankother" rows="3" cols="40" placeholder="Indique todo aquello que estime oportuno y aparezca en ningún otro campo..."></textarea></td>
+			<td><textarea name="blankother" rows="3" cols="50" placeholder="Exponga aquí cualquier dato que estime oportuno y no aparezca en ningún otro campo..."></textarea></td>
 		</tr>
 		
 		<tr>
