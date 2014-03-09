@@ -268,49 +268,8 @@
 				<?php 
 			}
 		}
-		echo 'Hijos '.$_POST['blanksons'];
+		//echo 'Hijos '.$_POST['blanksons'];
 		/*
-		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
-		
-		elseif(!checkBirthdate($_POST['blankbirthdate'])){
-			?>
-			<script type="text/javascript">
-				alert('La fecha introducida es incorrecta');
-				window.location.href='home.php';
-			</script>
-			<?php 
-		}
-		elseif(!checkDNI_NIE($_POST['blanknie'])){
-			?>
-			<script type="text/javascript">
-				alert('El NIE no está correctamente introducido');
-				window.location.href='home.php';
-			</script>
-			<?php 
-		}
-		elseif(!isset($str_nat)){
-			?>
-			<script type="text/javascript">
-				alert('Incluya al menos 1 nacionalidad, por favor');
-				window.location.href='home.php';
-			</script>
-			<?php 
-		}
-		*/
-		
-		
-		
-		/*
-		if(!filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)){
-			?>
-			<script type="text/javascript">
-				alert('Introduzca un email válido, por favor');
-				window.location.href='home.php';
-			</script>
-			<?php 
-		}
-		*/
-		
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		
 		$tot = count($_FILES["archivos"]["name"]);
@@ -339,50 +298,8 @@
 			echo '--> Que Mal!! <--';
 			#echo "¡Posible ataque de carga de archivos!\n";
 		}
-		//exit();
 		 */
-	/*
-	}
-	if(isset($_POST['push_button'])){
-	*/
-		/*
-		executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
-		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
-		`checkLOPD`, `cvDate`, `userLogin`, `salary`) VALUES 
-		(NULL, '".$_POST['blanknie']."', 'pending', '".utf8_decode($_POST['blankname'])."', '".utf8_decode($_POST['blanksurname'])."', '".$_POST['blankbirthdate']."', '".utf8_decode($_POST['blanknationality'])."', '".$_POST['blanksex']."',
-		'".utf8_decode($_POST['blankaddrtype'])."', '".utf8_decode($_POST['blankaddrname'])."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".utf8_decode($_POST['blankaddrcountry'])."', '".utf8_decode($_POST['blankaddrprovince'])."', '".utf8_decode($_POST['blankaddrcity'])."',
-		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', '".$str_idiomas."', '".$str_nidiomas."',
-		'".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
-		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
-		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')");
-		*/
-		/* ESTA FUNCIONA. LA CAMBIO PARA INCLUIR LAS VARIABLES DE SEGURIDAD
-		executeDBquery("INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
-		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
-		`checkLOPD`, `cvDate`, `userLogin`, `salary`) VALUES 
-		(NULL, '".$_POST['blanknie']."', 'pending', '".$_POST['blankname']."', '".$_POST['blanksurname']."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
-		'".$_POST['blankaddrtype']."', '".$_POST['blankaddrname']."', '".$_POST['blankaddrnum']."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".$_POST['blankaddrcountry']."', '".$_POST['blankaddrprovince']."', '".$_POST['blankaddrcity']."',
-		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', '".$str_idiomas."', '".$str_nidiomas."',
-		'".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
-		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
-		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')");
-		*/
 		$insertCVQuery = "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
-		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
-		`checkLOPD`, `cvDate`, `userLogin`, `salary`) VALUES 
-		(NULL, '".$_POST['blanknie']."', 'pending', '".$outName."', '".$outSurname."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
-		'".$_POST['blankaddrtype']."', '".$outAddrName."', '".$outAddrNumber."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".$_POST['blankaddrcountry']."', '".$_POST['blankaddrprovince']."', '".$_POST['blankaddrcity']."',
-		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
-		'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
-		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
-		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
-		echo "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
 		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
 		`checkLOPD`, `cvDate`, `userLogin`, `salary`) VALUES 
@@ -444,28 +361,26 @@
 	<table>
 		<tr>
 			<td><label class='control-label'>Nombre</label></td>
-			<td><input type="text" name="blankname" size="30" maxlength="30"/></td>
+			<td><input type="text" name="blankname" size="30" maxlength="30" required></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Apellidos</label></td>
-			<td><input type="text" name="blanksurname" size="30" maxlength="50"/></td>
+			<td><input type="text" name="blanksurname" size="30" maxlength="50" required></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Fecha de Nacimiento</label></td>
-			<td><input type="date" name="blankbirthdate"/></td>
+			<td><input type="date" name="blankbirthdate" required></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>DNI/NIE</label></td>
-			<td><input type="text" name="blanknie" size="30" maxlength="12" placeholder="Max. 12 caracteres" onkeyup="this.value=this.value.toUpperCase();" /></td>
+			<td><input type="text" name="blanknie" size="30" maxlength="12" placeholder="Max. 12 caracteres" onkeyup="this.value=this.value.toUpperCase();" required></td>
 		</tr>
 		
-		<!-- <td><span class="form-sub-label-container"><select class="form-dropdown form-address-country" name="q13_direccion13[country]" id="input_13_country"> -->
 		<tr>
 			<td><label class='control-label'>Nacionalidad</label></td>
-			
 			<td>
 			<div id="itemRows5">
-			<select name="add_nat">
+			<select name="add_nat" required>
 				<option value="" selected> Seleccione </option>
 				<option value="Afghanistan"> Afghanistan </option>
 				<option value="Albania"> Albania </option>
@@ -711,7 +626,6 @@
 				<option value="Zimbabwe"> Zimbabwe </option>
 				<option value="other"> Other </option>
 			</select>
-			
 			<input onclick="addRow5(this.form);" type="button" value="Incluir" />
 			</div>
 			</td>
@@ -719,14 +633,14 @@
 		<tr>
 			<td><label class='control-label'>Sexo</label></td>
 			<td>
-				<input type="radio" name="blanksex" value="0"> Hombre
-				<input type="radio" name="blanksex" value="1" > Mujer
+				<input type="radio" name="blanksex" value="0" required> Hombre
+				<input type="radio" name="blanksex" value="1"> Mujer
 			</td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Dirección</label></td>
 			<td>
-				<select name="blankaddrtype">
+				<select name="blankaddrtype" required>
 					<option value="" selected>-- Tipo --</option>
 					<option value="Acceso">Acceso</option>
 					<option value="Acera">Acera</option>
@@ -755,56 +669,35 @@
 					<option value="Urbanización">Urbanización</option>
 					<option value="Vía">Vía</option>
 				</select>
-				<input type="text" name="blankaddrname" size="50" maxlength="50" placeholder="Nombre" />
-				<input type="text" name="blankaddrnum" size="5" maxlength="10" placeholder="Num" onkeyup="this.value=this.value.toUpperCase();" />
-				<input type="text" name="blankaddrportal" size="5" maxlength="10" placeholder="Portal" onkeyup="this.value=this.value.toUpperCase();" />
-				<input type="text" name="blankaddrstair" size="5" maxlength="10" placeholder="Esc" onkeyup="this.value=this.value.toUpperCase();" />
-				<input type="text" name="blankaddrfloor" size="5" maxlength="10" placeholder="Piso" />
-				<input type="text" name="blankaddrdoor" size="5" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();" /><br>
-				<!-- 
-				<input type="number" name="blankaddrpostalcode" size="10" maxlength="5" placeholder="Cód. Postal" />
-				<input type="text" name="blankaddrcountry" size="20" maxlength="50" placeholder="Pais" />
-				<input type="text" name="blankaddrprovince" size="20" maxlength="50" placeholder="Provincia" />
-				<input type="text" name="blankaddrcity" size="50" maxlength="50" placeholder="Población" />
-				-->
-				<!-- 
-				<input type="number" name="blankaddrpostalcode" size="10" maxlength="5" placeholder="Cód. Postal" />
-				<input type="text" name="blankaddrcity" size="50" maxlength="50" placeholder="Población" />
-				<input type="text" name="blankaddrprovince" size="20" maxlength="50" placeholder="Provincia" />
-				<input type="text" name="blankaddrcountry" size="20" maxlength="50" placeholder="Pais" />
-				-->
-				<!-- <input type="number" name="blankaddrpostalcode" size="10" maxlength="5" placeholder="Cód. Postal" onchange="ajaxGetAddres()">  -->
-				Cód.Postal <select name="blankcode" onchange="ajaxGetAddress(this.value)">
+				<input type="text" name="blankaddrname" size="50" maxlength="50" placeholder="Nombre" required>
+				<input type="text" name="blankaddrnum" size="5" maxlength="10" placeholder="Num" onkeyup="this.value=this.value.toUpperCase();" required>
+				<input type="text" name="blankaddrportal" size="5" maxlength="10" placeholder="Portal" onkeyup="this.value=this.value.toUpperCase();">
+				<input type="text" name="blankaddrstair" size="5" maxlength="10" placeholder="Esc" onkeyup="this.value=this.value.toUpperCase();">
+				<input type="text" name="blankaddrfloor" size="5" maxlength="10" placeholder="Piso">
+				<input type="text" name="blankaddrdoor" size="5" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();"><br>
+				Cód.Postal <select name="blankcode" onchange="ajaxGetAddress(this.value)" required>
 					<option value "">Elija su CP</option>
 					<?php 
-					//$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'id');
 					$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'postalCode');
 					foreach($cpCol as $i){
 						echo "<option value=" . $i . ">" . $i . "</option>";
 					}
 					?>
-					<!-- 
-					<option value="01001">01001</option>
-					<option value="01002">01002</option>
-					<option value="01007">01007</option>
-					<option value="01013">01013</option>
-					-->
 				</select>
-				<!-- <div id="txtHint"><b>Info AQUI</b></div> -->
 				<div id="txtHint"><b></b></div>
 			</td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Fijo</label></td>
-			<td><input type="text" name="blankphone" size="30" maxlength="9" placeholder="9XXXXXXXX" ></td>
+			<td><input type="text" name="blankphone" size="30" maxlength="9" placeholder="9XXXXXXXX" required></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Móvil</label></td>
-			<td><input type="text" name="blankmobile" size="30" maxlength="9" ></td>
+			<td><input type="text" name="blankmobile" size="30" maxlength="9" required></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Correo Electrónico</label></td>
-			<td><input type="email" name="blankmail" size="30" placeholder="correo@ejemplo.com" /></td>
+			<td><input type="email" name="blankmail" size="30" placeholder="correo@ejemplo.com" required></td>
 		</tr>
 		
 		<tr>
@@ -831,7 +724,7 @@
 		<tr>
 			<td><label class='control-label'>Estado Civil</label></td>
 			<td>
-			<select name="blankmarital">
+			<select name="blankmarital" required>
 				<option selected disabled value="">-- Estado --</option>
 				<?php
 				$userLang = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
@@ -855,7 +748,7 @@
 					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Tipos admitidos: JPG, JPEG o PNG. Máx: 1024Kb"></span>
 				</div>
 			</td>
-			<td><input type="file" name="foto" file-accept="jpg, jpeg, png" file-maxsize="1024" /></td>
+			<td><input type="file" name="foto" file-accept="jpg, jpeg, png" file-maxsize="1024" required></td>
 		</tr>
 		
 		<tr>
