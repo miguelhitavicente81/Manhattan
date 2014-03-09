@@ -382,6 +382,8 @@
 												echo "<td>" . $langRow['spanish'] . "</td>";
 												echo "<td>" . $langRow['german'] . "</td>";
 												echo "<td><a href='admGenOptions.php?codvalue=" . $langRow['id'] . "&hiddenGET=hDelLang' onclick='return confirmLangDeletionES();'>Borrar</a></td>";
+												//<a href="javascript:eliminar_noticia(eliminar_noticia.php?id_noticia=<?php echo $p[$i]["id_noticia"];? >');" title="Eliminar <?php echo $p[$i]["titulo"];? >"><img src="ima/eliminar.png" border="0" /></ a>
+												//echo "<td><a href='javascript:confirmLangDeletion(admGenOptions.php?codvalue=" . $langRow['id'] . "&hiddenGET=hDelLang);'>Borrare</a></td>";
 												$k++;
 											}
 											?>
@@ -562,6 +564,10 @@
 												echo "<td>" . $langRow['spanish'] . "</td>";
 												echo "<td>" . $langRow['german'] . "</td>";
 												echo "<td><a href='admGenOptions.php?codvalue=" . $langRow['id'] . "&hiddenGET=hDelLang' onclick='return confirmLangDeletionES();'>Borrar</a></td>";
+												//echo "<td><a href='javascript:confirmLangDeletion(admGenOptions.php?codvalue=" . $langRow['id'] . "&hiddenGET=hDelLang);'>Borrare</a></td>";
+												//<a href="javascript:eliminar_noticia(eliminar_noticia.php?id_noticia=<?php echo $p[$i]["id_noticia"];? >');" title="Eliminar <?php echo $p[$i]["titulo"];? >"><img src="ima/eliminar.png" border="0" /></ a>
+												//echo "<td><a href='javascript:confirmLangDeletion(admGenOptions.php?codvalue=" . $langRow['id'] . "&hiddenGET=hDelLang);'>Borra</a></td>";
+												//echo "<td><a href='' onclick='return confirmLangDeletionES(admGenOptions.php?codvalue=" . $langRow['id'] . "&hiddenGET=hDelLang);'>Borrar</a></td>";
 												$k++;
 											}
 											?>

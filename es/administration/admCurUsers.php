@@ -316,32 +316,34 @@
 											</thead>
 											<tbody>
 												<?php
-													$numUsers = getDBrowsnumber('users');
-													for($i=1; $i<=$numUsers; $i++){
-														$showedUserRow = getDBrow('users', 'id', $i);
-														echo "<tr>";
-														echo "<td>" . $showedUserRow['id'] . "</td>";
-														echo "<td><a class='launchModal' href='admCurUsers.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
-														echo "<td>" . $showedUserRow['profile'] . "</td>";
-														if($showedUserRow['employee'] == 1){
-															echo "<td>Sí</td>";
-														}
-														else{
-															echo "<td>No</td>";
-														}
-														if($showedUserRow['active']){
-															echo "<td>Sí</td>";
-														}
-														else{
-															echo "<td>No</td>";
-														}
-														echo "<td>" . getLanguageTranslation($showedUserRow['language'],'spanish') . "</td>";
-														echo "<td>" . $showedUserRow['created'] . "</td>";
-														echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
-														echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
-														echo "<td><a href=''>Borrar</a></td>";
-														echo "</tr>";
+												$userKeyRow = getDBcompletecolumnID('login', 'users', 'id');
+												$k = 1;
+												foreach($userKeyRow as $i){
+													$showedUserRow = getDBrow('users', 'login', $i);
+													echo "<tr>";
+													echo "<td>" . $k . "</td>";
+													echo "<td><a class='launchModal' href='admCurUsers.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
+													echo "<td>" . $showedUserRow['profile'] . "</td>";
+													if($showedUserRow['employee'] == 1){
+														echo "<td>Sí</td>";
 													}
+													else{
+														echo "<td>No</td>";
+													}
+													if($showedUserRow['active']){
+														echo "<td>Sí</td>";
+													}
+													else{
+														echo "<td>No</td>";
+													}
+													echo "<td>" . getLanguageTranslation($showedUserRow['language'],'spanish') . "</td>";
+													echo "<td>" . $showedUserRow['created'] . "</td>";
+													echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
+													echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
+													echo "<td><a href=''>Borrar</a></td>";
+													echo "</tr>";
+													$k++;
+												}
 												?>
 											</tbody>
 										</table>
@@ -418,25 +420,28 @@
 											</thead>
 											<tbody>
 												<?php
-													$numUsers = getDBrowsnumber('users');
-													for($i=1; $i<=$numUsers; $i++){
-														$showedUserRow = getDBrow('users', 'id', $i);
-														echo "<tr>";
-														echo "<td>" . $showedUserRow['id'] . "</td>";
-														echo "<td><a class='launchModal' href='admCurUsers.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
-														echo "<td>" . $showedUserRow['profile'] . "</td>";
-														if($showedUserRow['active']){
-															echo "<td>Sí</td>";
-														}
-														else{
-															echo "<td>No</td>";
-														}
-														echo "<td>" . getLanguageTranslation($showedUserRow['language'],'spanish') . "</td>";
-														echo "<td>" . $showedUserRow['created'] . "</td>";
-														echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
-														echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
-														echo "</tr>";
+												$userKeyRow = getDBNoMatchColValueID('login', 'users', 'profile', 'SuperAdmin', 'id');
+												$k = 1;
+												foreach($userKeyRow as $i){
+													$showedUserRow = getDBrow('users', 'login', $i);
+													echo "<tr>";
+													//echo "<td>" . $showedUserRow['id'] . "</td>";
+													echo "<td>" . $k . "</td>";
+													echo "<td><a class='launchModal' href='admCurUsers.php?codvalue=" . $showedUserRow['id'] . "'>" . $showedUserRow['login'] . "</a></td>";
+													echo "<td>" . $showedUserRow['profile'] . "</td>";
+													if($showedUserRow['active']){
+														echo "<td>Sí</td>";
 													}
+													else{
+														echo "<td>No</td>";
+													}
+													echo "<td>" . getLanguageTranslation($showedUserRow['language'],'spanish') . "</td>";
+													echo "<td>" . $showedUserRow['created'] . "</td>";
+													echo "<td>" . $showedUserRow['lastConnection'] . "</td>";
+													echo "<td>" . $showedUserRow['passExpiration'] . "</td>";
+													echo "</tr>";
+													$k++;
+												}
 												?>
 											</tbody>
 										</table>

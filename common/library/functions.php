@@ -87,7 +87,6 @@ function getDBcolumnname($dbtable, $column){
 
 
 
-
 /* Returns Array (if succeded) with all matched values in one given column
  * Entry (fieldrequested): Field where possible matches will be searched
  * Entry (dbtable): Name of table
@@ -156,6 +155,37 @@ function getDBDistCompleteColID($colRequested, $dbTable, $id){
 
 	$result = mysqli_query($connection, "SELECT DISTINCT `$colRequested` FROM `$dbTable` ORDER BY `$id`") or die("Error en getDBcompletecolumnID: ".mysqli_error($connection));
 
+	$i = 0;
+	if(mysqli_num_rows($result) > 0){
+		while($column = mysqli_fetch_row($result)){
+			$row[$i] = $column[0];
+			$i++;
+		}
+		mysqli_free_result($result);
+		mysqli_close($connection);
+		return $row;
+	}
+	else{
+		mysqli_free_result($result);
+		mysqli_close($connection);
+	}
+}
+
+
+
+/* Returns Array (if succeded) with all NOT matched values in one given column, ordered by selected ID. Opposite to "getDBcolumnvalue"
+ * Entry (fieldReq): Field where possible NON-matching values will be searched
+ * Entry (dbTable): Name of table
+ * Entry (fieldSup): Field used by SELECT query to identify NON-matching values in "fieldReq"
+ * Entry (infoSup): String that indicates NON-matching value to be obviated from exit row
+ * Entry (id): Unique identificator used to get possible output array ordered
+ * Exit (row): Output array with NON-matching values
+ */
+//function getDBcolumnvalue($fieldrequested, $dbTable, $fieldsupported, $infosupported){
+function getDBNoMatchColValueID($fieldReq, $dbTable, $fieldSup, $infoSup, $id){
+	$connection = connectDB();
+	
+	$result = mysqli_query($connection, "SELECT `$fieldReq` FROM `$dbTable` WHERE `$fieldSup`!='$infoSup' ORDER BY `$id`") or die("Error obtaining non-matching array: ".mysqli_error($connection));
 	$i = 0;
 	if(mysqli_num_rows($result) > 0){
 		while($column = mysqli_fetch_row($result)){
