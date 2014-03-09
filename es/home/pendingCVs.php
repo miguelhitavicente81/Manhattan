@@ -112,7 +112,7 @@
 
 			$pendingCVs = getPendingCVs();
 
-			if (isset($_POST['editedCV'])) {
+			if (isset($_POST['eCurCVsend'])) {
 				if((!executeDBquery("UPDATE `cvitaes` SET `cvStatus` = 'checked' WHERE `nie` = '".$_POST['eCCVnie']."'"))){
 					?>
 					<script type="text/javascript">
@@ -120,14 +120,6 @@
 						window.location.href='pendingCVs.php?codvalue=<?php echo $_POST['eCCVnie'];  ?>';
 					</script>
 					<?php 
-				}
-				else {
-					?>
-					<script type="text/javascript">
-						alert('Error revisando CV');
-						window.location.href='pendingCVs.php?codvalue=<?php echo $_POST['eCCVnie'];  ?>';
-					</script>
-					<?php
 				}
 			}
 		?>
