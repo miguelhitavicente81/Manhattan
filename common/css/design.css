@@ -268,11 +268,6 @@ body {
 	font-weight: 700;
 }
 
-.form-upload .control-label {
-	padding: 0;
-	text-align: left;
-}
-
 
 
 
@@ -342,6 +337,35 @@ body {
 	padding: 0px;
 	margin-right: 20px;
 }
+
+
+
+
+/* uploadForm styles
+-------------------------------------------------- */
+#uploadFormLabel{
+}
+@media (min-width: 768px) {
+	#uploadFormLabel {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+}
+
+#rowNum1 {
+	margin-top: 40px;
+}
+
+.uploadFormChild {
+	margin-left: 150px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+
+	padding-top: 10px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
 
 
 
