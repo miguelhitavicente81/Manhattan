@@ -347,8 +347,8 @@ body {
 }
 @media (min-width: 768px) {
 	#uploadFormLabel {
-		padding-left: 0px;
-		padding-right: 0px;
+/*		padding-left: 0px;
+		padding-right: 0px;*/
 	}
 }
 
@@ -362,8 +362,8 @@ body {
 	margin-bottom: 10px;
 
 	padding-top: 10px;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding-left: 0px;
+	padding-right: 0px;
 }
 
 

@@ -77,35 +77,63 @@
 		
 		//Functions used to add/remove realtime Language fields 
 		var rowNum = 0;
-		function addRow1(frm){
+		function addLanguage(frm){
 			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'"><input type="text" name="nidiomas[]" size="4" value="'+frm.add_nidiomas.value+'"> <input type="button" value="Eliminar" onclick="removeRow1('+rowNum+');"></p>';
-			jQuery('#itemRows').append(row);
+			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowLanguage'+rowNum+'"><div class="col-sm-5"><input class="form-control" type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'" disabled></div><div class="col-sm-5"><input class="form-control" type="text" name="nidiomas[]" value="'+frm.add_nidiomas.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeLanguage('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
+			jQuery('#uploadFormLanguage').append(row);
 			frm.add_idiomas.value = '';
 			frm.add_nidiomas.value = '';
 		}
 		
-		function removeRow1(rnum){
-			jQuery('#rowNum'+rnum).remove();
+		function removeLanguage(rnum){
+			jQuery('#rowLanguage'+rnum).remove();
 		}
 		
 		//Functions used to add/remove realtime Education fields 
 		var rowNum = 0;
-		function addRow3(frm){
+		function addDegree(frm){
 			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="educ[]" size="30" value="'+frm.add_educ.value+'"><input type="button" value="Eliminar" onclick="removeRow3('+rowNum+');"></p>';
-			jQuery('#itemRows3').append(row);
+			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowDegree'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="educ[]" value="'+frm.add_educ.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeDegree('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
+			jQuery('#uploadFormDegree').append(row);
 			frm.add_educ.value = '';
 		}
 		
-		function removeRow3(rnum){
-			jQuery('#rowNum'+rnum).remove();
+		function removeDegree(rnum){
+			jQuery('#rowDegree'+rnum).remove();
 		}
 		
-		function addRow4(frm){
+		function addCareer(frm){
 			rowNum ++;
-			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="expstart[]" value="'+frm.add_expstart.value+'"><input type="text" name="expend[]" value="'+frm.add_expend.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="Eliminar" onclick="removeRow4('+rowNum+');"></p>';
-			jQuery('#itemRows4').append(row);
+
+			var row ='<div class="row" style="padding-left: 0px; margin-bottom: 10px;" id="rowCareer'+rowNum+'"> \
+						<div class="col-sm-5"> \
+							<div class="row"> \
+								<div class="col-sm-6"> \
+									<input class="form-control" type="text" name="empr[]" value="'+frm.add_empr.value+'"> \
+								</div> \
+								<div class="col-sm-6"> \
+									<input class="form-control" type="text" name="categ[]" value="'+frm.add_categ.value+'" > \
+								</div> \
+							</div> \
+							<div class="row"> \
+								<div class="col-sm-6"> \
+									<input class="form-control" type="text" name="expstart[]" value="'+frm.add_expstart.value+'"> \
+								</div>			 \
+								<div class="col-sm-6"> \
+									<input class="form-control" type="text" name="expend[]" value="'+frm.add_expend.value+'"> \
+								</div> \
+							</div> \
+						</div> \
+						<div class=" row col-sm-4"> \
+							<div class="col-sm-10"> \
+								<textarea class="form-control" name="desc[]" value="'+frm.add_desc.value+'"></textarea> \
+							</div>	 \
+							<div class="btn-toolbar col-sm-1"> \
+								<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="removeCareer('+rowNum+');" type="button"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div> \
+							</div> \
+						</div>					 \
+					</div>';			
+			jQuery('#uploadFormCareer').append(row);
 			frm.add_empr.value = '';
 			frm.add_categ.value = '';
 			frm.add_expstart.value = '';
@@ -113,19 +141,18 @@
 			frm.add_desc.value = '';
 		}
 		
-		function removeRow4(rnum){
-			jQuery('#rowNum'+rnum).remove();
+		function removeCareer(rnum){
+			jQuery('#rowCareer'+rnum).remove();
 		}
 		function addNationality(frm){
 			rowNum ++;
-
-			var row = '<div class="form-group uploadFormChild" style="margin-left: 150px; margin-right: 0px; " id="rowNum'+rowNum+'"><label id="uploadFormLabel" class="control-label col-sm-2" for="nat[]">Nacionalidad: </label><div class="col-sm-9"><input class="form-control" type="text" name="nat[]" value="'+frm.add_nat.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeNationality('+rowNum+');"><span class="glyphicon glyphicon-minus"></span></button></div></div></div>';
+			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowNationality'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="nat[]" value="'+frm.add_nat.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeNationality('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
 			jQuery('#uploadFormNationality').append(row);
 			frm.add_nat.value = '';
 		}
 		
 		function removeNationality(rnum){
-			jQuery('#rowNum'+rnum).remove();
+			jQuery('#rowNationality'+rnum).remove();
 		}
 	</script>
 	
@@ -143,15 +170,15 @@
 				#echo $key;
 			if(is_array($entry)){
 				if($key == idiomas){
-					//str_idiomas es 'language' en la BD (en addRow1)
+					//str_idiomas es 'language' en la BD (en addLanguage)
 					$str_idiomas = implode('|',$entry);
 				}
 				if($key == nidiomas){
-					//str_nidiomas es 'langLevel' en la BD (en addRow1)
+					//str_nidiomas es 'langLevel' en la BD (en addLanguage)
 					$str_nidiomas = implode('|',$entry);
 				}
 				if($key == educ){
-					//str_educ es 'education' en la BD (en addRow3)
+					//str_educ es 'education' en la BD (en addDegree)
 					$str_educ = implode('|', $entry);
 				}
 				if($key == empr){
@@ -391,9 +418,9 @@
 				</div>
 			</div>		
 
-			<div class="form-group" id="uploadFormNationality"> <!-- Nacionalidad -->
+			<div class="form-group"> <!-- Nacionalidad -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_nat">Nacionalidad: </label> 
-				<div class="col-sm-9">
+				<div class="col-sm-9" id="uploadFormNationality">
 					<select class="form-control" name="add_nat" required>
 						<option value="" selected> Seleccione </option>
 						<option value="Afghanistan"> Afghanistan </option>
@@ -797,7 +824,7 @@
 			<div class="form-group"> <!-- Nivel de Idiomas -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_idiomas">Nivel de idiomas: </label> 
 				<div class="col-sm-10" style="padding-left: 0px;">
-					<div class="col-sm-6">
+					<div class="col-sm-6" id="uploadFormLanguage">
 						<select class="form-control" name="add_idiomas" required>
 							<option selected disabled value="">-- Idioma --</option>
 							<?php
@@ -821,83 +848,100 @@
 						</select>
 					</div>
 					<div class="btn-toolbar col-sm-1">
-						<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addRow1(this.form);" type="button"><span class="glyphicon glyphicon-plus"></span></button></div>
+						<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addLanguage(this.form);" type="button"><span class="glyphicon glyphicon-plus"></span></button></div>
 					</div>
 				</div>
 			</div>			
 
-	</div>
-
-	<table>
-
-		<tr>
-			<td>
-				<div class="tooltip-demo">
-					<label class='control-label'>Educación</label>
-					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Si su título no aparece en el listado, póngase en contacto con nosotros a través de administracion@perspectiva-alemania.com"></span>
-				</div>
-			</td>
-			<td>
-				<div id="itemRows3">
-					<!-- <select name="add_nfor"> -->
-					<select name="add_educ">
+			<div class="form-group tooltip-demo"> <!-- Educación -->
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_educ"><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="Si su título no aparece en el listado, póngase en contacto con nosotros a través de administracion@perspectiva-alemania.com"></span> Educación: </label> 
+				<div id="uploadFormDegree" class="col-sm-9">
+					<select class="form-control" name="add_educ" required>
 						<option selected value="">Estudié...</option>
 						<?php 
-						$eduNames = getDBcompleteColumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'studies', 'id');
-						foreach($eduNames as $i){
-							echo "<option value=" . $i . ">" . $i . "</option>";
-						}
+							$eduNames = getDBcompleteColumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'studies', 'id');
+							foreach($eduNames as $i){
+								echo "<option value=" . $i . ">" . $i . "</option>";
+							}
 						?>
-					</select>
-					<input onclick="addRow3(this.form);" type="button" value="Incluir" />
+					</select>						
 				</div>
-			</td>
-		</tr>
-		<tr>
-			<td><label class='control-label'>Qué has hecho estos últimos años...</label></td>
-			<td>
-			<div id="itemRows4">
-				<input type="text" name="add_empr" size="25" placeholder="Empresa" />
-				<input type="text" name="add_categ" size="25" placeholder="Posición" /><br>
-				<input type="text" name="add_expstart" size="8" placeholder="Inicio" />
-				<input type="text" name="add_expend" size="8" placeholder="Fin(MM-YYYY)" />
-				<textarea name="add_desc" rows="3" cols="30" placeholder="Descripción del puesto"></textarea>
-				<input onclick="addRow4(this.form);" type="button" value="Incluir" />
+				<div class="btn-toolbar col-sm-1">
+					<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addDegree(this.form);" type="button"><span class="glyphicon glyphicon-plus"></span></button></div>
+				</div>
+			</div>	
+
+			<div class="form-group"> <!-- Trayectoria -->
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_career">¿Qué has hecho estos últimos años? </label> 
+				<div class="col-sm-10" id="uploadFormCareer">
+					<div class="row" style="padding-left: 0px; margin-bottom: 10px;">
+						<div class="col-sm-5">
+							<div class="row">
+								<div class="col-sm-6">
+									<input class="form-control" type="text" name="add_empr" placeholder="Empresa" />
+								</div>
+								<div class="col-sm-6">
+									<input class="form-control" type="text" name="add_categ" placeholder="Posición" />
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm-6">
+									<input class="form-control" type="date" name="add_expstart" placeholder="Inicio" />
+								</div>			
+								<div class="col-sm-6">
+									<input class="form-control" type="date" name="add_expend" placeholder="Fin" />
+								</div>
+							</div>
+						</div>
+						<div class=" row col-sm-4">
+							<div class="col-sm-10">
+								<textarea class="form-control" name="add_desc" placeholder="Descripción del puesto"></textarea>
+							</div>	
+							<div class="btn-toolbar col-sm-1">
+								<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addCareer(this.form);" type="button"><span class="glyphicon glyphicon-plus"></span></button></div>
+							</div>
+						</div>					
+					</div>
+				</div>
+			</div>		
+
+			<div class="form-group"> <!-- Salario -->
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksalary">Salario deseado: </label> 
+				<div class="col-sm-10">
+					<input class="form-control" type="number" name="blanksalary" placeholder="€uros">
+				</div>
 			</div>
-			</td>
-		</tr>
-		
-		<tr>
-			<td><label class='control-label'>Salario deseado</label></td>
-			<td><input type="number" name="blanksalary" size="10" placeholder="$" /><br></td>
-		</tr>
-		
-		<tr>
-			<td><label class='control-label'>Otros datos de interés</label></td>
-			<td><textarea name="blankother" rows="3" cols="50" placeholder="Exponga aquí cualquier dato que estime oportuno y no aparezca en ningún otro campo..."></textarea></td>
-		</tr>
-		
-		<tr>
-			<td><label class='control-label'>Las 10 palabras que mejor me definen son...</label></td>
-			<td>
-			<input type="text" name="blankskill1" size="30" /><br>
-			<input type="text" name="blankskill2" size="30" /><br>
-			<input type="text" name="blankskill3" size="30" /><br>
-			<input type="text" name="blankskill4" size="30" /><br>
-			<input type="text" name="blankskill5" size="30" /><br>
-			<input type="text" name="blankskill6" size="30" /><br>
-			<input type="text" name="blankskill7" size="30" /><br>
-			<input type="text" name="blankskill8" size="30" /><br>
-			<input type="text" name="blankskill9" size="30" /><br>
-			<input type="text" name="blankskill10" size="30" />
-			</td>
-		</tr>
-	</table>
 
-	<input type="checkbox" name="blanklopd"> He leído y acepto las condiciones de uso y política de privacidad<br>
-	<input  type="submit" name ="push_button" value="Enviar" />
-	<!-- <input type="reset" value="Borrar formulario" /> -->
+			<div class="form-group"> <!-- Otros datos de Interés -->
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankother">Otros datos de interés: </label> 
+				<div class="col-sm-10">
+					<textarea class="form-control" type="number" name="blankother" placeholder="Exponga aquí cualquier dato que estime oportuno y no aparezca en ningún otro campo..."></textarea>	
+				</div>
+			</div>		
 
+			<div class="form-group"> <!-- 10 Tags -->
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankother">Las 10 palabras que mejor me definen son... </label> 
+				<div class="col-sm-10">
+					<?php
+					for ($i=1; $i <= 10 ; $i++) { 
+
+						echo "	<div class='col-sm-5' style='margin-bottom: 10px;'>";
+						echo "		<input class='form-control' type='text' name='blankskill$i'>";
+						echo "	</div>";
+
+					}
+					?>
+				</div>
+			</div>			
+		</div> <!-- Panel Body -->
+
+		<div class="panel-footer">
+					<label class "control-label" style="margin-bottom: 10px; margin-top: 5px;"><input type="checkbox" name="blanklopd"> He leído y acepto las condiciones de uso y política de privacidad</label>
+				<div class="btn-group pull-right">
+					<button type="submit" name ="push_button" class="btn btn-primary">Enviar</button>
+				</div>
+		</div> <!-- Panel Footer-->
+	</div> <!-- Panel -->
 </form>
 
 </body>
