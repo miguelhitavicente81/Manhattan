@@ -14,7 +14,6 @@
  */
 function connectDB(){
 	$connection = mysqli_connect('localhost','root','', 'PRJ2014001') or die('MySQL connection error. Please contact administrator');
-	//mysqli_select_db($conexion, 'PRJ2014001') or die('There was a problem connecting to DDBB. Please contact administrator');
 
 	$connection->query("SET NAMES 'utf8'");
 	

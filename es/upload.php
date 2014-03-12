@@ -71,7 +71,7 @@
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	
 	<script>
-		//Functions used to add/remove realtime Language fields 
+		//Functions used to add/remove in realtime Language fields 
 		var rowNum = 0;
 		function addLanguage(frm){
 			rowNum ++;
@@ -85,7 +85,7 @@
 			jQuery('#rowLanguage'+rnum).remove();
 		}
 		
-		//Functions used to add/remove realtime Education fields 
+		//Functions used to add/remove in realtime Education fields 
 		var rowNum = 0;
 		function addDegree(frm){
 			rowNum ++;
@@ -97,44 +97,38 @@
 		function removeDegree(rnum){
 			jQuery('#rowDegree'+rnum).remove();
 		}
-<<<<<<< HEAD
 
-		//Functions to add/remove realtime Experience fields 
-		function addRow4(frm){
-=======
-		
+		//Functions to add/remove in realtime Experience fields 
 		function addCareer(frm){
->>>>>>> upstream/development
 			rowNum ++;
-
 			var row ='<div class="row" style="padding-left: 0px; margin-bottom: 10px;" id="rowCareer'+rowNum+'"> \
-						<div class="col-sm-5"> \
-							<div class="row"> \
-								<div class="col-sm-6"> \
-									<input class="form-control" type="text" name="empr[]" value="'+frm.add_empr.value+'"> \
-								</div> \
-								<div class="col-sm-6"> \
-									<input class="form-control" type="text" name="categ[]" value="'+frm.add_categ.value+'" > \
-								</div> \
-							</div> \
-							<div class="row"> \
-								<div class="col-sm-6"> \
-									<input class="form-control" type="text" name="expstart[]" value="'+frm.add_expstart.value+'"> \
-								</div>			 \
-								<div class="col-sm-6"> \
-									<input class="form-control" type="text" name="expend[]" value="'+frm.add_expend.value+'"> \
-								</div> \
-							</div> \
+				<div class="col-sm-5"> \
+					<div class="row"> \
+						<div class="col-sm-6"> \
+							<input class="form-control" type="text" name="empr[]" value="'+frm.add_empr.value+'"> \
 						</div> \
-						<div class=" row col-sm-4"> \
-							<div class="col-sm-10"> \
-								<textarea class="form-control" name="desc[]" value="'+frm.add_desc.value+'"></textarea> \
-							</div>	 \
-							<div class="btn-toolbar col-sm-1"> \
-								<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="removeCareer('+rowNum+');" type="button"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div> \
-							</div> \
-						</div>					 \
-					</div>';			
+						<div class="col-sm-6"> \
+							<input class="form-control" type="text" name="categ[]" value="'+frm.add_categ.value+'" > \
+						</div> \
+					</div> \
+					<div class="row"> \
+						<div class="col-sm-6"> \
+							<input class="form-control" type="text" name="expstart[]" value="'+frm.add_expstart.value+'"> \
+						</div>			 \
+						<div class="col-sm-6"> \
+							<input class="form-control" type="text" name="expend[]" value="'+frm.add_expend.value+'"> \
+						</div> \
+					</div> \
+				</div> \
+				<div class=" row col-sm-4"> \
+					<div class="col-sm-10"> \
+						<textarea class="form-control" name="desc[]" value="'+frm.add_desc.value+'"></textarea> \
+					</div>	 \
+					<div class="btn-toolbar col-sm-1"> \
+						<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="removeCareer('+rowNum+');" type="button"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div> \
+					</div> \
+				</div>					 \
+			</div>';			
 			jQuery('#uploadFormCareer').append(row);
 			frm.add_empr.value = '';
 			frm.add_categ.value = '';
@@ -146,13 +140,9 @@
 		function removeCareer(rnum){
 			jQuery('#rowCareer'+rnum).remove();
 		}
-<<<<<<< HEAD
 
-		//Functions to add/remove realtime Nationalities fields 
-		function addRow5(frm){
-=======
+		//Functions to add/remove in realtime Nationalities fields 
 		function addNationality(frm){
->>>>>>> upstream/development
 			rowNum ++;
 			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowNationality'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="nat[]" value="'+frm.add_nat.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeNationality('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
 			jQuery('#uploadFormNationality').append(row);
@@ -202,11 +192,6 @@
 				return false;
 			}
 		}
-<<<<<<< HEAD
-		
-=======
-
->>>>>>> upstream/development
 	</script>
 	
 </head>
@@ -218,11 +203,7 @@
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/SimpleImage.php');
 	
 	if(isset($_POST['push_button'])){
-<<<<<<< HEAD
 		#echo "entro en el if $_POST[senduser]";
-=======
-	echo "entro en el if $_POST[senduser]";
->>>>>>> upstream/development
 		foreach ($_POST as $key => $entry){
 				#echo $key;
 			if(is_array($entry)){
@@ -357,23 +338,15 @@
 				<?php 
 			}
 		}
-<<<<<<< HEAD
-=======
-
-
->>>>>>> upstream/development
 		*/
+		
+		
 		//Field 'maritalStatus' is automatically checked in the own form with field "required"
 		/*
 		elseif(){
 		}
 		*/
-<<<<<<< HEAD
 		
-		
-=======
-
->>>>>>> upstream/development
 		//echo 'Hijos '.$_POST['blanksons'];
 		/*
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
@@ -449,13 +422,8 @@
 			#echo "¡Posible ataque de carga de archivos!\n";
 		}
 		*/
-<<<<<<< HEAD
 		
 		
-=======
-
-
->>>>>>> upstream/development
 		//blocks candidate and redirects her/him to index.html
 		executeDBquery("UPDATE `users` SET `active`='0' WHERE `login`='".$_SESSION['loglogin']."'");
 		?>
@@ -465,10 +433,10 @@
 		</script>
 		<?php
 	}//del (isset($_POST[]))
-	
-/***************  Fin del bloque que valida el contenido enviado en el formulario  ***************/
 
-/***************  Aquí comienza el bloque que permite mostrar el formulario  ***************/
+	/*****************************     End of FORM validations     *****************************/
+	
+	/*************************     Start of WebPage code as showed     *************************/
 ?>
 
 <form id="uploadForm" class="form-horizontal" name="formu" action=""  method="post" enctype="multipart/form-data">
@@ -481,327 +449,6 @@
 				</div>
 			</div>
 
-<<<<<<< HEAD
-	<table>
-		<tr>
-			<td><label class='control-label'>Nombre</label></td>
-			<td><input type="text" name="blankname" size="30" maxlength="30" required></td>
-		</tr>
-		<tr>
-			<td><label class='control-label'>Apellidos</label></td>
-			<td><input type="text" name="blanksurname" size="30" maxlength="50" required></td>
-		</tr>
-		<tr>
-			<td><label class='control-label'>Fecha de Nacimiento</label></td>
-			<td><input type="date" name="blankbirthdate" ></td>
-		</tr>
-		<tr>
-			<td><label class='control-label'>DNI/NIE</label></td>
-			<td><input type="text" name="blanknie" size="30" maxlength="9" placeholder="12345678X" onkeyup="this.value=this.value.toUpperCase();" ></td>
-		</tr>
-		
-		<tr>
-			<td><label class='control-label'>Nacionalidad</label></td>
-			<td>
-			<div id="itemRows5">
-			<select name="add_nat">
-				<option value="" selected> Seleccione </option>
-				<option value="Afghanistan"> Afghanistan </option>
-				<option value="Albania"> Albania </option>
-				<option value="Algeria"> Algeria </option>
-				<option value="American Samoa"> American Samoa </option>
-				<option value="Andorra"> Andorra </option>
-				<option value="Angola"> Angola </option>
-				<option value="Anguilla"> Anguilla </option>
-				<option value="Antigua and Barbuda"> Antigua and Barbuda </option>
-				<option value="Argentina"> Argentina </option>
-				<option value="Armenia"> Armenia </option>
-				<option value="Aruba"> Aruba </option>
-				<option value="Australia"> Australia </option>
-				<option value="Austria"> Austria </option>
-				<option value="Azerbaijan"> Azerbaijan </option>
-				<option value="The Bahamas"> The Bahamas </option>
-				<option value="Bahrain"> Bahrain </option>
-				<option value="Bangladesh"> Bangladesh </option>
-				<option value="Barbados"> Barbados </option>
-				<option value="Belarus"> Belarus </option>
-				<option value="Belgium"> Belgium </option>
-				<option value="Belize"> Belize </option>
-				<option value="Benin"> Benin </option>
-				<option value="Bermuda"> Bermuda </option>
-				<option value="Bhutan"> Bhutan </option>
-				<option value="Bolivia"> Bolivia </option>
-				<option value="Bosnia and Herzegovina"> Bosnia and Herzegovina </option>
-				<option value="Botswana"> Botswana </option>
-				<option value="Brazil"> Brazil </option>
-				<option value="Brunei"> Brunei </option>
-				<option value="Bulgaria"> Bulgaria </option>
-				<option value="Burkina Faso"> Burkina Faso </option>
-				<option value="Burundi"> Burundi </option>
-				<option value="Cambodia"> Cambodia </option>
-				<option value="Cameroon"> Cameroon </option>
-				<option value="Canada"> Canada </option>
-				<option value="Cape Verde"> Cape Verde </option>
-				<option value="Cayman Islands"> Cayman Islands </option>
-				<option value="Central African Republic"> Central African Republic </option>
-				<option value="Chad"> Chad </option>
-				<option value="Chile"> Chile </option>
-				<option value="People's Republic of China"> People's Republic of China </option>
-				<option value="Republic of China"> Republic of China </option>
-				<option value="Christmas Island"> Christmas Island </option>
-				<option value="Cocos (Keeling) Islands"> Cocos (Keeling) Islands </option>
-				<option value="Colombia"> Colombia </option>
-				<option value="Comoros"> Comoros </option>
-				<option value="Congo"> Congo </option>
-				<option value="Cook Islands"> Cook Islands </option>
-				<option value="Costa Rica"> Costa Rica </option>
-				<option value="Cote d'Ivoire"> Cote d'Ivoire </option>
-				<option value="Croatia"> Croatia </option>
-				<option value="Cuba"> Cuba </option>
-				<option value="Cyprus"> Cyprus </option>
-				<option value="Czech Republic"> Czech Republic </option>
-				<option value="Denmark"> Denmark </option>
-				<option value="Djibouti"> Djibouti </option>
-				<option value="Dominica"> Dominica </option>
-				<option value="Dominican Republic"> Dominican Republic </option>
-				<option value="Ecuador"> Ecuador </option>
-				<option value="Egypt"> Egypt </option>
-				<option value="El Salvador"> El Salvador </option>
-				<option value="Equatorial Guinea"> Equatorial Guinea </option>
-				<option value="Eritrea"> Eritrea </option>
-				<option value="Estonia"> Estonia </option>
-				<option value="Ethiopia"> Ethiopia </option>
-				<option value="Falkland Islands"> Falkland Islands </option>
-				<option value="Faroe Islands"> Faroe Islands </option>
-				<option value="Fiji"> Fiji </option>
-				<option value="Finland"> Finland </option>
-				<option value="France"> France </option>
-				<option value="French Polynesia"> French Polynesia </option>
-				<option value="Gabon"> Gabon </option>
-				<option value="The Gambia"> The Gambia </option>
-				<option value="Georgia"> Georgia </option>
-				<option value="Germany"> Germany </option>
-				<option value="Ghana"> Ghana </option>
-				<option value="Gibraltar"> Gibraltar </option>
-				<option value="Greece"> Greece </option>
-				<option value="Greenland"> Greenland </option>
-				<option value="Grenada"> Grenada </option>
-				<option value="Guadeloupe"> Guadeloupe </option>
-				<option value="Guam"> Guam </option>
-				<option value="Guatemala"> Guatemala </option>
-				<option value="Guernsey"> Guernsey </option>
-				<option value="Guinea"> Guinea </option>
-				<option value="Guinea-Bissau"> Guinea-Bissau </option>
-				<option value="Guyana"> Guyana </option>
-				<option value="Haiti"> Haiti </option>
-				<option value="Honduras"> Honduras </option>
-				<option value="Hong Kong"> Hong Kong </option>
-				<option value="Hungary"> Hungary </option>
-				<option value="Iceland"> Iceland </option>
-				<option value="India"> India </option>
-				<option value="Indonesia"> Indonesia </option>
-				<option value="Iran"> Iran </option>
-				<option value="Iraq"> Iraq </option>
-				<option value="Ireland"> Ireland </option>
-				<option value="Israel"> Israel </option>
-				<option value="Italy"> Italy </option>
-				<option value="Jamaica"> Jamaica </option>
-				<option value="Japan"> Japan </option>
-				<option value="Jersey"> Jersey </option>
-				<option value="Jordan"> Jordan </option>
-				<option value="Kazakhstan"> Kazakhstan </option>
-				<option value="Kenya"> Kenya </option>
-				<option value="Kiribati"> Kiribati </option>
-				<option value="North Korea"> North Korea </option>
-				<option value="South Korea"> South Korea </option>
-				<option value="Kosovo"> Kosovo </option>
-				<option value="Kuwait"> Kuwait </option>
-				<option value="Kyrgyzstan"> Kyrgyzstan </option>
-				<option value="Laos"> Laos </option>
-				<option value="Latvia"> Latvia </option>
-				<option value="Lebanon"> Lebanon </option>
-				<option value="Lesotho"> Lesotho </option>
-				<option value="Liberia"> Liberia </option>
-				<option value="Libya"> Libya </option>
-				<option value="Liechtenstein"> Liechtenstein </option>
-				<option value="Lithuania"> Lithuania </option>
-				<option value="Luxembourg"> Luxembourg </option>
-				<option value="Macau"> Macau </option>
-				<option value="Macedonia"> Macedonia </option>
-				<option value="Madagascar"> Madagascar </option>
-				<option value="Malawi"> Malawi </option>
-				<option value="Malaysia"> Malaysia </option>
-				<option value="Maldives"> Maldives </option>
-				<option value="Mali"> Mali </option>
-				<option value="Malta"> Malta </option>
-				<option value="Marshall Islands"> Marshall Islands </option>
-				<option value="Martinique"> Martinique </option>
-				<option value="Mauritania"> Mauritania </option>
-				<option value="Mauritius"> Mauritius </option>
-				<option value="Mayotte"> Mayotte </option>
-				<option value="Mexico"> Mexico </option>
-				<option value="Micronesia"> Micronesia </option>
-				<option value="Moldova"> Moldova </option>
-				<option value="Monaco"> Monaco </option>
-				<option value="Mongolia"> Mongolia </option>
-				<option value="Montenegro"> Montenegro </option>
-				<option value="Montserrat"> Montserrat </option>
-				<option value="Morocco"> Morocco </option>
-				<option value="Mozambique"> Mozambique </option>
-				<option value="Myanmar"> Myanmar </option>
-				<option value="Nagorno-Karabakh"> Nagorno-Karabakh </option>
-				<option value="Namibia"> Namibia </option>
-				<option value="Nauru"> Nauru </option>
-				<option value="Nepal"> Nepal </option>
-				<option value="Netherlands"> Netherlands </option>
-				<option value="Netherlands Antilles"> Netherlands Antilles </option>
-				<option value="New Caledonia"> New Caledonia </option>
-				<option value="New Zealand"> New Zealand </option>
-				<option value="Nicaragua"> Nicaragua </option>
-				<option value="Niger"> Niger </option>
-				<option value="Nigeria"> Nigeria </option>
-				<option value="Niue"> Niue </option>
-				<option value="Norfolk Island"> Norfolk Island </option>
-				<option value="Turkish Republic of Northern Cyprus"> Turkish Republic of Northern Cyprus </option>
-				<option value="Northern Mariana"> Northern Mariana </option>
-				<option value="Norway"> Norway </option>
-				<option value="Oman"> Oman </option>
-				<option value="Pakistan"> Pakistan </option>
-				<option value="Palau"> Palau </option>
-				<option value="Palestine"> Palestine </option>
-				<option value="Panama"> Panama </option>
-				<option value="Papua New Guinea"> Papua New Guinea </option>
-				<option value="Paraguay"> Paraguay </option>
-				<option value="Peru"> Peru </option>
-				<option value="Philippines"> Philippines </option>
-				<option value="Pitcairn Islands"> Pitcairn Islands </option>
-				<option value="Poland"> Poland </option>
-				<option value="Portugal"> Portugal </option>
-				<option value="Puerto Rico"> Puerto Rico </option>
-				<option value="Qatar"> Qatar </option>
-				<option value="Romania"> Romania </option>
-				<option value="Russia"> Russia </option>
-				<option value="Rwanda"> Rwanda </option>
-				<option value="Saint Barthelemy"> Saint Barthelemy </option>
-				<option value="Saint Helena"> Saint Helena </option>
-				<option value="Saint Kitts and Nevis"> Saint Kitts and Nevis </option>
-				<option value="Saint Lucia"> Saint Lucia </option>
-				<option value="Saint Martin"> Saint Martin </option>
-				<option value="Saint Pierre and Miquelon"> Saint Pierre and Miquelon </option>
-				<option value="Saint Vincent and the Grenadines"> Saint Vincent and the Grenadines </option>
-				<option value="Samoa"> Samoa </option>
-				<option value="San Marino"> San Marino </option>
-				<option value="Sao Tome and Principe"> Sao Tome and Principe </option>
-				<option value="Saudi Arabia"> Saudi Arabia </option>
-				<option value="Senegal"> Senegal </option>
-				<option value="Serbia"> Serbia </option>
-				<option value="Seychelles"> Seychelles </option>
-				<option value="Sierra Leone"> Sierra Leone </option>
-				<option value="Singapore"> Singapore </option>
-				<option value="Slovakia"> Slovakia </option>
-				<option value="Slovenia"> Slovenia </option>
-				<option value="Solomon Islands"> Solomon Islands </option>
-				<option value="Somalia"> Somalia </option>
-				<option value="Somaliland"> Somaliland </option>
-				<option value="South Africa"> South Africa </option>
-				<option value="South Ossetia"> South Ossetia </option>
-				<option value="Spain"> Spain </option>
-				<option value="Sri Lanka"> Sri Lanka </option>
-				<option value="Sudan"> Sudan </option>
-				<option value="Suriname"> Suriname </option>
-				<option value="Svalbard"> Svalbard </option>
-				<option value="Swaziland"> Swaziland </option>
-				<option value="Sweden"> Sweden </option>
-				<option value="Switzerland"> Switzerland </option>
-				<option value="Syria"> Syria </option>
-				<option value="Taiwan"> Taiwan </option>
-				<option value="Tajikistan"> Tajikistan </option>
-				<option value="Tanzania"> Tanzania </option>
-				<option value="Thailand"> Thailand </option>
-				<option value="Timor-Leste"> Timor-Leste </option>
-				<option value="Togo"> Togo </option>
-				<option value="Tokelau"> Tokelau </option>
-				<option value="Tonga"> Tonga </option>
-				<option value="Transnistria Pridnestrovie"> Transnistria Pridnestrovie </option>
-				<option value="Trinidad and Tobago"> Trinidad and Tobago </option>
-				<option value="Tristan da Cunha"> Tristan da Cunha </option>
-				<option value="Tunisia"> Tunisia </option>
-				<option value="Turkey"> Turkey </option>
-				<option value="Turkmenistan"> Turkmenistan </option>
-				<option value="Turks and Caicos Islands"> Turks and Caicos Islands </option>
-				<option value="Tuvalu"> Tuvalu </option>
-				<option value="Uganda"> Uganda </option>
-				<option value="Ukraine"> Ukraine </option>
-				<option value="United Arab Emirates"> United Arab Emirates </option>
-				<option value="United Kingdom"> United Kingdom </option>
-				<option value="United States"> United States </option>
-				<option value="Uruguay"> Uruguay </option>
-				<option value="Uzbekistan"> Uzbekistan </option>
-				<option value="Vanuatu"> Vanuatu </option>
-				<option value="Vatican City"> Vatican City </option>
-				<option value="Venezuela"> Venezuela </option>
-				<option value="Vietnam"> Vietnam </option>
-				<option value="British Virgin Islands"> British Virgin Islands </option>
-				<option value="US Virgin Islands"> US Virgin Islands </option>
-				<option value="Wallis and Futuna"> Wallis and Futuna </option>
-				<option value="Western Sahara"> Western Sahara </option>
-				<option value="Yemen"> Yemen </option>
-				<option value="Zambia"> Zambia </option>
-				<option value="Zimbabwe"> Zimbabwe </option>
-				<option value="other"> Other </option>
-			</select>
-			<input onclick="addRow5(this.form);" type="button" value="Incluir" />
-			</div>
-			</td>
-		</tr>
-		<tr>
-			<td><label class='control-label'>Sexo</label></td>
-			<td>
-				<input type="radio" name="blanksex" value="0" > Hombre
-				<input type="radio" name="blanksex" value="1"> Mujer
-			</td>
-		</tr>
-		<tr>
-			<td><label class='control-label'>Dirección</label></td>
-			<td>
-				<select name="blankaddrtype">
-					<option value="" selected>-- Tipo --</option>
-					<option value="Acceso">Acceso</option>
-					<option value="Acera">Acera</option>
-					<option value="Alameda">Alameda</option>
-					<option value="Autopista">Autopista</option>
-					<option value="Autovía">Autovía</option>
-					<option value="Avenida">Avenida</option>
-					<option value="C. Comercial">C. Comercial</option>
-					<option value="Calle">Calle</option>
-					<option value="Callejón">Callejón</option>
-					<option value="Camino">Camino</option>
-					<option value="Cañada">Cañada</option>
-					<option value="Carrer">Carrer</option>
-					<option value="Carrera">Carrera</option>
-					<option value="Carretera">Carretera</option>
-					<option value="Cuesta">Cuesta</option>
-					<option value="Glorieta">Glorieta</option>
-					<option value="Pasadizo">Pasadizo</option>
-					<option value="Pasaje">Pasaje</option>
-					<option value="Paseo">Paseo</option>
-					<option value="Plaza">Plaza</option>
-					<option value="Rambla">Rambla</option>
-					<option value="Ronda">Ronda</option>
-					<option value="Sendero">Sendero</option>
-					<option value="Travesía">Travesía</option>
-					<option value="Urbanización">Urbanización</option>
-					<option value="Vía">Vía</option>
-				</select>
-				<input type="text" name="blankaddrname" size="50" maxlength="50" placeholder="Nombre">
-				<input type="text" name="blankaddrnum" size="5" maxlength="10" placeholder="Num" onkeyup="this.value=this.value.toUpperCase();">
-				<input type="text" name="blankaddrportal" size="5" maxlength="10" placeholder="Portal" onkeyup="this.value=this.value.toUpperCase();">
-				<input type="text" name="blankaddrstair" size="5" maxlength="10" placeholder="Esc" onkeyup="this.value=this.value.toUpperCase();">
-				<input type="text" name="blankaddrfloor" size="5" maxlength="10" placeholder="Piso">
-				<input type="text" name="blankaddrdoor" size="5" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();"><br>
-				Cód.Postal <select name="blankcode" onchange="ajaxGetAddress(this.value)" >
-					<option value "">Elija su CP</option>
-=======
 			<div class="form-group"> <!-- Apellidos -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksurname">Apellidos: </label> 
 				<div class="col-sm-10">
@@ -856,6 +503,7 @@
 						<option value="Bosnia and Herzegovina"> Bosnia and Herzegovina </option>
 						<option value="Botswana"> Botswana </option>
 						<option value="Brazil"> Brazil </option>
+						<option value="British Virgin Islands"> British Virgin Islands </option>
 						<option value="Brunei"> Brunei </option>
 						<option value="Bulgaria"> Bulgaria </option>
 						<option value="Burkina Faso"> Burkina Faso </option>
@@ -868,8 +516,6 @@
 						<option value="Central African Republic"> Central African Republic </option>
 						<option value="Chad"> Chad </option>
 						<option value="Chile"> Chile </option>
-						<option value="People's Republic of China"> People's Republic of China </option>
-						<option value="Republic of China"> Republic of China </option>
 						<option value="Christmas Island"> Christmas Island </option>
 						<option value="Cocos (Keeling) Islands"> Cocos (Keeling) Islands </option>
 						<option value="Colombia"> Colombia </option>
@@ -900,7 +546,7 @@
 						<option value="France"> France </option>
 						<option value="French Polynesia"> French Polynesia </option>
 						<option value="Gabon"> Gabon </option>
-						<option value="The Gambia"> The Gambia </option>
+						<option value="Gambia"> Gambia </option>
 						<option value="Georgia"> Georgia </option>
 						<option value="Germany"> Germany </option>
 						<option value="Ghana"> Ghana </option>
@@ -934,8 +580,6 @@
 						<option value="Kazakhstan"> Kazakhstan </option>
 						<option value="Kenya"> Kenya </option>
 						<option value="Kiribati"> Kiribati </option>
-						<option value="North Korea"> North Korea </option>
-						<option value="South Korea"> South Korea </option>
 						<option value="Kosovo"> Kosovo </option>
 						<option value="Kuwait"> Kuwait </option>
 						<option value="Kyrgyzstan"> Kyrgyzstan </option>
@@ -984,7 +628,7 @@
 						<option value="Nigeria"> Nigeria </option>
 						<option value="Niue"> Niue </option>
 						<option value="Norfolk Island"> Norfolk Island </option>
-						<option value="Turkish Republic of Northern Cyprus"> Turkish Republic of Northern Cyprus </option>
+						<option value="North Korea"> North Korea </option>
 						<option value="Northern Mariana"> Northern Mariana </option>
 						<option value="Norway"> Norway </option>
 						<option value="Oman"> Oman </option>
@@ -994,6 +638,7 @@
 						<option value="Panama"> Panama </option>
 						<option value="Papua New Guinea"> Papua New Guinea </option>
 						<option value="Paraguay"> Paraguay </option>
+						<option value="People's Republic of China"> People's Republic of China </option>
 						<option value="Peru"> Peru </option>
 						<option value="Philippines"> Philippines </option>
 						<option value="Pitcairn Islands"> Pitcairn Islands </option>
@@ -1026,6 +671,7 @@
 						<option value="Somalia"> Somalia </option>
 						<option value="Somaliland"> Somaliland </option>
 						<option value="South Africa"> South Africa </option>
+						<option value="South Korea"> South Korea </option>
 						<option value="South Ossetia"> South Ossetia </option>
 						<option value="Spain"> Spain </option>
 						<option value="Sri Lanka"> Sri Lanka </option>
@@ -1049,6 +695,7 @@
 						<option value="Tristan da Cunha"> Tristan da Cunha </option>
 						<option value="Tunisia"> Tunisia </option>
 						<option value="Turkey"> Turkey </option>
+						<option value="Turkish Republic of Northern Cyprus"> Turkish Republic of Northern Cyprus </option>
 						<option value="Turkmenistan"> Turkmenistan </option>
 						<option value="Turks and Caicos Islands"> Turks and Caicos Islands </option>
 						<option value="Tuvalu"> Tuvalu </option>
@@ -1056,21 +703,19 @@
 						<option value="Ukraine"> Ukraine </option>
 						<option value="United Arab Emirates"> United Arab Emirates </option>
 						<option value="United Kingdom"> United Kingdom </option>
-						<option value="United States"> United States </option>
+						<option value="United States of America"> United States of America </option>
 						<option value="Uruguay"> Uruguay </option>
 						<option value="Uzbekistan"> Uzbekistan </option>
 						<option value="Vanuatu"> Vanuatu </option>
 						<option value="Vatican City"> Vatican City </option>
 						<option value="Venezuela"> Venezuela </option>
 						<option value="Vietnam"> Vietnam </option>
-						<option value="British Virgin Islands"> British Virgin Islands </option>
 						<option value="US Virgin Islands"> US Virgin Islands </option>
 						<option value="Wallis and Futuna"> Wallis and Futuna </option>
 						<option value="Western Sahara"> Western Sahara </option>
 						<option value="Yemen"> Yemen </option>
 						<option value="Zambia"> Zambia </option>
 						<option value="Zimbabwe"> Zimbabwe </option>
-						<option value="other"> Other </option>
 					</select>
 				</div>
 				<div class="btn-toolbar col-sm-1">
@@ -1129,111 +774,12 @@
 					<br><br>
 					<select class="form-control form-inline pull-right" name="blankcode" onchange="ajaxGetAddress(this.value)" style="margin-top:5px;">
 						<option value="" selected>-- Código Postal --</option>
->>>>>>> upstream/development
-					<?php 
-						$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'postalCode');
-						foreach($cpCol as $i){
-							echo "<option value=" . $i . ">" . $i . "</option>";
-					}
-					?>
-<<<<<<< HEAD
-				</select>
-				<div id="txtHint"><b></b></div>
-			</td>
-		</tr>
-		<tr>
-			<td><label class='control-label'>Teléfono Fijo</label></td>
-			<td><input type="text" name="blankphone" size="30" maxlength="9" placeholder="9XXXXXXXX" ></td>
-		</tr>
-		<tr>
-			<td><label class='control-label'>Teléfono Móvil</label></td>
-			<td><input type="text" name="blankmobile" size="30" maxlength="9" ></td>
-		</tr>
-		<tr>
-			<td><label class='control-label'>Correo Electrónico</label></td>
-			<td><input type="email" name="blankmail" size="30" placeholder="correo@ejemplo.com" ></td>
-		</tr>
-		
-		<tr>
-			<td><label class='control-label'>Carnet de Conducir</label></td>
-			<td>
-			<select name="blankdrivingtype">
-				<option value=""> Tipo </option>
-				<option value="AM">AM</option>
-				<option value="A">A</option>
-				<option value="A1">A1</option>
-				<option value="A2">A2</option>
-				<option value="B">B</option>
-				<option value="C">C</option>
-				<option value="C1">C1</option>
-				<option value="D">D</option>
-				<option value="D1">D1</option>
-				<option value="E">E</option>
-				<option value="BTP">BTP</option>
-			</select>
-			<input type="date" name="blankdrivingdate" />
-			</td>
-		</tr>
-		
-		<tr>
-			<td><label class='control-label'>Estado Civil</label></td>
-			<td>
-			<select name="blankmarital">
-				<option selected disabled value="">-- Estado --</option>
-				<?php
-				$userLang = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
-				$maritStatus = getDBcompletecolumnID($userLang, 'maritalStatus', 'id');
-				foreach($maritStatus as $i){
-					echo "<option value=" . getDBsinglefield('key', 'maritalStatus', $userLang, $i) . ">" . $i . "</option>";
-				}
-				?>
-			</select>
-			</td>
-		</tr>
-		<tr>
-			<td><label class='control-label'>Hijos</label></td>
-			<td><input type="number" name="blanksons" maxlength="2" min="0"></td>
-		</tr>
-		
-		<tr>
-			<td>
-				<div class="tooltip-demo">
-					<label class='control-label'>Foto</label>
-					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Tipos admitidos: JPG, JPEG o PNG. Máx: 1024Kb"></span>
-				</div>
-			</td>
-			<td><input type="file" name="foto" id="foto" onchange="checkJSPhotoExtension(this.id)";></td>
-		</tr>
-		
-		<tr>
-			<td>
-				<div class="tooltip-demo">
-					<label class='control-label'>Documentos adicionales</label>
-					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Tipos admitidos: PDF, DOC, DOCX, XLS, XLSX, CSV, TXT o RTF. Máx: 1024Kb"></span>
-				</div>
-			</td>
-			<td id="adjuntos"><input type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, zip" file-maxsize="1024" />
-			</td><td><input onclick="addCampo();" type="button" value="+" />
-			<!-- HABRIA QUE METER UN ID "archivos[]" PERO NO SE HA PROBADO SI FUNCIONARIA O NO EN JS -->
-			</td>
-		</tr>
-		
-		<tr>
-			<td><label class='control-label'>Nivel de idiomas</label></td>
-			<td>
-				<div id="itemRows">
-					<select name="add_idiomas">
-						<option selected disabled value="">-- Idioma --</option>
-						<?php
-						$langNames = getDBcompletecolumnID($userLang, 'languages', 'id');
-						foreach($langNames as $i){
-							echo "<option value=" . getDBsinglefield('key', 'languages', $userLang, $i) . ">" . $i . "</option>";
-						}
+						<?php 
+							$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'postalCode');
+							foreach($cpCol as $i){
+								echo "<option value=" . $i . ">" . $i . "</option>";
+							}
 						?>
-					</select>
-					<select name="add_nidiomas">
-						<option selected value="null">-- Sin conocimientos --</option>
-=======
 					</select>
 					<div id="txtHint"><b></b></div>
 				</div>
@@ -1267,7 +813,6 @@
 						<option value=""> Tipo </option>
 						<option value="AM">AM</option>
 						<option value="A">A</option>
->>>>>>> upstream/development
 						<option value="A1">A1</option>
 						<option value="A2">A2</option>
 						<option value="B">B</option>
@@ -1281,7 +826,7 @@
 				<input class="form-control form-inline" type="date" name="blankdrivingdate" >	
 				</div>				
 			</div>
-
+			
 			<div class="form-group"> <!-- Estado Civil -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmarital">Estado Civil: </label> 
 				<div class="col-sm-10">
@@ -1296,17 +841,6 @@
 					?>
 					</select>
 				</div>
-<<<<<<< HEAD
-			</td>
-		</tr>
-		
-		<tr>
-			<td><label class='control-label'>Educacion</label></td>
-			<td>
-				<div id="itemRows3">
-					<input type="text" name="add_educ" size="50" placeholder="Estudie..." />
-					<input onclick="addRow3(this.form);" type="button" value="Incluir" />
-=======
 			</div>
 
 			<div class="form-group"> <!-- Hijos -->
@@ -1424,49 +958,9 @@
 			<div class="form-group"> <!-- Salario -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksalary">Salario deseado: </label> 
 				<div class="col-sm-10">
-<<<<<<< HEAD
-					<input class="form-control" type="number" name="blanksalary" placeholder="€uros">
->>>>>>> upstream/development
-=======
-					<input class="form-control" type="number" name="blanksalary" maxlength="7" placeholder="€uros" onkeypress="return checkMoney(event)">
->>>>>>> upstream/development
+					<input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€uros/año" onkeypress="return checkMoney(event)">
 				</div>
 			</div>
-<<<<<<< HEAD
-			</td>
-		</tr>
-		
-		<tr>
-			<td><label class='control-label'>Salario deseado</label></td>
-			<td><input type="text" name="blanksalary" size="10" maxlength="7" onkeypress="return checkMoney(event)"> €<br></td>
-		</tr>
-		
-		<tr>
-			<td><label class='control-label'>Otros datos de interés</label></td>
-			<td><textarea name="blankother" rows="3" cols="50" placeholder="Exponga aquí cualquier dato que estime oportuno y no aparezca en ningún otro campo..."></textarea></td>
-		</tr>
-		
-		<tr>
-			<td><label class='control-label'>Las 10 palabras que mejor me definen son...</label></td>
-			<td>
-			<input type="text" name="blankskill1" size="30" /><br>
-			<input type="text" name="blankskill2" size="30" /><br>
-			<input type="text" name="blankskill3" size="30" /><br>
-			<input type="text" name="blankskill4" size="30" /><br>
-			<input type="text" name="blankskill5" size="30" /><br>
-			<input type="text" name="blankskill6" size="30" /><br>
-			<input type="text" name="blankskill7" size="30" /><br>
-			<input type="text" name="blankskill8" size="30" /><br>
-			<input type="text" name="blankskill9" size="30" /><br>
-			<input type="text" name="blankskill10" size="30" />
-			</td>
-		</tr>
-	</table>
-
-	<input type="checkbox" name="blanklopd" required> He leído y acepto las condiciones de uso y política de privacidad<br>
-	<input  type="submit" name ="push_button" value="Enviar" />
-	<!-- <input type="reset" value="Borrar formulario" /> -->
-=======
 
 			<div class="form-group"> <!-- Otros datos de Interés -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankother">Otros datos de interés: </label> 
@@ -1480,12 +974,9 @@
 				<div class="col-sm-10">
 					<?php
 					for ($i=1; $i <= 10 ; $i++) { 
->>>>>>> upstream/development
-
 						echo "	<div class='col-sm-5' style='margin-bottom: 10px;'>";
 						echo "		<input class='form-control' type='text' name='blankskill$i'>";
 						echo "	</div>";
-
 					}
 					?>
 				</div>
