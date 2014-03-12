@@ -202,7 +202,11 @@
 				return false;
 			}
 		}
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> upstream/development
 	</script>
 	
 </head>
@@ -214,7 +218,11 @@
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/SimpleImage.php');
 	
 	if(isset($_POST['push_button'])){
+<<<<<<< HEAD
 		#echo "entro en el if $_POST[senduser]";
+=======
+	echo "entro en el if $_POST[senduser]";
+>>>>>>> upstream/development
 		foreach ($_POST as $key => $entry){
 				#echo $key;
 			if(is_array($entry)){
@@ -349,14 +357,23 @@
 				<?php 
 			}
 		}
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> upstream/development
 		*/
 		//Field 'maritalStatus' is automatically checked in the own form with field "required"
 		/*
 		elseif(){
 		}
 		*/
+<<<<<<< HEAD
 		
 		
+=======
+
+>>>>>>> upstream/development
 		//echo 'Hijos '.$_POST['blanksons'];
 		/*
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
@@ -432,8 +449,13 @@
 			#echo "¡Posible ataque de carga de archivos!\n";
 		}
 		*/
+<<<<<<< HEAD
 		
 		
+=======
+
+
+>>>>>>> upstream/development
 		//blocks candidate and redirects her/him to index.html
 		executeDBquery("UPDATE `users` SET `active`='0' WHERE `login`='".$_SESSION['loglogin']."'");
 		?>
@@ -790,21 +812,21 @@
 			<div class="form-group"> <!-- Fecha de Nacimiento -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankbirthdate">Fecha de Nacimiento: </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type='date' name='blankbirthdate' autocomplete="off" required/>
+					<input class="form-control" type='date' name='blankbirthdate' autocomplete="off"/>
 				</div>
 			</div>		
 
 			<div class="form-group"> <!-- DNI/NIE -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanknie">DNI/NIE: </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type='text' name='blanknie' autocomplete="off" maxlength="12" placeholder="Max. 12 caracteres" onkeyup="this.value=this.value.toUpperCase();" required/>
+					<input class="form-control" type='text' name='blanknie' autocomplete="off" maxlength="9" placeholder="12345678X" onkeyup="this.value=this.value.toUpperCase();" />
 				</div>
 			</div>		
 
 			<div class="form-group"> <!-- Nacionalidad -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_nat">Nacionalidad: </label> 
 				<div class="col-sm-9" id="uploadFormNationality">
-					<select class="form-control" name="add_nat" required>
+					<select class="form-control" name="add_nat" >
 						<option value="" selected> Seleccione </option>
 						<option value="Afghanistan"> Afghanistan </option>
 						<option value="Albania"> Albania </option>
@@ -1060,8 +1082,8 @@
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksex">Sexo: </label>
 				<div class="col-sm-10">
 					<div class='radio-inline'>
-						<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='blanksex' value='0' required>Hombre</label>
-						<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='blanksex' value='1' required>Mujer</label>
+						<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='blanksex' value='0'>Hombre</label>
+						<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='blanksex' value='1'>Mujer</label>
 					</div>
 				</div>
 			</div>							
@@ -1069,7 +1091,7 @@
 			<div class="form-group">  <!-- Dirección -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankaddrtype">Dirección: </label>
 				<div class="col-sm-10 form-inline">
-					<select class="form-control form-inline" name="blankaddrtype" required>
+					<select class="form-control form-inline" name="blankaddrtype" >
 						<option value="" selected>-- Tipo --</option>
 						<option value="Acceso">Acceso</option>
 						<option value="Acera">Acera</option>
@@ -1098,14 +1120,14 @@
 						<option value="Urbanización">Urbanización</option>
 						<option value="Vía">Vía</option>
 					</select>					
-					<input class="form-control form-inline" type="text" name="blankaddrname" size="24" maxlength="50" placeholder="Nombre" required>
-					<input class="form-control form-inline" type="text" name="blankaddrnum" size="1" maxlength="10" placeholder="Num" onkeyup="this.value=this.value.toUpperCase();" required>
+					<input class="form-control form-inline" type="text" name="blankaddrname" size="24" maxlength="50" placeholder="Nombre">
+					<input class="form-control form-inline" type="text" name="blankaddrnum" size="1" maxlength="10" placeholder="Num" onkeyup="this.value=this.value.toUpperCase();">
 					<input class="form-control form-inline" type="text" name="blankaddrportal" size="2" maxlength="10" placeholder="Portal" onkeyup="this.value=this.value.toUpperCase();">
 					<input class="form-control form-inline" type="text" name="blankaddrstair" size="1" maxlength="10" placeholder="Esc" onkeyup="this.value=this.value.toUpperCase();">
 					<input class="form-control form-inline" type="text" name="blankaddrfloor" size="1" maxlength="10" placeholder="Piso">
 					<input class="form-control form-inline" type="text" name="blankaddrdoor" size="3" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();">
 					<br><br>
-					<select class="form-control form-inline pull-right" name="blankcode" onchange="ajaxGetAddress(this.value)" required style="margin-top:5px;">
+					<select class="form-control form-inline pull-right" name="blankcode" onchange="ajaxGetAddress(this.value)" style="margin-top:5px;">
 						<option value="" selected>-- Código Postal --</option>
 >>>>>>> upstream/development
 					<?php 
@@ -1220,28 +1242,28 @@
 			<div class="form-group"> <!-- Teléfono Fijo -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankphone">Teléfono Fijo: </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="9" placeholder="9XXXXXXXX" required>
+					<input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="9" placeholder="9XXXXXXXX">
 				</div>
 			</div>
 
 			<div class="form-group"> <!-- Teléfono Móvil -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmobile">Teléfono Móvil: </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="blankmobile" autocomplete="off" maxlength="9" required>
+					<input class="form-control" type="text" name="blankmobile" autocomplete="off" maxlength="9">
 				</div>
 			</div>
 
 			<div class="form-group"> <!-- Correo Electrónico -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmail">eMail: </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="email" name="blankmail" autocomplete="off" placeholder="correo@ejemplo.com" required>
+					<input class="form-control" type="email" name="blankmail" autocomplete="off" placeholder="correo@ejemplo.com">
 				</div>
 			</div>		
 
 			<div class="form-group">  <!-- Carnet de Conducir -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankdrivingtype">Carnet Conducir: </label>
 				<div class="col-sm-10 form-inline">
-					<select class="form-control form-inline" name="blankdrivingtype" required>
+					<select class="form-control form-inline" name="blankdrivingtype">
 						<option value=""> Tipo </option>
 						<option value="AM">AM</option>
 						<option value="A">A</option>
@@ -1263,7 +1285,7 @@
 			<div class="form-group"> <!-- Estado Civil -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmarital">Estado Civil: </label> 
 				<div class="col-sm-10">
-					<select class="form-control" name="blankmarital" required>
+					<select class="form-control" name="blankmarital">
 					<?php
 						$userLang = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
 						$maritStatus = getDBcompletecolumnID($userLang, 'maritalStatus', 'id');
@@ -1297,7 +1319,7 @@
 			<div class="form-group"> <!-- Foto -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="foto">Foto: </label>
 				<div class="col-sm-10">
-					<input class="form-control" type="file" name="foto" file-accept="jpg, jpeg, png" file-maxsize="1024" required>
+					<input class="form-control" type="file" name="foto" id="foto" onchange="checkJSPhotoExtension(this.id)">
 					<p class="help-block">Tipos admitidos: JPG, JPEG o PNG. Máx: 1024Kb</p>
 				</div>
 			</div>
@@ -1307,7 +1329,7 @@
 				<div class="col-sm-10" style="padding-left: 0px;">
 					<div id="adjuntos" class="col-sm-11">
 						<input class="form-control" type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, zip" file-maxsize="1024" required>
-						<p class="help-block">Tipos admitidos: PDF, DOC, DOCX, XLS, XLSX, CSV, TXT, RTF o ZIP. Máx: 1024Kb</p>
+						<p class="help-block">Tipos admitidos: PDF, DOC, DOCX, XLS, XLSX, CSV, TXT o RTF. Máx: 1024Kb</p>
 					</div>
 					<div class="btn-toolbar col-sm-1">
 						<div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="addCampo();"><span class="glyphicon glyphicon-plus"></span></button></div>
@@ -1402,7 +1424,11 @@
 			<div class="form-group"> <!-- Salario -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksalary">Salario deseado: </label> 
 				<div class="col-sm-10">
+<<<<<<< HEAD
 					<input class="form-control" type="number" name="blanksalary" placeholder="€uros">
+>>>>>>> upstream/development
+=======
+					<input class="form-control" type="number" name="blanksalary" maxlength="7" placeholder="€uros" onkeypress="return checkMoney(event)">
 >>>>>>> upstream/development
 				</div>
 			</div>
@@ -1467,7 +1493,7 @@
 		</div> <!-- Panel Body -->
 
 		<div class="panel-footer">
-					<label class "control-label" style="margin-bottom: 10px; margin-top: 5px;"><input type="checkbox" name="blanklopd"> He leído y acepto las condiciones de uso y política de privacidad</label>
+					<label class "control-label" style="margin-bottom: 10px; margin-top: 5px;"><input type="checkbox" name="blanklopd" required> He leído y acepto las condiciones de uso y política de privacidad</label>
 				<div class="btn-group pull-right">
 					<button type="submit" name ="push_button" class="btn btn-primary">Enviar</button>
 				</div>
