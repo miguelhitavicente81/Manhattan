@@ -67,10 +67,6 @@
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	
 	<script>
-/*		$(function(){
-			$( "#datepicker" ).datepicker();
-		});*/
-		
 		//Functions used to add/remove realtime Language fields 
 		var rowNum = 0;
 		function addRow1(frm){
@@ -97,7 +93,8 @@
 		function removeRow3(rnum){
 			jQuery('#rowNum'+rnum).remove();
 		}
-		
+
+		//Functions to add/remove realtime Experience fields 
 		function addRow4(frm){
 			rowNum ++;
 			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="empr[]" value="'+frm.add_empr.value+'"><input type="text" name="categ[]" value="'+frm.add_categ.value+'" ><input type="text" name="expstart[]" value="'+frm.add_expstart.value+'"><input type="text" name="expend[]" value="'+frm.add_expend.value+'"><input type="text" name="desc[]" value="'+frm.add_desc.value+'"><input type="button" value="Eliminar" onclick="removeRow4('+rowNum+');"></p>';
@@ -112,6 +109,8 @@
 		function removeRow4(rnum){
 			jQuery('#rowNum'+rnum).remove();
 		}
+
+		//Functions to add/remove realtime Nationalities fields 
 		function addRow5(frm){
 			rowNum ++;
 			var row = '<p id="rowNum'+rowNum+'"><input type="text" name="nat[]" value="'+frm.add_nat.value+'"><input type="button" value="Eliminar" onclick="removeRow5('+rowNum+');"></p>';
@@ -122,6 +121,47 @@
 		function removeRow5(rnum){
 			jQuery('#rowNum'+rnum).remove();
 		}
+
+		//Function to realtime check characters written in Salary field 
+		function checkMoney(e){
+			tecla = e.which || e.keyCode;
+			patron = /\d/; // Solo acepta números
+			te = String.fromCharCode(tecla);
+			return (patron.test(te) || tecla == 9 || tecla == 8);
+		}
+
+		//Function to check in realtime photo's extensions 
+		function checkJSPhotoExtension(fileId){
+			var fileItself = document.getElementById(fileId).value;
+			
+			var fileArray = fileItself.split(".");
+			var fileExt = (fileArray[fileArray.length-1]);
+			var acceptedExts = /(jpg|png|jpeg)$/i.test(fileExt);
+			if(!acceptedExts){
+				//var cleared = document.getElementById('foto').value = "";
+				var cleared = document.getElementById(fileId).value = "";
+				//alert ("El fichero "+fileItself+" no posee una extensión válida");
+				alert ("\'"+fileExt+"\' no es una extensión válida para su fotografía");
+				return false;
+			}
+		}
+
+		//Function to check in realtime doc's extensions 
+		function checkJSDocsExtension(fileId){
+			var fileItself = document.getElementById(fileId).value;
+			
+			var fileArray = fileItself.split(".");
+			var fileExt = (fileArray[fileArray.length-1]);
+			var acceptedExts = /(pdf|doc|docx|xls|xlsx|csv|txt|rtf)$/i.test(fileExt);
+			if(!acceptedExts){
+				//var cleared = document.getElementById('foto').value = "";
+				var cleared = document.getElementById(fileId).value = "";
+				//alert ("El fichero "+fileItself+" no posee una extensión válida");
+				alert ("\'"+fileExt+"\' no es una extensión válida para su documento");
+				return false;
+			}
+		}
+		
 	</script>
 	
 </head>
@@ -133,7 +173,7 @@
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/SimpleImage.php');
 	
 	if(isset($_POST['push_button'])){
-	#echo "entro en el if $_POST[senduser]";
+		#echo "entro en el if $_POST[senduser]";
 		foreach ($_POST as $key => $entry){
 				#echo $key;
 			if(is_array($entry)){
@@ -200,6 +240,7 @@
 			</script>
 			<?php 
 		}
+		/*
 		elseif(!isPreviousDate($_POST['blankbirthdate'])){
 			?>
 			<script type="text/javascript">
@@ -267,6 +308,14 @@
 				<?php 
 			}
 		}
+		*/
+		//Field 'maritalStatus' is automatically checked in the own form with field "required"
+		/*
+		elseif(){
+		}
+		*/
+		
+		
 		//echo 'Hijos '.$_POST['blanksons'];
 		/*
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
@@ -298,6 +347,7 @@
 			#echo "¡Posible ataque de carga de archivos!\n";
 		}
 		 */
+		
 		$insertCVQuery = "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
 		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
@@ -313,7 +363,7 @@
 		executeDBquery($insertCVQuery);
 		
 		
-		
+		/*
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		
 		$tot = count($_FILES["archivos"]["name"]);
@@ -340,6 +390,9 @@
 		else{
 			#echo "¡Posible ataque de carga de archivos!\n";
 		}
+		*/
+		
+		
 		//blocks candidate and redirects her/him to index.html
 		executeDBquery("UPDATE `users` SET `active`='0' WHERE `login`='".$_SESSION['loglogin']."'");
 		?>
@@ -368,18 +421,18 @@
 		</tr>
 		<tr>
 			<td><label class='control-label'>Fecha de Nacimiento</label></td>
-			<td><input type="date" name="blankbirthdate" required></td>
+			<td><input type="date" name="blankbirthdate" ></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>DNI/NIE</label></td>
-			<td><input type="text" name="blanknie" size="30" maxlength="12" placeholder="Max. 12 caracteres" onkeyup="this.value=this.value.toUpperCase();" required></td>
+			<td><input type="text" name="blanknie" size="30" maxlength="9" placeholder="12345678X" onkeyup="this.value=this.value.toUpperCase();" ></td>
 		</tr>
 		
 		<tr>
 			<td><label class='control-label'>Nacionalidad</label></td>
 			<td>
 			<div id="itemRows5">
-			<select name="add_nat" required>
+			<select name="add_nat">
 				<option value="" selected> Seleccione </option>
 				<option value="Afghanistan"> Afghanistan </option>
 				<option value="Albania"> Albania </option>
@@ -632,14 +685,14 @@
 		<tr>
 			<td><label class='control-label'>Sexo</label></td>
 			<td>
-				<input type="radio" name="blanksex" value="0" required> Hombre
+				<input type="radio" name="blanksex" value="0" > Hombre
 				<input type="radio" name="blanksex" value="1"> Mujer
 			</td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Dirección</label></td>
 			<td>
-				<select name="blankaddrtype" required>
+				<select name="blankaddrtype">
 					<option value="" selected>-- Tipo --</option>
 					<option value="Acceso">Acceso</option>
 					<option value="Acera">Acera</option>
@@ -668,13 +721,13 @@
 					<option value="Urbanización">Urbanización</option>
 					<option value="Vía">Vía</option>
 				</select>
-				<input type="text" name="blankaddrname" size="50" maxlength="50" placeholder="Nombre" required>
-				<input type="text" name="blankaddrnum" size="5" maxlength="10" placeholder="Num" onkeyup="this.value=this.value.toUpperCase();" required>
+				<input type="text" name="blankaddrname" size="50" maxlength="50" placeholder="Nombre">
+				<input type="text" name="blankaddrnum" size="5" maxlength="10" placeholder="Num" onkeyup="this.value=this.value.toUpperCase();">
 				<input type="text" name="blankaddrportal" size="5" maxlength="10" placeholder="Portal" onkeyup="this.value=this.value.toUpperCase();">
 				<input type="text" name="blankaddrstair" size="5" maxlength="10" placeholder="Esc" onkeyup="this.value=this.value.toUpperCase();">
 				<input type="text" name="blankaddrfloor" size="5" maxlength="10" placeholder="Piso">
 				<input type="text" name="blankaddrdoor" size="5" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();"><br>
-				Cód.Postal <select name="blankcode" onchange="ajaxGetAddress(this.value)" required>
+				Cód.Postal <select name="blankcode" onchange="ajaxGetAddress(this.value)" >
 					<option value "">Elija su CP</option>
 					<?php 
 					$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'postalCode');
@@ -688,15 +741,15 @@
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Fijo</label></td>
-			<td><input type="text" name="blankphone" size="30" maxlength="9" placeholder="9XXXXXXXX" required></td>
+			<td><input type="text" name="blankphone" size="30" maxlength="9" placeholder="9XXXXXXXX" ></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Teléfono Móvil</label></td>
-			<td><input type="text" name="blankmobile" size="30" maxlength="9" required></td>
+			<td><input type="text" name="blankmobile" size="30" maxlength="9" ></td>
 		</tr>
 		<tr>
 			<td><label class='control-label'>Correo Electrónico</label></td>
-			<td><input type="email" name="blankmail" size="30" placeholder="correo@ejemplo.com" required></td>
+			<td><input type="email" name="blankmail" size="30" placeholder="correo@ejemplo.com" ></td>
 		</tr>
 		
 		<tr>
@@ -723,7 +776,7 @@
 		<tr>
 			<td><label class='control-label'>Estado Civil</label></td>
 			<td>
-			<select name="blankmarital" required>
+			<select name="blankmarital">
 				<option selected disabled value="">-- Estado --</option>
 				<?php
 				$userLang = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
@@ -747,18 +800,19 @@
 					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Tipos admitidos: JPG, JPEG o PNG. Máx: 1024Kb"></span>
 				</div>
 			</td>
-			<td><input type="file" name="foto" file-accept="jpg, jpeg, png" file-maxsize="1024" required></td>
+			<td><input type="file" name="foto" id="foto" onchange="checkJSPhotoExtension(this.id)";></td>
 		</tr>
 		
 		<tr>
 			<td>
 				<div class="tooltip-demo">
 					<label class='control-label'>Documentos adicionales</label>
-					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Tipos admitidos: PDF, DOC, DOCX, XLS, XLSX, CSV, TXT, RTF o ZIP. Máx: 1024Kb"></span>
+					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Tipos admitidos: PDF, DOC, DOCX, XLS, XLSX, CSV, TXT o RTF. Máx: 1024Kb"></span>
 				</div>
 			</td>
 			<td id="adjuntos"><input type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, zip" file-maxsize="1024" />
 			</td><td><input onclick="addCampo();" type="button" value="+" />
+			<!-- HABRIA QUE METER UN ID "archivos[]" PERO NO SE HA PROBADO SI FUNCIONARIA O NO EN JS -->
 			</td>
 		</tr>
 		
@@ -791,24 +845,10 @@
 		</tr>
 		
 		<tr>
-			<td>
-				<div class="tooltip-demo">
-					<label class='control-label'>Educación</label>
-					<span class="glyphicon glyphicon-info-sign pull-right" data-placement="left" data-toggle="tooltip" data-original-title="Si su título no aparece en el listado, póngase en contacto con nosotros a través de administracion@perspectiva-alemania.com"></span>
-				</div>
-			</td>
+			<td><label class='control-label'>Educacion</label></td>
 			<td>
 				<div id="itemRows3">
-					<!-- <select name="add_nfor"> -->
-					<select name="add_educ">
-						<option selected value="">Estudié...</option>
-						<?php 
-						$eduNames = getDBcompleteColumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'studies', 'id');
-						foreach($eduNames as $i){
-							echo "<option value=" . $i . ">" . $i . "</option>";
-						}
-						?>
-					</select>
+					<input type="text" name="add_educ" size="50" placeholder="Estudie..." />
 					<input onclick="addRow3(this.form);" type="button" value="Incluir" />
 				</div>
 			</td>
@@ -829,7 +869,7 @@
 		
 		<tr>
 			<td><label class='control-label'>Salario deseado</label></td>
-			<td><input type="number" name="blanksalary" size="10" placeholder="$" /><br></td>
+			<td><input type="text" name="blanksalary" size="10" maxlength="7" onkeypress="return checkMoney(event)"> €<br></td>
 		</tr>
 		
 		<tr>
@@ -854,7 +894,7 @@
 		</tr>
 	</table>
 
-	<input type="checkbox" name="blanklopd"> He leído y acepto las condiciones de uso y política de privacidad<br>
+	<input type="checkbox" name="blanklopd" required> He leído y acepto las condiciones de uso y política de privacidad<br>
 	<input  type="submit" name ="push_button" value="Enviar" />
 	<!-- <input type="reset" value="Borrar formulario" /> -->
 
