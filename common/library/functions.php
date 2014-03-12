@@ -14,7 +14,6 @@
  */
 function connectDB(){
 	$connection = mysqli_connect('localhost','root','', 'PRJ2014001') or die('MySQL connection error. Please contact administrator');
-	//mysqli_select_db($conexion, 'PRJ2014001') or die('There was a problem connecting to DDBB. Please contact administrator');
 
 	$connection->query("SET NAMES 'utf8'");
 	
@@ -34,7 +33,7 @@ function deleteDBrow($dbtable, $primaryname, $primaryvalue){
 
 	$query = "DELETE FROM `$dbtable` WHERE `$primaryname`='$primaryvalue'";
 
-	if(mysqli_query($conexion, $query) or die("Error al borrar registro de BD: ".mysqli_error($conexion))){
+	if(mysqli_query($conexion, $query) or die("Error deleting DB registry: ".mysqli_error($conexion))){
 		mysqli_close($conexion);
 		return 1;
 	}
@@ -52,7 +51,7 @@ function deleteDBrow($dbtable, $primaryname, $primaryvalue){
 function executeDBquery($query){
 	$conexion = connectDB();
 
-	if(mysqli_query($conexion, $query) or die("Error en la llamada de BD: ".mysqli_error($conexion))){
+	if(mysqli_query($conexion, $query) or die("Error in DB request: ".mysqli_error($conexion))){
 		mysqli_close($conexion);
 		return 1;
 	}
@@ -68,7 +67,6 @@ function executeDBquery($query){
  * Exit (cname): Array with name
  */
 function getDBcolumnname($dbtable, $column){
-	//$connection = mysqli_connect("localhost", "root", "", "PRJ2014001") or die("Error " .mysqli_error($connection));
 	$connection = connectDB();
 	$query = "SELECT * FROM `$dbtable` LIMIT 1";
 	if($result = mysqli_query($connection, $query)){
@@ -96,7 +94,7 @@ function getDBcolumnname($dbtable, $column){
  */
 function getDBcolumnvalue($fieldrequested, $dbtable, $fieldsupported, $infosupported){
 	$conexion = connectDB();
-	$result = mysqli_query($conexion, "SELECT `$fieldrequested` FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error al extraer array coincidente: ".mysqli_error($conexion));
+	$result = mysqli_query($conexion, "SELECT `$fieldrequested` FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error extracting matching array: ".mysqli_error($conexion));
 	$i = 0;
 	if(mysqli_num_rows($result) > 0){
 		while($column = mysqli_fetch_row($result)){
@@ -124,7 +122,7 @@ function getDBcolumnvalue($fieldrequested, $dbtable, $fieldsupported, $infosuppo
 function getDBcompletecolumnID($columnrequested, $dbtable, $id){
 	$conexion = connectDB();
 
-	$result = mysqli_query($conexion, "SELECT `$columnrequested` FROM `$dbtable` ORDER BY `$id`") or die("Error en getDBcompletecolumnID: ".mysqli_error($conexion));
+	$result = mysqli_query($conexion, "SELECT `$columnrequested` FROM `$dbtable` ORDER BY `$id`") or die("Complete column extraction error: ".mysqli_error($conexion));
 
 	$i = 0;
 	if(mysqli_num_rows($result) > 0){
@@ -153,7 +151,7 @@ function getDBcompletecolumnID($columnrequested, $dbtable, $id){
 function getDBDistCompleteColID($colRequested, $dbTable, $id){
 	$connection = connectDB();
 
-	$result = mysqli_query($connection, "SELECT DISTINCT `$colRequested` FROM `$dbTable` ORDER BY `$id`") or die("Error en getDBcompletecolumnID: ".mysqli_error($connection));
+	$result = mysqli_query($connection, "SELECT DISTINCT `$colRequested` FROM `$dbTable` ORDER BY `$id`") or die("Distinct complete extraction error: ".mysqli_error($connection));
 
 	$i = 0;
 	if(mysqli_num_rows($result) > 0){
@@ -181,7 +179,6 @@ function getDBDistCompleteColID($colRequested, $dbTable, $id){
  * Entry (id): Unique identificator used to get possible output array ordered
  * Exit (row): Output array with NON-matching values
  */
-//function getDBcolumnvalue($fieldrequested, $dbTable, $fieldsupported, $infosupported){
 function getDBNoMatchColValueID($fieldReq, $dbTable, $fieldSup, $infoSup, $id){
 	$connection = connectDB();
 	
@@ -228,7 +225,7 @@ function getDBnumcolumns($dbtable){
  */
 function getDBrow($dbtable, $fieldsupported, $infosupported){
 	$conexion = connectDB();
-	$result = mysqli_query($conexion, "SELECT * FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error buscando el registro: ".mysqli_error($conexion));
+	$result = mysqli_query($conexion, "SELECT * FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error obtaining registry: ".mysqli_error($conexion));
 	if(mysqli_num_rows($result) <= 0 ){
 		mysqli_free_result($result);
 		mysqli_close($conexion);
@@ -250,7 +247,7 @@ function getDBrow($dbtable, $fieldsupported, $infosupported){
 function getDBrowsnumber($dbtable){
 	$conexion = connectDB();
 
-	$result = mysqli_query($conexion, "SELECT COUNT(*) FROM `$dbtable`") or die("Error en getDBrowsnumber: ".mysqli_error($conexion));
+	$result = mysqli_query($conexion, "SELECT COUNT(*) FROM `$dbtable`") or die("Error obtaining row's number: ".mysqli_error($conexion));
 
 	$num_rows = mysqli_fetch_array($result);
 	mysqli_free_result($result);
@@ -269,7 +266,7 @@ function getDBrowsnumber($dbtable){
 function getDBsinglefield($fieldrequested, $dbtable, $fieldsupported, $infosupported){
 	$conexion = connectDB();
 
-	$result = mysqli_query($conexion, "SELECT `$fieldrequested` FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error buscando el valor: ".mysqli_error($conexion));
+	$result = mysqli_query($conexion, "SELECT `$fieldrequested` FROM `$dbtable` WHERE `$fieldsupported`='$infosupported'") or die("Error obtaining single value: ".mysqli_error($conexion));
 
 	if (mysqli_num_rows($result)>0){
 		$fila = mysqli_fetch_array($result);
@@ -296,7 +293,7 @@ function getDBsinglefield($fieldrequested, $dbtable, $fieldsupported, $infosuppo
  */
 function getDBsinglefield2($fieldreq, $dbtable, $fieldsup1, $infosup1, $fieldsup2, $infosup2){
 	$conexion = connectDB();
-	$result = mysqli_query($conexion, "SELECT `$fieldreq` FROM `$dbtable` WHERE `$fieldsup1`='$infosup1' AND `$fieldsup2`='$infosup2'") or die("Error buscando el valor: ".mysqli_error($conexion));
+	$result = mysqli_query($conexion, "SELECT `$fieldreq` FROM `$dbtable` WHERE `$fieldsup1`='$infosup1' AND `$fieldsup2`='$infosup2'") or die("Error obtaining single value: ".mysqli_error($conexion));
 	if(mysqli_num_rows($result)>0){
 		$fila = mysqli_fetch_array($result);
 		$singleDBfield = $fila[$fieldreq];
@@ -305,7 +302,6 @@ function getDBsinglefield2($fieldreq, $dbtable, $fieldsup1, $infosup1, $fieldsup
 		return $singleDBfield; //Devuelve un string
 	}
 	else{
-		//Es necesario liberar la memoria de la variable "result"
 		mysqli_free_result($result);
 		mysqli_close($conexion);
 	}
@@ -429,8 +425,10 @@ function suggestPassword($curDate, $curExpirate, &$days){
 function checkFullAddress($inName, $inNumber, &$outName, &$outNumber, &$checkError){
 	$connection = connectDB();
 	
-	$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName)));
-	$outNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber)));
+	//$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName)));
+	//$outNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber)));
+	$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName), ENT_QUOTES, 'UTF-8'));
+	$outNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber), ENT_QUOTES, 'UTF-8'));
 	
 	if(strlen($outName) < 2){
 		$checkError = "Introduzca una dirección válida, por favor.";
@@ -492,20 +490,6 @@ function checkDNI_NIE($nie){
  * Entry (date): Date in format YYYY-MM-DD
  * Exit: Boolean
  */
-/*
-function checkDrivingLicense($type, $licDate, &$checkError){
-	if(isset($type) && !isset($licDate)){
-		$keyError = "Ha olvidado indicar la fecha en que obtuvo su permiso de conducir";
-		return false;
-	}
-	if(!isset($type) && isset($licDate)){
-		$keyError = "Ha olvidado indicar qué tipo de permiso de conducir posee";
-		return false;
-	}
-	$keyError = "";
-	return true;
-}
-*/
 function checkDrivingLicense($type, $licDate, &$checkError){
 	if((strlen($type) > 0) && (strlen($licDate) == 0)){
 		$checkError = "Ha olvidado indicar la fecha en que obtuvo su permiso de conducir";
@@ -537,8 +521,10 @@ function checkDrivingLicense($type, $licDate, &$checkError){
 function checkFullNameES($inName, $inSurname, &$outName, &$outSurname, &$checkError){
 	$connection = connectDB();
 	
-	$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName)));
-	$outSurname = trim(htmlentities(mysqli_real_escape_string($connection, $inSurname)));
+	//$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName)));
+	//$outSurname = trim(htmlentities(mysqli_real_escape_string($connection, $inSurname)));
+	$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName), ENT_QUOTES, 'UTF-8'));
+	$outSurname = trim(htmlentities(mysqli_real_escape_string($connection, $inSurname), ENT_QUOTES, 'UTF-8'));
 	if((strlen($outName) < 2) || (strlen($outSurname) < 2)){
 		$checkError = "Nombre y Apellidos deben tener al menos 2 caracteres cada uno.";
 		return false;

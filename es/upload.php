@@ -71,11 +71,7 @@
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 	
 	<script>
-/*		$(function(){
-			$( "#datepicker" ).datepicker();
-		});*/
-		
-		//Functions used to add/remove realtime Language fields 
+		//Functions used to add/remove in realtime Language fields 
 		var rowNum = 0;
 		function addLanguage(frm){
 			rowNum ++;
@@ -89,7 +85,7 @@
 			jQuery('#rowLanguage'+rnum).remove();
 		}
 		
-		//Functions used to add/remove realtime Education fields 
+		//Functions used to add/remove in realtime Education fields 
 		var rowNum = 0;
 		function addDegree(frm){
 			rowNum ++;
@@ -101,38 +97,38 @@
 		function removeDegree(rnum){
 			jQuery('#rowDegree'+rnum).remove();
 		}
-		
+
+		//Functions to add/remove in realtime Experience fields 
 		function addCareer(frm){
 			rowNum ++;
-
 			var row ='<div class="row" style="padding-left: 0px; margin-bottom: 10px;" id="rowCareer'+rowNum+'"> \
-						<div class="col-sm-5"> \
-							<div class="row"> \
-								<div class="col-sm-6"> \
-									<input class="form-control" type="text" name="empr[]" value="'+frm.add_empr.value+'"> \
-								</div> \
-								<div class="col-sm-6"> \
-									<input class="form-control" type="text" name="categ[]" value="'+frm.add_categ.value+'" > \
-								</div> \
-							</div> \
-							<div class="row"> \
-								<div class="col-sm-6"> \
-									<input class="form-control" type="text" name="expstart[]" value="'+frm.add_expstart.value+'"> \
-								</div>			 \
-								<div class="col-sm-6"> \
-									<input class="form-control" type="text" name="expend[]" value="'+frm.add_expend.value+'"> \
-								</div> \
-							</div> \
+				<div class="col-sm-5"> \
+					<div class="row"> \
+						<div class="col-sm-6"> \
+							<input class="form-control" type="text" name="empr[]" value="'+frm.add_empr.value+'"> \
 						</div> \
-						<div class=" row col-sm-4"> \
-							<div class="col-sm-10"> \
-								<textarea class="form-control" name="desc[]" value="'+frm.add_desc.value+'"></textarea> \
-							</div>	 \
-							<div class="btn-toolbar col-sm-1"> \
-								<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="removeCareer('+rowNum+');" type="button"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div> \
-							</div> \
-						</div>					 \
-					</div>';			
+						<div class="col-sm-6"> \
+							<input class="form-control" type="text" name="categ[]" value="'+frm.add_categ.value+'" > \
+						</div> \
+					</div> \
+					<div class="row"> \
+						<div class="col-sm-6"> \
+							<input class="form-control" type="text" name="expstart[]" value="'+frm.add_expstart.value+'"> \
+						</div>			 \
+						<div class="col-sm-6"> \
+							<input class="form-control" type="text" name="expend[]" value="'+frm.add_expend.value+'"> \
+						</div> \
+					</div> \
+				</div> \
+				<div class=" row col-sm-4"> \
+					<div class="col-sm-10"> \
+						<textarea class="form-control" name="desc[]" value="'+frm.add_desc.value+'"></textarea> \
+					</div>	 \
+					<div class="btn-toolbar col-sm-1"> \
+						<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="removeCareer('+rowNum+');" type="button"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div> \
+					</div> \
+				</div>					 \
+			</div>';			
 			jQuery('#uploadFormCareer').append(row);
 			frm.add_empr.value = '';
 			frm.add_categ.value = '';
@@ -144,6 +140,8 @@
 		function removeCareer(rnum){
 			jQuery('#rowCareer'+rnum).remove();
 		}
+
+		//Functions to add/remove in realtime Nationalities fields 
 		function addNationality(frm){
 			rowNum ++;
 			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowNationality'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="nat[]" value="'+frm.add_nat.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeNationality('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
@@ -194,7 +192,6 @@
 				return false;
 			}
 		}
-
 	</script>
 	
 </head>
@@ -206,7 +203,7 @@
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/SimpleImage.php');
 	
 	if(isset($_POST['push_button'])){
-	echo "entro en el if $_POST[senduser]";
+		#echo "entro en el if $_POST[senduser]";
 		foreach ($_POST as $key => $entry){
 				#echo $key;
 			if(is_array($entry)){
@@ -341,15 +338,15 @@
 				<?php 
 			}
 		}
-
-
 		*/
+		
+		
 		//Field 'maritalStatus' is automatically checked in the own form with field "required"
 		/*
 		elseif(){
 		}
 		*/
-
+		
 		//echo 'Hijos '.$_POST['blanksons'];
 		/*
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
@@ -381,6 +378,7 @@
 			#echo "¡Posible ataque de carga de archivos!\n";
 		}
 		 */
+		
 		$insertCVQuery = "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
 		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
@@ -424,8 +422,8 @@
 			#echo "¡Posible ataque de carga de archivos!\n";
 		}
 		*/
-
-
+		
+		
 		//blocks candidate and redirects her/him to index.html
 		executeDBquery("UPDATE `users` SET `active`='0' WHERE `login`='".$_SESSION['loglogin']."'");
 		?>
@@ -435,10 +433,10 @@
 		</script>
 		<?php
 	}//del (isset($_POST[]))
-	
-/***************  Fin del bloque que valida el contenido enviado en el formulario  ***************/
 
-/***************  Aquí comienza el bloque que permite mostrar el formulario  ***************/
+	/*****************************     End of FORM validations     *****************************/
+	
+	/*************************     Start of WebPage code as showed     *************************/
 ?>
 
 <form id="uploadForm" class="form-horizontal" name="formu" action=""  method="post" enctype="multipart/form-data">
@@ -505,6 +503,7 @@
 						<option value="Bosnia and Herzegovina"> Bosnia and Herzegovina </option>
 						<option value="Botswana"> Botswana </option>
 						<option value="Brazil"> Brazil </option>
+						<option value="British Virgin Islands"> British Virgin Islands </option>
 						<option value="Brunei"> Brunei </option>
 						<option value="Bulgaria"> Bulgaria </option>
 						<option value="Burkina Faso"> Burkina Faso </option>
@@ -517,8 +516,6 @@
 						<option value="Central African Republic"> Central African Republic </option>
 						<option value="Chad"> Chad </option>
 						<option value="Chile"> Chile </option>
-						<option value="People's Republic of China"> People's Republic of China </option>
-						<option value="Republic of China"> Republic of China </option>
 						<option value="Christmas Island"> Christmas Island </option>
 						<option value="Cocos (Keeling) Islands"> Cocos (Keeling) Islands </option>
 						<option value="Colombia"> Colombia </option>
@@ -549,7 +546,7 @@
 						<option value="France"> France </option>
 						<option value="French Polynesia"> French Polynesia </option>
 						<option value="Gabon"> Gabon </option>
-						<option value="The Gambia"> The Gambia </option>
+						<option value="Gambia"> Gambia </option>
 						<option value="Georgia"> Georgia </option>
 						<option value="Germany"> Germany </option>
 						<option value="Ghana"> Ghana </option>
@@ -583,8 +580,6 @@
 						<option value="Kazakhstan"> Kazakhstan </option>
 						<option value="Kenya"> Kenya </option>
 						<option value="Kiribati"> Kiribati </option>
-						<option value="North Korea"> North Korea </option>
-						<option value="South Korea"> South Korea </option>
 						<option value="Kosovo"> Kosovo </option>
 						<option value="Kuwait"> Kuwait </option>
 						<option value="Kyrgyzstan"> Kyrgyzstan </option>
@@ -633,7 +628,7 @@
 						<option value="Nigeria"> Nigeria </option>
 						<option value="Niue"> Niue </option>
 						<option value="Norfolk Island"> Norfolk Island </option>
-						<option value="Turkish Republic of Northern Cyprus"> Turkish Republic of Northern Cyprus </option>
+						<option value="North Korea"> North Korea </option>
 						<option value="Northern Mariana"> Northern Mariana </option>
 						<option value="Norway"> Norway </option>
 						<option value="Oman"> Oman </option>
@@ -643,6 +638,7 @@
 						<option value="Panama"> Panama </option>
 						<option value="Papua New Guinea"> Papua New Guinea </option>
 						<option value="Paraguay"> Paraguay </option>
+						<option value="People's Republic of China"> People's Republic of China </option>
 						<option value="Peru"> Peru </option>
 						<option value="Philippines"> Philippines </option>
 						<option value="Pitcairn Islands"> Pitcairn Islands </option>
@@ -675,6 +671,7 @@
 						<option value="Somalia"> Somalia </option>
 						<option value="Somaliland"> Somaliland </option>
 						<option value="South Africa"> South Africa </option>
+						<option value="South Korea"> South Korea </option>
 						<option value="South Ossetia"> South Ossetia </option>
 						<option value="Spain"> Spain </option>
 						<option value="Sri Lanka"> Sri Lanka </option>
@@ -698,6 +695,7 @@
 						<option value="Tristan da Cunha"> Tristan da Cunha </option>
 						<option value="Tunisia"> Tunisia </option>
 						<option value="Turkey"> Turkey </option>
+						<option value="Turkish Republic of Northern Cyprus"> Turkish Republic of Northern Cyprus </option>
 						<option value="Turkmenistan"> Turkmenistan </option>
 						<option value="Turks and Caicos Islands"> Turks and Caicos Islands </option>
 						<option value="Tuvalu"> Tuvalu </option>
@@ -705,21 +703,19 @@
 						<option value="Ukraine"> Ukraine </option>
 						<option value="United Arab Emirates"> United Arab Emirates </option>
 						<option value="United Kingdom"> United Kingdom </option>
-						<option value="United States"> United States </option>
+						<option value="United States of America"> United States of America </option>
 						<option value="Uruguay"> Uruguay </option>
 						<option value="Uzbekistan"> Uzbekistan </option>
 						<option value="Vanuatu"> Vanuatu </option>
 						<option value="Vatican City"> Vatican City </option>
 						<option value="Venezuela"> Venezuela </option>
 						<option value="Vietnam"> Vietnam </option>
-						<option value="British Virgin Islands"> British Virgin Islands </option>
 						<option value="US Virgin Islands"> US Virgin Islands </option>
 						<option value="Wallis and Futuna"> Wallis and Futuna </option>
 						<option value="Western Sahara"> Western Sahara </option>
 						<option value="Yemen"> Yemen </option>
 						<option value="Zambia"> Zambia </option>
 						<option value="Zimbabwe"> Zimbabwe </option>
-						<option value="other"> Other </option>
 					</select>
 				</div>
 				<div class="btn-toolbar col-sm-1">
@@ -778,12 +774,12 @@
 					<br><br>
 					<select class="form-control form-inline pull-right" name="blankcode" onchange="ajaxGetAddress(this.value)" style="margin-top:5px;">
 						<option value="" selected>-- Código Postal --</option>
-					<?php 
-						$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'postalCode');
-						foreach($cpCol as $i){
-							echo "<option value=" . $i . ">" . $i . "</option>";
-					}
-					?>
+						<?php 
+							$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'postalCode');
+							foreach($cpCol as $i){
+								echo "<option value=" . $i . ">" . $i . "</option>";
+							}
+						?>
 					</select>
 					<div id="txtHint"><b></b></div>
 				</div>
@@ -830,7 +826,7 @@
 				<input class="form-control form-inline" type="date" name="blankdrivingdate" >	
 				</div>				
 			</div>
-
+			
 			<div class="form-group"> <!-- Estado Civil -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmarital">Estado Civil: </label> 
 				<div class="col-sm-10">
@@ -962,7 +958,7 @@
 			<div class="form-group"> <!-- Salario -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksalary">Salario deseado: </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="number" name="blanksalary" maxlength="7" placeholder="€uros" onkeypress="return checkMoney(event)">
+					<input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€uros/año" onkeypress="return checkMoney(event)">
 				</div>
 			</div>
 
@@ -978,11 +974,9 @@
 				<div class="col-sm-10">
 					<?php
 					for ($i=1; $i <= 10 ; $i++) { 
-
 						echo "	<div class='col-sm-5' style='margin-bottom: 10px;'>";
 						echo "		<input class='form-control' type='text' name='blankskill$i'>";
 						echo "	</div>";
-
 					}
 					?>
 				</div>
