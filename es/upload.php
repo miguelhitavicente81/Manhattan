@@ -945,7 +945,7 @@
 						</div>
 						<div class=" row col-sm-4">
 							<div class="col-sm-10">
-								<textarea id="uploadFormCareerTextarea" class="form-control" name="add_desc" placeholder="Descripción del puesto"></textarea>
+								<textarea class="form-control" name="add_desc" placeholder="Descripción del puesto"></textarea>
 							</div>	
 							<div class="btn-toolbar col-sm-1">
 								<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addCareer(this.form);" type="button"><span class="glyphicon glyphicon-plus"></span></button></div>
