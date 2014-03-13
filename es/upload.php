@@ -75,7 +75,7 @@
 		var rowNum = 0;
 		function addLanguage(frm){
 			rowNum ++;
-			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowLanguage'+rowNum+'"><div class="col-sm-5"><input class="form-control" type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'" disabled></div><div class="col-sm-5"><input class="form-control" type="text" name="nidiomas[]" value="'+frm.add_nidiomas.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeLanguage('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
+			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowLanguage'+rowNum+'"><div class="col-sm-5"><input class="form-control" type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'" readonly></div><div class="col-sm-5"><input class="form-control" type="text" name="nidiomas[]" value="'+frm.add_nidiomas.value+'" readonly></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeLanguage('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
 			jQuery('#uploadFormLanguage').append(row);
 			frm.add_idiomas.value = '';
 			frm.add_nidiomas.value = '';
@@ -89,7 +89,7 @@
 		var rowNum = 0;
 		function addDegree(frm){
 			rowNum ++;
-			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowDegree'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="educ[]" value="'+frm.add_educ.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeDegree('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
+			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowDegree'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="educ[]" value="'+frm.add_educ.value+'" readonly></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeDegree('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
 			jQuery('#uploadFormDegree').append(row);
 			frm.add_educ.value = '';
 		}
@@ -144,7 +144,7 @@
 		//Functions to add/remove in realtime Nationalities fields 
 		function addNationality(frm){
 			rowNum ++;
-			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowNationality'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="nat[]" value="'+frm.add_nat.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeNationality('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
+			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowNationality'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="nat[]" value="'+frm.add_nat.value+'" readonly></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeNationality('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
 			jQuery('#uploadFormNationality').append(row);
 			frm.add_nat.value = '';
 		}
@@ -876,7 +876,7 @@
 				<div class="col-sm-10" style="padding-left: 0px;">
 					<div class="col-sm-6" id="uploadFormLanguage">
 						<select class="form-control" name="add_idiomas">
-							<option selected disabled value="">-- Idioma --</option>
+							<option selected value="">-- Idioma --</option>
 							<?php
 							$langNames = getDBcompletecolumnID($userLang, 'languages', 'id');
 							foreach($langNames as $i){

@@ -119,6 +119,13 @@
 					</script>
 					<?php 
 				}
+				else {
+					?>
+					<!-- <script type="text/javascript">
+						window.location.href='pendingCVs.php';
+					</script> -->
+					<?php
+				}
 			}
 		?>
 
