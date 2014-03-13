@@ -122,13 +122,13 @@
 				</div> \
 				<div class=" row col-sm-4"> \
 					<div class="col-sm-10"> \
-						<textarea class="form-control" name="desc[]" value="'+frm.add_desc.value+'"></textarea> \
+						<textarea class="form-control" name="desc[]">'+frm.add_desc.value+'</textarea> \
 					</div>	 \
 					<div class="btn-toolbar col-sm-1"> \
 						<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="removeCareer('+rowNum+');" type="button"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div> \
 					</div> \
 				</div>					 \
-			</div>';			
+			</div>';	
 			jQuery('#uploadFormCareer').append(row);
 			frm.add_empr.value = '';
 			frm.add_categ.value = '';
@@ -875,7 +875,7 @@
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_idiomas">Nivel de idiomas: </label> 
 				<div class="col-sm-10" style="padding-left: 0px;">
 					<div class="col-sm-6" id="uploadFormLanguage">
-						<select class="form-control" name="add_idiomas" required>
+						<select class="form-control" name="add_idiomas">
 							<option selected disabled value="">-- Idioma --</option>
 							<?php
 							$langNames = getDBcompletecolumnID($userLang, 'languages', 'id');
@@ -906,7 +906,7 @@
 			<div class="form-group tooltip-demo"> <!-- Educación -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_educ"><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="Si su título no aparece en el listado, póngase en contacto con nosotros a través de administracion@perspectiva-alemania.com"></span> Educación: </label> 
 				<div id="uploadFormDegree" class="col-sm-9">
-					<select class="form-control" name="add_educ" required>
+					<select class="form-control" name="add_educ">
 						<option selected value="">Estudié...</option>
 						<?php 
 							$eduNames = getDBcompleteColumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'studies', 'id');
@@ -945,7 +945,7 @@
 						</div>
 						<div class=" row col-sm-4">
 							<div class="col-sm-10">
-								<textarea class="form-control" name="add_desc" placeholder="Descripción del puesto"></textarea>
+								<textarea id="uploadFormCareerTextarea" class="form-control" name="add_desc" placeholder="Descripción del puesto"></textarea>
 							</div>	
 							<div class="btn-toolbar col-sm-1">
 								<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addCareer(this.form);" type="button"><span class="glyphicon glyphicon-plus"></span></button></div>
