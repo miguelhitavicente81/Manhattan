@@ -970,14 +970,7 @@ Los campos que poseen * son obligatorios.
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_idiomas">Idioma/s: * </label> 
 				<div class="col-sm-10" style="padding-left: 0px;">
 					<div class="col-sm-6" id="uploadFormLanguage">
-						<select class="form-control" name="add_idiomas">
-							<option selected value="">-- Idioma --</option>
-							<?php
-							$langNames = getDBcompletecolumnID($userLang, 'languages', 'id');
-							foreach($langNames as $i){
-								echo "<option value=" . getDBsinglefield('key', 'languages', $userLang, $i) . ">" . $i . "</option>";
-							}
-							?>
+						<div id="txtHint2"></div>
 						</select>
 					</div>
 					<div class="col-sm-5">
