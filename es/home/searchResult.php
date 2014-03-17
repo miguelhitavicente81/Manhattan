@@ -228,16 +228,17 @@ set_include_path(get_include_path() . PATH_SEPARATOR . "../../common/cppdf");
 							
 							
 							if(strlen($_POST[blankWordKey])>0){
-							$criteria="where `nie` like '%$_POST[blankWordKey]%' or `nationalities` like '%$_POST[blankWordKey]%' or `sex` like '%$_POST[blankWordKey]%' or `drivingType` like '%$_POST[blankWordKey]%' or `marital` like '%$_POST[blankWordKey]%' or `sons` like '%$_POST[blankWordKey]%' or `language` like '%$_POST[blankWordKey]%' or `occupation` like '%$_POST[blankWordKey]%' or `city` like '%$_POST[blankWordKey]%' or `experDesc` like '%$_POST[blankWordKey]%' and cvStatus = 'checked';";}
+							$criteria="where `nie` like '%$_POST[blankWordKey]%' or `nationalities` like '%$_POST[blankWordKey]%' or `sex` like '%$_POST[blankWordKey]%' or `drivingType` like '%$_POST[blankWordKey]%' or `marital` like '%$_POST[blankWordKey]%' or `sons` like '%$_POST[blankWordKey]%' or `language` like '%$_POST[blankWordKey]%' or `career` like '%$_POST[blankWordKey]%' or `city` like '%$_POST[blankWordKey]%' or `experDesc` like '%$_POST[blankWordKey]%' and cvStatus = 'checked';";}
 							else{
-							$criteria="where `nie` like '%$_POST[blankNIE]%' and `nationalities` like '%$_POST[blankNationality]%' and `sex` like '%$_POST[blankSex]%' and `drivingType` like '%$_POST[drivingtype]%' and `marital` like '%$_POST[civilStatus]%' and `sons` like '%$_POST[blankSons]%' and `language` like '%$_POST[blankLanguages]%' and `occupation` like '%$_POST[blankJob]%' and cvStatus = 'checked';";}						
+							$criteria="where `nie` like '%$_POST[blankNIE]%' and `nationalities` like '%$_POST[blankNationality]%' and `sex` like '%$_POST[blankSex]%' and `drivingType` like '%$_POST[drivingtype]%' and `marital` like '%$_POST[civilStatus]%' and `sons` like '%$_POST[blankSons]%' and `language` like '%$_POST[blankLanguages]%' and `career` like '%$_POST[blankJob]%' and cvStatus = 'checked';";}						
 							
 							$consulta = "SELECT * FROM `cvitaes`".$criteria;
+							
 							if ($resultado = mysqli_query($enlace, $consulta)) {
 
 								/* Obtener la informacin de campo de todas las columnas */
 								$info_campo = mysqli_fetch_fields($resultado);
-								$valores_mostrar = array("id", "name", "surname", "nationalities","occupation");
+								$valores_mostrar = array("id", "name", "surname", "nationalities","career");
 								echo "<div class='table-responsive'>";
 								echo "<table id='resultTable' class='table table-striped table-hover'>";
 								
