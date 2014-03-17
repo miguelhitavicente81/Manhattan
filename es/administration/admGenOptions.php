@@ -230,8 +230,8 @@
 								}
 							break;
 
-							case 'hNewStudySubmit':
-								if((empty($_POST['newStudyenName'])) || (empty($_POST['newStudyesName'])) || (empty($_POST['newStudydeName']))){
+							case 'hNewCareerSubmit':
+								if((empty($_POST['newCareerenName'])) || (empty($_POST['newCareeresName'])) || (empty($_POST['newCareerdeName']))){
 									?>
 									<script type="text/javascript">
 										alert('Todos los campos deben estar rellenos.');
@@ -240,10 +240,10 @@
 									<?php 
 								}
 								else{
-									$auxKey = dropAccents($_POST['newStudyenName']);
+									$auxKey = dropAccents($_POST['newCareerenName']);
 									$auxKey = ucwords($auxKey);
 									$auxKey = str_replace(' ', '', $auxKey);
-									if($auxKey == getDBsinglefield('key', 'studies', 'key', $auxKey)){
+									if($auxKey == getDBsinglefield('key', 'careers', 'key', $auxKey)){
 										?>
 										<script type="text/javascript">
 											alert('Alguno de los datos introducidos ya existe en la BD.');
@@ -251,11 +251,11 @@
 										</script>
 										<?php 
 									}
-									elseif(!executeDBquery("INSERT INTO `studies` (`id`, `key`, `english`, `spanish`, `german`) VALUES
-									(NULL, '".$auxKey."', '".ucwords($_POST['newStudyenName'])."', '".ucwords($_POST['newStudyesName'])."', '".ucwords($_POST['newStudydeName'])."')")){
+									elseif(!executeDBquery("INSERT INTO `careers` (`id`, `key`, `english`, `spanish`, `german`) VALUES
+									(NULL, '".$auxKey."', '".ucwords($_POST['newCareerenName'])."', '".ucwords($_POST['newCareeresName'])."', '".ucwords($_POST['newCareerdeName'])."')")){
 										?>
 										<script type="text/javascript">
-											alert('Error including new study.');
+											alert('Error including new career.');
 											window.location.href='admGenOptions.php';
 										</script>
 										<?php 
@@ -276,7 +276,7 @@
 									$auxKey = dropAccents($_POST['newOptionKey']);
 									$auxKey = ucwords($auxKey);
 									$auxKey = str_replace(' ', '', $auxKey);
-									if($auxKey == getDBsinglefield('key', 'studies', 'key', $auxKey)){
+									if($auxKey == getDBsinglefield('key', 'careers', 'key', $auxKey)){
 										?>
 										<script type="text/javascript">
 											alert('La clave introducida ya existe en la BD.');
@@ -295,6 +295,32 @@
 									}
 								}
 							break;
+							
+							case 'hMassiveSubmit':
+								$path = $_SERVER['DOCUMENT_ROOT'];
+								$completePath = $path.'/'.$_POST['massiveFile'];
+								
+								//if(!massiveUpload($_POST['massiveFile'], '.', $_POST['destinyTableSel'])){
+								//if(!massiveUpload($completePath, '.', 0, $_POST['destinyTableSel'])){ EL '0' INDICA LA POSICION DONDE SE ENCUENTRA LA 'key'
+								if(!massiveUpload($completePath, '.', $_POST['destinyTableSel'])){
+									?>
+									<script type="text/javascript">
+										alert('Error uploading data from file.');
+										window.location.href='admGenOptions.php';
+									</script>
+									<?php 
+								}
+								else{
+									?>
+									<script type="text/javascript">
+										alert('Archivo cargado con éxito.');
+										window.location.href='admGenOptions.php';
+									</script>
+									<?php 
+								}
+								
+							break;
+
 						}
 					}//del POST
 					
@@ -311,11 +337,11 @@
 								}
 							break;
 							
-							case 'hDelStudy':
-								if(!deleteDBrow('studies', 'id', $_GET['codvalue'])){
+							case 'hDelCareer':
+								if(!deleteDBrow('careers', 'id', $_GET['codvalue'])){
 									?>
 									<script type="text/javascript">
-										alert('Error deleting Study.');
+										alert('Error deleting Career.');
 										window.location.href='admGenOptions.php';
 									</script>
 									<?php 
@@ -358,6 +384,9 @@
 							</div>
 							<div class="panel-body">
 								<div class="table-responsive">
+									<?php if(getDBrowsnumber('languages') < 1){ ?>
+									<h4>No hay idiomas. Por favor, incluya alguno.</h4>
+									<?php } else{ ?>
 									<table class="table table-striped table-hover">
 										<thead>
 											<tr>
@@ -382,13 +411,12 @@
 												echo "<td>" . $langRow['spanish'] . "</td>";
 												echo "<td>" . $langRow['german'] . "</td>";
 												echo "<td><a href='admGenOptions.php?codvalue=" . $langRow['id'] . "&hiddenGET=hDelLang' onclick='return confirmLangDeletionES();'>Borrar</a></td>";
-												//<a href="javascript:eliminar_noticia(eliminar_noticia.php?id_noticia=<?php echo $p[$i]["id_noticia"];? >');" title="Eliminar <?php echo $p[$i]["titulo"];? >"><img src="ima/eliminar.png" border="0" /></ a>
-												//echo "<td><a href='javascript:confirmLangDeletion(admGenOptions.php?codvalue=" . $langRow['id'] . "&hiddenGET=hDelLang);'>Borrare</a></td>";
 												$k++;
 											}
 											?>
 										</tbody>
 									</table>
+									<?php } ?>
 								</div>
 
 								<div class="container-fluid center-block">
@@ -414,12 +442,16 @@
 							</div>
 						</div> <!-- Panel de Idiomas -->
 						
-						<div class="panel panel-default"> <!-- Panel de Educación (studies) -->		
+						<div class="panel panel-default"> <!-- Panel de Profesiones (careers) -->		
 							<div class="panel-heading">
-								<h3 class="panel-title">Educación</h3>
+								<h3 class="panel-title">Profesiones</h3>
+								<!-- <input type="button" class="btn btn-primary" name="cleanCareers" value="Limpiar"> -->
 							</div>
 							<div class="panel-body">
 								<div class="table-responsive">
+									<?php if(getDBrowsnumber('careers') < 1){ ?>
+									<h4>No hay profesiones. Por favor, incluya alguna.</h4>
+									<?php } else{ ?>
 									<table class="table table-striped table-hover">
 										<thead>
 											<tr>
@@ -433,45 +465,46 @@
 										</thead>
 										<tbody>
 											<?php 
-											$studyKeyRows = getDBcompletecolumnID('key', 'studies', 'id');
+											$careerKeyRows = getDBcompletecolumnID('key', 'careers', 'id');
 											$k = 1;
-											foreach($studyKeyRows as $i){
-												$studyRow = getDBrow('studies', 'key', $i);
+											foreach($careerKeyRows as $i){
+												$careerRow = getDBrow('careers', 'key', $i);
 												echo "<tr>";
 												echo "<td>" . $k . "</td>";
-												echo "<td>" . $studyRow['key'] . "</td>";
-												echo "<td>" . $studyRow['english'] . "</td>";
-												echo "<td>" . $studyRow['spanish'] . "</td>";
-												echo "<td>" . $studyRow['german'] . "</td>";
-												echo "<td><a href='admGenOptions.php?codvalue=" . $studyRow['id'] . "&hiddenGET=hDelStudy' onclick='return confirmStudyDeletionES();'>Borrar</a></td>";
+												echo "<td>" . $careerRow['key'] . "</td>";
+												echo "<td>" . $careerRow['english'] . "</td>";
+												echo "<td>" . $careerRow['spanish'] . "</td>";
+												echo "<td>" . $careerRow['german'] . "</td>";
+												echo "<td><a href='admGenOptions.php?codvalue=" . $careerRow['id'] . "&hiddenGET=hDelCareer' onclick='return confirmCareerDeletionES();'>Borrar</a></td>";
 												$k++;
 											}
 											?>
 										</tbody>
 									</table>
+									<?php } ?>
 								</div>
 								
 								<div class="container-fluid center-block">
-									<h4>Nueva Educación</h4>
-									<form class="form-inline" role="form" name="newStudy" action="admGenOptions.php" method="post">
+									<h4>Nueva Profesión</h4>
+									<form class="form-inline" role="form" name="newCareer" action="admGenOptions.php" method="post">
 										<div class="form-group">
-											<label class="sr-only" for="newStudyenName">Nombre Inglés</label>
-											<input type="text" class="form-control" name="newStudyenName" placeholder="Nombre Inglés" />
+											<label class="sr-only" for="newCareerenName">Nombre Inglés</label>
+											<input type="text" class="form-control" name="newCareerenName" placeholder="Nombre Inglés" />
 										</div>							
 										<div class="form-group">
-											<label class="sr-only" for="newStudyesName">Nombre Español</label>
-											<input type="text" class="form-control" name="newStudyesName" placeholder="Nombre Español" />
+											<label class="sr-only" for="newCareeresName">Nombre Español</label>
+											<input type="text" class="form-control" name="newCareeresName" placeholder="Nombre Español" />
 										</div>
 										<div class="form-group">
-											<label class="sr-only" for="newStudydeName">Nombre Alemán</label>
-											<input type="text" class="form-control" name="newStudydeName" placeholder="Nombre Alemán" />
+											<label class="sr-only" for="newCareerdeName">Nombre Alemán</label>
+											<input type="text" class="form-control" name="newCareerdeName" placeholder="Nombre Alemán" />
 										</div>	
-										<input type="hidden" value="hNewStudySubmit" name="hiddenPOST">
-										<button type="submit" class="btn btn-primary" name="newStudysubmit" value="Incluir">Incluir</button>
+										<input type="hidden" value="hNewCareerSubmit" name="hiddenPOST">
+										<button type="submit" class="btn btn-primary" name="newCareersubmit" value="Incluir">Incluir</button>
 									</form>
 								</div>
 							</div>
-						</div> <!-- Panel de Estudios -->
+						</div> <!-- Panel de Profesiones (careers) -->
 
 						<div class="panel panel-default"> <!-- Panel Otras Opciones -->
 							<div class="panel-heading">
@@ -532,6 +565,40 @@
 							</div>
 						</div> <!-- Panel Otras Opciones -->
 					
+						<div class="panel panel-default"> <!-- Panel Carga Masiva de datos -->
+							<div class="panel-heading">
+								<!-- <h3 class="panel-title">Carga Masiva (Cuidadito con lo que metes y dónde lo metes...)</h3> -->
+								<h3 class="panel-title">Carga Masiva (El archivo debe estar en la ruta DOCUMENT_ROOT)</h3>
+							</div>
+							<div class="panel-body">
+								<div class="table-responsive">
+									<div class="container-fluid center-block">
+										<h4>Elige el archivo a cargar y la tabla en la que hacerlo</h4>
+										<form class="form-inline" role="form" name="newMassiveLoad" action="admGenOptions.php" method="post">
+											<div class="form-group">
+												<label class="sr-only" for="massiveFile">Archivo</label>
+												<input type="file" class="form-control" name="massiveFile" id="massiveFile" onchange="checkMassFileExtension(this.id)">
+											</div>
+											<div class="form-group">
+												<label class="sr-only" for="destinyTable">Tabla</label>
+												<select name="destinyTableSel" class="form-control">
+													<option selected disabled value=''>Tabla</option>
+													<?php 
+													$tablesList = getDBTablesNames();
+													foreach($tablesList as $i){
+														echo "<option value=" . $i . ">" . $i . "</option>";
+													}
+													?>
+												</select>
+											</div>
+											<input type="hidden" value="hMassiveSubmit" name="hiddenPOST">
+											<button type="submit" class="btn btn-primary" name="newMassivesubmit" value="Cargar">Cargar</button>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div> <!-- Panel Carga Masiva de datos -->
+					
 					<?php 
 					}
 					elseif($_SESSION['logprofile'] == 'Administrador'){
@@ -542,6 +609,9 @@
 							</div>
 							<div class="panel-body">
 								<div class="table-responsive">
+									<?php if(getDBrowsnumber('languages') < 1){ ?>
+									<h4>No hay idiomas. Por favor, incluya alguno.</h4>
+									<?php } else{ ?>
 									<table class="table table-striped table-hover">
 										<thead>
 											<tr>
@@ -573,6 +643,7 @@
 											?>
 										</tbody>
 									</table>
+									<?php } ?>
 								</div>
 
 								<div class="container-fluid center-block">
@@ -598,12 +669,15 @@
 							</div>
 						</div> <!-- Panel de Idiomas -->
 						
-						<div class="panel panel-default"> <!-- Panel de Educación (studies) -->		
+						<div class="panel panel-default"> <!-- Panel de Profesiones (careers) -->		
 							<div class="panel-heading">
-								<h3 class="panel-title">Educación</h3>
+								<h3 class="panel-title">Profesiones</h3>
 							</div>
 							<div class="panel-body">
 								<div class="table-responsive">
+									<?php if(getDBrowsnumber('careers') < 1){ ?>
+									<h4>No hay profesiones. Por favor, incluya alguna.</h4>
+									<?php } else{ ?>
 									<table class="table table-striped table-hover">
 										<thead>
 											<tr>
@@ -616,44 +690,45 @@
 										</thead>
 										<tbody>
 											<?php 
-											$studyKeyRows = getDBcompletecolumnID('key', 'studies', 'id');
+											$careerKeyRows = getDBcompletecolumnID('key', 'careers', 'id');
 											$k = 1;
-											foreach($studyKeyRows as $i){
-												$studyRow = getDBrow('studies', 'key', $i);
+											foreach($careerKeyRows as $i){
+												$careerRow = getDBrow('careers', 'key', $i);
 												echo "<tr>";
 												echo "<td>" . $k . "</td>";
-												echo "<td>" . $studyRow['english'] . "</td>";
-												echo "<td>" . $studyRow['spanish'] . "</td>";
-												echo "<td>" . $studyRow['german'] . "</td>";
-												echo "<td><a href='admGenOptions.php?codvalue=" . $studyRow['id'] . "&hiddenGET=hDelStudy' onclick='return confirmStudyDeletionES();'>Borrar</a></td>";
+												echo "<td>" . $careerRow['english'] . "</td>";
+												echo "<td>" . $careerRow['spanish'] . "</td>";
+												echo "<td>" . $careerRow['german'] . "</td>";
+												echo "<td><a href='admGenOptions.php?codvalue=" . $careerRow['id'] . "&hiddenGET=hDelCareer' onclick='return confirmCareerDeletionES();'>Borrar</a></td>";
 												$k++;
 											}
 											?>
 										</tbody>
 									</table>
+									<?php } ?>
 								</div>
 								
 								<div class="container-fluid center-block">
 									<h4>Nueva Educación</h4>
-									<form class="form-inline" role="form" name="newStudy" action="admGenOptions.php" method="post">
+									<form class="form-inline" role="form" name="newCareer" action="admGenOptions.php" method="post">
 										<div class="form-group">
-											<label class="sr-only" for="newStudyenName">Nombre Inglés</label>
-											<input type="text" class="form-control" name="newStudyenName" placeholder="Nombre Inglés" />
+											<label class="sr-only" for="newCareerenName">Nombre Inglés</label>
+											<input type="text" class="form-control" name="newCareerenName" placeholder="Nombre Inglés" />
 										</div>							
 										<div class="form-group">
-											<label class="sr-only" for="newStudyesName">Nombre Español</label>
-											<input type="text" class="form-control" name="newStudyesName" placeholder="Nombre Español" />
+											<label class="sr-only" for="newCareeresName">Nombre Español</label>
+											<input type="text" class="form-control" name="newCareeresName" placeholder="Nombre Español" />
 										</div>
 										<div class="form-group">
-											<label class="sr-only" for="newStudydeName">Nombre Alemán</label>
-											<input type="text" class="form-control" name="newStudydeName" placeholder="Nombre Alemán" />
+											<label class="sr-only" for="newCareerdeName">Nombre Alemán</label>
+											<input type="text" class="form-control" name="newCareerdeName" placeholder="Nombre Alemán" />
 										</div>	
-										<input type="hidden" value="hNewStudySubmit" name="hiddenPOST">
-										<button type="submit" class="btn btn-primary" name="newStudysubmit" value="Incluir">Incluir</button>
+										<input type="hidden" value="hNewCareerSubmit" name="hiddenPOST">
+										<button type="submit" class="btn btn-primary" name="newCareersubmit" value="Incluir">Incluir</button>
 									</form>
 								</div>
 							</div>
-						</div> <!-- Panel de Estudios -->
+						</div> <!-- Panel de Profesiones (careers) -->
 					
 					<?php 
 					}

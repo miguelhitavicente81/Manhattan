@@ -2,3 +2,5 @@
 /cvs/
 /trashFolder/
 /common/cppdf/
+
+*.orig

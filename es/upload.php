@@ -74,22 +74,33 @@
 		//Functions used to add/remove in realtime Language fields 
 		var rowNum = 0;
 		function addLanguage(frm){
+			if (frm.add_idiomas.value == '')
+			{
+			return ;
+			}
+			if (frm.add_nidiomas.value == '')
+			{
+			return ;
+			}
 			rowNum ++;
-			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowLanguage'+rowNum+'"><div class="col-sm-5"><input class="form-control" type="text" name="idiomas[]" value="'+frm.add_idiomas.value+'" readonly></div><div class="col-sm-5"><input class="form-control" type="text" name="nidiomas[]" value="'+frm.add_nidiomas.value+'" readonly></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeLanguage('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
+			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowLanguage'+rowNum+'"><div class="col-sm-5"><input class="form-control" type="hidden" name="idiomas[]" value="'+frm.add_idiomas.value+'" ><input class="form-control" type="text" name="idiomasf[]" value="'+frm.add_idiomas.value+'" disabled></div><div class="col-sm-5"><input class="form-control" type="hidden" name="nidiomas[]" value="'+frm.add_nidiomas.value+'" ><input class="form-control" type="text" name="fnidiomas[]" value="'+frm.add_nidiomas.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeLanguage('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
 			jQuery('#uploadFormLanguage').append(row);
+			ajaxGetLanguage(frm.add_idiomas.value);
 			frm.add_idiomas.value = '';
 			frm.add_nidiomas.value = '';
 		}
 		
 		function removeLanguage(rnum){
 			jQuery('#rowLanguage'+rnum).remove();
+			ajaxDelLanguage(rnum);
+
 		}
 		
-		//Functions used to add/remove in realtime Education fields 
+		//Functions used to add/remove realtime Education fields 
 		var rowNum = 0;
 		function addDegree(frm){
 			rowNum ++;
-			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowDegree'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="educ[]" value="'+frm.add_educ.value+'" readonly></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeDegree('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
+			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowDegree'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="hidden" name="educ[]" value="'+frm.add_educ.value+'"><input class="form-control" type="text" name="feduc[]" value="'+frm.add_educ.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeDegree('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
 			jQuery('#uploadFormDegree').append(row);
 			frm.add_educ.value = '';
 		}
@@ -98,31 +109,36 @@
 			jQuery('#rowDegree'+rnum).remove();
 		}
 
-		//Functions to add/remove in realtime Experience fields 
 		function addCareer(frm){
 			rowNum ++;
+
 			var row ='<div class="row" style="padding-left: 0px; margin-bottom: 10px;" id="rowCareer'+rowNum+'"> \
 				<div class="col-sm-5"> \
 					<div class="row"> \
 						<div class="col-sm-6"> \
-							<input class="form-control" type="text" name="empr[]" value="'+frm.add_empr.value+'"> \
+									<input class="form-control" type="hidden" name="empr[]" value="'+frm.add_empr.value+'"> \
+									<input class="form-control" type="text" name="fempr[]" value="'+frm.add_empr.value+'"> disabled\
 						</div> \
 						<div class="col-sm-6"> \
-							<input class="form-control" type="text" name="categ[]" value="'+frm.add_categ.value+'" > \
+									<input class="form-control" type="hidden" name="categ[]" value="'+frm.add_categ.value+'" > \
+									<input class="form-control" type="text" name="fcateg[]" value="'+frm.add_categ.value+'" disabled> \
 						</div> \
 					</div> \
 					<div class="row"> \
 						<div class="col-sm-6"> \
-							<input class="form-control" type="text" name="expstart[]" value="'+frm.add_expstart.value+'"> \
+									<input class="form-control" type="hidden" name="expstart[]" value="'+frm.add_expstart.value+'"> \
+									<input class="form-control" type="text" name="fexpstart[]" value="'+frm.add_expstart.value+'" disabled> \
 						</div>			 \
 						<div class="col-sm-6"> \
-							<input class="form-control" type="text" name="expend[]" value="'+frm.add_expend.value+'"> \
+									<input class="form-control" type="hidden" name="expend[]" value="'+frm.add_expend.value+'"> \
+									<input class="form-control" type="text" name="fexpend[]" value="'+frm.add_expend.value+'" disabled> \
 						</div> \
 					</div> \
 				</div> \
 				<div class=" row col-sm-4"> \
 					<div class="col-sm-10"> \
-						<textarea class="form-control" name="desc[]">'+frm.add_desc.value+'</textarea> \
+								<input class="form-control" type="hidden" name="desc[]" value="'+frm.add_desc.value+'"></textarea> \
+								<textarea class="form-control" name="fdesc[]" value="'+frm.add_desc.value+'"disabled></textarea> \
 					</div>	 \
 					<div class="btn-toolbar col-sm-1"> \
 						<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="removeCareer('+rowNum+');" type="button"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div> \
@@ -140,11 +156,9 @@
 		function removeCareer(rnum){
 			jQuery('#rowCareer'+rnum).remove();
 		}
-
-		//Functions to add/remove in realtime Nationalities fields 
 		function addNationality(frm){
 			rowNum ++;
-			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowNationality'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="nat[]" value="'+frm.add_nat.value+'" readonly></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeNationality('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
+			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowNationality'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="nat[]" value="'+frm.add_nat.value+'"></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeNationality('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
 			jQuery('#uploadFormNationality').append(row);
 			frm.add_nat.value = '';
 		}
@@ -196,48 +210,58 @@
 	
 </head>
 
-<body>
+<body onload="ajaxGetLanguage('inventado');">
 
 <?php
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/SimpleImage.php');
 	
 	if(isset($_POST['push_button'])){
+		//LO 1º A COMPROBAR SERA QUE EL CHECK LOPD ESTÉ VALIDADO Y QUE NO EXISTA
 		#echo "entro en el if $_POST[senduser]";
 		foreach ($_POST as $key => $entry){
-				#echo $key;
+			//echo $key.'<br>';
+			//echo $key.' es: -->'.$_POST[$key].'<--<br>';
 			if(is_array($entry)){
 				if($key == idiomas){
 					//str_idiomas es 'language' en la BD (en addLanguage)
 					$str_idiomas = implode('|',$entry);
+					//echo 'Idiomas es: '.$str_idiomas;
 				}
 				if($key == nidiomas){
 					//str_nidiomas es 'langLevel' en la BD (en addLanguage)
 					$str_nidiomas = implode('|',$entry);
+					//echo 'Nivel de idiomas es: '.$str_nidiomas;
 				}
 				if($key == educ){
 					//str_educ es 'education' en la BD (en addDegree)
 					$str_educ = implode('|', $entry);
+					//echo 'Educación es: '.$str_educ;
 				}
 				if($key == empr){
 					//str_empr es 'experCompany' en la BD (en addRow4)
 					$str_empr = implode('|',$entry);
+					//echo 'Empresa es: '.$str_empr;
 				}
 				if($key == categ){
 					//str_categ es 'experPos' en la BD (en addRow4)
 					$str_categ = implode('|',$entry);
+					//echo 'Categoria es: '.$str_categ;
 				}
 				if($key == expstart){
 					//str_expstart es 'experStart' en la BD (en addRow4)
 					$str_expstart = implode('|',$entry);
+					//echo 'Ini-exp es: '.$str_expstart;
 				}
 				if($key == expend){
 					//str_expend es 'experEnd' en la BD (en addRow4)
 					$str_expend = implode('|',$entry);
+					//echo 'Fin-exp es: '.$str_expend;
 				}
 				if($key == desc){
 					//str_desc es 'experDesc' en la BD (en addRow4)
 					$str_desc = implode('|',$entry);
+					//echo 'Descripción es: '.$str_desc;
 				}
 				/*
 				if($key == nat){
@@ -261,6 +285,8 @@
 			   #print $key . ": " . $entry . "<br>";
 			 }
 		}
+		//echo 'hola';
+		//exit();
 		
 		if(!checkFullNameES($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
 			?>
@@ -270,7 +296,6 @@
 			</script>
 			<?php 
 		}
-		/*
 		elseif(!isPreviousDate($_POST['blankbirthdate'])){
 			?>
 			<script type="text/javascript">
@@ -296,7 +321,7 @@
 			<?php 
 		}
 		//Sex and Type of address are automatically detected as restricted fields
-		elseif(!checkFullAddress($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
+		elseif(!checkFullAddressES($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
 			?>
 			<script type="text/javascript">
 				alert('<?php echo $checkError; ?>');
@@ -304,6 +329,7 @@
 			</script>
 			<?php 
 		}
+		//This could be an international phone (should start with '00(49)'. It is not required
 		elseif(!checkPhone($_POST['blankphone'])){
 			?>
 			<script type="text/javascript">
@@ -320,7 +346,7 @@
 			</script>
 			<?php 
 		}
-		if(!filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)){
+		elseif(!filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)){
 			?>
 			<script type="text/javascript">
 				alert('Introduzca un email válido, por favor');
@@ -328,7 +354,7 @@
 			</script>
 			<?php 
 		}
-		if((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
+		elseif((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
 			if(!checkDrivingLicense($_POST['blankdrivingtype'], $_POST['blankdrivingdate'], $checkError)){
 				?>
 				<script type="text/javascript">
@@ -338,16 +364,22 @@
 				<?php 
 			}
 		}
-		*/
+		//else{
+			$cleanedOther = cleanFreeText($_POST['blankother']);
+			$cleanedSkill1 = cleanFreeText($_POST['blankskill1']);
+			$cleanedSkill2 = cleanFreeText($_POST['blankskill2']);
+			$cleanedSkill3 = cleanFreeText($_POST['blankskill3']);
+			$cleanedSkill4 = cleanFreeText($_POST['blankskill4']);
+			$cleanedSkill5 = cleanFreeText($_POST['blankskill5']);
+			$cleanedSkill6 = cleanFreeText($_POST['blankskill6']);
+			$cleanedSkill7 = cleanFreeText($_POST['blankskill7']);
+			$cleanedSkill8 = cleanFreeText($_POST['blankskill8']);
+			$cleanedSkill9 = cleanFreeText($_POST['blankskill9']);
+			$cleanedSkill10 = cleanFreeText($_POST['blankskill10']);
 		
 		
 		//Field 'maritalStatus' is automatically checked in the own form with field "required"
-		/*
-		elseif(){
-		}
-		*/
 		
-		//echo 'Hijos '.$_POST['blanksons'];
 		/*
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		
@@ -379,6 +411,10 @@
 		}
 		 */
 		
+		//echo 'Y de la LOPD, que...'.$_POST['blanklopd'];
+		//exit();
+		
+		/*
 		$insertCVQuery = "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
 		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
@@ -390,11 +426,50 @@
 		'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
 		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
 		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
+		*/
+		/*
+		$insertCVQuery = "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
+		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
+		`cvDate`, `userLogin`, `salary`) VALUES 
+		(NULL, '".$_POST['blanknie']."', 'pending', '".$outName."', '".$outSurname."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
+		'".$_POST['blankaddrtype']."', '".$outAddrName."', '".$outAddrNumber."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".$_POST['blankaddrcountry']."', '".$_POST['blankaddrprovince']."', '".$_POST['blankaddrcity']."',
+		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
+		'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$cleanedOther."', 
+		'".$cleanedSkill1."', '".$cleanedSkill2."', '".$cleanedSkill3."', '".$cleanedSkill4."', '".$cleanedSkill5."', '".$cleanedSkill6."', '".$cleanedSkill7."', 
+		'".$cleanedSkill8."', '".$cleanedSkill9."', '".$cleanedSkill10."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
+		*/
+		
+		
+		$insertCVQuery = "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, `career`, 
+		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
+		`cvDate`, `userLogin`, `salary`) VALUES 
+		(NULL, '".$_POST['blanknie']."', 'pending', '".$outName."', '".$outSurname."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
+		'".$_POST['blankaddrtype']."', '".$outAddrName."', '".$outAddrNumber."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".$_POST['blankaddrcountry']."', '".$_POST['blankaddrprovince']."', '".$_POST['blankaddrcity']."',
+		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
+		'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$cleanedOther."', 
+		'".$cleanedSkill1."', '".$cleanedSkill2."', '".$cleanedSkill3."', '".$cleanedSkill4."', '".$cleanedSkill5."', '".$cleanedSkill6."', '".$cleanedSkill7."', 
+		'".$cleanedSkill8."', '".$cleanedSkill9."', '".$cleanedSkill10."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
+		
 		
 		executeDBquery($insertCVQuery);
 		
 		
 		/*
+		if(!executeDBquery($insertCVQuery)){
+			?>
+			<script type="text/javascript">
+				alert('There was a problem saving your CV. Please contact us to solve it.');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		else{
+			//INTENTO GUARDAR LOS FICHEROS. COMPROBÁNDOLOS ANTES
+			
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		
 		$tot = count($_FILES["archivos"]["name"]);
@@ -421,60 +496,70 @@
 		else{
 			#echo "¡Posible ataque de carga de archivos!\n";
 		}
+		}
 		*/
 		
 		
 		//blocks candidate and redirects her/him to index.html
-		executeDBquery("UPDATE `users` SET `active`='0' WHERE `login`='".$_SESSION['loglogin']."'");
+		executeDBquery("UPDATE `users` SET `active`='0', `cvSaved`='1' WHERE `login`='".$_SESSION['loglogin']."'");
+		
+		//exit();
+		
 		?>
 		<script type="text/javascript">
-			alert('CV insertado con éxito. Gracias!');
+			//alert('CV insertado con éxito. Gracias!');
+			alert('Gracias por insertar su CV. Por seguridad, su usuario ha sido desactivado.');
 			window.location.href='./endsession.php';
 		</script>
 		<?php
+		//}
 	}//del (isset($_POST[]))
 
 	/*****************************     End of FORM validations     *****************************/
 	
 	/*************************     Start of WebPage code as showed     *************************/
 ?>
+<!-- EN CADA CAMPO COMPROBARÉ SI EL USUARIO YA INSERTÓ PREVIAMENTE EL CV if(getDBsinglefield('cvSaved', 'users', 'login', $_SESSION['loglogin'])) -->
+
+Los campos que poseen * son obligatorios.
 
 <form id="uploadForm" class="form-horizontal" name="formu" action=""  method="post" enctype="multipart/form-data">
 	<div class="panel panel-default">
 		<div class="panel-body">
 			<div class="form-group"> <!-- Nombre -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankname">Nombre: </label> 
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankname">Nombre: * </label> 
 				<div class="col-sm-10">
 					<input class="form-control" type='text' name='blankname' autocomplete="off" required/>
 				</div>
 			</div>
 
 			<div class="form-group"> <!-- Apellidos -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksurname">Apellidos: </label> 
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksurname">Apellidos: * </label> 
 				<div class="col-sm-10">
 					<input class="form-control" type='text' name='blanksurname' autocomplete="off" required/>
 				</div>
 			</div>
 
 			<div class="form-group"> <!-- Fecha de Nacimiento -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankbirthdate">Fecha de Nacimiento: </label> 
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankbirthdate">Fecha de Nacimiento: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type='date' name='blankbirthdate' autocomplete="off"/>
+					<input class="form-control" type='date' name='blankbirthdate' autocomplete="off" required/>
 				</div>
 			</div>		
 
 			<div class="form-group"> <!-- DNI/NIE -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanknie">DNI/NIE: </label> 
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanknie">DNI/NIE: * </label>
 				<div class="col-sm-10">
-					<input class="form-control" type='text' name='blanknie' autocomplete="off" maxlength="9" placeholder="12345678X" onkeyup="this.value=this.value.toUpperCase();" />
+					<input class="form-control" type='text' name='blanknie' autocomplete="off" maxlength="9" placeholder="12345678X" onkeyup="this.value=this.value.toUpperCase();" required/>
 				</div>
 			</div>		
 
 			<div class="form-group"> <!-- Nacionalidad -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_nat">Nacionalidad: </label> 
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_nat">Nacionalidad: * </label> 
 				<div class="col-sm-9" id="uploadFormNationality">
 					<select class="form-control" name="add_nat" >
 						<option value="" selected> Seleccione </option>
+						<option value="Spain"> Spain </option>
 						<option value="Afghanistan"> Afghanistan </option>
 						<option value="Albania"> Albania </option>
 						<option value="Algeria"> Algeria </option>
@@ -489,7 +574,6 @@
 						<option value="Australia"> Australia </option>
 						<option value="Austria"> Austria </option>
 						<option value="Azerbaijan"> Azerbaijan </option>
-						<option value="The Bahamas"> The Bahamas </option>
 						<option value="Bahrain"> Bahrain </option>
 						<option value="Bangladesh"> Bangladesh </option>
 						<option value="Barbados"> Barbados </option>
@@ -673,7 +757,6 @@
 						<option value="South Africa"> South Africa </option>
 						<option value="South Korea"> South Korea </option>
 						<option value="South Ossetia"> South Ossetia </option>
-						<option value="Spain"> Spain </option>
 						<option value="Sri Lanka"> Sri Lanka </option>
 						<option value="Sudan"> Sudan </option>
 						<option value="Suriname"> Suriname </option>
@@ -686,6 +769,7 @@
 						<option value="Tajikistan"> Tajikistan </option>
 						<option value="Tanzania"> Tanzania </option>
 						<option value="Thailand"> Thailand </option>
+						<option value="The Bahamas"> The Bahamas </option>
 						<option value="Timor-Leste"> Timor-Leste </option>
 						<option value="Togo"> Togo </option>
 						<option value="Tokelau"> Tokelau </option>
@@ -724,10 +808,10 @@
 			</div>	
 
 			<div class="form-group"> <!-- Sexo -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksex">Sexo: </label>
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksex">Sexo: * </label>
 				<div class="col-sm-10">
 					<div class='radio-inline'>
-						<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='blanksex' value='0'>Hombre</label>
+						<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='blanksex' value='0' required>Hombre</label>
 						<label id='noPadding' class='radio-inline'><input class='radio-inline' type='radio' name='blanksex' value='1'>Mujer</label>
 					</div>
 				</div>
@@ -772,7 +856,7 @@
 					<input class="form-control form-inline" type="text" name="blankaddrfloor" size="1" maxlength="10" placeholder="Piso">
 					<input class="form-control form-inline" type="text" name="blankaddrdoor" size="3" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();">
 					<br><br>
-					<select class="form-control form-inline pull-right" name="blankcode" onchange="ajaxGetAddress(this.value)" style="margin-top:5px;">
+					<select class="form-control form-inline pull-right" name="blankaddrpostalcode" onchange="ajaxGetAddress(this.value)" style="margin-top:5px;">
 						<option value="" selected>-- Código Postal --</option>
 						<?php 
 							$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'postalCode');
@@ -781,26 +865,36 @@
 							}
 						?>
 					</select>
-					<div id="txtHint"><b></b></div>
+					<div id="txtHint">
+						<?php 
+						echo '<select class="form-control" name="blankaddrcity" id="blankaddrcity" disabled style="margin-top:5px; width:60%">';
+							echo '<option>Su localidad...</option>';
+						echo '</select>';
+						/*
+						echo '<label id="uploadFormLabel" class="control-label col-sm-2" for="blankaddrprovince" style="padding-right: 10px;">Provincia: </label><input class="form-control" type="text" name="blankaddrprovince" size="20" value="' . getDBsinglefield('provinceName', 'postalProvincesES', 'id', getDBsinglefield('provCod', 'postalCitiesES', 'postalCode', $value)) . '" disabled style="margin-top:5px;"><br>';
+						echo '<label id="uploadFormLabel" class="control-label col-sm-2" for="blankaddrcountry" style="padding-right: 10px;">País: </label><input class="form-control" type="text" name="blankaddrcountry" size="20" value="España" disabled style="margin-top:5px;"><br>';
+						*/
+						?>
+					</div>
 				</div>
 			</div>	
 
 			<div class="form-group"> <!-- Teléfono Fijo -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankphone">Teléfono Fijo: </label> 
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankphone">Otro Tfno.: </label> 
 				<div class="col-sm-10">
 					<input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="9" placeholder="9XXXXXXXX">
 				</div>
 			</div>
 
 			<div class="form-group"> <!-- Teléfono Móvil -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmobile">Teléfono Móvil: </label> 
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmobile">Tfno. Móvil: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="blankmobile" autocomplete="off" maxlength="9">
+					<input class="form-control" type="text" name="blankmobile" autocomplete="off" maxlength="9" placeholder="[6-7]XXXXXXXX">
 				</div>
 			</div>
 
 			<div class="form-group"> <!-- Correo Electrónico -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmail">eMail: </label> 
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmail">eMail: * </label> 
 				<div class="col-sm-10">
 					<input class="form-control" type="email" name="blankmail" autocomplete="off" placeholder="correo@ejemplo.com">
 				</div>
@@ -831,6 +925,7 @@
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmarital">Estado Civil: </label> 
 				<div class="col-sm-10">
 					<select class="form-control" name="blankmarital">
+						<option selected disabled value="">Estoy...</option>
 					<?php
 						$userLang = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
 						$maritStatus = getDBcompletecolumnID($userLang, 'maritalStatus', 'id');
@@ -862,7 +957,7 @@
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="archivos[]">Documentos adicionales </label>
 				<div class="col-sm-10" style="padding-left: 0px;">
 					<div id="adjuntos" class="col-sm-11">
-						<input class="form-control" type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, zip" file-maxsize="1024" required>
+						<input class="form-control" type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, zip" file-maxsize="1024">
 						<p class="help-block">Tipos admitidos: PDF, DOC, DOCX, XLS, XLSX, CSV, TXT o RTF. Máx: 1024Kb</p>
 					</div>
 					<div class="btn-toolbar col-sm-1">
@@ -872,7 +967,7 @@
 			</div>
 
 			<div class="form-group"> <!-- Nivel de Idiomas -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_idiomas">Nivel de idiomas: </label> 
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_idiomas">Idioma/s: * </label> 
 				<div class="col-sm-10" style="padding-left: 0px;">
 					<div class="col-sm-6" id="uploadFormLanguage">
 						<select class="form-control" name="add_idiomas">
@@ -903,13 +998,13 @@
 				</div>
 			</div>			
 
-			<div class="form-group tooltip-demo"> <!-- Educación -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_educ"><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="Si su título no aparece en el listado, póngase en contacto con nosotros a través de administracion@perspectiva-alemania.com"></span> Educación: </label> 
+			<div class="form-group tooltip-demo"> <!-- Profesión -->
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_educ"><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="Si su título no aparece en el listado, póngase en contacto con nosotros a través de administracion@perspectiva-alemania.com"></span> Profesión: *</label> 
 				<div id="uploadFormDegree" class="col-sm-9">
 					<select class="form-control" name="add_educ">
-						<option selected value="">Estudié...</option>
+						<option selected value="">Soy...</option>
 						<?php 
-							$eduNames = getDBcompleteColumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'studies', 'id');
+							$eduNames = getDBcompleteColumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'careers', 'id');
 							foreach($eduNames as $i){
 								echo "<option value=" . $i . ">" . $i . "</option>";
 							}
@@ -970,7 +1065,7 @@
 			</div>		
 
 			<div class="form-group"> <!-- 10 Tags -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankother">Las 10 palabras que mejor me definen son... </label> 
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankother">Cualidades profesionales que mejor me definen... </label> 
 				<div class="col-sm-10">
 					<?php
 					for ($i=1; $i <= 10 ; $i++) { 
@@ -984,7 +1079,7 @@
 		</div> <!-- Panel Body -->
 
 		<div class="panel-footer">
-					<label class "control-label" style="margin-bottom: 10px; margin-top: 5px;"><input type="checkbox" name="blanklopd" required> He leído y acepto las condiciones de uso y política de privacidad</label>
+			<label class "control-label" style="margin-bottom: 10px; margin-top: 5px;"><input type="checkbox" name="blanklopd" > He leído y acepto las condiciones de uso y política de privacidad</label>
 				<div class="btn-group pull-right">
 					<button type="submit" name ="push_button" class="btn btn-primary">Enviar</button>
 				</div>

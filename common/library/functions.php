@@ -240,6 +240,7 @@ function getDBrow($dbtable, $fieldsupported, $infosupported){
 }
 
 
+
 /* Counts total number of rows in a table
  * Entry (dbtable): DB where wanted to know total number of registries
  * Exit (num_rows): Integer with number of rows
@@ -254,6 +255,7 @@ function getDBrowsnumber($dbtable){
 	mysqli_close($conexion);
 	return $num_rows[0];
 }
+
 
 
 /* Extracts a unique value from 1 single row
@@ -282,6 +284,7 @@ function getDBsinglefield($fieldrequested, $dbtable, $fieldsupported, $infosuppo
 }
 
 
+
 /* Extracts a unique value from 1 single row searching it using 2 different fields
  * Entry (fieldreq): Field in which is needed value
  * Entry (dbtable): Table where to exectue SELECT query
@@ -305,6 +308,148 @@ function getDBsinglefield2($fieldreq, $dbtable, $fieldsup1, $infosup1, $fieldsup
 		mysqli_free_result($result);
 		mysqli_close($conexion);
 	}
+}
+
+
+
+/* Obtains all the tables' names in the DB
+ * Exit (row): Array with all the names
+ */
+function getDBTablesNames(){
+	$connection = connectDB();
+	//$result = mysql_listtables();
+	//$result = mysql_list_tables('prj2014001');
+	//$result = mysql_list_tables('PRJ2014001');
+	$result = mysqli_query($connection, "SHOW TABLES");
+	$i = 0;
+	if(mysqli_num_rows($result) > 0){
+		while($column = mysqli_fetch_row($result)){
+			$row[$i] = $column[0];
+			$i++;
+		}
+		mysqli_free_result($result);
+		mysqli_close($connection);
+		return $row;
+	}
+	else{
+		mysqli_free_result($result);
+		mysqli_close($connection);
+	}
+}
+
+
+
+/* Inserts 1 single row in a given table, without being necessary to know how many fields registry or dbTable have.
+ * PRE: 'id' field (which is always first field) must be autoincrement, as it is not inserted in this function
+ * Entry (registry): Array with all the fields/values for dbTable
+ * Entry (dbTable): Table in which row/registry will be inserted
+ * Exit (): Bool
+ */
+/*
+function insertDBRow($registry, $dbTable){
+	$connection = connectDB();
+	
+	$numRegs = count($registry);
+	if($numRegs > 0){
+		$varCount = 1;
+		$query = "INSERT INTO `$dbTable` (";
+		while ($varCount < $numRegs){
+			$query = $query.'`'.getDBcolumnname($dbTable, $varCount-1).'`, ';
+			$varCount++;
+		}
+		$query = $query.'`'.getDBcolumnname($dbTable, $varCount-1).'`) VALUES (NULL, ';
+		
+		$valueCount = 1;
+		while ($valueCount < $numRegs-1){
+			$query = $query.'\''.$registry[$valueCount].'\', ';
+			$valueCount++;
+		}
+		$query = $query.'\''.$registry[$valueCount].'\')';
+		
+		if(mysqli_query($connection, $query) or die("Error while recording registry: ".mysqli_error($connection))){
+			mysqli_close($connection);
+			return 1;
+		}
+		else{
+			mysqli_close($connection);
+			return 0;
+		}
+	}
+	else{
+		mysqli_close($connection);
+		return 0;
+	}
+}
+*/
+function insertDBRow($registry, $dbTable){
+	$connection = connectDB();
+	
+	$numRegs = count($registry);
+	if($numRegs > 0){
+		$varCount = 1;
+		//Creating part of the query in which field names are declared
+		$query = "INSERT INTO `$dbTable` (";
+		while ($varCount < $numRegs){
+			$query = $query.'`'.getDBcolumnname($dbTable, $varCount).'`, ';
+			$varCount++;
+		}
+		$query = $query.'`'.getDBcolumnname($dbTable, $varCount).'`) VALUES (';
+		//echo 'Los campos son: '.$query.'<br>';
+		
+		$valueCount = 0;
+		while ($valueCount < $numRegs-1){
+			$query = $query.'\''.$registry[$valueCount].'\', ';
+			$valueCount++;
+		}
+		$query = $query.'\''.$registry[$valueCount].'\')';
+		
+		//echo 'Finalmente... '.$query.'<br>';
+		if(mysqli_query($connection, $query) or die("Error while recording registry: ".mysqli_error($connection))){
+			mysqli_close($connection);
+			return 1;
+		}
+		else{
+			mysqli_close($connection);
+			return 0;
+		}
+	}
+	else{
+		mysqli_close($connection);
+		return 0;
+	}
+}
+
+
+
+/* Inserts into given table all the information inside a plain-text file. Function made only for developer's use
+ * PRE: Must be 'txt' or 'csv' format. Each registry in separated lines, always same delimiter. File must not have extra line at the end of file
+ * PRE: dbTable must have 1 more field ('id' field) than the number of fields in registry
+ * Entry (file): Name of plain text file to be uploaded
+ * Entry (delimiter): Character used to separate each field
+ * Entry (keyPos): Integer position for future key (to be used when normalizing string that will be register's key in 'createKey')
+ * Entry (dbTable): DB Table where to insert every registry
+ * Exit (): Bool
+ */
+//function massiveUpload($file, $delimiter, $keyPos, $dbTable){ SU USARA IDENTIFICADOR PARA LA 'key'
+function massiveUpload($file, $delimiter, $dbTable){
+	$allFileContent = file_get_contents($file);
+	$eachRegistry = explode("\n", $allFileContent);
+	foreach ($eachRegistry as $registry){
+		$registryArray = explode($delimiter, $registry);
+		//If any registry does not have 1 less field than dbTable, proccess will abort
+		if(count($registryArray) != (getDBnumcolumns($dbTable)-1)){
+			echo 'Alguno de los registros no cumple las condiciones para ser insertado en BD.';
+			return 0;
+		}
+		else{
+			//This creates array-vector as it will be inserted in DB
+			//$toInsertArray = createArrayKey($registryArray);
+			$toInsertArray = prepareArray($registryArray);
+			//comprobar si la key ya está insertada
+			insertDBRow($toInsertArray, $dbTable);
+		}
+	}
+	return 1;
 }
 
 
@@ -418,23 +563,41 @@ function suggestPassword($curDate, $curExpirate, &$days){
  *******************************************************************************/
 
 
+
+/* Checks whether a complete address (Name and Number for this Form) are well-formatted, avoiding as possible security breachs
+ * Entry (inText): Input string which contains text written in form
+ * Exit (outText): Output string, prepared to be registered in DB
+ */
+function cleanFreeText($inText){
+	$connection = connectDB();
+	
+	//$outText = trim(htmlentities(mysqli_real_escape_string($connection, $inText)));
+	$outText = trim(htmlentities(mysqli_real_escape_string($connection, $inText), ENT_QUOTES, 'UTF-8'));
+	
+	return $outText;
+}
+
+
+
 /* Checks whether a complete address (Name and Number for this Form) are well-formatted, avoiding as possible security breachs
  * Entry (inName): String which contains name of the address
  * Entry (inNumber): String which contains number/letter for given address name
- */
-function checkFullAddress($inName, $inNumber, &$outName, &$outNumber, &$checkError){
+ * Exit (outAddrName): Returned string for Address Name
+ * Exit (outAddrNumber): Returned string for Address Number
+ * Exit (checkError): String with text that includes a description of the error */
+function checkFullAddressES($inName, $inNumber, &$outAddrName, &$outAddrNumber, &$checkError){
 	$connection = connectDB();
 	
-	//$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName)));
-	//$outNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber)));
-	$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName), ENT_QUOTES, 'UTF-8'));
-	$outNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber), ENT_QUOTES, 'UTF-8'));
+	//$outAddrName = trim(htmlentities(mysqli_real_escape_string($connection, $inName)));
+	//$outAddrNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber)));
+	$outAddrName = trim(htmlentities(mysqli_real_escape_string($connection, $inName), ENT_QUOTES, 'UTF-8'));
+	$outAddrNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber), ENT_QUOTES, 'UTF-8'));
 	
-	if(strlen($outName) < 2){
+	if(strlen($outAddrName) < 2){
 		$checkError = "Introduzca una dirección válida, por favor.";
 		return false;
 	}
-	elseif(strlen($outNumber) < 1){
+	elseif(strlen($outAddrNumber) < 1){
 		$checkError = "Introduzca el número de su dirección, por favor";
 		return false;
 	}
@@ -622,6 +785,72 @@ function normalizeLogin($incomingLogin){
 		return 0;
 	}
 	else return $aux;
+}
+
+
+
+/* Prepares an input string to be registered in DB, checking if it meets requirements
+ * Entry (inString): Varchar that can includes non-supported characters in DB
+ * Exit (): Varchar with no non-supported characters
+ */
+//function normalizeString($inString){
+function setStringAsKey($inString){
+	$inString = str_replace(' ', '', $inString);
+	$normalString = dropAccents($inString);
+	if(strlen($normalString) < 1){
+		return 0;
+	}
+	else return $normalString;
+}
+
+
+
+/* Erases non-supported characters. Eliminates inside blank spaces, and converts first word of key to lower case (Usually to save String in DB)
+ * PRE: 
+ * Entry (inArray): Input string in which there is a field that needs to be converted as key
+ * Entry (keyPos): Integer where future key is. Use to be position 0 or 1
+ * Exit (outArray): Output string, with brand new key generated
+ */
+//function createArrayKey($inArray, $keyPos, &$outArray){ SI SE DECIDIESE PASAR POR PARAMETROS LA 'key' 
+//function createArrayKey($inArray){
+function prepareArray($inArray){
+	/*
+	//Converts to uppercase first letter in every word in string
+	$inArray = ucwords($inArray);
+	$wordsArray = explode(" ", $inArray);
+	$numWords = count($wordsArray);
+	if($numWords > 1){
+		$normalWord0 = normalizeString($wordsArray[0]);
+		//foreach ($wordsArray as $i){
+		for($i = 0; $i < $numWords; $i++){
+			$wordsArray[$i] = normalizeString($wordsArray[$i]);
+		}
+		$wordsArray[0] = strtolower($wordsArray[0]);
+		$inArray = implode($wordsArray);
+	}
+	else{
+		$inArray = strtolower($inArray);
+	}
+	//Cuts string if used any extrange character ("/", "|"...) but not found any function to do it
+	*/
+	/*
+	//Converts to uppercase first letter in every word in string
+	$inArray = ucwords($inArray);
+	if(strpos(trim($inArray), " ") > 0){
+		$inArray = str_replace(' ', '', $inArray);
+	}
+	$inArray = dropAccents($inArray);
+	$outArray = lcfirst($inArray);
+	*/
+	$numFields = count($inArray);
+	for($i = 0; $i < $numFields; $i++){
+		//Converts to uppercase first letter in every word in array-vector
+		$inArray[$i] = ucwords($inArray[$i]);
+	}
+	//$inArray[0] = normalizeString($inArray[0]);
+	$inArray[0] = setStringAsKey($inArray[0]);
+	$inArray[0] = lcfirst($inArray[0]);
+	return $inArray;
 }
 
 

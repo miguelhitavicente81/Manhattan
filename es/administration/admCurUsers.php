@@ -283,7 +283,7 @@
 									chmod($userDir, 0777);
 									?>
 									<script type="text/javascript">
-										alert('Usuario <?php echo $newUser; ?> creado con éxito. Su contraseña por defecto es: <?php echo $initialPass; ?>');
+										alert('Estos son los datos de acceso para el Usuario creado:\n Login: <?php echo $newUser; ?> \n Contraseña: <?php echo $initialPass; ?> \n URL: http://areaprivada.perspectivaalemania.com ');
 										window.location.href='admCurUsers.php';
 									</script>
 									<?php
@@ -294,7 +294,7 @@
 						elseif(isset($_GET['hiddenGET'])){
 							switch($_GET['hiddenGET']){
 								case 'hDelUser':
-									echo 'codvalue es '.$_GET['codvalue'].'<br>';
+									//echo 'codvalue es '.$_GET['codvalue'].'<br>';
 									$userRow = getDBrow('users', 'id', $_GET['codvalue']);
 									print_r($userRow);
 									//$toDeleteUser = getDBsinglefield('login', 'users', 'id', $_GET['codvalue']);
@@ -316,7 +316,6 @@
 											<?php 
 										}
 										else{
-											echo "HOOLA";
 											$numProfileUsers = getDBsinglefield('numUsers', 'profiles', 'name', $userRow['profile']);
 											$numProfileUsers--;
 											executeDBquery("UPDATE `profiles` SET `numUsers`='".$numProfileUsers."' WHERE `name`='".$userRow['profile']."'");
@@ -326,14 +325,8 @@
 											$files  = scandir($userDir);
 											print_r($files);
 											foreach ($files as $value){
-												
-													//echo "<a href=downloadFileSingle.php?doc=".$value.">$value</a><br>";
-													echo 'Ahora borra...'.$value.'<br>';
-													unlink($userDir.$value);
-												
-									
+												unlink($userDir.$value);
 											}
-											exit();
 											rmdir($userDir);
 										}
 									}
@@ -368,6 +361,7 @@
 													<th>Idioma</th>
 													<th>Creado</th>
 													<th>Ultima conexión</th>
+													<th>Caduca Password</th>
 													<th>Acción</th>
 												</tr>
 											</thead>
@@ -580,7 +574,8 @@
 			 * *******************************  Functional code for Edit User Selected on Click Action  ****************************** *
 			 * *********************************************************************************************************************** *
 			 ***************************************************************************************************************************/
-
+			
+			//$loggedUserRow = getDBrow('users', 'login', $_SESSION['loglogin']);
 			$editedUserRow = getDBrow('users', 'id', $_GET['codvalue']);
 
 		?>
@@ -595,6 +590,7 @@
 					</div>
 					<form id="editedUser" class="form-horizontal" role="form" name="editedUser" autocomplete="off" method="post" action="admCurUsers.php">
 						<div class="modal-body">
+							<?php if($_SESSION['logprofile'] == 'SuperAdmin'){ ?>
 							<div class="form-group">
 								<label id="editedUserLabel" class="control-label col-sm-2" for="newUProfile">Identificador: </label> 
 								<div class="col-sm-10">
@@ -602,10 +598,11 @@
 									<input type='hidden' name='eUcodUser' value="<?php echo $editedUserRow['id'] ?>">
 								</div>
 							</div>
+							<?php } ?>
 							<div class="form-group">
 								<label id="editedUserLabel" class="control-label col-sm-2" for="eUlogin">Login: </label>
 								<div class="col-sm-10">
-									<input class="form-control" type='text' name='eUlogin' value="<?php echo $editedUserRow['login'] ?>" autocomplete="off"/>
+									<input class="form-control" type='text' name='eUlogin' value="<?php echo $editedUserRow['login'] ?>" autocomplete="off" disabled>
 								</div>
 							</div>
 
@@ -621,28 +618,14 @@
 									echo "<div class='form-group'>";
 									echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUprofile'>Perfil: </label>";
 									echo "<div class='col-sm-10'>";
-									echo "<select class='form-control' name='eUprofile'>";
-									$profNamesColumn = getDBcompletecolumnID('name', 'profiles', 'id');
-									foreach($profNamesColumn as $i){
-										if($i == $editedUserRow['profile']){
-											echo "<option selected value=" . $i . ">" . $i . "</option>";
-										}
-										else{
-											echo "<option value=" . $i . ">" . $i . "</option>";
-										}
+									if($editedUserRow['profile'] == 'Candidato'){
+										echo "<input class='form-control' type='text' name='eUprofile' value='Candidato' disabled />";
 									}
-									echo "</select>";
-									echo "</div>";
-									echo "</div>";
-								}
-								elseif($_SESSION['logprofile'] == 'Administrador'){
-									echo "<div class='form-group'>";
-									echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUprofile'>Perfil: </label>";
-									echo "<div class='col-sm-10'>";
-									echo "<select class='form-control' name='eUprofile'>";
-									$profNamesColumn = getDBcompletecolumnID('name', 'profiles', 'id');
-									foreach($profNamesColumn as $i){
-										if($i != 'SuperAdmin'){
+									else{
+										echo "<select class='form-control' name='eUprofile'>";
+										//$profNamesColumn = getDBcompletecolumnID('name', 'profiles', 'id');
+										$profNamesColumn = getDBNoMatchColValueID('name', 'profiles', 'name', 'Candidato', 'id');
+										foreach($profNamesColumn as $i){
 											if($i == $editedUserRow['profile']){
 												echo "<option selected value=" . $i . ">" . $i . "</option>";
 											}
@@ -650,8 +633,34 @@
 												echo "<option value=" . $i . ">" . $i . "</option>";
 											}
 										}
+										echo "</select>";
 									}
-									echo "</select>";
+									echo "</div>";
+									echo "</div>";
+								}
+								elseif($_SESSION['logprofile'] == 'Administrador'){
+									echo "<div class='form-group'>";
+									echo "<label id='editedUserLabel' class='control-label col-sm-2' for='eUprofile'>Perfil: </label>";
+									echo "<div class='col-sm-10'>";
+									if($editedUserRow['profile'] == 'Candidato'){
+										echo "<input class='form-control' type='text' name='eUprofile' value='Candidato' disabled />";
+									}
+									else{
+										echo "<select class='form-control' name='eUprofile'>";
+										$profNamesColumn = getDBcompletecolumnID('name', 'profiles', 'id');
+										foreach($profNamesColumn as $i){
+											//if($i != 'SuperAdmin'){
+											if(($i != 'SuperAdmin') && ($i != 'Candidato')){
+												if($i == $editedUserRow['profile']){
+													echo "<option selected value=" . $i . ">" . $i . "</option>";
+												}
+												else{
+													echo "<option value=" . $i . ">" . $i . "</option>";
+												}
+											}
+										}
+										echo "</select>";
+									}
 									echo "</div>";
 									echo "</div>";
 								}

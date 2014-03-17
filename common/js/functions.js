@@ -11,6 +11,24 @@
 
 
 
+/* Checks whether a file has a proper extension to upload a massive amount of data
+ * Called from onchange in "admGenOptions.php"
+ */
+function checkMassFileExtension(fileId){
+	var fileItself = document.getElementById(fileId).value;
+	
+	var fileArray = fileItself.split(".");
+	var fileExt = (fileArray[fileArray.length-1]);
+	var acceptedExts = /(csv|txt)$/i.test(fileExt);
+	if(!acceptedExts){
+		var cleared = document.getElementById(fileId).value = "";
+		alert ("\'"+fileExt+"\' no es una extensión válida para subir datos masivos.");
+		return false;
+	}
+}
+
+
+
 /* Captures 2 strings wished to match themselves to be a new password
  * Called from onsubmit in "validatefront.php"
  */
@@ -47,18 +65,6 @@ function checkPasswordES() {
 		alert("Contraseña actualizada con éxito");
 		formElements.submit();
 		return true;
-	}
-}
-
-
-
-/* Captures 2 passwords sent from a form and tells if they both are equal each other
- * Called from onsubmit in "personalData.php"
- * If wished, it can be controlled here if form is also blanked, under limited characters or over-limited characters and more...
- */
-function confirmProfileCreation() {
-	if(confirm('¿Realmente desea crear este perfil?')) {
-		window.location.href='admCurProfiles.php';
 	}
 }
 
@@ -183,45 +189,11 @@ function confirmLangDeletionES(id) {
 
 
 
-/* Lets to SuperAdmin user to delete a profile
- * Called in "onclick" event from "admCurProfiles.php"
- */
-function confirmProfileActivation(id) {
-	if(confirm('¿Realmente desea activar este perfil?')) {
-		window.location.href='editProfile.php?hiddenfield=activate&codvalue='+id;
-	}
-}
-
-
-
-/* Unactivates a profile
- * Called in "onclick" event from "admCurProfiles.php"
- */
-function confirmProfileDeactivation(id) {
-	if(confirm('¿Realmente desea desactivar este perfil?')) {
-		window.location.href='editProfile.php?hiddenfield=activate&codvalue='+id;
-	}
-}
-
-
-
-/* Lets to SuperAdmin user to delete a profile
- * Called in "onclick" event from "admCurProfiles.php"
- */
-function confirmProfileDeletion(id) {
-	if(confirm('¿Realmente desea borrar este perfil?')) {
-		window.location.href='editProfile.php?hiddenfield=delete&codvalue='+id;
-	}
-}
-
-
-
-/* Double-checks deletion of an existing study
+/* Double-checks deletion of an existing career
  * Called in "admGenOptions.php"
  */
-function confirmStudyDeletionES(id) {
-	if(confirm('¿Confirma que desea borrar esta Educación?')) {
-	}
+function confirmCareerDeletionES(id) {
+	return confirm('¿Confirma que desea borrar esta Profesión?');
 }
 
 
@@ -339,6 +311,7 @@ function ajaxDelLanguage(str){
 
 
 
+
 function ajaxGetAddress(str){
 	if(str==""){
 		document.getElementById("txtHint").innerHTML="";
@@ -378,6 +351,7 @@ function ajaxGetLanguage(str){
 			document.getElementById("txtHint2").innerHTML=xmlhttp.responseText;
 		}
 	}
+
 	//xmlhttp.open("GET","getcd.php?q="+str,true);
 	xmlhttp.open("GET","getLanguageS.php?value="+str,true);
 	xmlhttp.send();
