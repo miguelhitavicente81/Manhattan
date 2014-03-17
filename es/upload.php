@@ -247,7 +247,7 @@
 				}
 				if($key == educ){
 					//str_educ es 'education' en la BD (en addDegree)
-					$str_educ = implode('|', $entry);
+					$str_educ = implode('|', $entry); 
 					//echo 'Educación es: '.$str_educ;
 				}
 				if($key == prof){
