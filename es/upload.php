@@ -108,6 +108,18 @@
 		function removeDegree(rnum){
 			jQuery('#rowDegree'+rnum).remove();
 		}
+		
+		function addProf(frm){
+		rowNum ++;
+		var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowProf'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="hidden" name="prof[]" value="'+frm.add_prof.value+'"><input class="form-control" type="text" name="fprof[]" value="'+frm.add_prof.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeDegree('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
+		jQuery('#uploadFormProf').append(row);
+		frm.add_prof.value = '';
+		}
+		
+		function removeProf(rnum){
+			jQuery('#rowProf'+rnum).remove();
+		}
+
 
 		function addCareer(frm){
 			rowNum ++;
@@ -237,6 +249,11 @@
 					//str_educ es 'education' en la BD (en addDegree)
 					$str_educ = implode('|', $entry);
 					//echo 'Educación es: '.$str_educ;
+				}
+				if($key == prof){
+					//str_educ es 'career' en la BD (en addProf)
+					$str_prof = implode('|', $entry);
+					//echo 'Profesion es: '.$str_educ;
 				}
 				if($key == empr){
 					//str_empr es 'experCompany' en la BD (en addRow4)
@@ -450,7 +467,7 @@
 		'".$_POST['blankaddrtype']."', '".$outAddrName."', '".$outAddrNumber."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
 		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".$_POST['blankaddrcountry']."', '".$_POST['blankaddrprovince']."', '".$_POST['blankaddrcity']."',
 		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
-		'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$cleanedOther."', 
+		'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_prof."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$cleanedOther."', 
 		'".$cleanedSkill1."', '".$cleanedSkill2."', '".$cleanedSkill3."', '".$cleanedSkill4."', '".$cleanedSkill5."', '".$cleanedSkill6."', '".$cleanedSkill7."', 
 		'".$cleanedSkill8."', '".$cleanedSkill9."', '".$cleanedSkill10."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
 		
@@ -990,11 +1007,19 @@ Los campos que poseen * son obligatorios.
 					</div>
 				</div>
 			</div>			
-
 			<div class="form-group tooltip-demo"> <!-- Profesión -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_educ"><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="Si su título no aparece en el listado, póngase en contacto con nosotros a través de administracion@perspectiva-alemania.com"></span> Profesión: *</label> 
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_prof"> Educacion: </label> 
 				<div id="uploadFormDegree" class="col-sm-9">
-					<select class="form-control" name="add_educ">
+					<input class="form-control" type="text" name="add_educ" placeholder="Educacion" />					
+				</div>
+				<div class="btn-toolbar col-sm-1">
+					<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addDegree(this.form);" type="button"><span class="glyphicon glyphicon-plus"></span></button></div>
+				</div>
+			</div>	
+			<div class="form-group tooltip-demo"> <!-- Profesión -->
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_prof"><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="Si su título no aparece en el listado, póngase en contacto con nosotros a través de administracion@perspectiva-alemania.com"></span> Profesión: *</label> 
+				<div id="uploadFormProf" class="col-sm-9">
+					<select class="form-control" name="add_prof">
 						<option selected value="">Soy...</option>
 						<?php 
 							$eduNames = getDBcompleteColumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'careers', 'id');
@@ -1005,7 +1030,7 @@ Los campos que poseen * son obligatorios.
 					</select>						
 				</div>
 				<div class="btn-toolbar col-sm-1">
-					<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addDegree(this.form);" type="button"><span class="glyphicon glyphicon-plus"></span></button></div>
+					<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addProf(this.form);" type="button"><span class="glyphicon glyphicon-plus"></span></button></div>
 				</div>
 			</div>	
 
