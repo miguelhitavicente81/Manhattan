@@ -255,7 +255,7 @@
 							if(getDBsinglefield('login', 'users', 'login', $newUser)){
 								?>
 								<script type="text/javascript">
-									alert('El usuario que se intenta crear ya existe');
+									alert('User you are trying to create already exists');
 									window.location.href='admCurUsers.php';
 								</script>
 								<?php
@@ -267,7 +267,7 @@
 								(NULL, '".utf8_decode($newUser)."', '".$initialPass."', 'Candidato', '1', 'spanish', '1', CURRENT_TIMESTAMP, '".$expirationDate."')")){
 									?>
 									<script type="text/javascript">
-										alert('Error al insertar el nuevo usuario');
+										alert('Error including new user.');
 										window.location.href='admCurUsers.php';
 									</script>
 									<?php
@@ -279,14 +279,26 @@
 									executeDBquery("UPDATE `profiles` SET `numUsers`='".$profileUsers."' WHERE `name`='Candidato'");
 									//Creating newUser's folder to store his/her data when updating his/her CV
 									$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$newUser."/";
+									/*
 									mkdir($userDir,0777);
 									chmod($userDir, 0777);
-									?>
-									<script type="text/javascript">
-										alert('Estos son los datos de acceso para el Usuario creado:\n Login: <?php echo $newUser; ?> \n Contraseña: <?php echo $initialPass; ?> \n URL: http://areaprivada.perspectivaalemania.com ');
-										window.location.href='admCurUsers.php';
-									</script>
-									<?php
+									*/
+									if(!ifCreateDir($userDir, 0777)){
+										?>
+										<script type="text/javascript">
+											alert('Error creating user dedicated space.');
+											window.location.href='admCurUsers.php';
+										</script>
+										<?php
+									}
+									else{
+										?>
+										<script type="text/javascript">
+											alert('Estos son los datos de acceso para el Usuario creado:\n Login: <?php echo $newUser; ?> \n Contraseña: <?php echo $initialPass; ?> \n URL: http://areaprivada.perspectivaalemania.com ');
+											window.location.href='admCurUsers.php';
+										</script>
+										<?php
+									}
 								}
 							}
 						}
