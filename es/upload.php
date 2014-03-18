@@ -74,13 +74,11 @@
 		//Functions used to add/remove in realtime Language fields 
 		var rowNum = 0;
 		function addLanguage(frm){
-			if (frm.add_idiomas.value == '')
-			{
-			return ;
+			if (frm.add_idiomas.value == ''){
+				return ;
 			}
-			if (frm.add_nidiomas.value == '')
-			{
-			return ;
+			if (frm.add_nidiomas.value == ''){
+				return ;
 			}
 			rowNum ++;
 			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowLanguage'+rowNum+'"><div class="col-sm-5"><input class="form-control" type="hidden" name="idiomas[]" value="'+frm.add_idiomas.value+'" ><input class="form-control" type="text" name="idiomasf[]" value="'+frm.add_idiomas.value+'" disabled></div><div class="col-sm-5"><input class="form-control" type="hidden" name="nidiomas[]" value="'+frm.add_nidiomas.value+'" ><input class="form-control" type="text" name="fnidiomas[]" value="'+frm.add_nidiomas.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeLanguage('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
@@ -93,7 +91,6 @@
 		function removeLanguage(rnum){
 			jQuery('#rowLanguage'+rnum).remove();
 			ajaxDelLanguage(rnum);
-
 		}
 		
 		//Functions used to add/remove realtime Education fields 
@@ -109,6 +106,7 @@
 			jQuery('#rowDegree'+rnum).remove();
 		}
 		
+		//Functions to add/remove Career/Occupation (Proffession) fields in realtime 
 		function addProf(frm){
 		rowNum ++;
 		var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowProf'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="hidden" name="prof[]" value="'+frm.add_prof.value+'"><input class="form-control" type="text" name="fprof[]" value="'+frm.add_prof.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeDegree('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
@@ -119,8 +117,8 @@
 		function removeProf(rnum){
 			jQuery('#rowProf'+rnum).remove();
 		}
-
-
+		
+		//Functions to add/remove Experience fields in realtime 
 		function addCareer(frm){
 			rowNum ++;
 
@@ -129,7 +127,7 @@
 					<div class="row"> \
 						<div class="col-sm-6"> \
 									<input class="form-control" type="hidden" name="empr[]" value="'+frm.add_empr.value+'"> \
-									<input class="form-control" type="text" name="fempr[]" value="'+frm.add_empr.value+'"> disabled\
+									<input class="form-control" type="text" name="fempr[]" value="'+frm.add_empr.value+'" readonly> \
 						</div> \
 						<div class="col-sm-6"> \
 									<input class="form-control" type="hidden" name="categ[]" value="'+frm.add_categ.value+'" > \
@@ -150,7 +148,7 @@
 				<div class=" row col-sm-4"> \
 					<div class="col-sm-10"> \
 								<input class="form-control" type="hidden" name="desc[]" value="'+frm.add_desc.value+'"></textarea> \
-								<textarea class="form-control" name="fdesc[]" value="'+frm.add_desc.value+'"disabled></textarea> \
+								<textarea class="form-control" name="fdesc[]" value="'+frm.add_desc.value+'" readonly></textarea> \
 					</div>	 \
 					<div class="btn-toolbar col-sm-1"> \
 						<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="removeCareer('+rowNum+');" type="button"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div> \
@@ -168,9 +166,11 @@
 		function removeCareer(rnum){
 			jQuery('#rowCareer'+rnum).remove();
 		}
+		
+		//Function to add/remove Nationalities in realtime 
 		function addNationality(frm){
 			rowNum ++;
-			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowNationality'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="nat[]" value="'+frm.add_nat.value+'"></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeNationality('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
+			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowNationality'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="text" name="nat[]" value="'+frm.add_nat.value+'" readonly></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeNationality('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
 			jQuery('#uploadFormNationality').append(row);
 			frm.add_nat.value = '';
 		}
@@ -247,7 +247,7 @@
 				}
 				if($key == educ){
 					//str_educ es 'education' en la BD (en addDegree)
-					$str_educ = implode('|', $entry); 
+					$str_educ = implode('|', $entry);
 					//echo 'Educación es: '.$str_educ;
 				}
 				if($key == prof){
@@ -337,6 +337,7 @@
 			</script>
 			<?php 
 		}
+		//QUE NO SEA OBLIGATORIO PERO QUE, SI DECIDES INCLUIRLO, DEBAS HACERLO BIEN
 		//Sex and Type of address are automatically detected as restricted fields
 		elseif(!checkFullAddressES($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
 			?>
@@ -346,6 +347,7 @@
 			</script>
 			<?php 
 		}
+		//QUE NO SEA OBLIGATORIO PERO QUE, SI DECIDES INCLUIRLO, DEBAS HACERLO BIEN
 		//This could be an international phone (should start with '00(49)'. It is not required
 		elseif(!checkPhone($_POST['blankphone'])){
 			?>
@@ -393,11 +395,12 @@
 			$cleanedSkill8 = cleanFreeText($_POST['blankskill8']);
 			$cleanedSkill9 = cleanFreeText($_POST['blankskill9']);
 			$cleanedSkill10 = cleanFreeText($_POST['blankskill10']);
-		
+			
 		
 		//Field 'maritalStatus' is automatically checked in the own form with field "required"
 		
-		/*
+		/*       ESTO MEJOR PONERLO DESPUÉS DEL INSERT
+		
 		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 		
 		$tot = count($_FILES["archivos"]["name"]);
@@ -472,10 +475,11 @@
 		'".$cleanedSkill8."', '".$cleanedSkill9."', '".$cleanedSkill10."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
 		
 		
-		executeDBquery($insertCVQuery);
+		//executeDBquery($insertCVQuery);
 		
 		
-		/*
+		
+		
 		if(!executeDBquery($insertCVQuery)){
 			?>
 			<script type="text/javascript">
@@ -487,34 +491,41 @@
 		else{
 			//INTENTO GUARDAR LOS FICHEROS. COMPROBÁNDOLOS ANTES
 			
-		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
-		
-		$tot = count($_FILES["archivos"]["name"]);
-		//este for recorre el arreglo
-		for ($i = 0; $i < $tot; $i++){
-			move_uploaded_file( $_FILES['archivos']['tmp_name'][$i],$userDir.$_FILES['archivos']['name'][$i]);
-			//con el indice $i, podemos obtener la propiedad que desemos de cada archivo
-			//para trabajar con este
-			$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
-			$name = $_FILES["archivos"]["name"][$i];
+			$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
+			
+			$numFiles = count($_FILES["archivos"]["name"]);
+			//este for recorre el arreglo
+			for ($i=0; $i<$numFiles; $i++){
+				if(!ifCreateDir($userDir, 0777)){
+				}
+				
+				
+				move_uploaded_file($_FILES['archivos']['tmp_name'][$i], $userDir.$_FILES['archivos']['name'][$i]);
+				//con el indice $i, podemos obtener la propiedad que desemos de cada archivo
+				//para trabajar con este
+				$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
+				$name = $_FILES["archivos"]["name"][$i];
+			}
+			
+			$uploadFile = $userDir . "foto";
+			
+			echo $uploadFile;
+			if(move_uploaded_file($_FILES['foto']['tmp_name'], $uploadFile)){
+				$image = new SimpleImage(); 
+				$image->load($uploadFile); 
+				$image->resize(250,250); 
+				$image->save($uploadFile."r.jpg"); 
+				unlink($uploadFile);
+				#echo "El archivo es válido y fue cargado exitosamente.\n";
+			}
+			else{
+				#echo "¡Posible ataque de carga de archivos!\n";
+			}
 		}
 		
-		$uploadFile = $userDir . "foto";
 		
-		echo $uploadFile;
-		if(move_uploaded_file($_FILES['foto']['tmp_name'], $uploadFile)){
-			$image = new SimpleImage(); 
-			$image->load($uploadFile); 
-			$image->resize(250,250); 
-			$image->save($uploadFile."r.jpg"); 
-			unlink($uploadFile);
-			#echo "El archivo es válido y fue cargado exitosamente.\n";
-		}
-		else{
-			#echo "¡Posible ataque de carga de archivos!\n";
-		}
-		}
-		*/
+		
+		
 		
 		
 		//blocks candidate and redirects her/him to index.html
@@ -943,14 +954,14 @@ Los campos que poseen * son obligatorios.
 				<div class="col-sm-10">
 					<select class="form-control" name="blankmarital">
 						<option selected disabled value="">Estoy...</option>
-					<?php
+						<?php
 						$userLang = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
 						$maritStatus = getDBcompletecolumnID($userLang, 'maritalStatus', 'id');
 
 						foreach($maritStatus as $i){
 							echo "<option value=" . getDBsinglefield('key', 'maritalStatus', $userLang, $i) . ">" . $i . "</option>";
 						}
-					?>
+						?>
 					</select>
 				</div>
 			</div>
@@ -1007,7 +1018,8 @@ Los campos que poseen * son obligatorios.
 					</div>
 				</div>
 			</div>			
-			<div class="form-group tooltip-demo"> <!-- Profesión -->
+
+			<div class="form-group tooltip-demo"> <!-- Educación -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_prof"> Educacion: </label> 
 				<div id="uploadFormDegree" class="col-sm-9">
 					<input class="form-control" type="text" name="add_educ" placeholder="Educacion" />					
@@ -1015,7 +1027,8 @@ Los campos que poseen * son obligatorios.
 				<div class="btn-toolbar col-sm-1">
 					<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addDegree(this.form);" type="button"><span class="glyphicon glyphicon-plus"></span></button></div>
 				</div>
-			</div>	
+			</div>
+			
 			<div class="form-group tooltip-demo"> <!-- Profesión -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_prof"><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="Si su título no aparece en el listado, póngase en contacto con nosotros a través de administracion@perspectiva-alemania.com"></span> Profesión: *</label> 
 				<div id="uploadFormProf" class="col-sm-9">
@@ -1098,9 +1111,9 @@ Los campos que poseen * son obligatorios.
 
 		<div class="panel-footer">
 			<label class "control-label" style="margin-bottom: 10px; margin-top: 5px;"><input type="checkbox" name="blanklopd" > He leído y acepto las condiciones de uso y política de privacidad</label>
-				<div class="btn-group pull-right">
-					<button type="submit" name ="push_button" class="btn btn-primary">Enviar</button>
-				</div>
+			<div class="btn-group pull-right">
+				<button type="submit" name ="push_button" class="btn btn-primary">Enviar</button>
+			</div>
 		</div> <!-- Panel Footer-->
 	</div> <!-- Panel -->
 </form>

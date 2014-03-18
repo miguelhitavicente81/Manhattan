@@ -345,42 +345,6 @@ function getDBTablesNames(){
  * Entry (dbTable): Table in which row/registry will be inserted
  * Exit (): Bool
  */
-/*
-function insertDBRow($registry, $dbTable){
-	$connection = connectDB();
-	
-	$numRegs = count($registry);
-	if($numRegs > 0){
-		$varCount = 1;
-		$query = "INSERT INTO `$dbTable` (";
-		while ($varCount < $numRegs){
-			$query = $query.'`'.getDBcolumnname($dbTable, $varCount-1).'`, ';
-			$varCount++;
-		}
-		$query = $query.'`'.getDBcolumnname($dbTable, $varCount-1).'`) VALUES (NULL, ';
-		
-		$valueCount = 1;
-		while ($valueCount < $numRegs-1){
-			$query = $query.'\''.$registry[$valueCount].'\', ';
-			$valueCount++;
-		}
-		$query = $query.'\''.$registry[$valueCount].'\')';
-		
-		if(mysqli_query($connection, $query) or die("Error while recording registry: ".mysqli_error($connection))){
-			mysqli_close($connection);
-			return 1;
-		}
-		else{
-			mysqli_close($connection);
-			return 0;
-		}
-	}
-	else{
-		mysqli_close($connection);
-		return 0;
-	}
-}
-*/
 function insertDBRow($registry, $dbTable){
 	$connection = connectDB();
 	
@@ -950,8 +914,25 @@ function dateToSpanishFormat($oldDate){
 
 
 /**************************************************************************
- * ********************  OTHER FUNCTIONS  ******************** *
+ * **************************  OTHER FUNCTIONS  ************************* *
  **************************************************************************/
+
+
+
+/* Checks whether uploaded files (NON images) are valid or not
+ * Entry (fileName):
+ * Exit (errorText): Output text when something goes wrong 
+ * Exit (): Bool
+ */
+function checkUploadedFileES($fileName, &$errorText){
+	$lowerCase = strtolower($fileName);
+	//All these extensions will be the only-supported ones
+	$whitelist = array('pdf', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'txt', 'rtf');
+	if(!in_array(end(explode('.', $lowerCase), $whitelist))){
+		$errorText = 'Tipo de ficheros no válido';
+		return false;
+	}
+}
 
 
 
@@ -1005,6 +986,22 @@ function getKeyLanguage($languageToBeTranslated, $languageWritten){
 	$result = mysqli_query($connection, "SELECT `key` FROM `siteLanguages` WHERE `$languageWritten` = '$languageToBeTranslated'") or die ("Error translating the language: ".mysqli_error($connection));
 	$translation = mysqli_fetch_array($result);
 	return $translation[0];
+}
+
+
+
+/* Checks whether a directory exists, creating it with given permissions if not
+ * Entry (dir): String with complete path for directory
+ * Entry (permits): Integer (in form 0XXX) that indicactes what permissions will have new directory
+ */
+function ifCreateDir($dir, $permits){
+	if(!file_exists($dir)){
+		mkdir($dir, $permits);
+		chmod($dir, $permits);
+		return true;
+	}
+	else
+		return false;
 }
 
 
