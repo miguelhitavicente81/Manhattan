@@ -395,6 +395,45 @@
 
 									<!-- AQUÍ FALTAN MUCHOS CAMPOS MAL FORMADOS -->
 
+									<div class="form-group" >  <!-- Profesión -->
+										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVcareer"> </label>	<!-- Se puede omitir -->									
+										<div class="col-sm-10">
+											<!-- <input class="form-control" type='text' name='eCCVcareer' value="<?php echo html_entity_decode($editedCVRow['career']) ?>"> -->
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<h3 class="panel-title">Profesiones desempeñadas por el candidato</h3>
+												</div>
+												<div class="panel-body">
+													<?php
+													$careers = explode('|',html_entity_decode($editedCVRow['career']));
+				
+													for ($j=0; $j < count($careers); $j++) { 														
+														echo "<span style='margin-right: 10px; font-weight: normal;' class='label label-primary' name='eCCVcareer".$j."' value='".html_entity_decode($careers[$j])."'>".html_entity_decode($careers[$j])."</span>";
+													}													
+													
+/*													echo "<br><br>";
+
+													for ($i=0; $i < count($careers); $i++) { 
+														echo "<div class='form-group' >  <!-- Profesión ".$i." -->";
+														echo "	<div class='col-sm-10'>";
+														echo "		<input class='form-control' type='text' name='eCCVcareer".$i."' value='".html_entity_decode($careers[$i])."'>";
+														echo "	</div>";
+														echo "</div>";
+													}*/
+													?>
+												</div>
+											</div>											
+										</div>
+									</div>											
+
+									<div class="form-group" >  <!-- Salario Deseado -->
+										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVsalary">Salario deseado: </label>										
+										<div class="col-sm-10 input-group">
+											<input class="form-control" type='text' name='eCCVsalary' value="<?php echo html_entity_decode($editedCVRow['salary']) ?>">
+											<span class="input-group-addon">€uros/año</span>
+										</div>
+									</div>										
+
 									<div class="form-group" >  <!-- Otros Detalles -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVotherDetails">Otros Detalles: </label>										
 										<div class="col-sm-10">
@@ -455,7 +494,7 @@
 									<div class="form-group"> <!-- Fecha de CV -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVcvDate">Fecha CV: </label>
 										<div class="col-sm-10">
-											<input class="form-control" type='date' name='eCCVcvDate' value="<?php echo html_entity_decode($editedCVRow['cvDate']) ?>">
+											<input class="form-control" type='text' name='eCCVcvDate' value="<?php echo html_entity_decode($editedCVRow['cvDate']) ?>">
 										</div>
 									</div>
 
