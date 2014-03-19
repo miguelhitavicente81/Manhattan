@@ -338,6 +338,12 @@ body {
 	margin-right: 20px;
 }
 
+/* Estilo definido especial para que los input-group no se descuadren */
+#editedCV > div.modal-body > .form-group > .input-group {
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
 
 
 
