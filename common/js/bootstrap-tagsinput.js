@@ -34,6 +34,7 @@
     this.placeholderText = element.hasAttribute('placeholder') ? this.$element.attr('placeholder') : '';
     this.inputSize = Math.max(1, this.placeholderText.length);
 
+    // Manhattan: We want all the intputs as form-control too...
     this.$container = $('<div class="bootstrap-tagsinput form-control"></div>');
     this.$input = $('<input size="' + this.inputSize + '" type="text" placeholder="' + this.placeholderText + '"/>').appendTo(this.$container);
 
@@ -72,6 +73,7 @@
         self.remove(self.itemsArray[0]);
 
       if (typeof item === "string" && this.$element[0].tagName === 'INPUT') {
+        // Manhattan: Our default separator is '|' instead of ',', so we change this splitter
         var items = item.split('|');
         if (items.length > 1) {
           for (var i = 0; i < items.length; i++) {
@@ -216,7 +218,7 @@
       var self = this,
           val = $.map(self.items(), function(item) {
             return self.options.itemValue(item).toString();
-          }).join('|');
+          }).join('|'); // Manhattan: We do this join with '|' character to split all values into a simple string delimited by '|'.
 
       self.$element.val(val, true).trigger('change');
     },
