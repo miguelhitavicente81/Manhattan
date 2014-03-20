@@ -10,9 +10,10 @@
 	border-radius: 4px;
 	max-width: 100%;
 	line-height: 22px;
-	width: 100%;
-	height: auto;
+	width: 100%; /* Manhattan: Full width to the container inside parent container */
+	height: auto; /* Manhattan: We want height auto-adjust to the content */
 }
+/* Manhattan: We are trying to get a focused style when we are typing the new tags into the container. Not lucky (for the moment)... */
 .bootstrap.tagsinput:focus, .focused {
 	border-color: #66afe9;
 	outline: 0;
@@ -46,8 +47,8 @@
 	padding: 0px 2px;
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:hover {
-	color: #CCCCCC;
+	color: #CCCCCC; /* Manhattan: When the mouse passes over the X-close button inside the tag, it will be coulorized to light-grey */
 }
 .bootstrap-tagsinput .tag [data-role="remove"]:hover:active {
-	color: #FF3300;
+	color: #FF3300; /* Manhattan: When the mouse passes over the X-close button inside the tag and we are pressing the button, it will be coulorized to light-red */
 }
