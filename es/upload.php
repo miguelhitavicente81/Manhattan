@@ -148,7 +148,7 @@
 				<div class=" row col-sm-4"> \
 					<div class="col-sm-10"> \
 								<input class="form-control" type="hidden" name="desc[]" value="'+frm.add_desc.value+'"></textarea> \
-								<textarea class="form-control" name="fdesc[]" value="'+frm.add_desc.value+'" readonly></textarea> \
+								<textarea class="form-control" name="fdesc[]" value="'+frm.add_desc.value+'" readonly>'+frm.add_desc.value+'</textarea> \
 					</div>	 \
 					<div class="btn-toolbar col-sm-1"> \
 						<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="removeCareer('+rowNum+');" type="button"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div> \
@@ -302,9 +302,6 @@
 			   #print $key . ": " . $entry . "<br>";
 			 }
 		}
-		//echo 'hola';
-		//exit();
-		
 		if(!checkFullNameES($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
 			?>
 			<script type="text/javascript">
@@ -313,10 +310,11 @@
 			</script>
 			<?php 
 		}
+		//Aquí debo comprobar si EL CANDIDATO ES MAYOR DE EDAD
 		elseif(!isPreviousDate($_POST['blankbirthdate'])){
 			?>
 			<script type="text/javascript">
-				alert('La fecha introducida es incorrecta');
+				alert('La fecha de nacimiento introducida es incorrecta');
 				window.location.href='home.php';
 			</script>
 			<?php 
@@ -339,6 +337,7 @@
 		}
 		//QUE NO SEA OBLIGATORIO PERO QUE, SI DECIDES INCLUIRLO, DEBAS HACERLO BIEN
 		//Sex and Type of address are automatically detected as restricted fields
+		//elseif(isset($_POST['blankaddrname'])){
 		elseif(!checkFullAddressES($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
 			?>
 			<script type="text/javascript">
@@ -373,7 +372,9 @@
 			</script>
 			<?php 
 		}
-		elseif((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
+		//elseif((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
+		
+		if((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
 			if(!checkDrivingLicense($_POST['blankdrivingtype'], $_POST['blankdrivingdate'], $checkError)){
 				?>
 				<script type="text/javascript">
@@ -397,71 +398,6 @@
 			$cleanedSkill10 = cleanFreeText($_POST['blankskill10']);
 			
 		
-		//Field 'maritalStatus' is automatically checked in the own form with field "required"
-		
-		/*       ESTO MEJOR PONERLO DESPUÉS DEL INSERT
-		
-		$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
-		
-		$tot = count($_FILES["archivos"]["name"]);
-		//este for recorre el arreglo
-		for ($i = 0; $i < $tot; $i++){
-			move_uploaded_file( $_FILES['archivos']['tmp_name'][$i],$userDir.$_FILES['archivos']['name'][$i]);
-			//con el indice $i, podemos obtener la propiedad que desemos de cada archivo para trabajar con este
-			$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
-			$name = $_FILES["archivos"]["name"][$i];
-		}
-		
-		$uploadFile = $userDir . "foto";
-		
-		echo $uploadFile;
-		echo '--> '.$_SESSION['loglogin'].' <--';
-		if(move_uploaded_file($_FILES['foto']['tmp_name'], $uploadFile)){
-			$image = new SimpleImage(); 
-			$image->load($uploadFile); 
-			$image->resize(250,250); 
-			$image->save($uploadFile."r.jpg"); 
-			unlink($uploadFile);
-			echo '--> WAY!! <--';
-			#echo "El archivo es válido y fue cargado exitosamente.\n";
-		}
-		else{
-			echo '--> Que Mal!! <--';
-			#echo "¡Posible ataque de carga de archivos!\n";
-		}
-		 */
-		
-		//echo 'Y de la LOPD, que...'.$_POST['blanklopd'];
-		//exit();
-		
-		/*
-		$insertCVQuery = "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
-		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
-		`checkLOPD`, `cvDate`, `userLogin`, `salary`) VALUES 
-		(NULL, '".$_POST['blanknie']."', 'pending', '".$outName."', '".$outSurname."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
-		'".$_POST['blankaddrtype']."', '".$outAddrName."', '".$outAddrNumber."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".$_POST['blankaddrcountry']."', '".$_POST['blankaddrprovince']."', '".$_POST['blankaddrcity']."',
-		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
-		'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$_POST['blankother']."', 
-		'".$_POST['blankskill1']."', '".$_POST['blankskill2']."', '".$_POST['blankskill3']."', '".$_POST['blankskill4']."', '".$_POST['blankskill5']."', '".$_POST['blankskill6']."', '".$_POST['blankskill7']."', 
-		'".$_POST['blankskill8']."', '".$_POST['blankskill9']."', '".$_POST['blankskill10']."', '".$_POST['blanklopd']."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
-		*/
-		/*
-		$insertCVQuery = "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, 
-		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
-		`cvDate`, `userLogin`, `salary`) VALUES 
-		(NULL, '".$_POST['blanknie']."', 'pending', '".$outName."', '".$outSurname."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
-		'".$_POST['blankaddrtype']."', '".$outAddrName."', '".$outAddrNumber."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".$_POST['blankaddrcountry']."', '".$_POST['blankaddrprovince']."', '".$_POST['blankaddrcity']."',
-		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
-		'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$cleanedOther."', 
-		'".$cleanedSkill1."', '".$cleanedSkill2."', '".$cleanedSkill3."', '".$cleanedSkill4."', '".$cleanedSkill5."', '".$cleanedSkill6."', '".$cleanedSkill7."', 
-		'".$cleanedSkill8."', '".$cleanedSkill9."', '".$cleanedSkill10."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
-		*/
-		
-		
 		$insertCVQuery = "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
 		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, `career`, 
 		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
@@ -475,9 +411,13 @@
 		'".$cleanedSkill8."', '".$cleanedSkill9."', '".$cleanedSkill10."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
 		
 		
-		//executeDBquery($insertCVQuery);
-		
-		
+		//checkUploadedFileES($_FILES['archivos'][0], $errorText);
+		//checkUploadedFileES($_FILES['archivos']['name'][0], $_FILES['archivos']['mime'][0], $_FILES['archivos']['type'][0], $_FILES['archivos']['size'][0], $errorText);
+		/*
+		checkUploadedFileES($_FILES['archivos']['name'][0], $_FILES['archivos']['type'][0], $_FILES['archivos']['size'][0], $errorText);
+		echo 'El error ...'.$errorText;
+		exit();
+		*/
 		
 		
 		if(!executeDBquery($insertCVQuery)){
@@ -489,48 +429,72 @@
 			<?php 
 		}
 		else{
-			//INTENTO GUARDAR LOS FICHEROS. COMPROBÁNDOLOS ANTES
-			
-			$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
-			
-			$numFiles = count($_FILES["archivos"]["name"]);
-			//este for recorre el arreglo
-			for ($i=0; $i<$numFiles; $i++){
+			//Being here (under this 'else') means that insert query was OK. So user must be inactivated and redirected to 'index.html'
+			//if(isset($_FILES['archivos']) && is_uploaded_file($_FILES['archivos']['tmp_name'][0])){
+			if(isset($_FILES['archivos'])){
+				//INTENTO GUARDAR LOS FICHEROS. COMPROBÁNDOLOS ANTES
+				
+				$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
+				echo $userDir;
+				
 				if(!ifCreateDir($userDir, 0777)){
+					$numFiles = count($_FILES["archivos"]["name"]);
+					for ($i=0; $i<$numFiles; $i++){
+						//Upload for each Candidate file
+						//if(checkUploadedFileES($_FILES['archivos']['name'][$i], $_FILES['archivos']['type'][$i], $_FILES['archivos']['size'][$i], $errorText)){
+						if(checkUploadedFileES($_FILES['archivos']['name'][$i], $_FILES['archivos']['type'][$i], $_FILES['archivos']['size'][$i], $errorText) && is_uploaded_file($_FILES['archivos']['tmp_name'][0])){
+							move_uploaded_file($_FILES['archivos']['tmp_name'][$i], $userDir.$_FILES['archivos']['name'][$i]);
+							$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
+							$name = $_FILES["archivos"]["name"][$i];
+						}
+						else{
+							?>
+							<script type="text/javascript">
+								alert('Problem uploading file (code FUPLOAD<?php echo $i; ?>).');
+								window.location.href='home.php';
+							</script>
+							<?php 
+						}
+					}
 				}
-				
-				
-				move_uploaded_file($_FILES['archivos']['tmp_name'][$i], $userDir.$_FILES['archivos']['name'][$i]);
-				//con el indice $i, podemos obtener la propiedad que desemos de cada archivo
-				//para trabajar con este
-				$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
-				$name = $_FILES["archivos"]["name"][$i];
+			}
+			//Now Candidate photo will be uploaded
+			if(isset($_FILES['foto']) && is_uploaded_file($_FILES['foto']['tmp_name'])){
+				$photoUploadFile = $userDir."foto";
+				if(move_uploaded_file($_FILES['foto']['tmp_name'], $photoUploadFile)){
+					$image = new SimpleImage(); 
+					$image->load($photoUploadFile); 
+					$image->resize(250,250); 
+					$image->save($photoUploadFile."r.jpg"); 
+					unlink($photoUploadFile);
+					#echo "El archivo es válido y fue cargado exitosamente.\n";
+				}
+				else{
+					#echo "¡Posible ataque de carga de archivos!\n";
+					?>
+					<script type="text/javascript">
+						alert('Problem uploading profile photo (code PUPLOAD0).');
+						window.location.href='home.php';
+					</script>
+					<?php 
+				}
 			}
 			
-			$uploadFile = $userDir . "foto";
-			
-			echo $uploadFile;
-			if(move_uploaded_file($_FILES['foto']['tmp_name'], $uploadFile)){
-				$image = new SimpleImage(); 
-				$image->load($uploadFile); 
-				$image->resize(250,250); 
-				$image->save($uploadFile."r.jpg"); 
-				unlink($uploadFile);
-				#echo "El archivo es válido y fue cargado exitosamente.\n";
-			}
-			else{
-				#echo "¡Posible ataque de carga de archivos!\n";
-			}
+			//blocks candidate and redirects her/him to index.html
+			executeDBquery("UPDATE `users` SET `active`='0', `cvSaved`='1' WHERE `login`='".$_SESSION['loglogin']."'");
+			?>
+			<script type="text/javascript">
+				//alert('CV insertado con éxito. Gracias!');
+				alert('Gracias por insertar su CV. Por seguridad, su usuario ha sido desactivado.');
+				window.location.href='./endsession.php';
+			</script>
+			<?php
 		}
 		
 		
-		
-		
-		
-		
+		/*
 		//blocks candidate and redirects her/him to index.html
 		executeDBquery("UPDATE `users` SET `active`='0', `cvSaved`='1' WHERE `login`='".$_SESSION['loglogin']."'");
-		
 		//exit();
 		
 		?>
@@ -540,7 +504,7 @@
 			window.location.href='./endsession.php';
 		</script>
 		<?php
-		//}
+		*/
 	}//del (isset($_POST[]))
 
 	/*****************************     End of FORM validations     *****************************/
@@ -586,7 +550,7 @@ Los campos que poseen * son obligatorios.
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_nat">Nacionalidad: * </label> 
 				<div class="col-sm-9" id="uploadFormNationality">
 					<select class="form-control" name="add_nat" >
-						<option value="" selected> Seleccione </option>
+						<option value="" selected> Pulse "+" tras elegir... </option>
 						<option value="Spain"> Spain </option>
 						<option value="Afghanistan"> Afghanistan </option>
 						<option value="Albania"> Albania </option>
@@ -1003,7 +967,7 @@ Los campos que poseen * son obligatorios.
 					</div>
 					<div class="col-sm-5">
 						<select class="form-control" name="add_nidiomas">
-							<option selected value="null">-- Sin conocimientos --</option>
+							<option selected value="null"> Pulse "+" tras elegir...</option>
 							<option value="A1">A1</option>
 							<option value="A2">A2</option>
 							<option value="B1">B1</option>
@@ -1022,7 +986,7 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group tooltip-demo"> <!-- Educación -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_prof"> Educacion: </label> 
 				<div id="uploadFormDegree" class="col-sm-9">
-					<input class="form-control" type="text" name="add_educ" placeholder="Educacion" />					
+					<input class="form-control" type="text" name="add_educ" placeholder='Pulse "+" tras incluir su educación... ' />					
 				</div>
 				<div class="btn-toolbar col-sm-1">
 					<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addDegree(this.form);" type="button"><span class="glyphicon glyphicon-plus"></span></button></div>
@@ -1033,7 +997,7 @@ Los campos que poseen * son obligatorios.
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_prof"><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="Si su título no aparece en el listado, póngase en contacto con nosotros a través de administracion@perspectiva-alemania.com"></span> Profesión: *</label> 
 				<div id="uploadFormProf" class="col-sm-9">
 					<select class="form-control" name="add_prof">
-						<option selected value="">Soy...</option>
+						<option selected value=""> Pulse "+" tras elegir... </option>
 						<?php 
 							$eduNames = getDBcompleteColumnID(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'careers', 'id');
 							foreach($eduNames as $i){
@@ -1096,12 +1060,17 @@ Los campos que poseen * son obligatorios.
 			</div>		
 
 			<div class="form-group"> <!-- 10 Tags -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankother">Cualidades profesionales que mejor me definen... </label> 
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankother">Los 10 puntos clave de mi experiencia profesional</label> 
 				<div class="col-sm-10">
 					<?php
+					
+					$tipArray = array(1 => 'Estoy especializado en ...', 2 => 'En los últimos años he adquirido sólidos conocimientos y experiencia en el ámbito de ...', 3 => 'Tengo más de ...años de experiencia en',
+					4 => 'Durante los últimos .. años he desarrollado mi actividad profesional en el sector ...', 5 => '...', 6 => '...', 7 => '...', 8 => '...', 9 => '...', 10 => '...');
+					
 					for ($i=1; $i <= 10 ; $i++) { 
 						echo "	<div class='col-sm-5' style='margin-bottom: 10px;'>";
-						echo "		<input class='form-control' type='text' name='blankskill$i'>";
+						//echo "		<input class='form-control' type='text' name='blankskill$i'>";
+						echo "		<input class='form-control' type='text' name='blankskill$i' placeholder='$tipArray[$i]'>";
 						echo "	</div>";
 					}
 					?>

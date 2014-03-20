@@ -37,7 +37,7 @@ unset($_SESSION['langselected']) ;
 
 ?>
 		<select class="form-control" name="add_idiomas">
-							<option selected disabled value="">-- Idioma --</option>
+							<option selected disabled value=""> Pulse "+" tras elegir... </option>
 <?php
 
 

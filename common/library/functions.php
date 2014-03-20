@@ -837,6 +837,23 @@ function addMonthsToDate($monthsNumber){
 
 
 
+/* Calculates a future date adding X years to an input date
+ * Entry (givenDate): Input given date in format 'YYYY-MM-DD'
+ * Entry (years): Integer which indicates the number of years to be added
+ * Entry (months): Integer which indicates the number of months to be added
+ * Entry (days): Integer which indicates the number of days to be added
+ * Exit (endDate): Date in format "YYYY-MM-DD"
+ */
+function addDateToDate($givenDate, $years, $months, $days){
+	
+	$unixDate = getdate(strtotime($givenDate));
+	
+	$endDate = date('Y-m-d', strtotime('+'.$monthsNumber.' month'));
+	return $endDate;
+}
+
+
+
 /* Checks whether a Birthdate is well-formatted and under current date
  * Entry (birth): Date in format YYYY-MM-DD
  * Exit: Boolean that confirms if date is correct or not
@@ -920,18 +937,28 @@ function dateToSpanishFormat($oldDate){
 
 
 /* Checks whether uploaded files (NON images) are valid or not
- * Entry (fileName):
+ * PRE: $_FILES must be isset() and file must be properly uploaded to TMP directory
+ * Entry (fileName): Input resource which includes information about one file
  * Exit (errorText): Output text when something goes wrong 
  * Exit (): Bool
  */
-function checkUploadedFileES($fileName, &$errorText){
+function checkUploadedFileES($fileName, $fileType, $fileSize, &$errorText){
 	$lowerCase = strtolower($fileName);
 	//All these extensions will be the only-supported ones
 	$whitelist = array('pdf', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'txt', 'rtf');
-	if(!in_array(end(explode('.', $lowerCase), $whitelist))){
+	//$errorText = 'naaa';
+	if(!in_array(end(explode('.', $lowerCase)), $whitelist)){
 		$errorText = 'Tipo de ficheros no válido';
+		//echo 'chunog';
 		return false;
 	}
+	if($fileSize > 1048576){
+		$errorText = 'El límite de tamaño para un fichero es de 1MB';
+		//echo 'Chungo: ';
+		return false;
+	}
+	$errorText ="";
+	return true;
 }
 
 
