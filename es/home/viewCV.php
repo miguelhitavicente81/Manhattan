@@ -376,7 +376,7 @@
 				if ($report == "custom_report"){
 
 							$output_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/";
-		include 'Cezpdf.php';
+				include 'Cezpdf.php';
 							class Creport extends Cezpdf{
 								function Creport($p,$o){
 									$this->__construct($p, $o,'none',array());
@@ -533,7 +533,7 @@
 						<h3 class="panel-title">CV de <?php echo $currentName;?></h3>
 					</div>
 					<div class="panel-body scrollable" > <!-- panel-body -->
-						<?php echo $texto; ?>
+						<?php echo html_entity_decode($texto); ?>
 					</div> <!-- panel-body -->
 				</div> <!-- Panel -->
 
