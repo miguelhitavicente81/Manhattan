@@ -18,6 +18,8 @@
 	<link rel="apple-touch-icon" href="../../common/img/apple-touch-icon.png">
 
 
+
+
 </head>
 
 <body>
@@ -111,7 +113,14 @@
 			$pendingCVs = getPendingCVs();
 
 			if (isset($_POST['eCurCVsend'])) {
-				if((!executeDBquery("UPDATE `cvitaes` SET `cvStatus` = 'checked' WHERE `nie` = '".$_POST['eCCVnie']."'"))){
+				?>
+					<script type="text/javascript">
+						alert('Lo que vas a meter en BD de profesiones es: <?php echo $_POST['eCCVcareer']; ?>');
+					</script>
+				<?php	
+				
+				//if((!executeDBquery("UPDATE `cvitaes` SET `cvStatus` = 'checked' WHERE `nie` = '".$_POST['eCCVnie']."'"))){
+				if (1 == 0) {
 					?>
 					<script type="text/javascript">
 						alert('Error revisando CV');
@@ -251,7 +260,7 @@
 									<div class="form-group">  <!-- Nacionalidad -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVnationalities">Nacionalidad: </label>
 										<div class="col-sm-10">
-											<input class="form-control" type='text' name='eCCVnationalities' value="<?php echo html_entity_decode($editedCVRow['nationalities']) ?>"  />
+											<input class="form-control" type='text' name='eCCVnationalities' value="<?php echo html_entity_decode($editedCVRow['nationalities']) ?>" data-role='tagsinput' />
 										</div>
 									</div>		
 
@@ -396,33 +405,9 @@
 									<!-- AQUÍ FALTAN MUCHOS CAMPOS MAL FORMADOS -->
 
 									<div class="form-group" >  <!-- Profesión -->
-										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVcareer"> </label>	<!-- Se puede omitir -->									
+										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVcareer">Profesiones desempeñadas: </label>	<!-- Se puede omitir -->									
 										<div class="col-sm-10">
-											<!-- <input class="form-control" type='text' name='eCCVcareer' value="<?php echo html_entity_decode($editedCVRow['career']) ?>"> -->
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<h3 class="panel-title">Profesiones desempeñadas por el candidato</h3>
-												</div>
-												<div class="panel-body">
-													<?php
-													$careers = explode('|',html_entity_decode($editedCVRow['career']));
-				
-													for ($j=0; $j < count($careers); $j++) { 														
-														echo "<span style='margin-right: 10px; font-weight: normal;' class='label label-primary' name='eCCVcareer".$j."' value='".html_entity_decode($careers[$j])."'>".html_entity_decode($careers[$j])."</span>";
-													}													
-													
-/*													echo "<br><br>";
-
-													for ($i=0; $i < count($careers); $i++) { 
-														echo "<div class='form-group' >  <!-- Profesión ".$i." -->";
-														echo "	<div class='col-sm-10'>";
-														echo "		<input class='form-control' type='text' name='eCCVcareer".$i."' value='".html_entity_decode($careers[$i])."'>";
-														echo "	</div>";
-														echo "</div>";
-													}*/
-													?>
-												</div>
-											</div>											
+											<input class="form-control" type='text' name='eCCVcareer' value='<?php echo html_entity_decode($editedCVRow['career']) ?>' data-role='tagsinput'>										
 										</div>
 									</div>											
 
@@ -588,6 +573,7 @@
 	<script src="../../common/js/functions.js"></script>
 	<script src="../../common/js/application.js"></script>
 	<script src="../../common/js/docs.min.js"></script>
+	<script src="../../common/js/bootstrap-tagsinput.js"></script>
 
 	<!-- Own document functions -->
 	<!-- Show modal if password has to be changed -->
