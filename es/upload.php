@@ -109,7 +109,7 @@
 		//Functions to add/remove Career/Occupation (Proffession) fields in realtime 
 		function addProf(frm){
 		rowNum ++;
-		var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowProf'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="hidden" name="prof[]" value="'+frm.add_prof.value+'"><input class="form-control" type="text" name="fprof[]" value="'+frm.add_prof.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeDegree('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
+		var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowProf'+rowNum+'"><div class="col-sm-11"><input class="form-control" type="hidden" name="prof[]" value="'+frm.add_prof.value+'"><input class="form-control" type="text" name="fprof[]" value="'+frm.add_prof.value+'" disabled></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeProf('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
 		jQuery('#uploadFormProf').append(row);
 		frm.add_prof.value = '';
 		}
@@ -178,7 +178,17 @@
 		function removeNationality(rnum){
 			jQuery('#rowNationality'+rnum).remove();
 		}
+		function addFiles(frm){
+			rowNum ++;
+			var row = '<div class="form-group uploadFormChild" style="margin-left: 0px; margin-right: 0px; margin-bottom: 0px;" id="rowFiles'+rowNum+'"><div class="col-sm-9"><input class="form-control" type="file" name="archivo'+rowNum+'"></div><div class="btn-toolbar col-sm-1"><div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="removeFiles('+rowNum+');"><span class="glyphicon glyphicon-remove" style="color: #FF0000;"></span></button></div></div></div>';
+			jQuery('#uploadFiles').append(row);
 
+			frm.add_archivos.value = '';
+		}
+		
+		function removeFiles(rnum){
+			jQuery('#rowFiles'+rnum).remove();
+		}
 		//Function to realtime check characters written in Salary field 
 		function checkMoney(e){
 			tecla = e.which || e.keyCode;
@@ -303,6 +313,8 @@
 			   #print $key . ": " . $entry . "<br>";
 			 }
 		}
+		
+		;
 		if(!checkFullNameES($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
 			?>
 			<script type="text/javascript">
@@ -432,31 +444,31 @@
 		else{
 			//Being here (under this 'else') means that insert query was OK. So user must be inactivated and redirected to 'index.html'
 			//if(isset($_FILES['archivos']) && is_uploaded_file($_FILES['archivos']['tmp_name'][0])){
-			if(isset($_FILES['archivos'])){
+			if(isset($_FILES['archivo'])){
 				//INTENTO GUARDAR LOS FICHEROS. COMPROBÁNDOLOS ANTES
 				
 				$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
-				echo $userDir;
+				//echo $userDir;
 				
 				if(!ifCreateDir($userDir, 0777)){
-					$numFiles = count($_FILES["archivos"]["name"]);
-					for ($i=0; $i<$numFiles; $i++){
-						//Upload for each Candidate file
-						//if(checkUploadedFileES($_FILES['archivos']['name'][$i], $_FILES['archivos']['type'][$i], $_FILES['archivos']['size'][$i], $errorText)){
-						if(checkUploadedFileES($_FILES['archivos']['name'][$i], $_FILES['archivos']['type'][$i], $_FILES['archivos']['size'][$i], $errorText) && is_uploaded_file($_FILES['archivos']['tmp_name'][0])){
-							move_uploaded_file($_FILES['archivos']['tmp_name'][$i], $userDir.$_FILES['archivos']['name'][$i]);
-							$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
-							$name = $_FILES["archivos"]["name"][$i];
-						}
-						else{
-							?>
-							<script type="text/javascript">
-								alert('Problem uploading file (code FUPLOAD<?php echo $i; ?>).');
-								window.location.href='home.php';
-							</script>
-							<?php 
-						}
-					}
+				for ($i=0;$i<100;$i++){
+				if ($i==0){
+				if (isset($_FILES["archivo"])){
+				move_uploaded_file($_FILES['archivo']['tmp_name'],$userDir.$_FILES['archivo']['name']);
+				//print_r($_FILES["archivo"]);
+				//print "<br>";
+				}
+				}
+				else{
+				if (isset($_FILES["archivo$i"])){
+				move_uploaded_file($_FILES["archivo$i"]['tmp_name'],$userDir.$_FILES["archivo$i"]['name']);
+				//print_r($_FILES["archivo$i"]);
+				//print "<br>";
+				}
+				}
+				}	
+					
+					
 				}
 			}
 			//Now Candidate photo will be uploaded
@@ -955,19 +967,19 @@ Los campos que poseen * son obligatorios.
 				</div>
 			</div>
 
-			<div class="form-group"> <!-- Documentos -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="archivos[]">Documentos adicionales </label>
+			<div class="form-group tooltip-demo"> <!-- Archivos -->
+				<label id="uploadFormLabel" class="control-label col-sm-2" ><span class="glyphicon glyphicon-info-sign" data-toggle="tooltip" data-original-title="Tipos admitidos: PDF, DOC, DOCX, XLS, XLSX, CSV, TXT o RTF. Máx: 1024Kb"></span> Archivos Adicionales: </label> 
 				<div class="col-sm-10" style="padding-left: 0px;">
-					<div id="adjuntos" class="col-sm-11">
-						<input class="form-control" type="file" name="archivos[]" file-accept="pdf, doc, docx, xls, xlsx, csv, txt, rtf, zip" file-maxsize="1024">
-						<p class="help-block">Tipos admitidos: PDF, DOC, DOCX, XLS, XLSX, CSV, TXT o RTF. Máx: 1024Kb</p>
-					</div>
-					<div class="btn-toolbar col-sm-1">
-						<div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="addCampo();"><span class="glyphicon glyphicon-plus"></span></button></div>
-					</div>
+				<div id="uploadFiles" class="col-sm-9">
+					<input class="form-control" type="file" name="archivo" />	
 				</div>
-			</div>
-
+				<div class="btn-toolbar col-sm-1">
+					<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addFiles(this.form);" type="button"><span >Añadir otro Archivo</span></button></div>
+				</div>
+				</div>
+				
+				</div>
+				
 			<div class="form-group"> <!-- Nivel de Idiomas -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_idiomas">Idioma/s: * </label> 
 				<div class="col-sm-10" style="padding-left: 0px;">
