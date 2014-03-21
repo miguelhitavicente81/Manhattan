@@ -228,6 +228,7 @@
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/functions.php');
 	require_once($_SERVER['DOCUMENT_ROOT'] . '/common/library/SimpleImage.php');
 	
+	
 	if(isset($_POST['push_button'])){
 		//LO 1º A COMPROBAR SERA QUE EL CHECK LOPD ESTÉ VALIDADO Y QUE NO EXISTA
 		#echo "entro en el if $_POST[senduser]";
@@ -884,13 +885,22 @@ Los campos que poseen * son obligatorios.
 					<input class="form-control form-inline" type="text" name="blankaddrfloor" size="1" maxlength="10" placeholder="Piso">
 					<input class="form-control form-inline" type="text" name="blankaddrdoor" size="3" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();">
 					<br><br>
+					
 					<select class="form-control form-inline pull-right" name="blankaddrpostalcode" onchange="ajaxGetAddress(this.value)" style="margin-top:5px;">
 						<option value="" selected>-- Código Postal --</option>
 						<?php 
-							$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'postalCode');
-							foreach($cpCol as $i){
-								echo "<option value=" . $i . ">" . $i . "</option>";
+							//$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'postalCode');
+
+							$xmlPostalCodes = simplexml_load_file($_SERVER['DOCUMENT_ROOT'] . '/common/data/postal_codes.xml');
+
+							foreach ($xmlPostalCodes->provincia as $p) {
+								foreach ($p->CodigoPostal as $cp) {
+									$PostalCodeNumber = $cp['value'];
+									echo "<option value=" . $PostalCodeNumber . ">" . $PostalCodeNumber . "</option>";
+								}
+								
 							}
+
 						?>
 					</select>
 					<div id="txtHint">
