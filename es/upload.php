@@ -482,7 +482,15 @@
 				$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 				//echo $userDir;
 				
-				if(!ifCreateDir($userDir, 0777)){
+				//if(!ifCreateDir($userDir, 0777)){
+				if(ifCreateDir($userDir, 0777)){
+					
+					
+					
+					
+					
+					
+					
 				for ($i=0;$i<100;$i++){
 				if ($i==0){
 				if (isset($_FILES["archivo"])){

@@ -1026,6 +1026,7 @@ function getKeyLanguage($languageToBeTranslated, $languageWritten){
  * Entry (dir): String with complete path for directory
  * Entry (permits): Integer (in form 0XXX) that indicactes what permissions will have new directory
  */
+/*
 function ifCreateDir($dir, $permits){
 	if(!file_exists($dir)){
 		mkdir($dir, $permits);
@@ -1034,6 +1035,20 @@ function ifCreateDir($dir, $permits){
 	}
 	else
 		return false;
+}
+*/
+function ifCreateDir($dir, $permits){
+	if(!file_exists($dir)){
+		if(!mkdir($dir, $permits)){
+			return false;
+		}
+		elseif(!chmod($dir, $permits)){
+			return false;
+		}
+		return true;
+	}
+	else
+		return true;
 }
 
 

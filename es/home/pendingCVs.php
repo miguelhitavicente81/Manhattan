@@ -139,15 +139,15 @@
 										`drivingDate` = '".htmlentities($_POST['eCCVdrivingDate'], ENT_QUOTES, 'UTF-8')."',
 										`marital` = '".htmlentities($_POST['eCCVmarital'], ENT_QUOTES, 'UTF-8')."',
 										`sons` = '".htmlentities($_POST['eCCVsons'], ENT_QUOTES, 'UTF-8')."',
-										`language` = 'FALTA_IDIOMAS',
-										`langLevel` = 'FALTA_IDIOMAS',
-										`education` = 'FALTA_EDUCACIÓN',
+										`language` = '".htmlentities($_POST['eCCVlanguages'], ENT_QUOTES, 'UTF-8')."',
+										`langLevel` = '".htmlentities($_POST['eCCVlangLevels'], ENT_QUOTES, 'UTF-8')."',
+										`education` = '".htmlentities($_POST['eCCVeducation'], ENT_QUOTES, 'UTF-8')."',
 										`career` = '".htmlentities($_POST['eCCVcareer'], ENT_QUOTES, 'UTF-8')."',
-										`experCompany` = 'FALTA_EXPERIENCIA',
-										`experStart` = 'FALTA_EXPERIENCIA',
-										`experEnd` = 'FALTA_EXPERIENCIA',
-										`experPos` = 'FALTA_EXPERIENCIA',
-										`experDesc` = 'FALTA_EXPERIENCIA',
+										`experCompany` = '".htmlentities($_POST['eCCVsons'], ENT_QUOTES, 'UTF-8')."',
+										`experStart` = '".htmlentities($_POST['eCCVsons'], ENT_QUOTES, 'UTF-8')."',
+										`experEnd` = '".htmlentities($_POST['eCCVsons'], ENT_QUOTES, 'UTF-8')."',
+										`experPos` = '".htmlentities($_POST['eCCVsons'], ENT_QUOTES, 'UTF-8')."',
+										`experDesc` = '".htmlentities($_POST['eCCVsons'], ENT_QUOTES, 'UTF-8')."',
 										`otherDetails` = '".htmlentities($_POST['eCCVotherDetails'], ENT_QUOTES, 'UTF-8')."',
 										`skill1` = '".htmlentities($_POST['eCCVskill1'], ENT_QUOTES, 'UTF-8')."',
 										`skill2` = '".htmlentities($_POST['eCCVskill2'], ENT_QUOTES, 'UTF-8')."',
@@ -268,8 +268,17 @@
 
 							<?php	
 								$editedCVRow = getDBrow('cvitaes', 'nie', $_GET['codvalue']);
-								$files_dir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".html_entity_decode($editedCVRow['userLogin'])."/";
-							?>
+								$userFilesDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".html_entity_decode($editedCVRow['userLogin'])."/";
+								
+								if(!ifCreateDir($userFilesDir, 0777)){
+									?>
+									<script type="text/javascript">
+										alert('Error retrieving User Directory Information. Please contact administrator.');
+										window.location.href='../home.php';
+									</script>
+									<?php 
+								}
+								?>
 
 							<form id="editedCV" class="form-horizontal" role="form" name="editedCV" autocomplete="off" method="post" action="pendingCVs.php">
 								<div class="modal-body">
@@ -288,17 +297,17 @@
 										</div>
 									</div>
 
-									<div class="form-group">  <!-- NIE -->
-										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVnie">NIE: </label>
-										<div class="col-sm-10">
-											<input class="form-control" type='text' name='eCCVnie' value="<?php echo html_entity_decode($editedCVRow['nie']) ?>"  />
-										</div>
-									</div>
-
 									<div class="form-group"> <!-- Fecha de Nacimiento -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVbirthdate">Fecha de nacimiento: </label>
 										<div class="col-sm-10">
 											<input class="form-control" type='date' name='eCCVbirthdate' value="<?php echo html_entity_decode($editedCVRow['birthdate']) ?>"  />
+										</div>
+									</div>
+
+									<div class="form-group">  <!-- NIE -->
+										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVnie">DNI/NIE: </label>
+										<div class="col-sm-10">
+											<input class="form-control" type='text' name='eCCVnie' value="<?php echo html_entity_decode($editedCVRow['nie']) ?>"  />
 										</div>
 									</div>
 
@@ -307,7 +316,7 @@
 										<div class="col-sm-10">
 											<input class="form-control" type='text' name='eCCVnationalities' value="<?php echo html_entity_decode($editedCVRow['nationalities']) ?>" data-role='tagsinput' />
 										</div>
-									</div>		
+									</div>
 
 									<div class="form-group"> <!-- Sexo -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVsex">Sexo: </label>
@@ -325,21 +334,21 @@
 												?>
 											</div>
 										</div>
-									</div>									
+									</div>
 															
 									<div class="form-group">  <!-- Tipo Dirección -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVaddrtype">Tipo de dirección: </label>
 										<div class="col-sm-10">
 											<input class="form-control" type='text' name='eCCVaddrtype' value="<?php echo html_entity_decode($editedCVRow['addrType']) ?>">
 										</div>
-									</div>	
+									</div>
 									
 									<div class="form-group">  <!-- Nombre Dirección -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVaddrName">Nombre dirección: </label>
 										<div class="col-sm-10">
 											<input class="form-control" type='text' name='eCCVaddrName' value="<?php echo html_entity_decode($editedCVRow['addrName']) ?>">
 										</div>
-									</div>	
+									</div>
 
 									<div class="form-group" >  <!-- Número -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVaddrNum">Número: </label>										
@@ -402,14 +411,7 @@
 										<div class="col-sm-10">
 											<input class="form-control" type='text' name='eCCVcountry' value="<?php echo html_entity_decode($editedCVRow['country']) ?>">										
 										</div>
-									</div>		
-
-									<div class="form-group" >  <!-- Teléfono Fijo -->
-										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVphone">Teléfono Fijo: </label>										
-										<div class="col-sm-10">
-											<input class="form-control" type='text' name='eCCVphone' value="<?php echo html_entity_decode($editedCVRow['phone']) ?>">										
-										</div>
-									</div>		
+									</div>
 
 									<div class="form-group" >  <!-- Teléfono Móvil -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVmobile">Teléfono Móvil: </label>										
@@ -418,43 +420,74 @@
 										</div>
 									</div>	
 
+									<div class="form-group" >  <!-- Otro Teléfono -->
+										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVphone">Otro Teléfono: </label>										
+										<div class="col-sm-10">
+											<input class="form-control" type='text' name='eCCVphone' value="<?php echo html_entity_decode($editedCVRow['phone']) ?>">										
+										</div>
+									</div>
+
 									<div class="form-group" >  <!-- Correo Electrónico -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVmail">Correo Electrónico: </label>										
 										<div class="col-sm-10">
 											<input class="form-control" type='mail' name='eCCVmail' value="<?php echo html_entity_decode($editedCVRow['mail']) ?>">										
 										</div>
-									</div>	
+									</div>
 
 									<div class="form-group" >  <!-- Carnet de Conducir -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVdrivingType">Carnet de Conducir: </label>										
 										<div class="col-sm-10">
 											<input class="form-control" type='text' name='eCCVdrivingType' value="<?php echo html_entity_decode($editedCVRow['drivingType']) ?>">
-											<input class='form-control' type='date' name='eCCVdrivingDate' value="<?php echo html_entity_decode($editedCVRow['drivingType']) ?>">
+											<input class='form-control' type='date' name='eCCVdrivingDate' value="<?php echo html_entity_decode($editedCVRow['drivingDate']) ?>">
 										</div>
-									</div>										
+									</div>
 
 									<div class="form-group" >  <!-- Estado Civil -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVmarital">Estado Civil: </label>										
 										<div class="col-sm-10">
 											<input class="form-control" type='text' name='eCCVmarital' value="<?php echo getDBsinglefield(getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']), 'maritalStatus', 'key', html_entity_decode($editedCVRow['marital'])) ?>">
 										</div>
-									</div>	
+									</div>
 
 									<div class="form-group" >  <!-- Hijos -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVsons">Hijos: </label>										
 										<div class="col-sm-10">
 											<input class="form-control" type='text' name='eCCVsons' value="<?php echo html_entity_decode($editedCVRow['sons']) ?>">
 										</div>
-									</div>	
+									</div>
 
-									<!-- AQUÍ FALTAN MUCHOS CAMPOS MAL FORMADOS -->
+									<div class="form-group" >  <!-- Idiomas -->
+										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVlanguages">Idiomas: </label>										
+										<div class="col-sm-10">
+											<input class="form-control" type='text' name='eCCVlanguages' value="<?php echo html_entity_decode($editedCVRow['language']) ?>" data-role='tagsinput'>
+											<input class="form-control" type='text' name='eCCVlangLevels' value="<?php echo html_entity_decode($editedCVRow['langLevel']) ?>" data-role='tagsinput'>										
+										</div>
+									</div>
+
+									<div class="form-group" >  <!-- Educación -->
+										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVeducation">Educación: </label>										
+										<div class="col-sm-10">
+											<input class="form-control" type='text' name='eCCVeducation' value="<?php echo html_entity_decode($editedCVRow['education']) ?>" data-role='tagsinput'>										
+										</div>
+									</div>
 
 									<div class="form-group" >  <!-- Profesión -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVcareer">Profesiones desempeñadas: </label>	<!-- Se puede omitir -->									
 										<div class="col-sm-10">
 											<input class="form-control" type='text' name='eCCVcareer' value='<?php echo html_entity_decode($editedCVRow['career']) ?>' data-role='tagsinput'>										
 										</div>
-									</div>											
+									</div>
+
+									<div class="form-group" >  <!-- Experiencia -->
+										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVexperience">Últimos años: </label>										
+										<div class="col-sm-10">
+											<input class="form-control" type='text' name='eCCVexperCompany' value="<?php echo html_entity_decode($editedCVRow['experCompany']) ?>" data-role='tagsinput'>
+											<input class="form-control" type='text' name='eCCVexperStart' value="<?php echo html_entity_decode($editedCVRow['experStart']) ?>" data-role='tagsinput'>			
+											<input class="form-control" type='text' name='eCCVexperEnd' value="<?php echo html_entity_decode($editedCVRow['experEnd']) ?>" data-role='tagsinput'>
+											<input class="form-control" type='text' name='eCCVexperPos' value="<?php echo html_entity_decode($editedCVRow['experPos']) ?>" data-role='tagsinput'>
+											<input class="form-control" type='text' name='eCCVexperDesc' value="<?php echo html_entity_decode($editedCVRow['experDesc']) ?>" data-role='tagsinput'>
+										</div>
+									</div>
 
 									<div class="form-group" >  <!-- Salario Deseado -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVsalary">Salario deseado: </label>										
@@ -475,13 +508,14 @@
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVfiles">Ficheros: </label>		
 										<div class="col-sm-10">
 										<?php
-											$files  = scandir($files_dir);
-											foreach ($files as $value){
+											$userFilesArray  = scandir($userFilesDir);
+											foreach ($userFilesArray as $value){
+												echo '|-> '.$value.' <-|';
 												if (preg_match("/\w+/i", $value)) {
 													echo "<a href=downloadFileSingle.php?doc=".$value.">$value</a><br>";
 												}
 											}
-										?>		
+											?>		
 										</div>						
 									</div>	
 
