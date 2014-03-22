@@ -196,6 +196,15 @@
 			te = String.fromCharCode(tecla);
 			return (patron.test(te) || tecla == 9 || tecla == 8);
 		}
+		
+		//Function used to check in realtime a phone number in which there could be included dashes (guiones) 
+		function checkDashedNumbers(e){
+			tecla = e.which || e.keyCode;
+			//patron = /\d\\-/; // Solo acepta números
+			patron = /[0-9\\-]/;
+			te = String.fromCharCode(tecla);
+			return (patron.test(te) || tecla == 9 || tecla == 8);
+		}
 
 		//Function to check in realtime photo's extensions 
 		function checkJSPhotoExtension(fileId){
@@ -314,7 +323,6 @@
 			 }
 		}
 		
-		;
 		if(!checkFullNameES($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
 			?>
 			<script type="text/javascript">
@@ -324,10 +332,11 @@
 			<?php 
 		}
 		//Aquí debo comprobar si EL CANDIDATO ES MAYOR DE EDAD
-		elseif(!isPreviousDate($_POST['blankbirthdate'])){
+		//elseif(!isPreviousDate($_POST['blankbirthdate'])){
+		elseif(!isAdult($_POST['blankbirthdate'], getDBsinglefield('value', 'otherOptions', 'key', 'legalAge'))){
 			?>
 			<script type="text/javascript">
-				alert('La fecha de nacimiento introducida es incorrecta');
+				alert('Su fecha de nacimiento es incorrecta o indica que es usted menor de edad.');
 				window.location.href='home.php';
 			</script>
 			<?php 
@@ -351,23 +360,32 @@
 		//QUE NO SEA OBLIGATORIO PERO QUE, SI DECIDES INCLUIRLO, DEBAS HACERLO BIEN
 		//Sex and Type of address are automatically detected as restricted fields
 		//elseif(isset($_POST['blankaddrname'])){
-		elseif(!checkFullAddressES($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
-			?>
-			<script type="text/javascript">
-				alert('<?php echo $checkError; ?>');
-				window.location.href='home.php';
-			</script>
-			<?php 
-		}
-		//QUE NO SEA OBLIGATORIO PERO QUE, SI DECIDES INCLUIRLO, DEBAS HACERLO BIEN
-		//This could be an international phone (should start with '00(49)'. It is not required
-		elseif(!checkPhone($_POST['blankphone'])){
-			?>
-			<script type="text/javascript">
-				alert('Indique un número de teléfono válido');
-				window.location.href='home.php';
-			</script>
-			<?php 
+		//elseif(!checkFullAddressES($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
+		//elseif(isset($_POST['blankaddrname']) || isset($_POST['blankaddrnum'])){
+		elseif((strlen($_POST['blankaddrtype']) > 0) || (strlen($_POST['blankaddrname']) > 0) || (strlen($_POST['blankaddrnum']) > 0) || (strlen($_POST['blankaddrportal']) > 0) || 
+		(strlen($_POST['blankaddrstair']) > 0) || (strlen($_POST['blankaddrfloor']) > 0) || (strlen($_POST['blankaddrdoor']) > 0)){
+			/*
+			echo 'Hya dirección.<br>';
+			echo 'Type Length: '.strlen($_POST['blankaddrtype']).'<br>';
+			echo 'Name Length: '.strlen($_POST['blankaddrname']).'<br>';
+			echo 'Num Length: '.strlen($_POST['blankaddrnum']).'<br>';
+			*/
+			if((strlen($_POST['blankaddrtype']) < 1) || (strlen($_POST['blankaddrname']) < 1) || (strlen($_POST['blankaddrnum']) < 1)){
+				?>
+				<script type="text/javascript">
+					alert('Olvidó el tipo, nombre o número de su dirección.');
+					window.location.href='home.php';
+				</script>
+				<?php
+			}
+			elseif(!checkFullAddressES($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
+				?>
+				<script type="text/javascript">
+					alert('<?php echo $checkError; ?>');
+					window.location.href='home.php';
+				</script>
+				<?php
+			}
 		}
 		elseif(!checkMobile($_POST['blankmobile'])){
 			?>
@@ -376,6 +394,19 @@
 				window.location.href='home.php';
 			</script>
 			<?php 
+		}
+		//QUE NO SEA OBLIGATORIO PERO QUE, SI DECIDES INCLUIRLO, DEBAS HACERLO BIEN
+		//This could be an international phone (should start with '00(49)'. It is not required
+		//elseif(!checkPhone($_POST['blankphone'])){
+		elseif(strlen($_POST['blankphone']) > 0){
+			if(!checkPhone($_POST['blankphone'])){
+				?>
+				<script type="text/javascript">
+					alert('Indique un número de teléfono válido');
+					window.location.href='home.php';
+				</script>
+				<?php 
+			}
 		}
 		elseif(!filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)){
 			?>
@@ -442,10 +473,11 @@
 			<?php 
 		}
 		else{
-			//Being here (under this 'else') means that insert query was OK. So user must be inactivated and redirected to 'index.html'
+			/* Being here (under this 'else') means that insert query was OK. So user must be inactivated and redirected to 'index.html'
+			 * But before, we check if user wishes to upload any file or photo
+			 */
 			//if(isset($_FILES['archivos']) && is_uploaded_file($_FILES['archivos']['tmp_name'][0])){
 			if(isset($_FILES['archivo'])){
-				//INTENTO GUARDAR LOS FICHEROS. COMPROBÁNDOLOS ANTES
 				
 				$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 				//echo $userDir;
@@ -534,14 +566,16 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- Nombre -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankname">Nombre: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type='text' name='blankname' autocomplete="off" required/>
+					<!-- <input class="form-control" type='text' name='blankname' autocomplete="off" required/> -->
+					<input class="form-control" type='text' name='blankname' required/>
 				</div>
 			</div>
 
 			<div class="form-group"> <!-- Apellidos -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksurname">Apellidos: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type='text' name='blanksurname' autocomplete="off" required/>
+					<!-- <input class="form-control" type='text' name='blanksurname' autocomplete="off" required/> -->
+					<input class="form-control" type='text' name='blanksurname' required/>
 				</div>
 			</div>
 
@@ -555,7 +589,8 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- DNI/NIE -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanknie">DNI/NIE: * </label>
 				<div class="col-sm-10">
-					<input class="form-control" type='text' name='blanknie' autocomplete="off" maxlength="9" placeholder="12345678X" onkeyup="this.value=this.value.toUpperCase();" required/>
+					<!-- <input class="form-control" type='text' name='blanknie' autocomplete="off" maxlength="9" placeholder="12345678X" onkeyup="this.value=this.value.toUpperCase();" required/> -->
+					<input class="form-control" type='text' name='blanknie' maxlength="9" placeholder="12345678X (8 digs.) ó X1234567X (7 digs.)" onkeyup="this.value=this.value.toUpperCase();" required/>
 				</div>
 			</div>		
 
@@ -854,12 +889,12 @@ Los campos que poseen * son obligatorios.
 						<option value="Urbanización">Urbanización</option>
 						<option value="Vía">Vía</option>
 					</select>					
-					<input class="form-control form-inline" type="text" name="blankaddrname" size="24" maxlength="50" placeholder="Nombre">
-					<input class="form-control form-inline" type="text" name="blankaddrnum" size="1" maxlength="10" placeholder="Num" onkeyup="this.value=this.value.toUpperCase();">
-					<input class="form-control form-inline" type="text" name="blankaddrportal" size="2" maxlength="10" placeholder="Portal" onkeyup="this.value=this.value.toUpperCase();">
-					<input class="form-control form-inline" type="text" name="blankaddrstair" size="1" maxlength="10" placeholder="Esc" onkeyup="this.value=this.value.toUpperCase();">
-					<input class="form-control form-inline" type="text" name="blankaddrfloor" size="1" maxlength="10" placeholder="Piso">
-					<input class="form-control form-inline" type="text" name="blankaddrdoor" size="3" maxlength="10" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();">
+					<input class="form-control form-inline" type="text" name="blankaddrname" size="25" maxlength="50" placeholder="Nombre">
+					<input class="form-control form-inline" type="text" name="blankaddrnum" size="1" maxlength="4" placeholder="Num" onkeyup="this.value=this.value.toUpperCase();">
+					<input class="form-control form-inline" type="text" name="blankaddrportal" size="2" maxlength="4" placeholder="Portal" onkeyup="this.value=this.value.toUpperCase();">
+					<input class="form-control form-inline" type="text" name="blankaddrstair" size="1" maxlength="4" placeholder="Esc" onkeyup="this.value=this.value.toUpperCase();">
+					<input class="form-control form-inline" type="text" name="blankaddrfloor" size="1" maxlength="4" placeholder="Piso">
+					<input class="form-control form-inline" type="text" name="blankaddrdoor" size="2" maxlength="4" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();">
 					<br><br>
 					
 					<select class="form-control form-inline pull-right" name="blankaddrpostalcode" onchange="ajaxGetAddress(this.value)" style="margin-top:5px;">
@@ -893,24 +928,30 @@ Los campos que poseen * son obligatorios.
 				</div>
 			</div>	
 
-			<div class="form-group"> <!-- Teléfono Fijo -->
-				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankphone">Otro Tfno.: </label> 
-				<div class="col-sm-10">
-					<input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="9" placeholder="9XXXXXXXX">
-				</div>
-			</div>
-
 			<div class="form-group"> <!-- Teléfono Móvil -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmobile">Tfno. Móvil: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="blankmobile" autocomplete="off" maxlength="9" placeholder="[6-7]XXXXXXXX">
+					<!-- <input class="form-control" type="text" name="blankmobile" autocomplete="off" maxlength="9" placeholder="[6-7]XXXXXXXX"> -->
+					<input class="form-control" type="text" name="blankmobile" maxlength="9" placeholder="[6-7]XXXXXXXX">
+				</div>
+			</div>
+
+			<div class="form-group"> <!-- Teléfono Fijo -->
+				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankphone">Otro Tfno.: </label> 
+				<div class="col-sm-10">
+					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="15" placeholder="00[COD.PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)"> -->
+					<!-- <input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€uros/año" onkeypress="return checkMoney(event)"> -->
+					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="18" placeholder="00[COD. PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)">
+					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="15" placeholder="00[COD.PAIS]-NUMERO" onkeypress="return checkMoney(event)"> -->
+					<input class="form-control" type="text" name="blankphone" maxlength="18" placeholder="00[COD. PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)">
 				</div>
 			</div>
 
 			<div class="form-group"> <!-- Correo Electrónico -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmail">eMail: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="email" name="blankmail" autocomplete="off" placeholder="correo@ejemplo.com">
+					<!-- <input class="form-control" type="email" name="blankmail" autocomplete="off" placeholder="correo@ejemplo.com"> -->
+					<input class="form-control" type="email" name="blankmail" placeholder="correo@ejemplo.com">
 				</div>
 			</div>		
 

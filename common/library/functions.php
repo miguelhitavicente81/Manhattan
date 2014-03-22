@@ -543,33 +543,6 @@ function cleanFreeText($inText){
 
 
 
-/* Checks whether a complete address (Name and Number for this Form) are well-formatted, avoiding as possible security breachs
- * Entry (inName): String which contains name of the address
- * Entry (inNumber): String which contains number/letter for given address name
- * Exit (outAddrName): Returned string for Address Name
- * Exit (outAddrNumber): Returned string for Address Number
- * Exit (checkError): String with text that includes a description of the error */
-function checkFullAddressES($inName, $inNumber, &$outAddrName, &$outAddrNumber, &$checkError){
-	$connection = connectDB();
-	
-	//$outAddrName = trim(htmlentities(mysqli_real_escape_string($connection, $inName)));
-	//$outAddrNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber)));
-	$outAddrName = trim(htmlentities(mysqli_real_escape_string($connection, $inName), ENT_QUOTES, 'UTF-8'));
-	$outAddrNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber), ENT_QUOTES, 'UTF-8'));
-	
-	if(strlen($outAddrName) < 2){
-		$checkError = "Introduzca una dirección válida, por favor.";
-		return false;
-	}
-	elseif(strlen($outAddrNumber) < 1){
-		$checkError = "Introduzca el número de su dirección, por favor";
-		return false;
-	}
-		return true;
-}
-
-
-
 /* Checks whether a DNI (native) or NIE (abroad people with national document) is well-formatted and written or not
  * Entry (nie): String
  * Exit: Boolean
@@ -635,6 +608,32 @@ function checkDrivingLicense($type, $licDate, &$checkError){
 	return true;
 }
 
+
+
+/* Checks whether a complete address (Name and Number for this Form) are well-formatted, avoiding as possible security breachs
+ * Entry (inName): String which contains name of the address
+ * Entry (inNumber): String which contains number/letter for given address name
+ * Exit (outAddrName): Returned string for Address Name
+ * Exit (outAddrNumber): Returned string for Address Number
+ * Exit (checkError): String with text that includes a description of the error */
+function checkFullAddressES($inName, $inNumber, &$outAddrName, &$outAddrNumber, &$checkError){
+	$connection = connectDB();
+	
+	//$outAddrName = trim(htmlentities(mysqli_real_escape_string($connection, $inName)));
+	//$outAddrNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber)));
+	$outAddrName = trim(htmlentities(mysqli_real_escape_string($connection, $inName), ENT_QUOTES, 'UTF-8'));
+	$outAddrNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber), ENT_QUOTES, 'UTF-8'));
+	
+	if(strlen($outAddrName) < 2){
+		$checkError = "Introduzca una dirección válida, por favor.";
+		return false;
+	}
+	elseif(strlen($outAddrNumber) < 1){
+		$checkError = "Introduzca el número de su dirección, por favor";
+		return false;
+	}
+		return true;
+}
 
 
 
@@ -704,6 +703,7 @@ function checkNationality($inNations, &$outNations){
  * Entry (phone): Integer which contains a number
  * Exit: Boolean
  */
+/*
 function checkPhone($phone){
 	$connection = connectDB();
 	
@@ -716,6 +716,33 @@ function checkPhone($phone){
 		return false;
 	}
 	return true;
+}
+*/
+function checkPhone($phone){
+	$connection = connectDB();
+	
+	$outPhone = trim(htmlentities(mysqli_real_escape_string($connection, $phone)));
+	
+	if(strlen($outPhone) > 18){
+		return false;
+	}
+	elseif(!preg_match('/^[\-0-9]{18}$/', $outPhone)){
+		return false;
+	}
+	return true;
+}
+
+
+
+/* Checks whether a person is adult or not, according input date
+ * Entry (birthDate): Input date that represents birthdate
+ * Entry (legalAge): Integer used to know the minimum legal age
+ * Exit (): Bool
+ */
+function isAdult($birthDate, $legalAge){
+	$adultDay = addDateToDate($birthDate, $legalAge);
+	
+	return isPreviousDate($adultDay);
 }
 
 
@@ -844,6 +871,7 @@ function addMonthsToDate($monthsNumber){
  * Entry (days): Integer which indicates the number of days to be added
  * Exit (endDate): Date in format "YYYY-MM-DD"
  */
+/*
 function addDateToDate($givenDate, $years, $months, $days){
 	
 	$unixDate = getdate(strtotime($givenDate));
@@ -851,33 +879,10 @@ function addDateToDate($givenDate, $years, $months, $days){
 	$endDate = date('Y-m-d', strtotime('+'.$monthsNumber.' month'));
 	return $endDate;
 }
-
-
-
-/* Checks whether a Birthdate is well-formatted and under current date
- * Entry (birth): Date in format YYYY-MM-DD
- * Exit: Boolean that confirms if date is correct or not
- */
-function checkBirthdate($birth){
-	$auxDateArray = explode('-', $birth);
-	$auxDateMonth = $auxDateArray[1];
-	$auxDateYear = $auxDateArray[0];
-	$auxDateDay = $auxDateArray[2];
-	/*
-	echo 'Tal como viene es... '.$birth;
-	echo 'Es el día '.$auxDateDay.' del mes '.$auxDateMonth.' del Año: '.$auxDateYear.'.';
-	*/
-	$current = strtotime(date('Y-m-d'));
-	$birthdate = strtotime($birth);
-	
-	//if(checkdate($auxDateMonth, $auxDateDay, $auxDateYear)){
-	//if((!checkdate($auxDateMonth, $auxDateDay, $auxDateYear) || ($birthdate > $current)){
-	if((!checkdate($auxDateMonth, $auxDateDay, $auxDateYear)) || ($birthdate > $current)){
-		return false;
-	}
-	else{
-		return true;
-	}
+*/
+function addDateToDate($givenDate, $years){
+	$endDate = date('Y-m-d', strtotime("$givenDate + $years years"));
+	return $endDate;
 }
 
 
