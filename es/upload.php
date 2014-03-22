@@ -323,7 +323,6 @@
 			 }
 		}
 		
-		;
 		if(!checkFullNameES($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
 			?>
 			<script type="text/javascript">
@@ -463,8 +462,8 @@
 		echo 'El error ...'.$errorText;
 		exit();
 		*/
-		exit();
-		/*
+		
+		
 		if(!executeDBquery($insertCVQuery)){
 			?>
 			<script type="text/javascript">
@@ -474,10 +473,11 @@
 			<?php 
 		}
 		else{
-			//Being here (under this 'else') means that insert query was OK. So user must be inactivated and redirected to 'index.html'
+			/* Being here (under this 'else') means that insert query was OK. So user must be inactivated and redirected to 'index.html'
+			 * But before, we check if user wishes to upload any file or photo
+			 */
 			//if(isset($_FILES['archivos']) && is_uploaded_file($_FILES['archivos']['tmp_name'][0])){
 			if(isset($_FILES['archivo'])){
-				//INTENTO GUARDAR LOS FICHEROS. COMPROBÁNDOLOS ANTES
 				
 				$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 				//echo $userDir;
@@ -535,7 +535,6 @@
 			</script>
 			<?php
 		}
-		*/
 		
 		
 		/*
@@ -567,14 +566,16 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- Nombre -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankname">Nombre: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type='text' name='blankname' autocomplete="off" required/>
+					<!-- <input class="form-control" type='text' name='blankname' autocomplete="off" required/> -->
+					<input class="form-control" type='text' name='blankname' required/>
 				</div>
 			</div>
 
 			<div class="form-group"> <!-- Apellidos -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksurname">Apellidos: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type='text' name='blanksurname' autocomplete="off" required/>
+					<!-- <input class="form-control" type='text' name='blanksurname' autocomplete="off" required/> -->
+					<input class="form-control" type='text' name='blanksurname' required/>
 				</div>
 			</div>
 
@@ -588,7 +589,8 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- DNI/NIE -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanknie">DNI/NIE: * </label>
 				<div class="col-sm-10">
-					<input class="form-control" type='text' name='blanknie' autocomplete="off" maxlength="9" placeholder="12345678X" onkeyup="this.value=this.value.toUpperCase();" required/>
+					<!-- <input class="form-control" type='text' name='blanknie' autocomplete="off" maxlength="9" placeholder="12345678X" onkeyup="this.value=this.value.toUpperCase();" required/> -->
+					<input class="form-control" type='text' name='blanknie' maxlength="9" placeholder="12345678X (8 digs.) ó X1234567X (7 digs.)" onkeyup="this.value=this.value.toUpperCase();" required/>
 				</div>
 			</div>		
 
@@ -929,7 +931,8 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- Teléfono Móvil -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmobile">Tfno. Móvil: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="blankmobile" autocomplete="off" maxlength="9" placeholder="[6-7]XXXXXXXX">
+					<!-- <input class="form-control" type="text" name="blankmobile" autocomplete="off" maxlength="9" placeholder="[6-7]XXXXXXXX"> -->
+					<input class="form-control" type="text" name="blankmobile" maxlength="9" placeholder="[6-7]XXXXXXXX">
 				</div>
 			</div>
 
@@ -938,15 +941,17 @@ Los campos que poseen * son obligatorios.
 				<div class="col-sm-10">
 					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="15" placeholder="00[COD.PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)"> -->
 					<!-- <input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€uros/año" onkeypress="return checkMoney(event)"> -->
-					<input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="15" placeholder="00[COD. PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)">
+					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="18" placeholder="00[COD. PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)">
 					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="15" placeholder="00[COD.PAIS]-NUMERO" onkeypress="return checkMoney(event)"> -->
+					<input class="form-control" type="text" name="blankphone" maxlength="18" placeholder="00[COD. PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)">
 				</div>
 			</div>
 
 			<div class="form-group"> <!-- Correo Electrónico -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmail">eMail: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="email" name="blankmail" autocomplete="off" placeholder="correo@ejemplo.com">
+					<!-- <input class="form-control" type="email" name="blankmail" autocomplete="off" placeholder="correo@ejemplo.com"> -->
+					<input class="form-control" type="email" name="blankmail" placeholder="correo@ejemplo.com">
 				</div>
 			</div>		
 

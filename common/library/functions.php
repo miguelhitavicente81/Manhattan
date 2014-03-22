@@ -723,10 +723,10 @@ function checkPhone($phone){
 	
 	$outPhone = trim(htmlentities(mysqli_real_escape_string($connection, $phone)));
 	
-	if(strlen($outPhone) > 15){
+	if(strlen($outPhone) > 18){
 		return false;
 	}
-	elseif(!preg_match('/^[\-0-9]{15}$/', $outPhone)){
+	elseif(!preg_match('/^[\-0-9]{18}$/', $outPhone)){
 		return false;
 	}
 	return true;
