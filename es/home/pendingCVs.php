@@ -113,6 +113,21 @@
 			$pendingCVs = getPendingCVs();
 
 			if (isset($_POST['eCurCVsend'])) {
+
+				//Dismounting "Lang:LangLv" structure for insert in DB
+				$wholeLangInfo = explode('|',$_POST['eCCVlanguagesMerged']);
+
+				$finalLang = "";
+				$finalLangLv = "";
+				foreach($wholeLangInfo as $key => $value) {
+					$array = explode(':',$value);					
+					$finalLang = $finalLang . array_values($array)[0] . '|';
+					$finalLangLv = $finalLangLv . array_values($array)[1] . '|';
+				}
+				
+				$finalLang = substr($finalLang, 0, -1);
+				$finalLangLv = substr($finalLangLv, 0, -1);
+
 				$updateCVQuery = "	UPDATE `cvitaes` 
 									SET `nie` = '".htmlentities($_POST['eCCVnie'], ENT_QUOTES, 'UTF-8')."',
 										`cvStatus` = 'checked',
@@ -139,8 +154,8 @@
 										`drivingDate` = '".htmlentities($_POST['eCCVdrivingDate'], ENT_QUOTES, 'UTF-8')."',
 										`marital` = '".htmlentities($_POST['eCCVmarital'], ENT_QUOTES, 'UTF-8')."',
 										`sons` = '".htmlentities($_POST['eCCVsons'], ENT_QUOTES, 'UTF-8')."',
-										`language` = '".htmlentities($_POST['eCCVlanguages'], ENT_QUOTES, 'UTF-8')."',
-										`langLevel` = '".htmlentities($_POST['eCCVlangLevels'], ENT_QUOTES, 'UTF-8')."',
+										`language` = '".htmlentities($finalLang, ENT_QUOTES, 'UTF-8')."',
+										`langLevel` = '".htmlentities($finalLangLv, ENT_QUOTES, 'UTF-8')."',
 										`education` = '".htmlentities($_POST['eCCVeducation'], ENT_QUOTES, 'UTF-8')."',
 										`career` = '".htmlentities($_POST['eCCVcareer'], ENT_QUOTES, 'UTF-8')."',
 										`experCompany` = '".htmlentities($_POST['eCCVsons'], ENT_QUOTES, 'UTF-8')."',
@@ -457,10 +472,14 @@
 									</div>
 
 									<div class="form-group" >  <!-- Idiomas -->
-										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVlanguages">Idiomas: </label>										
+										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVlanguagesMerged">Idiomas: </label>			
+										<?php 
+											$mergedLanguages = explode('|',$editedCVRow['language']);
+											$mergedLangLevels = explode('|',$editedCVRow['langLevel']);
+											$hashedLanguages = array_combine($mergedLanguages,$mergedLangLevels);
+										?>							
 										<div class="col-sm-10">
-											<input class="form-control" type='text' name='eCCVlanguages' value="<?php echo html_entity_decode($editedCVRow['language']) ?>" data-role='tagsinput'>
-											<input class="form-control" type='text' name='eCCVlangLevels' value="<?php echo html_entity_decode($editedCVRow['langLevel']) ?>" data-role='tagsinput'>										
+											<input class="form-control" type='text' name='eCCVlanguagesMerged' value="<?php foreach ($hashedLanguages as $lang => $lv) { echo html_entity_decode($lang) . ':' . html_entity_decode($lv) . '|'; } ?>" data-role='tagsinput'>
 										</div>
 									</div>
 
