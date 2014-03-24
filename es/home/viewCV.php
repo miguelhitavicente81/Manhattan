@@ -180,7 +180,7 @@
 	#foto { position: fixed; left: 650px; top: 170px; right: 0px;} 
 	#cuerpo { position: fixed; left: 50px; top: 90px;}
 	.cuadronegro { background-position: 10px center;   background-repeat: no-repeat;   font-family: Tahoma;   font-size: 14px;   margin: 10px 0px;   padding: 15px 10px 15px 55px; } .cuadronegro { background-color: #A4A4A4;  color: #000000; border:2px solid #242424; border-radius: 2px 2px 2px 2px; }
-  </style>";
+ 	</style>";
 		if($report == "full_report"){
 				$texto_pdf=$texto_pdf."<div id=header><img center src='../../common/img/logo.jpg' width='300px' height='100px'/></div>";
 				$imagen=$fila['userLogin']."/fotor.jpg";
@@ -258,9 +258,10 @@
 				}
                                 $texto = $texto."<br><br><img src='../../common/img/archivos.jpg' /><br>";
                                 $files  = scandir($output_dir.$fila[userLogin]);
+                                $dir = $output_dir.$fila[userLogin]."/";
                                 foreach ($files as $value){
                                 if (preg_match("/\w+/i", $value)) {
-                                $texto=$texto."<br><a href=downloadFileSingle.php?doc=".$value.">$value</a>";
+                                $texto=$texto."<br><a href=downloadFileSingle.php?doc=".$dir.$value.">$value</a>";
                                 }
                                 }
 				if (strlen($nota)>0){$texto=$texto."<div class=cuadronegro><h3>EVALUACION PERSPECTIVA ALEMANIA </h3><br>".$nota."</div>";$texto_pdf=$texto_pdf."<div class=cuadronegro><h3>EVALUACION POR PERSPECTIVA ALEMANIA</h3> <br><br>".$nota."</div>";}

@@ -130,7 +130,7 @@
 				
 				//Minimum security checkings, to avoid malformation in DB
 				if(eregMySQLCheckDate(htmlentities($_POST['eCCVbirthdate'], ENT_QUOTES, 'UTF-8'))){
-					$inDBBirthdate = htmlentities($_POST['eCCVbirthdate'], ENT_QUOTES, 'UTF-8');
+					$inDBBirthdate = trim(htmlentities($_POST['eCCVbirthdate'], ENT_QUOTES, 'UTF-8'));
 				}
 				else{
 					$inDBBirthdate = '0000-00-00';
@@ -138,11 +138,25 @@
 				
 				//Nationalities should be searched in its corresponding DBTable
 				//If any of the mandatory fields are bad formed DB won't be updated
+				echo $_POST['eCCVnationalities'];
+				echo $_POST['eCCVcareer'];
 				if((!checkFullNameES($_POST['eCCVname'], $_POST['eCCVsurname'], $outName, $outSurname, $checkError)) || ($inDBBirthdate == '0000-00-00') || 
 				(!checkDNI_NIE(htmlentities($_POST['eCCVnie'], ENT_QUOTES, 'UTF-8'))) || (htmlentities($_POST['eCCVnationalities'], ENT_QUOTES, 'UTF-8') == '') || 
 				(!checkMobile(htmlentities($_POST['eCCVmobile'], ENT_QUOTES, 'UTF-8'))) || (!filter_var(htmlentities($_POST['eCCVmail'], ENT_QUOTES, 'UTF-8'), FILTER_VALIDATE_EMAIL)) ||
 				(htmlentities($finalLang, ENT_QUOTES, 'UTF-8') == '' || htmlentities($finalLangLv, ENT_QUOTES, 'UTF-8') == '' || htmlentities($finalLangLv, ENT_QUOTES, 'UTF-8') == '%null%') ||
 				(htmlentities($_POST['eCCVcareer'], ENT_QUOTES, 'UTF-8') == '')){
+					echo 'Name: '.$outName.'<br>';
+					echo 'Surname: '.$outSurname.'<br>';
+					echo 'Name error: '.checkError.'<br>';
+					echo 'Nacimiento: '.$inDBBirthdate.'<br>';
+					echo 'NIE: '.$_POST['eCCVnie'].'<br>';
+					echo 'Nacionalidad: '.$_POST['eCCVnationalities'].'<br>';
+					echo 'Móvil: '.$_POST['eCCVmobile'].'<br>';
+					echo 'Mail: '.$_POST['eCCVmail'].'<br>';
+					echo 'Idioma: '.$finalLang.'<br>';
+					echo 'Tipo Idioma: '.$finalLangLv.'<br>';
+					echo 'Carrera: '.$_POST['eCCVcareer'].'<br>';
+					echo 'Ciudad: '.$_POST['eCCVcity'].'<br>';
 					?>
 					<script type="text/javascript">
 						alert('Al menos 1 de los campos obligatorios no es correcto.');
@@ -150,140 +164,84 @@
 					</script>
 					<?php 
 				}
-					/*
-				elseif(){
-					//LOS CAMPOS OBLIGATORIOS ESTAN OK, PERO HAY ALGUN OTRO CAMPO DE LOS NO OBLIGATORIOS QUE ESTA MAL. SE GUARDA INDICANDO ERRORES
-				}
 				else{
-					//TODOS LOS CAMPOS ESTAN BIEN. NO HAY ERRORES. SE GUARDA INDICANDO EL EXITO
-				}
-				*/
-				
-				
-				/*
-				$updateCVQuery = "	UPDATE `cvitaes` 
-									SET `nie` = '".htmlentities($_POST['eCCVnie'], ENT_QUOTES, 'UTF-8')."',
-										`cvStatus` = 'checked',
-										`name` = '".htmlentities($_POST['eCCVname'], ENT_QUOTES, 'UTF-8')."',
-										`surname` = '".htmlentities($_POST['eCCVsurname'], ENT_QUOTES, 'UTF-8')."',
-										`birthdate` = '".htmlentities($_POST['eCCVbirthdate'], ENT_QUOTES, 'UTF-8')."',
-										`nationalities` = '".htmlentities($_POST['eCCVnationalities'], ENT_QUOTES, 'UTF-8')."',
-										`sex` = '".htmlentities($_POST['eCCVsex'], ENT_QUOTES, 'UTF-8')."',
-										`addrType` = '".htmlentities($_POST['eCCVaddrtype'], ENT_QUOTES, 'UTF-8')."',
-										`addrName` = '".htmlentities($_POST['eCCVaddrName'], ENT_QUOTES, 'UTF-8')."',
-										`addrNum` = '".htmlentities($_POST['eCCVaddrNum'], ENT_QUOTES, 'UTF-8')."',
-										`portal` = '".htmlentities($_POST['eCCVaddrPortal'], ENT_QUOTES, 'UTF-8')."',
-										`stair` = '".htmlentities($_POST['eCCVaddrStair'], ENT_QUOTES, 'UTF-8')."',
-										`addrFloor` = '".htmlentities($_POST['eCCVaddrFloor'], ENT_QUOTES, 'UTF-8')."',
-										`addrDoor` = '".htmlentities($_POST['eCCVaddrDoor'], ENT_QUOTES, 'UTF-8')."',
-										`phone` = '".htmlentities($_POST['eCCVphone'], ENT_QUOTES, 'UTF-8')."',
-										`postalCode` = '".htmlentities($_POST['eCCVpostal'], ENT_QUOTES, 'UTF-8')."',
-										`country` = '".htmlentities($_POST['eCCVcountry'], ENT_QUOTES, 'UTF-8')."',
-										`province` = '".htmlentities($_POST['eCCVprovince'], ENT_QUOTES, 'UTF-8')."',
-										`city` = '".htmlentities($_POST['eCCVcity'], ENT_QUOTES, 'UTF-8')."',
-										`mobile` = '".htmlentities($_POST['eCCVmobile'], ENT_QUOTES, 'UTF-8')."',
-										`mail` = '".htmlentities($_POST['eCCVmail'], ENT_QUOTES, 'UTF-8')."',
-										`drivingType` = '".htmlentities($_POST['eCCVdrivingType'], ENT_QUOTES, 'UTF-8')."',
-										`drivingDate` = '".htmlentities($_POST['eCCVdrivingDate'], ENT_QUOTES, 'UTF-8')."',
-										`marital` = '".htmlentities($_POST['eCCVmarital'], ENT_QUOTES, 'UTF-8')."',
-										`sons` = '".htmlentities($_POST['eCCVsons'], ENT_QUOTES, 'UTF-8')."',
-										`language` = '".htmlentities($finalLang, ENT_QUOTES, 'UTF-8')."',
-										`langLevel` = '".htmlentities($finalLangLv, ENT_QUOTES, 'UTF-8')."',
-										`education` = '".htmlentities($_POST['eCCVeducation'], ENT_QUOTES, 'UTF-8')."',
-										`career` = '".htmlentities($_POST['eCCVcareer'], ENT_QUOTES, 'UTF-8')."',
-										`experCompany` = '".htmlentities($_POST['eCCVexperCompany'], ENT_QUOTES, 'UTF-8')."',
-										`experStart` = '".htmlentities($_POST['eCCVexperStart'], ENT_QUOTES, 'UTF-8')."',
-										`experEnd` = '".htmlentities($_POST['eCCVexperEnd'], ENT_QUOTES, 'UTF-8')."',
-										`experPos` = '".htmlentities($_POST['eCCVexperPos'], ENT_QUOTES, 'UTF-8')."',
-										`experDesc` = '".htmlentities($_POST['eCCVexperDesc'], ENT_QUOTES, 'UTF-8')."',
-										`otherDetails` = '".htmlentities($_POST['eCCVotherDetails'], ENT_QUOTES, 'UTF-8')."',
-										`skill1` = '".htmlentities($_POST['eCCVskill1'], ENT_QUOTES, 'UTF-8')."',
-										`skill2` = '".htmlentities($_POST['eCCVskill2'], ENT_QUOTES, 'UTF-8')."',
-										`skill3` = '".htmlentities($_POST['eCCVskill3'], ENT_QUOTES, 'UTF-8')."',
-										`skill4` = '".htmlentities($_POST['eCCVskill4'], ENT_QUOTES, 'UTF-8')."',
-										`skill5` = '".htmlentities($_POST['eCCVskill5'], ENT_QUOTES, 'UTF-8')."',
-										`skill6` = '".htmlentities($_POST['eCCVskill6'], ENT_QUOTES, 'UTF-8')."',
-										`skill7` = '".htmlentities($_POST['eCCVskill7'], ENT_QUOTES, 'UTF-8')."',
-										`skill8` = '".htmlentities($_POST['eCCVskill8'], ENT_QUOTES, 'UTF-8')."',
-										`skill9` = '".htmlentities($_POST['eCCVskill9'], ENT_QUOTES, 'UTF-8')."',
-										`skill10` = '".htmlentities($_POST['eCCVskill10'], ENT_QUOTES, 'UTF-8')."',
-										`cvDate` = '".htmlentities($_POST['eCCVcvDate'], ENT_QUOTES, 'UTF-8')."',
-										`salary` = '".htmlentities($_POST['eCCVsalary'], ENT_QUOTES, 'UTF-8')."',
-										`comments` = '".htmlentities($_POST['eCCVcomments'], ENT_QUOTES, 'UTF-8')."',
-										`candidateStatus` = '".htmlentities($_POST['eCCVcandidateStatus'], ENT_QUOTES, 'UTF-8')."'
-									WHERE `nie` = '".htmlentities($_POST['eCCVnie'], ENT_QUOTES, 'UTF-8')."';";
-				*/
-				$updateCVQuery = "	UPDATE `cvitaes` 
-									SET `nie` = '".$_POST['eCCVnie']."',
-										`cvStatus` = 'checked',
-										`name` = '".$outName."',
-										`surname` = '".$outSurname."',
-										`birthdate` = '".$inDBBirthdate."',
-										`nationalities` = '".htmlentities($_POST['eCCVnationalities'], ENT_QUOTES, 'UTF-8')."',
-										`sex` = '".htmlentities($_POST['eCCVsex'], ENT_QUOTES, 'UTF-8')."',
-										`addrType` = '".htmlentities($_POST['eCCVaddrtype'], ENT_QUOTES, 'UTF-8')."',
-										`addrName` = '".htmlentities($_POST['eCCVaddrName'], ENT_QUOTES, 'UTF-8')."',
-										`addrNum` = '".htmlentities($_POST['eCCVaddrNum'], ENT_QUOTES, 'UTF-8')."',
-										`portal` = '".htmlentities($_POST['eCCVaddrPortal'], ENT_QUOTES, 'UTF-8')."',
-										`stair` = '".htmlentities($_POST['eCCVaddrStair'], ENT_QUOTES, 'UTF-8')."',
-										`addrFloor` = '".htmlentities($_POST['eCCVaddrFloor'], ENT_QUOTES, 'UTF-8')."',
-										`addrDoor` = '".htmlentities($_POST['eCCVaddrDoor'], ENT_QUOTES, 'UTF-8')."',
-										`phone` = '".htmlentities($_POST['eCCVphone'], ENT_QUOTES, 'UTF-8')."',
-										`postalCode` = '".htmlentities($_POST['eCCVpostal'], ENT_QUOTES, 'UTF-8')."',
-										`country` = '".htmlentities($_POST['eCCVcountry'], ENT_QUOTES, 'UTF-8')."',
-										`province` = '".htmlentities($_POST['eCCVprovince'], ENT_QUOTES, 'UTF-8')."',
-										`city` = '".htmlentities($_POST['eCCVcity'], ENT_QUOTES, 'UTF-8')."',
-										`mobile` = '".htmlentities($_POST['eCCVmobile'], ENT_QUOTES, 'UTF-8')."',
-										`mail` = '".htmlentities($_POST['eCCVmail'], ENT_QUOTES, 'UTF-8')."',
-										`drivingType` = '".htmlentities($_POST['eCCVdrivingType'], ENT_QUOTES, 'UTF-8')."',
-										`drivingDate` = '".htmlentities($_POST['eCCVdrivingDate'], ENT_QUOTES, 'UTF-8')."',
-										`marital` = '".htmlentities($_POST['eCCVmarital'], ENT_QUOTES, 'UTF-8')."',
-										`sons` = '".htmlentities($_POST['eCCVsons'], ENT_QUOTES, 'UTF-8')."',
-										`language` = '".htmlentities($finalLang, ENT_QUOTES, 'UTF-8')."',
-										`langLevel` = '".htmlentities($finalLangLv, ENT_QUOTES, 'UTF-8')."',
-										`education` = '".htmlentities($_POST['eCCVeducation'], ENT_QUOTES, 'UTF-8')."',
-										`career` = '".htmlentities($_POST['eCCVcareer'], ENT_QUOTES, 'UTF-8')."',
-										`experCompany` = '".htmlentities($_POST['eCCVexperCompany'], ENT_QUOTES, 'UTF-8')."',
-										`experStart` = '".htmlentities($_POST['eCCVexperStart'], ENT_QUOTES, 'UTF-8')."',
-										`experEnd` = '".htmlentities($_POST['eCCVexperEnd'], ENT_QUOTES, 'UTF-8')."',
-										`experPos` = '".htmlentities($_POST['eCCVexperPos'], ENT_QUOTES, 'UTF-8')."',
-										`experDesc` = '".htmlentities($_POST['eCCVexperDesc'], ENT_QUOTES, 'UTF-8')."',
-										`otherDetails` = '".htmlentities($_POST['eCCVotherDetails'], ENT_QUOTES, 'UTF-8')."',
-										`skill1` = '".htmlentities($_POST['eCCVskill1'], ENT_QUOTES, 'UTF-8')."',
-										`skill2` = '".htmlentities($_POST['eCCVskill2'], ENT_QUOTES, 'UTF-8')."',
-										`skill3` = '".htmlentities($_POST['eCCVskill3'], ENT_QUOTES, 'UTF-8')."',
-										`skill4` = '".htmlentities($_POST['eCCVskill4'], ENT_QUOTES, 'UTF-8')."',
-										`skill5` = '".htmlentities($_POST['eCCVskill5'], ENT_QUOTES, 'UTF-8')."',
-										`skill6` = '".htmlentities($_POST['eCCVskill6'], ENT_QUOTES, 'UTF-8')."',
-										`skill7` = '".htmlentities($_POST['eCCVskill7'], ENT_QUOTES, 'UTF-8')."',
-										`skill8` = '".htmlentities($_POST['eCCVskill8'], ENT_QUOTES, 'UTF-8')."',
-										`skill9` = '".htmlentities($_POST['eCCVskill9'], ENT_QUOTES, 'UTF-8')."',
-										`skill10` = '".htmlentities($_POST['eCCVskill10'], ENT_QUOTES, 'UTF-8')."',
-										`cvDate` = '".htmlentities($_POST['eCCVcvDate'], ENT_QUOTES, 'UTF-8')."',
-										`salary` = '".htmlentities($_POST['eCCVsalary'], ENT_QUOTES, 'UTF-8')."',
-										`comments` = '".htmlentities($_POST['eCCVcomments'], ENT_QUOTES, 'UTF-8')."',
-										`candidateStatus` = '".htmlentities($_POST['eCCVcandidateStatus'], ENT_QUOTES, 'UTF-8')."'
-									WHERE `nie` = '".htmlentities($_POST['eCCVnie'], ENT_QUOTES, 'UTF-8')."';";
-				
-				
-				//DEVOLVERA ERROR SI ALGUNO DE LOS DATOS ESTA MAL FORMADO
-				
-				if((!executeDBquery($updateCVQuery))){
-					?>
-					<script type="text/javascript">
-						alert('Error revisando CV');
-						window.location.href='pendingCVs.php?codvalue=<?php echo $_POST['eCCVnie'];  ?>';
-					</script>
-					<?php 
-				}
-				else {
-					?>
-					<!-- <script type="text/javascript">
-						window.location.href='pendingCVs.php';
-					</script> -->
-					<?php
+					$inDBOtherPhone = trim(htmlentities($_POST['eCCVphone'], ENT_QUOTES, 'UTF-8'));
+					if(!checkPhone($inDBOtherPhone)){
+						$inDBOtherPhone = '';
+					}
+					$updateCVQuery = "	UPDATE `cvitaes` 
+										SET `nie` = '".$_POST['eCCVnie']."',
+											`cvStatus` = 'checked',
+											`name` = '".$outName."',
+											`surname` = '".$outSurname."',
+											`birthdate` = '".$inDBBirthdate."',
+											`nationalities` = '".htmlentities($_POST['eCCVnationalities'], ENT_QUOTES, 'UTF-8')."',
+											`sex` = '".htmlentities($_POST['eCCVsex'], ENT_QUOTES, 'UTF-8')."',
+											`addrType` = '".htmlentities($_POST['eCCVaddrtype'], ENT_QUOTES, 'UTF-8')."',
+											`addrName` = '".htmlentities($_POST['eCCVaddrName'], ENT_QUOTES, 'UTF-8')."',
+											`addrNum` = '".htmlentities($_POST['eCCVaddrNum'], ENT_QUOTES, 'UTF-8')."',
+											`portal` = '".htmlentities($_POST['eCCVaddrPortal'], ENT_QUOTES, 'UTF-8')."',
+											`stair` = '".htmlentities($_POST['eCCVaddrStair'], ENT_QUOTES, 'UTF-8')."',
+											`addrFloor` = '".htmlentities($_POST['eCCVaddrFloor'], ENT_QUOTES, 'UTF-8')."',
+											`addrDoor` = '".htmlentities($_POST['eCCVaddrDoor'], ENT_QUOTES, 'UTF-8')."',
+											`phone` = '".$inDBOtherPhone."',
+											`postalCode` = '".htmlentities($_POST['eCCVpostal'], ENT_QUOTES, 'UTF-8')."',
+											`country` = '".htmlentities($_POST['eCCVcountry'], ENT_QUOTES, 'UTF-8')."',
+											`province` = '".htmlentities($_POST['eCCVprovince'], ENT_QUOTES, 'UTF-8')."',
+											`city` = '".htmlentities($_POST['eCCVcity'], ENT_QUOTES, 'UTF-8')."',
+											`mobile` = '".htmlentities($_POST['eCCVmobile'], ENT_QUOTES, 'UTF-8')."',
+											`mail` = '".htmlentities($_POST['eCCVmail'], ENT_QUOTES, 'UTF-8')."',
+											`drivingType` = '".htmlentities($_POST['eCCVdrivingType'], ENT_QUOTES, 'UTF-8')."',
+											`drivingDate` = '".htmlentities($_POST['eCCVdrivingDate'], ENT_QUOTES, 'UTF-8')."',
+											`marital` = '".htmlentities($_POST['eCCVmarital'], ENT_QUOTES, 'UTF-8')."',
+											`sons` = '".htmlentities($_POST['eCCVsons'], ENT_QUOTES, 'UTF-8')."',
+											`language` = '".htmlentities($finalLang, ENT_QUOTES, 'UTF-8')."',
+											`langLevel` = '".htmlentities($finalLangLv, ENT_QUOTES, 'UTF-8')."',
+											`education` = '".htmlentities($_POST['eCCVeducation'], ENT_QUOTES, 'UTF-8')."',
+											`career` = '".htmlentities($_POST['eCCVcareer'], ENT_QUOTES, 'UTF-8')."',
+											`experCompany` = '".htmlentities($_POST['eCCVexperCompany'], ENT_QUOTES, 'UTF-8')."',
+											`experStart` = '".htmlentities($_POST['eCCVexperStart'], ENT_QUOTES, 'UTF-8')."',
+											`experEnd` = '".htmlentities($_POST['eCCVexperEnd'], ENT_QUOTES, 'UTF-8')."',
+											`experPos` = '".htmlentities($_POST['eCCVexperPos'], ENT_QUOTES, 'UTF-8')."',
+											`experDesc` = '".htmlentities($_POST['eCCVexperDesc'], ENT_QUOTES, 'UTF-8')."',
+											`otherDetails` = '".htmlentities($_POST['eCCVotherDetails'], ENT_QUOTES, 'UTF-8')."',
+											`skill1` = '".htmlentities($_POST['eCCVskill1'], ENT_QUOTES, 'UTF-8')."',
+											`skill2` = '".htmlentities($_POST['eCCVskill2'], ENT_QUOTES, 'UTF-8')."',
+											`skill3` = '".htmlentities($_POST['eCCVskill3'], ENT_QUOTES, 'UTF-8')."',
+											`skill4` = '".htmlentities($_POST['eCCVskill4'], ENT_QUOTES, 'UTF-8')."',
+											`skill5` = '".htmlentities($_POST['eCCVskill5'], ENT_QUOTES, 'UTF-8')."',
+											`skill6` = '".htmlentities($_POST['eCCVskill6'], ENT_QUOTES, 'UTF-8')."',
+											`skill7` = '".htmlentities($_POST['eCCVskill7'], ENT_QUOTES, 'UTF-8')."',
+											`skill8` = '".htmlentities($_POST['eCCVskill8'], ENT_QUOTES, 'UTF-8')."',
+											`skill9` = '".htmlentities($_POST['eCCVskill9'], ENT_QUOTES, 'UTF-8')."',
+											`skill10` = '".htmlentities($_POST['eCCVskill10'], ENT_QUOTES, 'UTF-8')."',
+											`cvDate` = '".htmlentities($_POST['eCCVcvDate'], ENT_QUOTES, 'UTF-8')."',
+											`salary` = '".htmlentities($_POST['eCCVsalary'], ENT_QUOTES, 'UTF-8')."',
+											`comments` = '".htmlentities($_POST['eCCVcomments'], ENT_QUOTES, 'UTF-8')."',
+											`candidateStatus` = '".htmlentities($_POST['eCCVcandidateStatus'], ENT_QUOTES, 'UTF-8')."'
+										WHERE `nie` = '".htmlentities($_POST['eCCVnie'], ENT_QUOTES, 'UTF-8')."';";
+
+					if((!executeDBquery($updateCVQuery))){
+						?>
+						<script type="text/javascript">
+							alert('Error revisando CV');
+							window.location.href='pendingCVs.php?codvalue=<?php echo $_POST['eCCVnie'];  ?>';
+						</script>
+						<?php 
+					}
+					else {
+						?>
+						<script type="text/javascript">
+							alert('CV validado satisfactoriamente.');
+							window.location.href='pendingCVs.php';
+						</script>
+						<?php
+					}
 				}
 			}
+			/**********************************     End of FORM validations     **********************************/
+	
+			/******************************     Start of WebPage code as showed     ******************************/
 		?>
 
 
@@ -410,14 +368,15 @@
 									<div class="form-group">  <!-- NIE -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVnie">DNI/NIE: </label>
 										<div class="col-sm-10">
-											<input class="form-control" type='text' name='eCCVnie' value="<?php echo html_entity_decode($editedCVRow['nie']) ?>" onkeyup='this.value=this.value.toUpperCase();' />
+											<input class="form-control" type='text' name='eCCVnie' value="<?php echo html_entity_decode($editedCVRow['nie']) ?>" onkeyup='this.value=this.value.toUpperCase();' readonly/>
 										</div>
 									</div>
 
 									<div class="form-group">  <!-- Nacionalidad -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVnationalities">Nacionalidad: </label>
 										<div class="col-sm-10">
-											<input class="form-control" type='text' name='eCCVnationalities' value="<?php echo html_entity_decode($editedCVRow['nationalities']) ?>" data-role='tagsinput' />
+											<!-- <input class="form-control" type='text' name='eCCVnationalities' value="< ?php echo html_entity_decode($editedCVRow['nationalities']) ?>" data-role='tagsinput' /> -->
+											<input class="form-control" type='text' name='eCCVnationalities' value="<?php echo html_entity_decode($editedCVRow['nationalities']) ?>" >
 										</div>
 									</div>
 
@@ -491,7 +450,8 @@
 									<div class="form-group" >  <!-- Código Postal -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVpostal">Código Postal: </label>										
 										<div class="col-sm-10">
-											<input class="form-control" type='text' name='eCCVpostal' maxlength='5' value="<?php echo html_entity_decode($editedCVRow['postalCode']) ?>">
+											<!-- <input class="form-control" type='text' name='eCCVpostal' maxlength='5' value="<?php echo html_entity_decode($editedCVRow['postalCode']) ?>"> -->
+											<input class="form-control" type='text' name='eCCVpostal' maxlength='5' value="<?php echo $editedCVRow['postalCode'] ?>" onkeypress="return checkOnlyNumbers(event)">
 										</div>
 									</div>		
 
@@ -519,14 +479,16 @@
 									<div class="form-group" >  <!-- Teléfono Móvil -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVmobile">Teléfono Móvil: </label>										
 										<div class="col-sm-10">
-											<input class="form-control" type='text' name='eCCVmobile' maxlength='9' value="<?php echo html_entity_decode($editedCVRow['mobile']) ?>">										
+											<!-- <input class="form-control" type='text' name='eCCVmobile' maxlength='9' value="< ?php echo html_entity_decode($editedCVRow['mobile']) ?>"> -->
+											<input class="form-control" type='text' name='eCCVmobile' maxlength='9' value="<?php echo $editedCVRow['mobile'] ?>" onkeypress="return checkOnlyNumbers(event)">										
 										</div>
 									</div>	
 
 									<div class="form-group" >  <!-- Otro Teléfono -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVphone">Otro Teléfono: </label>										
 										<div class="col-sm-10">
-											<input class="form-control" type='text' name='eCCVphone' value="<?php echo html_entity_decode($editedCVRow['phone']) ?>">										
+											<!-- <input class="form-control" type='text' name='eCCVphone' value="< ?php echo html_entity_decode($editedCVRow['phone']) ?>"> -->
+											<input class="form-control" type='text' name='eCCVphone' maxlength='18' placeholder='00[COD. PAIS]-NUMERO' value="<?php echo $editedCVRow['phone'] ?>" onkeypress="return checkDashedNumbers(event)">
 										</div>
 									</div>
 
@@ -555,7 +517,8 @@
 									<div class="form-group" >  <!-- Hijos -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVsons">Hijos: </label>										
 										<div class="col-sm-10">
-											<input class="form-control" type='text' name='eCCVsons' maxlength='2' value="<?php echo html_entity_decode($editedCVRow['sons']) ?>">
+											<!-- <input class="form-control" type='text' name='eCCVsons' maxlength='2' value="< ?php echo html_entity_decode($editedCVRow['sons']) ?>"> -->
+											<input class="form-control" type='number' name='eCCVsons' maxlength='2' min='0' value="<?php echo $editedCVRow['sons'] ?>">
 										</div>
 									</div>
 
@@ -617,9 +580,8 @@
 										<?php
 											$userFilesArray  = scandir($userFilesDir);
 											foreach ($userFilesArray as $value){
-												echo '|-> '.$value.' <-|';
 												if (preg_match("/\w+/i", $value)) {
-													echo "<a href=downloadFileSingle.php?doc=".$value.">$value</a><br>";
+													echo "<a href=downloadFileSingle.php?doc=".$userFilesDir.$value.">$value</a><br>";
 												}
 											}
 											?>		
