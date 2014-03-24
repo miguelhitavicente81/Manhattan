@@ -887,6 +887,23 @@ function addDateToDate($givenDate, $years){
 
 
 
+/* Checks whether an input string has MySQL DATE format (YYYY-MM-DD), confirming also that is not a future date
+ * Entry (dateString): Input string where is supposed to be a date in format YYYY-MM-DD
+ * Exit (): Bool
+ */
+function eregMySQLCheckDate($dateString){
+	if(ereg("(19|20)[0-9]{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])", $dateString)){
+		//return true;
+		//return isPreviousDate($dateString);
+		return isAdult($dateString, 18);
+	}
+	else{
+		return false;
+	}
+}
+
+
+
 /* Checks whether a given input date is well-formatted and is if it is also older than current date
  * Entry (prevDate): Date in format YYYY-MM-DD
  * Exit: Boolean that confirms if date is correct and older than current or not

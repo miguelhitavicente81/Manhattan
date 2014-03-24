@@ -190,7 +190,7 @@
 			jQuery('#rowFiles'+rnum).remove();
 		}
 		//Function to realtime check characters written in Salary field 
-		function checkMoney(e){
+		function checkOnlyNumbers(e){
 			tecla = e.which || e.keyCode;
 			patron = /\d/; // Solo acepta números
 			te = String.fromCharCode(tecla);
@@ -390,7 +390,7 @@
 		elseif(!checkMobile($_POST['blankmobile'])){
 			?>
 			<script type="text/javascript">
-				alert('Indique un número de móvil válido');
+				alert('Indique un número de móvil válido.');
 				window.location.href='home.php';
 			</script>
 			<?php 
@@ -402,7 +402,7 @@
 			if(!checkPhone($_POST['blankphone'])){
 				?>
 				<script type="text/javascript">
-					alert('Indique un número de teléfono válido');
+					alert('Indique un número de teléfono válido.');
 					window.location.href='home.php';
 				</script>
 				<?php 
@@ -411,12 +411,21 @@
 		elseif(!filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)){
 			?>
 			<script type="text/javascript">
-				alert('Introduzca un email válido, por favor');
+				alert('Introduzca un email válido, por favor.');
 				window.location.href='home.php';
 			</script>
 			<?php 
 		}
-		//elseif((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
+		/*
+		elseif($str_idiomas == '' || $str_nidiomas == '' || $str_nidiomas == '%null%'){
+			?>
+			<script type="text/javascript">
+				alert('Debe introducir al menos 1 idioma y su nivel.');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
+		*/
 		
 		if((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
 			if(!checkDrivingLicense($_POST['blankdrivingtype'], $_POST['blankdrivingdate'], $checkError)){
@@ -484,8 +493,25 @@
 				
 				//if(!ifCreateDir($userDir, 0777)){
 				if(ifCreateDir($userDir, 0777)){
-					
-					
+					$numFiles = count($_FILES["archivo"]["name"]);
+					for ($i=0; $i<$numFiles; $i++){
+						//Upload for each Candidate file
+						//if(checkUploadedFileES($_FILES['archivos']['name'][$i], $_FILES['archivos']['type'][$i], $_FILES['archivos']['size'][$i], $errorText)){
+						if(checkUploadedFileES($_FILES['archivos']['name'][$i], $_FILES['archivos']['type'][$i], $_FILES['archivos']['size'][$i], $errorText) && is_uploaded_file($_FILES['archivos']['tmp_name'][0])){
+							move_uploaded_file($_FILES['archivos']['tmp_name'][$i], $userDir.$_FILES['archivos']['name'][$i]);
+							$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
+							$name = $_FILES["archivos"]["name"][$i];
+						}
+						else{
+							?>
+							<script type="text/javascript">
+								alert('Problem uploading file (code FUPLOAD<?php echo $i; ?>).');
+								window.location.href='home.php';
+							</script>
+							<?php 
+						}
+					}
+						
 					
 					
 					
@@ -948,9 +974,9 @@ Los campos que poseen * son obligatorios.
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankphone">Otro Tfno.: </label> 
 				<div class="col-sm-10">
 					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="15" placeholder="00[COD.PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)"> -->
-					<!-- <input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€uros/año" onkeypress="return checkMoney(event)"> -->
+					<!-- <input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€uros/año" onkeypress="return checkOnlyNumbers(event)"> -->
 					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="18" placeholder="00[COD. PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)">
-					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="15" placeholder="00[COD.PAIS]-NUMERO" onkeypress="return checkMoney(event)"> -->
+					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="15" placeholder="00[COD.PAIS]-NUMERO" onkeypress="return checkOnlyNumbers(event)"> -->
 					<input class="form-control" type="text" name="blankphone" maxlength="18" placeholder="00[COD. PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)">
 				</div>
 			</div>
@@ -1119,7 +1145,7 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- Salario -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksalary">Salario deseado: </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€uros/año" onkeypress="return checkMoney(event)">
+					<input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€uros/año" onkeypress="return checkOnlyNumbers(event)">
 				</div>
 			</div>
 
