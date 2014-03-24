@@ -141,7 +141,7 @@
 					$string_experStart = $string_experStart . $_POST["eCCVexperStart$i"] . '|';
 					$string_experEnd = $string_experEnd . $_POST["eCCVexperEnd$i"] . '|';
 					$string_experPos = $string_experPos . $_POST["eCCVexperPos$i"] . '|';
-					$string_experDesc = $string_experDesc . $_POST["eCCVexperDesc$i"]; . '|'	
+					$string_experDesc = $string_experDesc . $_POST["eCCVexperDesc$i"]; . '|';
 				}	
 
 				// Cleaning last '|'
