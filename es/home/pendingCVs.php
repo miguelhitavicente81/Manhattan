@@ -138,13 +138,12 @@
 				
 				//Nationalities should be searched in its corresponding DBTable
 				//If any of the mandatory fields are bad formed DB won't be updated
-				echo $_POST['eCCVnationalities'];
-				echo $_POST['eCCVcareer'];
 				if((!checkFullNameES($_POST['eCCVname'], $_POST['eCCVsurname'], $outName, $outSurname, $checkError)) || ($inDBBirthdate == '0000-00-00') || 
 				(!checkDNI_NIE(htmlentities($_POST['eCCVnie'], ENT_QUOTES, 'UTF-8'))) || (htmlentities($_POST['eCCVnationalities'], ENT_QUOTES, 'UTF-8') == '') || 
 				(!checkMobile(htmlentities($_POST['eCCVmobile'], ENT_QUOTES, 'UTF-8'))) || (!filter_var(htmlentities($_POST['eCCVmail'], ENT_QUOTES, 'UTF-8'), FILTER_VALIDATE_EMAIL)) ||
 				(htmlentities($finalLang, ENT_QUOTES, 'UTF-8') == '' || htmlentities($finalLangLv, ENT_QUOTES, 'UTF-8') == '' || htmlentities($finalLangLv, ENT_QUOTES, 'UTF-8') == '%null%') ||
 				(htmlentities($_POST['eCCVcareer'], ENT_QUOTES, 'UTF-8') == '')){
+					/*
 					echo 'Name: '.$outName.'<br>';
 					echo 'Surname: '.$outSurname.'<br>';
 					echo 'Name error: '.checkError.'<br>';
@@ -157,6 +156,7 @@
 					echo 'Tipo Idioma: '.$finalLangLv.'<br>';
 					echo 'Carrera: '.$_POST['eCCVcareer'].'<br>';
 					echo 'Ciudad: '.$_POST['eCCVcity'].'<br>';
+					*/
 					?>
 					<script type="text/javascript">
 						alert('Al menos 1 de los campos obligatorios no es correcto.');
@@ -166,9 +166,12 @@
 				}
 				else{
 					$inDBOtherPhone = trim(htmlentities($_POST['eCCVphone'], ENT_QUOTES, 'UTF-8'));
+					//echo 'Tfno tras trim...'.$inDBOtherPhone.'<br>';
 					if(!checkPhone($inDBOtherPhone)){
 						$inDBOtherPhone = '';
 					}
+					//echo 'Y ahora vale...'.$inDBOtherPhone.'<br>';
+					//exit();
 					$updateCVQuery = "	UPDATE `cvitaes` 
 										SET `nie` = '".$_POST['eCCVnie']."',
 											`cvStatus` = 'checked',
@@ -375,8 +378,7 @@
 									<div class="form-group">  <!-- Nacionalidad -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVnationalities">Nacionalidad: </label>
 										<div class="col-sm-10">
-											<!-- <input class="form-control" type='text' name='eCCVnationalities' value="< ?php echo html_entity_decode($editedCVRow['nationalities']) ?>" data-role='tagsinput' /> -->
-											<input class="form-control" type='text' name='eCCVnationalities' value="<?php echo html_entity_decode($editedCVRow['nationalities']) ?>" >
+											<input class="form-control" type='text' name='eCCVnationalities' value="<?php echo html_entity_decode($editedCVRow['nationalities']) ?>" data-role='tagsinput' />
 										</div>
 									</div>
 
@@ -562,7 +564,8 @@
 									<div class="form-group" >  <!-- Salario Deseado -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVsalary">Salario deseado: </label>										
 										<div class="col-sm-10 input-group">
-											<input class="form-control" type='text' name='eCCVsalary' maxlength='7' value="<?php echo html_entity_decode($editedCVRow['salary']) ?>">
+											<!-- <input class="form-control" type='text' name='eCCVsalary' maxlength='7' value="< ?php echo html_entity_decode($editedCVRow['salary']) ?>"> -->
+											<input class="form-control" type='text' name='eCCVsalary' maxlength='7' value="<?php echo html_entity_decode($editedCVRow['salary']) ?>" onkeypress="return checkOnlyNumbers(event)">
 											<span class="input-group-addon">€uros/año</span>
 										</div>
 									</div>										

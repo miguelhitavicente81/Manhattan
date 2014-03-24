@@ -724,11 +724,19 @@ function checkPhone($phone){
 	$outPhone = trim(htmlentities(mysqli_real_escape_string($connection, $phone)));
 	
 	if(strlen($outPhone) > 18){
+		//echo '1';
 		return false;
 	}
-	elseif(!preg_match('/^[\-0-9]{18}$/', $outPhone)){
+	//elseif(!preg_match('/^[\-0-9]{18}$/', $outPhone)){
+	//elseif(!preg_match('/[0-9\\-]{18}/', $outPhone)){
+	//elseif(!preg_match('/^[0]{2}([0-9]{2}\-     )  [\-0-9]{18}$/', $outPhone)){
+	//elseif(!preg_match('/(00[0-9]{2}[-][0-9]{13})|(00[0-9]{3}[-][0-9]{12})/', $outPhone)){ FUNCIONA SI RELLENO LOS 18 CAMPOS
+	//elseif(!preg_match('/(00[0-9]{2}[-]([0-9]|[\t]){13})|(00[0-9]{3}[-][0-9]{12})/', $outPhone)){
+	elseif(!preg_match('/(00[0-9]{2}[-][0-9]{3,13})|(00[0-9]{3}[-][0-9]{3,12})/', $outPhone)){
+		//echo '2';
 		return false;
 	}
+	//echo '3';
 	return true;
 }
 

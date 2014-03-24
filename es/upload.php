@@ -489,7 +489,7 @@
 				
 				$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
 				//echo $userDir;
-				
+				/*
 				//if(!ifCreateDir($userDir, 0777)){
 				if(ifCreateDir($userDir, 0777)){
 					$numFiles = count($_FILES["archivo"]["name"]);
@@ -510,6 +510,24 @@
 							<?php 
 						}
 					}
+				}
+				*/
+				
+				if(!ifCreateDir($userDir, 0777)){
+					for ($i=0;$i<100;$i++){
+						if ($i==0){
+							if (isset($_FILES["archivo"])){
+								$_FILES['archivo']['name']= str_replace(" ","_",$_FILES['archivo']['name']);
+								move_uploaded_file($_FILES['archivo']['tmp_name'],$userDir.$_FILES['archivo']['name']);
+							}
+						}
+						else{
+							if (isset($_FILES["archivo$i"])){
+								$_FILES["archivo$i"]['name']= str_replace(" ","_",$_FILES["archivo$i"]['name']);
+								move_uploaded_file($_FILES["archivo$i"]['tmp_name'],$userDir.$_FILES["archivo$i"]['name']);
+							}
+						}
+					}	
 				}
 			}
 			//Now Candidate photo will be uploaded
