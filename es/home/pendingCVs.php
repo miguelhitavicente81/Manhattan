@@ -112,9 +112,10 @@
 
 			$pendingCVs = getPendingCVs();
 
+
 			if (isset($_POST['eCurCVsend'])) {
 
-				//Dismounting "Lang:LangLv" structure for insert in DB
+				// Dismounting "Lang:LangLv" structure for insert in DB
 				$wholeLangInfo = explode('|',$_POST['eCCVlanguagesMerged']);
 
 				$finalLang = "";
@@ -127,6 +128,22 @@
 				
 				$finalLang = substr($finalLang, 0, -1);
 				$finalLangLv = substr($finalLangLv, 0, -1);
+
+				// Mounting experience information
+				$string_experCompany = "";
+				$string_experStart = "";
+				$string_experEnd = "";
+				$string_experPos = "";
+				$string_experDesc = "";			
+
+				for ($i=0; $i < $_POST['eCCV_counterExperience'] ; $i++) { 
+					$string_experCompany = $string_experCompany . '|' . $_POST["eCCVexperCompany$i"];
+					$string_experStart = $string_experStart . '|' . $_POST["eCCVexperStart$i"];
+					$string_experEnd = $string_experEnd . '|' . $_POST["eCCVexperEnd$i"];
+					$string_experPos = $string_experPos . '|' . $_POST["eCCVexperPos$i"];
+					$string_experDesc = $string_experDesc . '|' . $_POST["eCCVexperDesc$i"];	
+				}	
+
 				
 				//Minimum security checkings, to avoid malformation in DB
 				if(eregMySQLCheckDate(htmlentities($_POST['eCCVbirthdate'], ENT_QUOTES, 'UTF-8'))){
@@ -197,11 +214,11 @@
 											`langLevel` = '".htmlentities($finalLangLv, ENT_QUOTES, 'UTF-8')."',
 											`education` = '".htmlentities($_POST['eCCVeducation'], ENT_QUOTES, 'UTF-8')."',
 											`career` = '".htmlentities($_POST['eCCVcareer'], ENT_QUOTES, 'UTF-8')."',
-											`experCompany` = '".htmlentities($_POST['eCCVexperCompany'], ENT_QUOTES, 'UTF-8')."',
-											`experStart` = '".htmlentities($_POST['eCCVexperStart'], ENT_QUOTES, 'UTF-8')."',
-											`experEnd` = '".htmlentities($_POST['eCCVexperEnd'], ENT_QUOTES, 'UTF-8')."',
-											`experPos` = '".htmlentities($_POST['eCCVexperPos'], ENT_QUOTES, 'UTF-8')."',
-											`experDesc` = '".htmlentities($_POST['eCCVexperDesc'], ENT_QUOTES, 'UTF-8')."',
+											`experCompany` = '".htmlentities($string_experCompany, ENT_QUOTES, 'UTF-8')."',
+											`experStart` = '".htmlentities($string_experStart, ENT_QUOTES, 'UTF-8')."',
+											`experEnd` = '".htmlentities($string_experEnd, ENT_QUOTES, 'UTF-8')."',
+											`experPos` = '".htmlentities($string_experPos, ENT_QUOTES, 'UTF-8')."',
+											`experDesc` = '".htmlentities($string_experDesc, ENT_QUOTES, 'UTF-8')."',
 											`otherDetails` = '".htmlentities($_POST['eCCVotherDetails'], ENT_QUOTES, 'UTF-8')."',
 											`skill1` = '".htmlentities($_POST['eCCVskill1'], ENT_QUOTES, 'UTF-8')."',
 											`skill2` = '".htmlentities($_POST['eCCVskill2'], ENT_QUOTES, 'UTF-8')."',
@@ -546,16 +563,62 @@
 										</div>
 									</div>
 
-									<div class="form-group" >  <!-- Experiencia -->
-										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVexperience">Últimos años: </label>										
-										<div class="col-sm-10">
-											<input class="form-control" type='text' name='eCCVexperCompany' value="<?php echo html_entity_decode($editedCVRow['experCompany']) ?>" data-role='tagsinput'>
-											<input class="form-control" type='text' name='eCCVexperStart' value="<?php echo html_entity_decode($editedCVRow['experStart']) ?>" data-role='tagsinput'>			
-											<input class="form-control" type='text' name='eCCVexperEnd' value="<?php echo html_entity_decode($editedCVRow['experEnd']) ?>" data-role='tagsinput'>
-											<input class="form-control" type='text' name='eCCVexperPos' value="<?php echo html_entity_decode($editedCVRow['experPos']) ?>" data-role='tagsinput'>
-											<input class="form-control" type='text' name='eCCVexperDesc' value="<?php echo html_entity_decode($editedCVRow['experDesc']) ?>" data-role='tagsinput'>
-										</div>
-									</div>
+									<?php 
+										$array_experCompany = explode('|',$editedCVRow['experCompany']);
+										$array_experStart = explode('|',$editedCVRow['experStart']);
+										$array_experEnd = explode('|',$editedCVRow['experEnd']);
+										$array_experPos = explode('|',$editedCVRow['experPos']);
+										$array_experDesc = explode('|',$editedCVRow['experDesc']);
+
+										echo "<div class='form-group' >  <!-- Experiencia -->";
+										echo "	<label id='editCVLabel' class='control-label col-sm-2' for='eCCVexperience'>Últimos años: </label>";
+										echo "	<div class='col-sm-10'>";
+										
+										for ($counterExperience=0; $counterExperience < count($array_experCompany); $counterExperience++) { 
+											echo "		<div class='panel panel-default'>";
+											echo "			<div class='panel-heading'>";
+											echo "				<h3 class='panel-title'>Experiencia #".($counterExperience+1) . "</h3>";
+											echo "			</div>";
+											echo "			<div class='panel-body'>";
+											echo "				<div class='form-group'>";
+											echo "					<label id='editCVLabel' class='control-label col-sm-2' for='eCCVexperCompany$counterExperience'>Compañía: </label>";
+											echo " 					<div class='col-sm-10'>";
+											echo "						<input class='form-control' type='text' name='eCCVexperCompany$counterExperience' value='" . html_entity_decode($array_experCompany[$counterExperience]) . "' >";
+											echo " 					</div>";
+											echo "				</div>";
+											echo "				<div class='form-group'>";
+											echo "					<label id='editCVLabel' class='control-label col-sm-2' for='eCCVexperStart$counterExperience'>Inicio: </label>";
+											echo " 					<div class='col-sm-10'>";
+											echo "						<input class='form-control' type='text' name='eCCVexperStart$counterExperience' value='" . html_entity_decode($array_experStart[$counterExperience]) . "' >";
+											echo " 					</div>";
+											echo "				</div>";											
+											echo "				<div class='form-group'>";
+											echo "					<label id='editCVLabel' class='control-label col-sm-2' for='eCCVexperEnd$counterExperience'>Final: </label>";
+											echo " 					<div class='col-sm-10'>";
+											echo "						<input class='form-control' type='text' name='eCCVexperEnd$counterExperience' value='" . html_entity_decode($array_experEnd[$counterExperience]) . "' >";
+											echo " 					</div>";
+											echo "				</div>";
+											echo "				<div class='form-group'>";
+											echo "					<label id='editCVLabel' class='control-label col-sm-2' for='eCCVexperPos$counterExperience'>Posición: </label>";
+											echo " 					<div class='col-sm-10'>";
+											echo "						<input class='form-control' type='text' name='eCCVexperPos$counterExperience' value='" . html_entity_decode($array_experPos[$counterExperience]) . "' >";
+											echo " 					</div>";
+											echo "				</div>";
+											echo "				<div class='form-group'>";
+											echo "					<label id='editCVLabel' class='control-label col-sm-2' for='eCCVexperDesc$counterExperience'>Descripción: </label>";
+											echo " 					<div class='col-sm-10'>";
+											echo "						<input class='form-control' type='text' name='eCCVexperDesc$counterExperience' value='" . html_entity_decode($array_experDesc[$counterExperience]) . "' >";
+											echo " 					</div>";
+											echo "				</div>";											
+											echo "			</div>";
+											echo "		</div>";
+										}
+
+										echo "	</div>";
+										echo "</div>";
+										echo "<input type='hidden' name='eCCV_counterExperience' value='$counterExperience' >";
+
+									?>
 
 									<div class="form-group" >  <!-- Salario Deseado -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVsalary">Salario deseado: </label>										
