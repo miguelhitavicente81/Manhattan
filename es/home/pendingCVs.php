@@ -138,8 +138,6 @@
 				
 				//Nationalities should be searched in its corresponding DBTable
 				//If any of the mandatory fields are bad formed DB won't be updated
-				echo $_POST['eCCVnationalities'];
-				echo $_POST['eCCVcareer'];
 				if((!checkFullNameES($_POST['eCCVname'], $_POST['eCCVsurname'], $outName, $outSurname, $checkError)) || ($inDBBirthdate == '0000-00-00') || 
 				(!checkDNI_NIE(htmlentities($_POST['eCCVnie'], ENT_QUOTES, 'UTF-8'))) || (htmlentities($_POST['eCCVnationalities'], ENT_QUOTES, 'UTF-8') == '') || 
 				(!checkMobile(htmlentities($_POST['eCCVmobile'], ENT_QUOTES, 'UTF-8'))) || (!filter_var(htmlentities($_POST['eCCVmail'], ENT_QUOTES, 'UTF-8'), FILTER_VALIDATE_EMAIL)) ||
@@ -147,7 +145,7 @@
 				(htmlentities($_POST['eCCVcareer'], ENT_QUOTES, 'UTF-8') == '')){
 					echo 'Name: '.$outName.'<br>';
 					echo 'Surname: '.$outSurname.'<br>';
-					echo 'Name error: '.checkError.'<br>';
+					echo 'Name error: '.$checkError.'<br>';
 					echo 'Nacimiento: '.$inDBBirthdate.'<br>';
 					echo 'NIE: '.$_POST['eCCVnie'].'<br>';
 					echo 'Nacionalidad: '.$_POST['eCCVnationalities'].'<br>';
@@ -375,8 +373,8 @@
 									<div class="form-group">  <!-- Nacionalidad -->
 										<label id="editCVLabel" class="control-label col-sm-2" for="eCCVnationalities">Nacionalidad: </label>
 										<div class="col-sm-10">
-											<!-- <input class="form-control" type='text' name='eCCVnationalities' value="< ?php echo html_entity_decode($editedCVRow['nationalities']) ?>" data-role='tagsinput' /> -->
-											<input class="form-control" type='text' name='eCCVnationalities' value="<?php echo html_entity_decode($editedCVRow['nationalities']) ?>" >
+											<input class="form-control" type='text' name='eCCVnationalities' value="<?php echo html_entity_decode($editedCVRow['nationalities']) ?>" data-role='tagsinput' />
+											<!-- <input class="form-control" type='text' name='eCCVnationalities' value="<?php echo html_entity_decode($editedCVRow['nationalities']) ?>" > -->
 										</div>
 									</div>
 
