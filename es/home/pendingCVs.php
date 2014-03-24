@@ -137,12 +137,19 @@
 				$string_experDesc = "";			
 
 				for ($i=0; $i < $_POST['eCCV_counterExperience'] ; $i++) { 
-					$string_experCompany = $string_experCompany . '|' . $_POST["eCCVexperCompany$i"];
-					$string_experStart = $string_experStart . '|' . $_POST["eCCVexperStart$i"];
-					$string_experEnd = $string_experEnd . '|' . $_POST["eCCVexperEnd$i"];
-					$string_experPos = $string_experPos . '|' . $_POST["eCCVexperPos$i"];
-					$string_experDesc = $string_experDesc . '|' . $_POST["eCCVexperDesc$i"];	
+					$string_experCompany = $string_experCompany . $_POST["eCCVexperCompany$i"] . '|';
+					$string_experStart = $string_experStart . $_POST["eCCVexperStart$i"] . '|';
+					$string_experEnd = $string_experEnd . $_POST["eCCVexperEnd$i"] . '|';
+					$string_experPos = $string_experPos . $_POST["eCCVexperPos$i"] . '|';
+					$string_experDesc = $string_experDesc . $_POST["eCCVexperDesc$i"]; . '|'	
 				}	
+
+				// Cleaning last '|'
+				$string_experCompany = substr($string_experCompany, 0, -1);
+				$string_experStart = substr($string_experStart, 0, -1);
+				$string_experEnd = substr($string_experEnd, 0, -1);
+				$string_experPos = substr($string_experPos, 0, -1);
+				$string_experDesc = substr($string_experDesc, 0, -1);
 
 				
 				//Minimum security checkings, to avoid malformation in DB
