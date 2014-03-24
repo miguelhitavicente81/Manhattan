@@ -189,8 +189,10 @@
 		function removeFiles(rnum){
 			jQuery('#rowFiles'+rnum).remove();
 		}
+		
+		
 		//Function to realtime check characters written in Salary field 
-		function checkMoney(e){
+		function checkOnlyNumbers(e){
 			tecla = e.which || e.keyCode;
 			patron = /\d/; // Solo acepta números
 			te = String.fromCharCode(tecla);
@@ -258,7 +260,7 @@
 				if($key == idiomas){
 					//str_idiomas es 'language' en la BD (en addLanguage)
 					$str_idiomas = implode('|',$entry);
-					//echo 'Idiomas es: '.$str_idiomas;
+					//echo 'Idiomas es: '.$str_idiomas.'<br>';
 				}
 				if($key == nidiomas){
 					//str_nidiomas es 'langLevel' en la BD (en addLanguage)
@@ -267,8 +269,10 @@
 				}
 				if($key == educ){
 					//str_educ es 'education' en la BD (en addDegree)
+					//Must be checked with htmlentities
 					$str_educ = implode('|', $entry);
-					//echo 'Educación es: '.$str_educ;
+					$str_educ = trim(htmlentities($str_educ));
+					//echo 'Educación es: '.$str_educ.'<br>';
 				}
 				if($key == prof){
 					//str_educ es 'career' en la BD (en addProf)
@@ -277,12 +281,16 @@
 				}
 				if($key == empr){
 					//str_empr es 'experCompany' en la BD (en addRow4)
+					//Must be checked with htmlentities
 					$str_empr = implode('|',$entry);
+					$str_empr = trim(htmlentities($str_empr));
 					//echo 'Empresa es: '.$str_empr;
 				}
 				if($key == categ){
 					//str_categ es 'experPos' en la BD (en addRow4)
+					//Must be checked with htmlentities
 					$str_categ = implode('|',$entry);
+					$str_categ = trim(htmlentities($str_categ));
 					//echo 'Categoria es: '.$str_categ;
 				}
 				if($key == expstart){
@@ -297,7 +305,9 @@
 				}
 				if($key == desc){
 					//str_desc es 'experDesc' en la BD (en addRow4)
+					//Must be checked with htmlentities
 					$str_desc = implode('|',$entry);
+					$str_desc = trim(htmlentities($str_desc));
 					//echo 'Descripción es: '.$str_desc;
 				}
 				/*
@@ -357,19 +367,11 @@
 			</script>
 			<?php 
 		}
-		//QUE NO SEA OBLIGATORIO PERO QUE, SI DECIDES INCLUIRLO, DEBAS HACERLO BIEN
 		//Sex and Type of address are automatically detected as restricted fields
-		//elseif(isset($_POST['blankaddrname'])){
-		//elseif(!checkFullAddressES($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
-		//elseif(isset($_POST['blankaddrname']) || isset($_POST['blankaddrnum'])){
+		
+		//Address won't be mandatory but, if included, will be necessary to fulfill 'type', 'name' and 'number'
 		elseif((strlen($_POST['blankaddrtype']) > 0) || (strlen($_POST['blankaddrname']) > 0) || (strlen($_POST['blankaddrnum']) > 0) || (strlen($_POST['blankaddrportal']) > 0) || 
 		(strlen($_POST['blankaddrstair']) > 0) || (strlen($_POST['blankaddrfloor']) > 0) || (strlen($_POST['blankaddrdoor']) > 0)){
-			/*
-			echo 'Hya dirección.<br>';
-			echo 'Type Length: '.strlen($_POST['blankaddrtype']).'<br>';
-			echo 'Name Length: '.strlen($_POST['blankaddrname']).'<br>';
-			echo 'Num Length: '.strlen($_POST['blankaddrnum']).'<br>';
-			*/
 			if((strlen($_POST['blankaddrtype']) < 1) || (strlen($_POST['blankaddrname']) < 1) || (strlen($_POST['blankaddrnum']) < 1)){
 				?>
 				<script type="text/javascript">
@@ -390,19 +392,17 @@
 		elseif(!checkMobile($_POST['blankmobile'])){
 			?>
 			<script type="text/javascript">
-				alert('Indique un número de móvil válido');
+				alert('Indique un número de móvil válido.');
 				window.location.href='home.php';
 			</script>
 			<?php 
 		}
-		//QUE NO SEA OBLIGATORIO PERO QUE, SI DECIDES INCLUIRLO, DEBAS HACERLO BIEN
-		//This could be an international phone (should start with '00(49)'. It is not required
-		//elseif(!checkPhone($_POST['blankphone'])){
+		//This could be an international phone (should start with '00(49)'. It is not mandatory
 		elseif(strlen($_POST['blankphone']) > 0){
 			if(!checkPhone($_POST['blankphone'])){
 				?>
 				<script type="text/javascript">
-					alert('Indique un número de teléfono válido');
+					alert('Indique un número de teléfono válido.');
 					window.location.href='home.php';
 				</script>
 				<?php 
@@ -411,12 +411,20 @@
 		elseif(!filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)){
 			?>
 			<script type="text/javascript">
-				alert('Introduzca un email válido, por favor');
+				alert('Introduzca un email válido, por favor.');
 				window.location.href='home.php';
 			</script>
 			<?php 
 		}
-		//elseif((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
+		//As it is a drop down menu, there is no need to check it with 'htmlentities'
+		elseif($str_idiomas == '' || $str_nidiomas == '' || $str_nidiomas == '%null%'){
+			?>
+			<script type="text/javascript">
+				alert('Debe introducir al menos 1 idioma y su nivel.');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
 		
 		if((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
 			if(!checkDrivingLicense($_POST['blankdrivingtype'], $_POST['blankdrivingdate'], $checkError)){
@@ -484,31 +492,24 @@
 				
 				//if(!ifCreateDir($userDir, 0777)){
 				if(ifCreateDir($userDir, 0777)){
-					
-					
-					
-					
-					
-					
-					
-				for ($i=0;$i<100;$i++){
-				if ($i==0){
-				if (isset($_FILES["archivo"])){
-				move_uploaded_file($_FILES['archivo']['tmp_name'],$userDir.$_FILES['archivo']['name']);
-				//print_r($_FILES["archivo"]);
-				//print "<br>";
-				}
-				}
-				else{
-				if (isset($_FILES["archivo$i"])){
-				move_uploaded_file($_FILES["archivo$i"]['tmp_name'],$userDir.$_FILES["archivo$i"]['name']);
-				//print_r($_FILES["archivo$i"]);
-				//print "<br>";
-				}
-				}
-				}	
-					
-					
+					$numFiles = count($_FILES["archivo"]["name"]);
+					for ($i=0; $i<$numFiles; $i++){
+						//Upload for each Candidate file
+						if(checkUploadedFileES($_FILES['archivo']['name'][$i], $_FILES['archivo']['type'][$i], $_FILES['archivo']['size'][$i], $errorText) && is_uploaded_file($_FILES['archivo']['tmp_name'][0])){
+							$_FILES['archivo']['name'][$i] = str_replace(" ","_",$_FILES['archivo']['name'][$i]);
+							move_uploaded_file($_FILES['archivo']['tmp_name'][$i], $userDir.$_FILES['archivo']['name'][$i]);
+							//$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
+							//$name = $_FILES["archivos"]["name"][$i];
+						}
+						else{
+							?>
+							<script type="text/javascript">
+								alert('Problem uploading file (code FUPLOAD<?php echo $i; ?>). Anyway, CV was successfully inserted.');
+								window.location.href='endsession.php';
+							</script>
+							<?php 
+						}
+					}
 				}
 			}
 			//Now Candidate photo will be uploaded
@@ -526,8 +527,9 @@
 					#echo "¡Posible ataque de carga de archivos!\n";
 					?>
 					<script type="text/javascript">
-						alert('Problem uploading profile photo (code PUPLOAD0).');
-						window.location.href='home.php';
+						alert('Problem uploading profile photo (code PUPLOAD0). Anyway, CV was successfully inserted.');
+						//window.location.href='home.php';
+						window.location.href='endsession.php';
 					</script>
 					<?php 
 				}
@@ -605,6 +607,7 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- Nacionalidad -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_nat">Nacionalidad: * </label> 
 				<div class="col-sm-9" id="uploadFormNationality">
+					<!-- 
 					<select class="form-control" name="add_nat" >
 						<option value="" selected> Pulse "+" tras elegir... </option>
 						<option value="Spain"> Spain </option>
@@ -849,6 +852,18 @@ Los campos que poseen * son obligatorios.
 						<option value="Zambia"> Zambia </option>
 						<option value="Zimbabwe"> Zimbabwe </option>
 					</select>
+					-->
+					<select class="form-control" name="add_nat" >
+						<option value="" selected disabled> Pulse "+" tras elegir... </option>
+						<option value="Spain"> España </option>
+						<?php 
+						$userLang = getDBsinglefield('language', 'users', 'login', $_SESSION['loglogin']);
+						$countryName = getDBcompletecolumnID($userLang, 'countries', $userLang);
+						foreach($countryName as $i){
+							echo "<option value=" . getDBsinglefield('key', 'countries', $userLang, $i) . ">" . $i . "</option>";
+						}
+						?>
+					</select>
 				</div>
 				<div class="btn-toolbar col-sm-1">
 					  <div class="btn-group btn-group-sm"><button type="button" class="btn btn-default" onclick="addNationality(this.form);"><span class="glyphicon glyphicon-plus"></span></button></div>	
@@ -927,10 +942,6 @@ Los campos que poseen * son obligatorios.
 						echo '<select class="form-control" name="blankaddrcity" id="blankaddrcity" disabled style="margin-top:5px; width:60%">';
 							echo '<option>Su localidad...</option>';
 						echo '</select>';
-						/*
-						echo '<label id="uploadFormLabel" class="control-label col-sm-2" for="blankaddrprovince" style="padding-right: 10px;">Provincia: </label><input class="form-control" type="text" name="blankaddrprovince" size="20" value="' . getDBsinglefield('provinceName', 'postalProvincesES', 'id', getDBsinglefield('provCod', 'postalCitiesES', 'postalCode', $value)) . '" disabled style="margin-top:5px;"><br>';
-						echo '<label id="uploadFormLabel" class="control-label col-sm-2" for="blankaddrcountry" style="padding-right: 10px;">País: </label><input class="form-control" type="text" name="blankaddrcountry" size="20" value="España" disabled style="margin-top:5px;"><br>';
-						*/
 						?>
 					</div>
 				</div>
@@ -939,18 +950,13 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- Teléfono Móvil -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmobile">Tfno. Móvil: * </label> 
 				<div class="col-sm-10">
-					<!-- <input class="form-control" type="text" name="blankmobile" autocomplete="off" maxlength="9" placeholder="[6-7]XXXXXXXX"> -->
-					<input class="form-control" type="text" name="blankmobile" maxlength="9" placeholder="[6-7]XXXXXXXX">
+					<input class="form-control" type="text" name="blankmobile" maxlength="9" placeholder="[6-7]XXXXXXXX" onkeypress="return checkOnlyNumbers(event)">
 				</div>
 			</div>
 
 			<div class="form-group"> <!-- Teléfono Fijo -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankphone">Otro Tfno.: </label> 
 				<div class="col-sm-10">
-					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="15" placeholder="00[COD.PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)"> -->
-					<!-- <input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€uros/año" onkeypress="return checkMoney(event)"> -->
-					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="18" placeholder="00[COD. PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)">
-					<!-- <input class="form-control" type="text" name="blankphone" autocomplete="off" maxlength="15" placeholder="00[COD.PAIS]-NUMERO" onkeypress="return checkMoney(event)"> -->
 					<input class="form-control" type="text" name="blankphone" maxlength="18" placeholder="00[COD. PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)">
 				</div>
 			</div>
@@ -958,7 +964,6 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- Correo Electrónico -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmail">eMail: * </label> 
 				<div class="col-sm-10">
-					<!-- <input class="form-control" type="email" name="blankmail" autocomplete="off" placeholder="correo@ejemplo.com"> -->
 					<input class="form-control" type="email" name="blankmail" placeholder="correo@ejemplo.com">
 				</div>
 			</div>		
@@ -1119,7 +1124,7 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- Salario -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksalary">Salario deseado: </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€uros/año" onkeypress="return checkMoney(event)">
+					<input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€uros/año" onkeypress="return checkOnlyNumbers(event)">
 				</div>
 			</div>
 
@@ -1135,8 +1140,16 @@ Los campos que poseen * son obligatorios.
 				<div class="col-sm-10">
 					<?php
 					
-					$tipArray = array(1 => 'Estoy especializado en ...', 2 => 'En los últimos años he adquirido sólidos conocimientos y experiencia en el ámbito de ...', 3 => 'Tengo más de ...años de experiencia en',
-					4 => 'Durante los últimos .. años he desarrollado mi actividad profesional en el sector ...', 5 => '...', 6 => '...', 7 => '...', 8 => '...', 9 => '...', 10 => '...');
+					$tipArray = array(1 => 'Estoy especializado en ...', 
+									2 => 'En los últimos años he adquirido sólidos conocimientos y experiencia en el ámbito de ...', 
+									3 => 'Tengo más de ...años de experiencia en',
+									4 => 'Durante los últimos .. años he desarrollado mi actividad profesional en el sector ...', 
+									5 => '...', 
+									6 => '...', 
+									7 => '...', 
+									8 => '...', 
+									9 => '...', 
+									10 => '...');
 					
 					for ($i=1; $i <= 10 ; $i++) { 
 						echo "	<div class='col-sm-5' style='margin-bottom: 10px;'>";

@@ -29,6 +29,30 @@ function checkMassFileExtension(fileId){
 
 
 
+/* Used to check in realtime a phone number in which there could be included dashes (guiones)
+ * Called from "pendingCVs.php" (and also in "upload.php", although in this last file is inherently written)
+ */ 
+function checkDashedNumbers(e){
+	tecla = e.which || e.keyCode;
+	patron = /[0-9\\-]/;
+	te = String.fromCharCode(tecla);
+	return (patron.test(te) || tecla == 9 || tecla == 8);
+}
+
+
+
+/* Used to ensure that only numbers are written in a field
+ * Called from "pendingCVs.php" (also in "upload.php", but in this php is inherently written)
+ */
+function checkOnlyNumbers(e){
+	tecla = e.which || e.keyCode;
+	patron = /\d/; // Solo acepta números
+	te = String.fromCharCode(tecla);
+	return (patron.test(te) || tecla == 9 || tecla == 8);
+}
+
+
+
 /* Captures 2 strings wished to match themselves to be a new password
  * Called from onsubmit in "validatefront.php"
  */
