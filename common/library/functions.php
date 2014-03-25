@@ -774,6 +774,58 @@ function dropAccents($incoming_string){
 
 
 
+/* Checks whether a set of words/strings that previously were an array have been previously registered in DB
+ * PRE: 'incomingString' is NOT empty
+ * Entry (incomingString): Input string where every word that is intended to be registered in DB is
+ * Entry (searchedTable): Table in which words/strings will be searched if they matches
+ * Entry (keyColumn): Column used in 'searchedTable' to find out if each word is or not
+ * Entry (delimiter): Character used to delimit imploded array (that now is an string)
+ * Exit (): Boolean that indicates TRUE if every word in 'incomingString' is in searched DBTable or FALSE if not
+ */
+function isImplodedArrayInDB($incomingString, $searchedTable, $keyColumn, $delimiter){
+	$auxArray = explode($delimiter, $incomingString);
+	$i = 0;
+	$arrayElems = count($auxArray);
+	$isEqual = true;
+	while($i<$arrayElems && $isEqual){
+		//if($auxArray[$i] )
+		if(!getDBsinglefield($keyColumn, $searchedTable, $keyColumn, $auxArray[$i])){
+			$isEqual = false;
+		}
+		$i++;
+	}
+	return $isEqual;
+}
+
+
+
+/* Same as previous, but an exception is specified not to be compared
+ * PRE: 'incomingString' is NOT empty
+ * Entry (incomingString): Input string where every word that is intended to be registered in DB is
+ * Entry (searchedTable): Table in which words/strings will be searched if they matches
+ * Entry (keyColumn): Column used in 'searchedTable' to find out if each word is or not
+ * Entry (delimiter): Character used to delimit imploded array (that now is an string)
+ * Entry (exception): String/Word which is the exception, that won't be searched in 'searchedTable'
+ * Exit (): Boolean that indicates TRUE if every word in 'incomingString' is in searched DBTable or FALSE if not
+ */
+function isImplodedArrayInDBExcept($incomingString, $searchedTable, $keyColumn, $delimiter, $exception){
+	$auxArray = explode($delimiter, $incomingString);
+	$i = 0;
+	$arrayElems = count($auxArray);
+	$isEqual = true;
+	while($i<$arrayElems && $isEqual){
+		if($auxArray[$i] != $exception){
+			if(!getDBsinglefield($keyColumn, $searchedTable, $keyColumn, $auxArray[$i])){
+				$isEqual = false;
+			}
+		}
+		$i++;
+	}
+	return $isEqual;
+}
+
+
+
 /* Prepares a new login to be registered in DB, checking if it meets requirements
  * Entry (incomingLogin): Varchar that can includes non-supported characters in DB
  * Exit (): Varchar with no non-supported characters
