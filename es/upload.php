@@ -334,6 +334,7 @@
 		}
 		
 		if(!checkFullNameES($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
+			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
 				alert('<?php echo $checkError; ?>');
@@ -344,6 +345,7 @@
 		//Aquí debo comprobar si EL CANDIDATO ES MAYOR DE EDAD
 		//elseif(!isPreviousDate($_POST['blankbirthdate'])){
 		elseif(!isAdult($_POST['blankbirthdate'], getDBsinglefield('value', 'otherOptions', 'key', 'legalAge'))){
+			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
 				alert('Su fecha de nacimiento es incorrecta o indica que es usted menor de edad.');
@@ -352,6 +354,7 @@
 			<?php 
 		}
 		elseif(!checkDNI_NIE($_POST['blanknie'])){
+			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
 				alert('El NIE no está correctamente introducido');
@@ -360,6 +363,7 @@
 			<?php 
 		}
 		elseif(!isset($str_nat)){
+			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
 				alert('Incluya al menos 1 nacionalidad');
@@ -373,6 +377,7 @@
 		elseif((strlen($_POST['blankaddrtype']) > 0) || (strlen($_POST['blankaddrname']) > 0) || (strlen($_POST['blankaddrnum']) > 0) || (strlen($_POST['blankaddrportal']) > 0) || 
 		(strlen($_POST['blankaddrstair']) > 0) || (strlen($_POST['blankaddrfloor']) > 0) || (strlen($_POST['blankaddrdoor']) > 0)){
 			if((strlen($_POST['blankaddrtype']) < 1) || (strlen($_POST['blankaddrname']) < 1) || (strlen($_POST['blankaddrnum']) < 1)){
+				unset($_POST['push_button']);
 				?>
 				<script type="text/javascript">
 					alert('Olvidó el tipo, nombre o número de su dirección.');
@@ -381,6 +386,7 @@
 				<?php
 			}
 			elseif(!checkFullAddressES($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
+				unset($_POST['push_button']);
 				?>
 				<script type="text/javascript">
 					alert('<?php echo $checkError; ?>');
@@ -390,6 +396,7 @@
 			}
 		}
 		elseif(!checkMobile($_POST['blankmobile'])){
+			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
 				alert('Indique un número de móvil válido.');
@@ -400,6 +407,7 @@
 		//This could be an international phone (should start with '00(49)'. It is not mandatory
 		elseif(strlen($_POST['blankphone']) > 0){
 			if(!checkPhone($_POST['blankphone'])){
+				unset($_POST['push_button']);
 				?>
 				<script type="text/javascript">
 					alert('Indique un número de teléfono válido.');
@@ -409,6 +417,7 @@
 			}
 		}
 		elseif(!filter_var($_POST['blankmail'], FILTER_VALIDATE_EMAIL)){
+			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
 				alert('Introduzca un email válido, por favor.');
@@ -418,6 +427,7 @@
 		}
 		//As it is a drop down menu, there is no need to check it with 'htmlentities'
 		elseif($str_idiomas == '' || $str_nidiomas == '' || $str_nidiomas == '%null%'){
+			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
 				alert('Debe introducir al menos 1 idioma y su nivel.');
@@ -425,9 +435,9 @@
 			</script>
 			<?php 
 		}
-		
-		if((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
+		elseif((strlen($_POST['blankdrivingtype']) > 0) || (strlen($_POST['blankdrivingdate']) > 0)){
 			if(!checkDrivingLicense($_POST['blankdrivingtype'], $_POST['blankdrivingdate'], $checkError)){
+				unset($_POST['push_button']);
 				?>
 				<script type="text/javascript">
 					alert('<?php echo $checkError; ?>');
@@ -436,7 +446,9 @@
 				<?php 
 			}
 		}
-		//else{
+		
+		//Only if EVERY check is OK can proceed with process to insert registry in DB
+		else{
 			$cleanedOther = cleanFreeText($_POST['blankother']);
 			$cleanedSkill1 = cleanFreeText($_POST['blankskill1']);
 			$cleanedSkill2 = cleanFreeText($_POST['blankskill2']);
@@ -448,173 +460,173 @@
 			$cleanedSkill8 = cleanFreeText($_POST['blankskill8']);
 			$cleanedSkill9 = cleanFreeText($_POST['blankskill9']);
 			$cleanedSkill10 = cleanFreeText($_POST['blankskill10']);
-			
-		
-		$insertCVQuery = "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
-		`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, `career`, 
-		`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
-		`cvDate`, `userLogin`, `salary`) VALUES 
-		(NULL, '".$_POST['blanknie']."', 'pending', '".$outName."', '".$outSurname."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
-		'".$_POST['blankaddrtype']."', '".$outAddrName."', '".$outAddrNumber."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
-		'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".$_POST['blankaddrcountry']."', '".$_POST['blankaddrprovince']."', '".$_POST['blankaddrcity']."',
-		'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
-		'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_prof."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$cleanedOther."', 
-		'".$cleanedSkill1."', '".$cleanedSkill2."', '".$cleanedSkill3."', '".$cleanedSkill4."', '".$cleanedSkill5."', '".$cleanedSkill6."', '".$cleanedSkill7."', 
-		'".$cleanedSkill8."', '".$cleanedSkill9."', '".$cleanedSkill10."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
-		
-				$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
-				/*
-				if(ifCreateDir($userDir, 0777)){
-					echo 'Ha entrado en el ifCreateDir.<br>';
-					for ($i=0;$i<100;$i++){
-						echo 'Iteracion '.$i.'<br>';
-						if ($i==0){
-							if (isset($_FILES["archivo"])){
-								echo 'Archivo '.$i.' preparado para ser subido <br>';
-								$_FILES['archivo']['name']= str_replace(" ","_",$_FILES['archivo']['name']);
-								move_uploaded_file($_FILES['archivo']['tmp_name'],$userDir.$_FILES['archivo']['name']);
-								echo 'Aquí ya debería haber subido el '.$i.'<br>';
-							}
-						}
-						else{
-							if (isset($_FILES["archivo$i"])){
-								echo 'Archivo '.$i.' preparado para ser subido <br>';
-								$_FILES["archivo$i"]['name']= str_replace(" ","_",$_FILES["archivo$i"]['name']);
-								move_uploaded_file($_FILES["archivo$i"]['tmp_name'],$userDir.$_FILES["archivo$i"]['name']);
-								echo 'Aquí ya debería haber subido el '.$i.'<br>';
-							}
-						}
-					}	
-				}
-				*/
-				/*
-				if(ifCreateDir($userDir, 0777)){
-					echo 'Ha entrado en el ifCreateDir.<br>';
-					$numFiles = count($_FILES["archivo"]["name"]);
-					echo 'Hay '.$numFiles.' archivos a subir<br>';
-					for ($i=0; $i<$numFiles; $i++){
-						echo 'Iteracion '.$i.'<br>';
-						if ($i==0){
-							if (isset($_FILES["archivo"])){
-								echo 'Archivo '.$i.' preparado para ser subido <br>';
-								$_FILES['archivo']['name']= str_replace(" ","_",$_FILES['archivo']['name']);
-								move_uploaded_file($_FILES['archivo']['tmp_name'],$userDir.$_FILES['archivo']['name']);
-								echo 'Aquí ya debería haber subido el '.$i.'<br>';
-							}
-						}
-						else{
-							if (isset($_FILES["archivo$i"])){
-								echo 'Archivo '.$i.' preparado para ser subido <br>';
-								$_FILES["archivo$i"]['name']= str_replace(" ","_",$_FILES["archivo$i"]['name']);
-								move_uploaded_file($_FILES["archivo$i"]['tmp_name'],$userDir.$_FILES["archivo$i"]['name']);
-								echo 'Aquí ya debería haber subido el '.$i.'<br>';
-							}
-						}
-					}	
-				}
-				exit();
-				*/
-		
-		//checkUploadedFileES($_FILES['archivos'][0], $errorText);
-		//checkUploadedFileES($_FILES['archivos']['name'][0], $_FILES['archivos']['mime'][0], $_FILES['archivos']['type'][0], $_FILES['archivos']['size'][0], $errorText);
-		/*
-		checkUploadedFileES($_FILES['archivos']['name'][0], $_FILES['archivos']['type'][0], $_FILES['archivos']['size'][0], $errorText);
-		echo 'El error ...'.$errorText;
-		exit();
-		*/
-		
-		if(!executeDBquery($insertCVQuery)){
-			?>
-			<script type="text/javascript">
-				alert('There was a problem saving your CV. Please contact us to solve it.');
-				window.location.href='home.php';
-			</script>
-			<?php 
-		}
-		else{
-			/* Being here (under this 'else') means that insert query was OK. So user must be inactivated and redirected to 'index.html'
-			 * But before, we check if user wishes to upload any file or photo
-			 */
-			//if(isset($_FILES['archivos']) && is_uploaded_file($_FILES['archivos']['tmp_name'][0])){
-			if(isset($_FILES['archivo'])){
 				
-				$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
-				//echo $userDir;
-				/*
-				//if(!ifCreateDir($userDir, 0777)){
-				if(ifCreateDir($userDir, 0777)){
-					$numFiles = count($_FILES["archivo"]["name"]);
-					for ($i=0; $i<$numFiles; $i++){
-						//Upload for each Candidate file
-						if(checkUploadedFileES($_FILES['archivo']['name'][$i], $_FILES['archivo']['type'][$i], $_FILES['archivo']['size'][$i], $errorText) && is_uploaded_file($_FILES['archivo']['tmp_name'][0])){
-							$_FILES['archivo']['name'][$i] = str_replace(" ","_",$_FILES['archivo']['name'][$i]);
-							move_uploaded_file($_FILES['archivo']['tmp_name'][$i], $userDir.$_FILES['archivo']['name'][$i]);
-							//$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
-							//$name = $_FILES["archivos"]["name"][$i];
-						}
-						else{
-							?>
-							<script type="text/javascript">
-								alert('Problem uploading file (code FUPLOAD<?php echo $i; ?>). Anyway, CV was successfully inserted.');
-								window.location.href='endsession.php';
-							</script>
-							<?php 
+			
+			$insertCVQuery = "INSERT INTO `cvitaes` (`id`, `nie`, `cvStatus`, `name`, `surname`, `birthdate`, `nationalities`, `sex`, `addrType`, `addrName`, `addrNum`, `portal`, `stair`, `addrFloor`, `addrDoor`, 
+			`phone`, `postalCode`, `country`, `province`, `city`, `mobile`, `mail`, `drivingType`, `drivingDate`, `marital`, `sons`, `language`, `langLevel`, `education`, `career`, 
+			`experCompany`, `experStart`, `experEnd`, `experPos`, `experDesc`, `otherDetails`, `skill1`, `skill2`, `skill3`, `skill4`, `skill5`, `skill6`, `skill7`, `skill8`, `skill9`, `skill10`, 
+			`cvDate`, `userLogin`, `salary`) VALUES 
+			(NULL, '".$_POST['blanknie']."', 'pending', '".$outName."', '".$outSurname."', '".$_POST['blankbirthdate']."', '".$str_nat."', '".$_POST['blanksex']."',
+			'".$_POST['blankaddrtype']."', '".$outAddrName."', '".$outAddrNumber."', '".$_POST['blankaddrportal']."', '".$_POST['blankaddrstair']."', '".$_POST['blankaddrfloor']."',
+			'".$_POST['blankaddrdoor']."', '".$_POST['blankphone']."', '".$_POST['blankaddrpostalcode']."', '".$_POST['blankaddrcountry']."', '".$_POST['blankaddrprovince']."', '".$_POST['blankaddrcity']."',
+			'".$_POST['blankmobile']."', '".$_POST['blankmail']."', '".$_POST['blankdrivingtype']."', '".$_POST['blankdrivingdate']."', '".$_POST['blankmarital']."', '".$_POST['blanksons']."', 
+			'".$str_idiomas."', '".$str_nidiomas."', '".$str_educ."', '".$str_prof."', '".$str_empr."', '".$str_expstart."', '".$str_expend."', '".$str_categ."', '".$str_desc."', '".$cleanedOther."', 
+			'".$cleanedSkill1."', '".$cleanedSkill2."', '".$cleanedSkill3."', '".$cleanedSkill4."', '".$cleanedSkill5."', '".$cleanedSkill6."', '".$cleanedSkill7."', 
+			'".$cleanedSkill8."', '".$cleanedSkill9."', '".$cleanedSkill10."', CURRENT_TIMESTAMP, '".$_SESSION['loglogin']."', '".$_POST['blanksalary']."')";
+			
+					$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
+					/*
+					if(ifCreateDir($userDir, 0777)){
+						echo 'Ha entrado en el ifCreateDir.<br>';
+						for ($i=0;$i<100;$i++){
+							echo 'Iteracion '.$i.'<br>';
+							if ($i==0){
+								if (isset($_FILES["archivo"])){
+									echo 'Archivo '.$i.' preparado para ser subido <br>';
+									$_FILES['archivo']['name']= str_replace(" ","_",$_FILES['archivo']['name']);
+									move_uploaded_file($_FILES['archivo']['tmp_name'],$userDir.$_FILES['archivo']['name']);
+									echo 'Aquí ya debería haber subido el '.$i.'<br>';
+								}
+							}
+							else{
+								if (isset($_FILES["archivo$i"])){
+									echo 'Archivo '.$i.' preparado para ser subido <br>';
+									$_FILES["archivo$i"]['name']= str_replace(" ","_",$_FILES["archivo$i"]['name']);
+									move_uploaded_file($_FILES["archivo$i"]['tmp_name'],$userDir.$_FILES["archivo$i"]['name']);
+									echo 'Aquí ya debería haber subido el '.$i.'<br>';
+								}
+							}
+						}	
+					}
+					*/
+					/*
+					if(ifCreateDir($userDir, 0777)){
+						echo 'Ha entrado en el ifCreateDir.<br>';
+						$numFiles = count($_FILES["archivo"]["name"]);
+						echo 'Hay '.$numFiles.' archivos a subir<br>';
+						for ($i=0; $i<$numFiles; $i++){
+							echo 'Iteracion '.$i.'<br>';
+							if ($i==0){
+								if (isset($_FILES["archivo"])){
+									echo 'Archivo '.$i.' preparado para ser subido <br>';
+									$_FILES['archivo']['name']= str_replace(" ","_",$_FILES['archivo']['name']);
+									move_uploaded_file($_FILES['archivo']['tmp_name'],$userDir.$_FILES['archivo']['name']);
+									echo 'Aquí ya debería haber subido el '.$i.'<br>';
+								}
+							}
+							else{
+								if (isset($_FILES["archivo$i"])){
+									echo 'Archivo '.$i.' preparado para ser subido <br>';
+									$_FILES["archivo$i"]['name']= str_replace(" ","_",$_FILES["archivo$i"]['name']);
+									move_uploaded_file($_FILES["archivo$i"]['tmp_name'],$userDir.$_FILES["archivo$i"]['name']);
+									echo 'Aquí ya debería haber subido el '.$i.'<br>';
+								}
+							}
+						}	
+					}
+					exit();
+					*/
+			
+			//checkUploadedFileES($_FILES['archivos'][0], $errorText);
+			//checkUploadedFileES($_FILES['archivos']['name'][0], $_FILES['archivos']['mime'][0], $_FILES['archivos']['type'][0], $_FILES['archivos']['size'][0], $errorText);
+			/*
+			checkUploadedFileES($_FILES['archivos']['name'][0], $_FILES['archivos']['type'][0], $_FILES['archivos']['size'][0], $errorText);
+			echo 'El error ...'.$errorText;
+			exit();
+			*/
+			
+			if(!executeDBquery($insertCVQuery)){
+				?>
+				<script type="text/javascript">
+					alert('There was a problem saving your CV. Please contact us to solve it.');
+					window.location.href='home.php';
+				</script>
+				<?php 
+			}
+			else{
+				/* Being here (under this 'else') means that insert query was OK. So user must be inactivated and redirected to 'index.html'
+				 * But before, we check if user wishes to upload any file or photo
+				 */
+				//if(isset($_FILES['archivos']) && is_uploaded_file($_FILES['archivos']['tmp_name'][0])){
+				if(isset($_FILES['archivo'])){
+					
+					$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$_SESSION['loglogin']."/";
+					//echo $userDir;
+					/*
+					//if(!ifCreateDir($userDir, 0777)){
+					if(ifCreateDir($userDir, 0777)){
+						$numFiles = count($_FILES["archivo"]["name"]);
+						for ($i=0; $i<$numFiles; $i++){
+							//Upload for each Candidate file
+							if(checkUploadedFileES($_FILES['archivo']['name'][$i], $_FILES['archivo']['type'][$i], $_FILES['archivo']['size'][$i], $errorText) && is_uploaded_file($_FILES['archivo']['tmp_name'][0])){
+								$_FILES['archivo']['name'][$i] = str_replace(" ","_",$_FILES['archivo']['name'][$i]);
+								move_uploaded_file($_FILES['archivo']['tmp_name'][$i], $userDir.$_FILES['archivo']['name'][$i]);
+								//$tmp_name = $_FILES["archivos"]["tmp_name"][$i];
+								//$name = $_FILES["archivos"]["name"][$i];
+							}
+							else{
+								?>
+								<script type="text/javascript">
+									alert('Problem uploading file (code FUPLOAD<?php echo $i; ?>). Anyway, CV was successfully inserted.');
+									window.location.href='endsession.php';
+								</script>
+								<?php 
+							}
 						}
 					}
+					*/
+					
+					if(ifCreateDir($userDir, 0777)){
+						for ($i=0;$i<100;$i++){
+							if ($i==0){
+								if (isset($_FILES["archivo"])){
+									$_FILES['archivo']['name']= str_replace(" ","_",$_FILES['archivo']['name']);
+									move_uploaded_file($_FILES['archivo']['tmp_name'],$userDir.$_FILES['archivo']['name']);
+								}
+							}
+							else{
+								if (isset($_FILES["archivo$i"])){
+									$_FILES["archivo$i"]['name']= str_replace(" ","_",$_FILES["archivo$i"]['name']);
+									move_uploaded_file($_FILES["archivo$i"]['tmp_name'],$userDir.$_FILES["archivo$i"]['name']);
+								}
+							}
+						}	
+					}
 				}
-				*/
+				//Now Candidate photo will be uploaded
+				if(isset($_FILES['foto']) && is_uploaded_file($_FILES['foto']['tmp_name'])){
+					$photoUploadFile = $userDir."foto";
+					if(move_uploaded_file($_FILES['foto']['tmp_name'], $photoUploadFile)){
+						$image = new SimpleImage(); 
+						$image->load($photoUploadFile); 
+						$image->resize(250,250); 
+						$image->save($photoUploadFile."r.jpg"); 
+						unlink($photoUploadFile);
+						#echo "El archivo es válido y fue cargado exitosamente.\n";
+					}
+					else{
+						#echo "¡Posible ataque de carga de archivos!\n";
+						?>
+						<script type="text/javascript">
+							alert('Problem uploading profile photo (code PUPLOAD0). Anyway, CV was successfully inserted.');
+							//window.location.href='home.php';
+							window.location.href='endsession.php';
+						</script>
+						<?php 
+					}
+				}
 				
-				if(ifCreateDir($userDir, 0777)){
-					for ($i=0;$i<100;$i++){
-						if ($i==0){
-							if (isset($_FILES["archivo"])){
-								$_FILES['archivo']['name']= str_replace(" ","_",$_FILES['archivo']['name']);
-								move_uploaded_file($_FILES['archivo']['tmp_name'],$userDir.$_FILES['archivo']['name']);
-							}
-						}
-						else{
-							if (isset($_FILES["archivo$i"])){
-								$_FILES["archivo$i"]['name']= str_replace(" ","_",$_FILES["archivo$i"]['name']);
-								move_uploaded_file($_FILES["archivo$i"]['tmp_name'],$userDir.$_FILES["archivo$i"]['name']);
-							}
-						}
-					}	
-				}
+				//blocks candidate and redirects her/him to index.html
+				executeDBquery("UPDATE `users` SET `active`='0', `cvSaved`='1' WHERE `login`='".$_SESSION['loglogin']."'");
+				?>
+				<script type="text/javascript">
+					//alert('CV insertado con éxito. Gracias!');
+					alert('Gracias por insertar su CV. Por seguridad, su usuario ha sido desactivado.');
+					window.location.href='./endsession.php';
+				</script>
+				<?php
 			}
-			//Now Candidate photo will be uploaded
-			if(isset($_FILES['foto']) && is_uploaded_file($_FILES['foto']['tmp_name'])){
-				$photoUploadFile = $userDir."foto";
-				if(move_uploaded_file($_FILES['foto']['tmp_name'], $photoUploadFile)){
-					$image = new SimpleImage(); 
-					$image->load($photoUploadFile); 
-					$image->resize(250,250); 
-					$image->save($photoUploadFile."r.jpg"); 
-					unlink($photoUploadFile);
-					#echo "El archivo es válido y fue cargado exitosamente.\n";
-				}
-				else{
-					#echo "¡Posible ataque de carga de archivos!\n";
-					?>
-					<script type="text/javascript">
-						alert('Problem uploading profile photo (code PUPLOAD0). Anyway, CV was successfully inserted.');
-						//window.location.href='home.php';
-						window.location.href='endsession.php';
-					</script>
-					<?php 
-				}
-			}
-			
-			//blocks candidate and redirects her/him to index.html
-			executeDBquery("UPDATE `users` SET `active`='0', `cvSaved`='1' WHERE `login`='".$_SESSION['loglogin']."'");
-			?>
-			<script type="text/javascript">
-				//alert('CV insertado con éxito. Gracias!');
-				alert('Gracias por insertar su CV. Por seguridad, su usuario ha sido desactivado.');
-				window.location.href='./endsession.php';
-			</script>
-			<?php
 		}
-		
 	}//del (isset($_POST[]))
 
 	/**********************************     End of FORM validations     **********************************/
@@ -759,11 +771,11 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- Teléfono Móvil -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmobile">Tfno. Móvil: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="blankmobile" maxlength="9" placeholder="[6-7]XXXXXXXX" onkeypress="return checkOnlyNumbers(event)">
+					<input class="form-control" type="text" name="blankmobile" maxlength="9" placeholder="[6-7]XXXXXXXX" required onkeypress="return checkOnlyNumbers(event)">
 				</div>
 			</div>
 
-			<div class="form-group"> <!-- Teléfono Fijo -->
+			<div class="form-group"> <!-- Otro Teléfono -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankphone">Otro Tfno.: </label> 
 				<div class="col-sm-10">
 					<input class="form-control" type="text" name="blankphone" maxlength="18" placeholder="00[COD. PAIS]-NUMERO" onkeypress="return checkDashedNumbers(event)">
@@ -773,7 +785,7 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- Correo Electrónico -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankmail">eMail: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="email" name="blankmail" placeholder="correo@ejemplo.com">
+					<input class="form-control" type="email" name="blankmail" placeholder="correo@ejemplo.com" required>
 				</div>
 			</div>		
 
@@ -972,7 +984,7 @@ Los campos que poseen * son obligatorios.
 		</div> <!-- Panel Body -->
 
 		<div class="panel-footer">
-			<label class "control-label" style="margin-bottom: 10px; margin-top: 5px;"><input type="checkbox" name="blanklopd" > He leído y acepto las condiciones de uso y política de privacidad</label>
+			<label class "control-label" style="margin-bottom: 10px; margin-top: 5px;"><input type="checkbox" name="blanklopd" required> He leído y acepto las condiciones de uso y política de privacidad</label>
 			<div class="btn-group pull-right">
 				<button type="submit" name ="push_button" class="btn btn-primary">Enviar</button>
 			</div>
