@@ -308,7 +308,7 @@
 								case 'hDelUser':
 									//echo 'codvalue es '.$_GET['codvalue'].'<br>';
 									$userRow = getDBrow('users', 'id', $_GET['codvalue']);
-									print_r($userRow);
+									//print_r($userRow);
 									//$toDeleteUser = getDBsinglefield('login', 'users', 'id', $_GET['codvalue']);
 									if(!deleteDBrow('cvitaes', 'userLogin', getDBsinglefield('login', 'users', 'id', $_GET['codvalue']))){
 										?>
@@ -335,7 +335,7 @@
 											$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$userRow['login']."/";
 											//chdir($userDir);
 											$files  = scandir($userDir);
-											print_r($files);
+											//print_r($files);
 											foreach ($files as $value){
 												unlink($userDir.$value);
 											}

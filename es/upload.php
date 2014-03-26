@@ -945,7 +945,7 @@ Los campos que poseen * son obligatorios.
 			<div class="form-group"> <!-- Salario -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksalary">Salario deseado: </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€uros/año" onkeypress="return checkOnlyNumbers(event)">
+					<input class="form-control" type="text" name="blanksalary" maxlength="7" placeholder="€ neto/año" onkeypress="return checkOnlyNumbers(event)">
 				</div>
 			</div>
 

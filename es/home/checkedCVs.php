@@ -275,6 +275,51 @@
 					}
 				}
 			}
+			elseif(isset($_GET['hiddenGET'])){
+				switch($_GET['hiddenGET']){
+					case 'hDelCheckedCV':
+						$checkedCVRow = getDBrow('cvitaes', 'id', $_GET['codvalue']);
+						if(!deleteDBrow('users', 'login', $checkedCVRow['userLogin'])){
+							unset ($_GET['codvalue']);
+							unset ($checkedCVRow);
+							?>
+							<script type="text/javascript">
+								alert('Error deleting user from checked CVs.');
+								window.location.href='checkedCVs.php';
+							</script>
+							<?php 
+						}
+						elseif(!deleteDBrow('cvitaes', 'id', $_GET['codvalue'])){
+							unset ($_GET['codvalue']);
+							unset ($checkedCVRow);
+							?>
+							<script type="text/javascript">
+								alert('Error deleting checked CV.');
+								window.location.href='checkedCVs.php';
+							</script>
+							<?php 
+						}
+						else{
+							$numCandidateUsers = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
+							$numCandidateUsers--;
+							executeDBquery("UPDATE `profiles` SET `numUsers`='".$numCandidateUsers."' WHERE `name`='Candidato'");
+							$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$checkedCVRow['userLogin']."/";
+							//chdir($userDir);
+							$files  = scandir($userDir);
+							foreach ($files as $value){
+								unlink($userDir.$value);
+							}
+							rmdir($userDir);
+						}
+					break;
+				}
+				?>
+				<script type="text/javascript">
+					window.location.href='checkedCVs.php';
+				</script>
+				<?php 
+			}//end of GET
+			
 			/**********************************     End of FORM validations     **********************************/
 	
 			/******************************     Start of WebPage code as showed     ******************************/
@@ -773,20 +818,9 @@
 								echo "<td><a href='checkedCVs.php?codvalue=" . html_entity_decode($cvRow['nie']) . "'>" . html_entity_decode($cvRow['nie']) . "</a></td>";
 								echo "<td>" . html_entity_decode($cvRow['name']) . "</td>";
 								echo "<td>" . html_entity_decode($cvRow['surname']) . "</td>";
-								echo "<td><a href='delCurCV.php?codvalue=" . html_entity_decode($cvRow['nie']) . "'>Borrar</a></td>";
+								echo "<td><a href='checkedCVs.php?codvalue=" . $cvRow['id'] . "&hiddenGET=hDelCheckedCV' onclick='return confirmCheckedCVDeletion();'>Borrar</a></td>";
 								echo "</tr>";
 							}
-							/*
-								foreach($cvIDs as $i){
-									$cvRow = getDBrow('cvitaes', 'id', $i);
-									echo "<tr>";
-									echo "<td><a href='pendingCVs.php?codvalue=" . html_entity_decode($cvRow['nie']) . "'>" . html_entity_decode($cvRow['nie']) . "</a></td>";
-									echo "<td>" . html_entity_decode($cvRow['name']) . "</td>";
-									echo "<td>" . html_entity_decode($cvRow['surname']) . "</td>";
-									echo "<td><a href='delCurCV.php?codvalue=" . html_entity_decode($cvRow['nie']) . "'>Borrar</a></td>";
-									echo "</tr>";
-								}
-								*/
 							?>
 							</tbody>
 						</table>

@@ -280,6 +280,51 @@
 					}
 				}
 			}
+			elseif(isset($_GET['hiddenGET'])){
+				switch($_GET['hiddenGET']){
+					case 'hDelPendingCV':
+						$pendingCVRow = getDBrow('cvitaes', 'id', $_GET['codvalue']);
+						if(!deleteDBrow('users', 'login', $pendingCVRow['userLogin'])){
+							unset ($_GET['codvalue']);
+							unset ($pendingCVRow);
+							?>
+							<script type="text/javascript">
+								alert('Error deleting user from pending CVs.');
+								window.location.href='pendingCVs.php';
+							</script>
+							<?php 
+						}
+						elseif(!deleteDBrow('cvitaes', 'id', $_GET['codvalue'])){
+							unset ($_GET['codvalue']);
+							unset ($pendingCVRow);
+							?>
+							<script type="text/javascript">
+								alert('Error deleting pending CV.');
+								window.location.href='pendingCVs.php';
+							</script>
+							<?php 
+						}
+						else{
+							$numCandidateUsers = getDBsinglefield('numUsers', 'profiles', 'name', 'Candidato');
+							$numCandidateUsers--;
+							executeDBquery("UPDATE `profiles` SET `numUsers`='".$numCandidateUsers."' WHERE `name`='Candidato'");
+							$userDir = $_SERVER['DOCUMENT_ROOT'] . "/cvs/".$pendingCVRow['userLogin']."/";
+							//chdir($userDir);
+							$files  = scandir($userDir);
+							foreach ($files as $value){
+								unlink($userDir.$value);
+							}
+							rmdir($userDir);
+						}
+					break;
+				}
+				?>
+				<script type="text/javascript">
+					window.location.href='pendingCVs.php';
+				</script>
+				<?php 
+			}//end of GET
+			
 			/**********************************     End of FORM validations     **********************************/
 	
 			/******************************     Start of WebPage code as showed     ******************************/
@@ -749,10 +794,7 @@
 
 				<div class="col-md-9 scrollable" role="main"> 
 					<div class="bs-docs-section">
-
 						<h2 class="page-header">CVs pendientes de clasificar</h2>
-
-					</span>
 
 					<?php 
 
@@ -780,7 +822,8 @@
 									echo "<td><a href='pendingCVs.php?codvalue=" . html_entity_decode($cvRow['nie']) . "'>" . html_entity_decode($cvRow['nie']) . "</a></td>";
 									echo "<td>" . html_entity_decode($cvRow['name']) . "</td>";
 									echo "<td>" . html_entity_decode($cvRow['surname']) . "</td>";
-									echo "<td><a href='delCurCV.php?codvalue=" . html_entity_decode($cvRow['nie']) . "'>Borrar</a></td>";
+									//echo "<td><a href='delCurCV.php?codvalue=" . html_entity_decode($cvRow['nie']) . "'>Borrar</a></td>";
+									echo "<td><a href='pendingCVs.php?codvalue=" . $cvRow['id'] . "&hiddenGET=hDelPendingCV' onclick='return confirmPendingCVDeletion();'>Borrar</a></td>";
 									echo "</tr>";
 								}
 								?>

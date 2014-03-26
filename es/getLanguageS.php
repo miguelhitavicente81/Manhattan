@@ -38,7 +38,8 @@
 <select class="form-control" name="add_idiomas">
 	<option selected disabled value=""> Pulse "+" tras elegir... </option>
 	<?php
-		$langNames = getDBcompletecolumnID($userLang, 'languages', 'id');
+		//$langNames = getDBcompletecolumnID($userLang, 'languages', 'id');
+		$langNames = getDBcompletecolumnID($userLang, 'languages', $userLang);
 		
 		foreach($langNames as $i){
 		$resultado = strpos($_SESSION['langselected'], $i);
