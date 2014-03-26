@@ -102,10 +102,8 @@
 		</div>
 
 
-
-		<!-- /* En $myFile guardo el nombre del fichero php que WC está tratando en ese instante. Necesario para mostrar
-		* el resto de menús de nivel 1 cuando navegue por ellos, y saber cuál es el activo (id='onlink')
-		*/ -->
+		<!-- En $myFile guardo el nombre del fichero php que la APP está tratando en ese instante. Necesario para mostrar
+		el resto de menús de nivel 1 cuando navegue por ellos, y saber cuál es el activo (id='onlink') -->
 		<?php
 			$myFile = 'home';
 			$userRow = getDBrow('users', 'login', $_SESSION['loglogin']);
@@ -122,8 +120,14 @@
 				$finalLangLv = "";
 				foreach($wholeLangInfo as $key => $value) {
 					$array = explode(':',$value);					
-					$finalLang = $finalLang . array_values($array)[0] . '|';
-					$finalLangLv = $finalLangLv . array_values($array)[1] . '|';
+					//$finalLang = $finalLang . array_values($array)[0] . '|';
+					//$finalLangLv = $finalLangLv . array_values($array)[1] . '|';
+					/* MUESTRA OK LOS VALORES PERO LUEGO NO SOLO NO LOS GUARDA SINO QUE ADEMAS LOS BORRA
+					$finalLang = $finalLang . array_values($array[0]) . '|';
+					$finalLangLv = $finalLangLv . array_values($array[1]) . '|';
+					*/
+					$finalLang = $finalLang . $array[0] . '|';
+					$finalLangLv = $finalLangLv . $array[1] . '|';
 				}
 				
 				$finalLang = substr($finalLang, 0, -1);
