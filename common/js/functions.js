@@ -204,20 +204,38 @@ function fecha( cadena ) {
 
 
 
-/* Double-checks deletion of an existing language
- * Called in "admGenOptions.php"
- */
-function confirmLangDeletionES(id) {
-	return confirm('¿Confirma que desea borrar este idioma?');
-}
-
-
-
 /* Double-checks deletion of an existing career
  * Called in "admGenOptions.php"
  */
 function confirmCareerDeletionES(id) {
 	return confirm('¿Confirma que desea borrar esta Profesión?');
+}
+
+
+
+/* Double-checks deletion of an existing PENDING CV
+ * Called in "pendingCVs.php"
+ */
+function confirmPendingCVDeletion(id) {
+	return confirm('Are you sure you want to delete this CV and its assigned user?');
+}
+
+
+
+/* Double-checks deletion of an existing CHECKED CV (Only available for SuperAdmin profile)
+ * Called in "checkedCVs.php"
+ */
+function confirmCheckedCVDeletion(id) {
+	return confirm('Are you sure you want to delete this CV and its assigned user?');
+}
+
+
+
+/* Double-checks deletion of an existing language
+ * Called in "admGenOptions.php"
+ */
+function confirmLangDeletionES(id) {
+	return confirm('¿Confirma que desea borrar este idioma?');
 }
 
 
