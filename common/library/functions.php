@@ -450,7 +450,7 @@ function blowfishCrypt($password, $rounds = 7){
 
 
 
-//HAY UNA VERSION JAVASCRIPT DE ESTA FUNCION YA
+//HAY UNA VERSION JAVASCRIPT DE ESTA FUNCION YA QUE CREO QUE NO SE USA
 /* Checks whether a given password is strong enough (and properly written) when changed for a new one
  * Entry (key1): String where passed 1st password attempt
  * Entry (key2): String where passed 2nd password attempt
@@ -458,27 +458,33 @@ function blowfishCrypt($password, $rounds = 7){
  */
 function checkPassChange($key1, $key2, &$keyError){
 	if($key1 != $key2){
-		$keyError = "Ambas contraseñas deben ser iguales";
+		//$keyError = "Ambas contraseñas deben ser iguales";
+		$keyError = "Error: Both passwords must be identical.";
 		return false;
 	}
 	if(strlen($key1) < 6){
-		$keyError = "La contraseña debe tener al menos 6 caracteres";
+		//$keyError = "La contraseña debe tener al menos 6 caracteres";
+		$keyError = "Error: Password must be at least 6 characters.";
 		return false;
 	}
 	if(strlen($key1) > 16){
-		$keyError = "La contraseña no puede tener más de 16 caracteres";
+		//$keyError = "La contraseña no puede tener más de 16 caracteres";
+		$keyError = "Error: Password must not be more than 16 characters.";
 		return false;
 	}
 	if (!preg_match('`[a-z]`',$key1)){
-		$keyError = "La contraseña debe tener al menos una letra minúscula";
+		//$keyError = "La contraseña debe tener al menos una letra minúscula";
+		$keyError = "Error: Password must contain at least one lowercase letter.";
 		return false;
 	}
 	if (!preg_match('`[A-Z]`',$key1)){
-		$keyError = "La contraseña debe tener al menos una letra mayúscula";
+		//$keyError = "La contraseña debe tener al menos una letra mayúscula";
+		$keyError = "Error: Password must contain at least one uppercase letter.";
 		return false;
 	}
 	if (!preg_match('`[0-9]`',$key1)){
-		$keyError = "La contraseña debe tener al menos un caracter numérico";
+		//$keyError = "La contraseña debe tener al menos un caracter numérico";
+		$keyError = "Error: Password must contain at least one numeric character.";
 		return false;
 	}
 	$keyError = "";
@@ -592,16 +598,19 @@ function checkDNI_NIE($nie){
  */
 function checkDrivingLicense($type, $licDate, &$checkError){
 	if((strlen($type) > 0) && (strlen($licDate) == 0)){
-		$checkError = "Ha olvidado indicar la fecha en que obtuvo su permiso de conducir";
+		//$checkError = "Ha olvidado indicar la fecha en que obtuvo su permiso de conducir";
+		$checkError = "Error: Driving License date is missing.";
 		return false;
 	}
 	elseif((strlen($type) == 0) && (strlen($licDate) > 0)){
-		$checkError = "Ha olvidado indicar qué tipo de permiso de conducir posee";
+		//$checkError = "Ha olvidado indicar qué tipo de permiso de conducir posee";
+		$checkError = "Error: Driving License type is missing.";
 		return false;
 	}
 	elseif(!isPreviousDate($licDate)){
 		//$checkError = "La fecha de permiso de conducir no puede ser futura";
-		$checkError = "Ha indicado una fecha de permiso de conducir futura";
+		//$checkError = "Ha indicado una fecha de permiso de conducir futura";
+		$checkError = "Error: Driving License date cannot be a future date.";
 		return false;
 	}
 	$checkError = "";
@@ -635,6 +644,23 @@ function checkFullAddressES($inName, $inNumber, &$outAddrName, &$outAddrNumber, 
 		return true;
 }
 
+function checkFullAddress($inName, $inNumber, &$outAddrName, &$outAddrNumber, &$checkError){
+	$connection = connectDB();
+	
+	$outAddrName = trim(htmlentities(mysqli_real_escape_string($connection, $inName), ENT_QUOTES, 'UTF-8'));
+	$outAddrNumber = trim(htmlentities(mysqli_real_escape_string($connection, $inNumber), ENT_QUOTES, 'UTF-8'));
+	
+	if(strlen($outAddrName) < 2){
+		$checkError = "Error: Invalid address.";
+		return false;
+	}
+	elseif(strlen($outAddrNumber) < 1){
+		$checkError = "Error: Correct address number is not provided.";
+		return false;
+	}
+		return true;
+}
+
 
 
 /* Checks whether a Name & Surname are both correct to be saved in a DB
@@ -651,8 +677,19 @@ function checkFullNameES($inName, $inSurname, &$outName, &$outSurname, &$checkEr
 	//$outSurname = trim(htmlentities(mysqli_real_escape_string($connection, $inSurname)));
 	$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName), ENT_QUOTES, 'UTF-8'));
 	$outSurname = trim(htmlentities(mysqli_real_escape_string($connection, $inSurname), ENT_QUOTES, 'UTF-8'));
-	if((strlen($outName) < 2) || (strlen($outSurname) < 2)){
-		$checkError = "Nombre y Apellidos deben tener al menos 2 caracteres cada uno.";
+	if((strlen($outName) < 3) || (strlen($outSurname) < 3)){
+		$checkError = "Nombre y Apellidos deben tener al menos 3 caracteres cada uno.";
+		return false;
+	}
+	return true;
+}
+function checkFullName($inName, $inSurname, &$outName, &$outSurname, &$checkError){
+	$connection = connectDB();
+	
+	$outName = trim(htmlentities(mysqli_real_escape_string($connection, $inName), ENT_QUOTES, 'UTF-8'));
+	$outSurname = trim(htmlentities(mysqli_real_escape_string($connection, $inSurname), ENT_QUOTES, 'UTF-8'));
+	if((strlen($outName) < 3) || (strlen($outSurname) < 3)){
+		$checkError = "Error: Name and Surname must be at least 3 characters each.";
 		return false;
 	}
 	return true;
@@ -703,40 +740,17 @@ function checkNationality($inNations, &$outNations){
  * Entry (phone): Integer which contains a number
  * Exit: Boolean
  */
-/*
-function checkPhone($phone){
-	$connection = connectDB();
-	
-	$outPhone = trim(htmlentities(mysqli_real_escape_string($connection, $phone)));
-	
-	if(strlen($outPhone) != 9){
-		return false;
-	}
-	elseif(!preg_match('/^[9][0-9]{8}$/', $outPhone)){
-		return false;
-	}
-	return true;
-}
-*/
 function checkPhone($phone){
 	$connection = connectDB();
 	
 	$outPhone = trim(htmlentities(mysqli_real_escape_string($connection, $phone)));
 	
 	if(strlen($outPhone) > 18){
-		//echo '1';
 		return false;
 	}
-	//elseif(!preg_match('/^[\-0-9]{18}$/', $outPhone)){
-	//elseif(!preg_match('/[0-9\\-]{18}/', $outPhone)){
-	//elseif(!preg_match('/^[0]{2}([0-9]{2}\-     )  [\-0-9]{18}$/', $outPhone)){
-	//elseif(!preg_match('/(00[0-9]{2}[-][0-9]{13})|(00[0-9]{3}[-][0-9]{12})/', $outPhone)){ FUNCIONA SI RELLENO LOS 18 CAMPOS
-	//elseif(!preg_match('/(00[0-9]{2}[-]([0-9]|[\t]){13})|(00[0-9]{3}[-][0-9]{12})/', $outPhone)){
 	elseif(!preg_match('/(00[0-9]{2}[-][0-9]{3,13})|(00[0-9]{3}[-][0-9]{3,12})/', $outPhone)){
-		//echo '2';
 		return false;
 	}
-	//echo '3';
 	return true;
 }
 
@@ -844,7 +858,6 @@ function normalizeLogin($incomingLogin){
  * Entry (inString): Varchar that can includes non-supported characters in DB
  * Exit (): Varchar with no non-supported characters
  */
-//function normalizeString($inString){
 function setStringAsKey($inString){
 	$inString = str_replace(' ', '', $inString);
 	$normalString = dropAccents($inString);
@@ -862,43 +875,12 @@ function setStringAsKey($inString){
  * Entry (keyPos): Integer where future key is. Use to be position 0 or 1
  * Exit (outArray): Output string, with brand new key generated
  */
-//function createArrayKey($inArray, $keyPos, &$outArray){ SI SE DECIDIESE PASAR POR PARAMETROS LA 'key' 
-//function createArrayKey($inArray){
 function prepareArray($inArray){
-	/*
-	//Converts to uppercase first letter in every word in string
-	$inArray = ucwords($inArray);
-	$wordsArray = explode(" ", $inArray);
-	$numWords = count($wordsArray);
-	if($numWords > 1){
-		$normalWord0 = normalizeString($wordsArray[0]);
-		//foreach ($wordsArray as $i){
-		for($i = 0; $i < $numWords; $i++){
-			$wordsArray[$i] = normalizeString($wordsArray[$i]);
-		}
-		$wordsArray[0] = strtolower($wordsArray[0]);
-		$inArray = implode($wordsArray);
-	}
-	else{
-		$inArray = strtolower($inArray);
-	}
-	//Cuts string if used any extrange character ("/", "|"...) but not found any function to do it
-	*/
-	/*
-	//Converts to uppercase first letter in every word in string
-	$inArray = ucwords($inArray);
-	if(strpos(trim($inArray), " ") > 0){
-		$inArray = str_replace(' ', '', $inArray);
-	}
-	$inArray = dropAccents($inArray);
-	$outArray = lcfirst($inArray);
-	*/
 	$numFields = count($inArray);
 	for($i = 0; $i < $numFields; $i++){
 		//Converts to uppercase first letter in every word in array-vector
 		$inArray[$i] = ucwords($inArray[$i]);
 	}
-	//$inArray[0] = normalizeString($inArray[0]);
 	$inArray[0] = setStringAsKey($inArray[0]);
 	$inArray[0] = lcfirst($inArray[0]);
 	return $inArray;
@@ -931,15 +913,6 @@ function addMonthsToDate($monthsNumber){
  * Entry (days): Integer which indicates the number of days to be added
  * Exit (endDate): Date in format "YYYY-MM-DD"
  */
-/*
-function addDateToDate($givenDate, $years, $months, $days){
-	
-	$unixDate = getdate(strtotime($givenDate));
-	
-	$endDate = date('Y-m-d', strtotime('+'.$monthsNumber.' month'));
-	return $endDate;
-}
-*/
 function addDateToDate($givenDate, $years){
 	$endDate = date('Y-m-d', strtotime("$givenDate + $years years"));
 	return $endDate;
@@ -954,7 +927,6 @@ function addDateToDate($givenDate, $years){
 function eregMySQLCheckDate($dateString){
 	if(ereg("(19|20)[0-9]{2}[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|3[01])", $dateString)){
 		//return true;
-		//return isPreviousDate($dateString);
 		return isAdult($dateString, 18);
 	}
 	else{
@@ -1042,6 +1014,21 @@ function checkUploadedFileES($fileName, $fileType, $fileSize, &$errorText){
 	$errorText ="";
 	return true;
 }
+function checkUploadedFile($fileName, $fileType, $fileSize, &$errorText){
+	$lowerCase = strtolower($fileName);
+	//All these extensions will be the only-supported ones
+	$whitelist = array('pdf', 'doc', 'docx', 'xls', 'xlsx', 'csv', 'txt', 'rtf');
+	if(!in_array(end(explode('.', $lowerCase)), $whitelist)){
+		$errorText = 'Error: Invalid file type.';
+		return false;
+	}
+	if($fileSize > 1048576){
+		$errorText = 'Error: 1MB file size exceeded.';
+		return false;
+	}
+	$errorText ="";
+	return true;
+}
 
 
 
@@ -1103,17 +1090,6 @@ function getKeyLanguage($languageToBeTranslated, $languageWritten){
  * Entry (dir): String with complete path for directory
  * Entry (permits): Integer (in form 0XXX) that indicactes what permissions will have new directory
  */
-/*
-function ifCreateDir($dir, $permits){
-	if(!file_exists($dir)){
-		mkdir($dir, $permits);
-		chmod($dir, $permits);
-		return true;
-	}
-	else
-		return false;
-}
-*/
 function ifCreateDir($dir, $permits){
 	if(!file_exists($dir)){
 		if(!mkdir($dir, $permits)){

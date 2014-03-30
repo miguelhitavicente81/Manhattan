@@ -2,73 +2,11 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Validación un formulario</title>
-	<script type="text/javascript">
-	
-		//Esta es una variable de control para mantener nombres diferentes de cada campo creado dinamicamente. 
-		var numero = 0;
-		
-		//La siguiente funcion nos devuelve el tipo de evento disparado 
-		evento = function (evt) {
-		   return (!evt) ? event : evt;
-		}
-		
-		//La siguiente funcion crea dinamicamente los nuevos campos file 
-		addCampo = function () { 
-			//Creamos un nuevo div para que contenga el nuevo campo
-			nDiv = document.createElement('div');
-			//Con esto se establece la clase de la div 
-			//nDiv.className = 'archivo col-sm-11 form-inline';
-			nDiv.className = 'archivo col-sm-11 form-inline';
-			nDiv.setAttribute("style", "display: inline-flex;"); 
-			//Este es el id de la div, aqui la utilidad de la variable numero nos permite darle un id unico 
-			nDiv.id = 'file' + (++numero);
-			//Creamos el input para el formulario: 
-			nCampo = document.createElement('input');
-			//Le damos un nombre, es importante que lo nombren como vector, pues todos los campos compartiran el nombre en un arreglo, asi es mas facil procesar posteriormente con php 
-			nCampo.name = 'archivos[]';
-			//Establecemos el tipo de campo
-			nCampo.type = 'file';
-			//Ahora creamos un link para poder eliminar un campo que ya no deseemos 
-			a = document.createElement('a');
-			a.className = 'pull-right form-inline';
-			//El link debe tener el mismo nombre de la div padre, para efectos de localizarla y eliminarla 
-			a.name = nDiv.id;
-			//Este link no debe ir a ningun lado
-			a.href = '#';
-			//Establecemos que dispare esta funcion al pincharse sobre ella 
-			a.onclick = elimCamp;
-			//Con esto ponemos el texto del link
-			//a.innerHTML = 'Eliminar';
-			//a.innerHTML = '&minus;';
-			//a.innerHTML = '&otimes;';
-			a.innerHTML = '<span class="glyphicon glyphicon-remove" style="margin-bottom: 10px; margin-left: 10px; color: #FF0000"></span>';
-			//Ahora se integra lo que hemos creado al documento, para ello la función appendChild se usa para añadir el campo file nuevo 
-			nDiv.appendChild(nCampo);
-			//Y justo aquí añadimos el Link 
-			nDiv.appendChild(a);
-			//Ahora si recuerdan, en el html hay una div cuyo id es 'adjuntos', bien con esta función obtenemos una referencia a ella para usar de nuevo appendChild 
-			//y añadir la div que hemos creado, la cual contiene el campo file con su link de eliminación:
-			container = document.getElementById('adjuntos');
-			container.appendChild(nDiv);
-		}
-		
-		//Con esta función eliminamos el campo cuyo link de eliminación sea presionado 
-		elimCamp = function (evt){
-			evt = evento(evt);
-			nCampo = rObj(evt);
-			div = document.getElementById(nCampo.name);
-			div.parentNode.removeChild(div);
-		}
-		
-		//Con esta función recuperamos una instancia del objeto que disparo el evento 
-		rObj = function (evt) { 
-			return evt.srcElement ?  evt.srcElement : evt.target;
-		}
-	</script>
 	
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/jquery-1.9.1.js"></script>
 	<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+	<script src="../common/js/functions.js"></script>
 	
 	<script>
 		//Functions used to add/remove in realtime Language fields 
@@ -239,7 +177,7 @@
 				return false;
 			}
 		}
-	</script>
+		</script>
 	
 </head>
 
@@ -333,7 +271,8 @@
 			 }
 		}
 		
-		if(!checkFullNameES($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
+		//This first validation let the system avoid double-recording of the registry if form is refreshed by Candidate via 'CMD+R' or 'F5' in his/her keyboard
+		if(getDBsinglefield('cvSaved', 'users', 'login', $_SESSION['loglogin'])){
 			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
@@ -342,13 +281,20 @@
 			</script>
 			<?php 
 		}
-		//Aquí debo comprobar si EL CANDIDATO ES MAYOR DE EDAD
-		//elseif(!isPreviousDate($_POST['blankbirthdate'])){
+		elseif(!checkFullName($_POST['blankname'], $_POST['blanksurname'], $outName, $outSurname, $checkError)){
+			unset($_POST['push_button']);
+			?>
+			<script type="text/javascript">
+				alert('<?php echo $checkError; ?>');
+				window.location.href='home.php';
+			</script>
+			<?php 
+		}
 		elseif(!isAdult($_POST['blankbirthdate'], getDBsinglefield('value', 'otherOptions', 'key', 'legalAge'))){
 			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
-				alert('Su fecha de nacimiento es incorrecta o indica que es usted menor de edad.');
+				alert('Error: Your birthdate indicates you are not an adult.');
 				window.location.href='home.php';
 			</script>
 			<?php 
@@ -357,7 +303,7 @@
 			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
-				alert('El NIE no está correctamente introducido');
+				alert('Error: DNI/NIE is not properly provided.');
 				window.location.href='home.php';
 			</script>
 			<?php 
@@ -366,7 +312,7 @@
 			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
-				alert('Incluya al menos 1 nacionalidad');
+				alert('Error: No nationality provided.');
 				window.location.href='home.php';
 			</script>
 			<?php 
@@ -380,12 +326,12 @@
 				unset($_POST['push_button']);
 				?>
 				<script type="text/javascript">
-					alert('Olvidó el tipo, nombre o número de su dirección.');
+					alert('Error: Missing address type, name or number.');
 					window.location.href='home.php';
 				</script>
 				<?php
 			}
-			elseif(!checkFullAddressES($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
+			elseif(!checkFullAddress($_POST['blankaddrname'], $_POST['blankaddrnum'], $outAddrName, $outAddrNumber, $checkError)){
 				unset($_POST['push_button']);
 				?>
 				<script type="text/javascript">
@@ -399,7 +345,7 @@
 			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
-				alert('Indique un número de móvil válido.');
+				alert('Error: Wrong Mobile number provided.');
 				window.location.href='home.php';
 			</script>
 			<?php 
@@ -410,7 +356,7 @@
 				unset($_POST['push_button']);
 				?>
 				<script type="text/javascript">
-					alert('Indique un número de teléfono válido.');
+					alert('Error: Wrong phone number provided.');
 					window.location.href='home.php';
 				</script>
 				<?php 
@@ -420,7 +366,7 @@
 			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
-				alert('Introduzca un email válido, por favor.');
+				alert('Error: Wrong mail provided.');
 				window.location.href='home.php';
 			</script>
 			<?php 
@@ -430,7 +376,7 @@
 			unset($_POST['push_button']);
 			?>
 			<script type="text/javascript">
-				alert('Debe introducir al menos 1 idioma y su nivel.');
+				alert('Error: At least 1 language and 1 level are needed.');
 				window.location.href='home.php';
 			</script>
 			<?php 
@@ -536,6 +482,7 @@
 			*/
 			
 			if(!executeDBquery($insertCVQuery)){
+				unset($_POST['push_button']);
 				?>
 				<script type="text/javascript">
 					alert('There was a problem saving your CV. Please contact us to solve it.');
@@ -618,6 +565,7 @@
 				
 				//blocks candidate and redirects her/him to index.html
 				executeDBquery("UPDATE `users` SET `active`='0', `cvSaved`='1' WHERE `login`='".$_SESSION['loglogin']."'");
+				unset($_POST['push_button']);
 				?>
 				<script type="text/javascript">
 					//alert('CV insertado con éxito. Gracias!');
@@ -644,7 +592,7 @@ Los campos que poseen * son obligatorios.
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankname">Nombre: * </label> 
 				<div class="col-sm-10">
 					<!-- <input class="form-control" type='text' name='blankname' autocomplete="off" required/> -->
-					<input class="form-control" type='text' name='blankname' required/>
+					<input class="form-control" type='text' name='blankname' placeholder="Min. 3 caracteres" required/>
 				</div>
 			</div>
 
@@ -652,22 +600,24 @@ Los campos que poseen * son obligatorios.
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanksurname">Apellidos: * </label> 
 				<div class="col-sm-10">
 					<!-- <input class="form-control" type='text' name='blanksurname' autocomplete="off" required/> -->
-					<input class="form-control" type='text' name='blanksurname' required/>
+					<input class="form-control" type='text' name='blanksurname' placeholder="Min. 3 caracteres" required/>
 				</div>
 			</div>
 
 			<div class="form-group"> <!-- Fecha de Nacimiento -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankbirthdate">Fecha de Nacimiento: * </label> 
 				<div class="col-sm-10">
-					<input class="form-control" type='date' name='blankbirthdate' autocomplete="off" required/>
+					<!-- <input class="form-control" type='date' name='blankbirthdate' id='blankbirthdate' autocomplete="off" placeholder="aaaa-mm-dd" onblur="checkDDMMYYYY(this.id)" required/> -->
+					<!-- <input class="form-control" type='date' name='blankbirthdate' id='blankbirthdate' autocomplete="off" placeholder="aaaa-mm-dd" onblur="checkYYYY-MM-DD(this.id)" required/> -->
+					<input class="form-control" type='date' name='blankbirthdate' id='blankbirthdate' autocomplete="off" placeholder="aaaa-mm-dd" onblur="jsIsAdult(this.id, 18)" required/>
 				</div>
 			</div>		
 
 			<div class="form-group"> <!-- DNI/NIE -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanknie">DNI/NIE: * </label>
 				<div class="col-sm-10">
-					<!-- <input class="form-control" type='text' name='blanknie' autocomplete="off" maxlength="9" placeholder="12345678X" onkeyup="this.value=this.value.toUpperCase();" required/> -->
-					<input class="form-control" type='text' name='blanknie' maxlength="9" placeholder="12345678X (8 digs.) ó X1234567X (7 digs.)" onkeyup="this.value=this.value.toUpperCase();" required/>
+					<!-- <input class="form-control" type='text' name='blanknie' maxlength="9" placeholder="[8 digs.]+[LETRA] ó [LETRA]+[7 digs.]+[LETRA]" onkeyup="this.value=this.value.toUpperCase();" onblur="jsCheckDNI_NIE_ES();" required/> -->
+					<input class="form-control" type='text' name='blanknie' maxlength="9" placeholder="[8 digs.]+[LETRA] ó [LETRA]+[7 digs.]+[LETRA]" onkeyup="this.value=this.value.toUpperCase();" onblur="jsCheckDNI_NIE();" required/>
 				</div>
 			</div>		
 
@@ -806,7 +756,8 @@ Los campos que poseen * son obligatorios.
 						<option value="E">E</option>
 						<option value="BTP">BTP</option>
 					</select>				
-				<input class="form-control form-inline" type="date" name="blankdrivingdate" >	
+				<input class="form-control form-inline" type="date" name="blankdrivingdate" placeholder="aaaa-mm-dd" >
+				<!-- <input class='form-control form-inline' type='date' name='blankdrivingdate' id='blankdrivingdate' placeholder='aaaa-mm-dd' onblur="jsIsPreviousDate(this.id)" required/> -->
 				</div>				
 			</div>
 			
@@ -873,6 +824,7 @@ Los campos que poseen * son obligatorios.
 							<option value="C2">C2</option>
 							<option value="mothertongue">Lengua Materna</option>
 						</select>
+						<a href="http://europass.cedefop.europa.eu/es/resources/european-language-levels-cefr/cef-ell-document.pdf">NIVELES EUROPEOS – TABLA DE AUTO EVALUACIÓN (PDF)</a>
 					</div>
 					<div class="btn-toolbar col-sm-1">
 						<div class="btn-group btn-group-sm"><button class="btn btn-default" onclick="addLanguage(this.form);" type="button"><span class="glyphicon glyphicon-plus"></span></button></div>
@@ -986,7 +938,9 @@ Los campos que poseen * son obligatorios.
 		<div class="panel-footer">
 			<label class "control-label" style="margin-bottom: 10px; margin-top: 5px;"><input type="checkbox" name="blanklopd" required> He leído y acepto las condiciones de uso y política de privacidad</label>
 			<div class="btn-group pull-right">
-				<button type="submit" name ="push_button" class="btn btn-primary">Enviar</button>
+				<!-- <button type="submit" name ="push_button" class="btn btn-primary" onclick="this.disabled=true; this.value='Enviando...'; this.form.submit();" >Enviar</button> -->
+				<!-- <button type="submit" name ="push_button" class="btn btn-primary">Enviar</button> -->
+				<button type="submit" name ="push_button" class="btn btn-primary" onclick=" return confirmFormSendES()">Enviar</button>
 			</div>
 		</div> <!-- Panel Footer-->
 	</div> <!-- Panel -->

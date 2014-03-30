@@ -7,7 +7,7 @@
 	<meta name="description" content="">
 	<meta name="author" content="David Alfonso Ginés Prieto, Miguel Hita Vicente y Miguel Ángel Melón Pérez">
 	
-	<title>Gestión de contraseña</title>
+	<title>Password management</title>
 
 	<!-- Custom styles for this template -->
 	<link href="../common/css/design.css" rel="stylesheet">
@@ -51,7 +51,7 @@
 					<div class="top-alert-container">
 						<div class="alert alert-danger alert-error top-alert fade in">
 							<a href="#" class="close" data-dismiss="alert">&times;</a>
-							<strong>Error!</strong> La nueva contraseña debe ser distinta a la anterior.
+							<strong>Error!</strong> New password must different to previous one.
 						</div>
 					</div>
 
@@ -63,7 +63,7 @@
 					<div class="top-alert-container">
 						<div class="alert alert-danger alert-error top-alert fade in">
 							<a href="#" class="close" data-dismiss="alert">&times;</a>
-							<strong>Error!</strong> No fue posible actualizar su contraseña.
+							<strong>Error!</strong> There was a problem updating your password.
 						</div>
 					</div>
 
@@ -75,7 +75,7 @@
 						<div class="top-alert-container">
 							<div class="alert alert-danger alert-error top-alert fade in">
 								<a href="#" class="close" data-dismiss="alert">&times;</a>
-								<strong>Error!</strong> No se pudo actualizar la fecha de última conexión.
+								<strong>Error!</strong> There was a problem updating your last connection date.
 							</div>
 						</div>								
 						<?php $wannaGoTo ='index.html'; 
@@ -90,7 +90,7 @@
 						<div class="top-alert-container">
 							<div class="alert alert-success top-alert fade in">
 								<a href="#" class="close" data-dismiss="alert">&times;</a>
-								<strong>Éxito!</strong> Se ha actualizado la contraseña.
+								<strong>Éxito!</strong> Password updated.
 							</div>
 						</div>					
 	
@@ -114,44 +114,52 @@
 					<div class="top-alert-container">
 						<div class="alert alert-danger alert-error top-alert fade in">
 							<a href="#" class="close" data-dismiss="alert">&times;</a>
-							<strong>Error!</strong> Usuario inexistente o incorrecto.
+							<strong>Error!</strong> User not found.
 						</div>
 					</div>
 
 					<?php 	$wannaGoTo ='index.html'; 
 				}
 
-				//Then checks password
-				if(!(crypt($_POST['logpasswd'], $userRow['pass']) == $userRow['pass'])){
-					if(!$userRow['needPass']){						
-						?>
-						<div class="top-alert-container">
-							<div class="alert alert-danger alert-error top-alert fade in">
-								<a href="#" class="close" data-dismiss="alert">&times;</a>
-								<strong>Error!</strong> Contraseña incorrecta.
-							</div>
-						</div>						
-						<?php 	$wannaGoTo ='index.html'; $wannaExit = true;
-					}
+				//Then checks password for those users that have been previously changed their password
+				elseif((!(crypt($_POST['logpasswd'], $userRow['pass']) == $userRow['pass'])) && (!$userRow['needPass'])){
+					?>
+					<div class="top-alert-container">
+						<div class="alert alert-danger alert-error top-alert fade in">
+							<a href="#" class="close" data-dismiss="alert">&times;</a>
+							<strong>Error!</strong> Wrong password.
+						</div>
+					</div>						
+					<?php 	$wannaGoTo ='index.html'; $wannaExit = true;
+				}
+				elseif(($_POST['logpasswd'] != $userRow['pass']) && ($userRow['needPass'])){
+					?>
+					<div class="top-alert-container">
+						<div class="alert alert-danger alert-error top-alert fade in">
+							<a href="#" class="close" data-dismiss="alert">&times;</a>
+							<strong>Error!</strong> Wrong password.
+						</div>
+					</div>						
+					<?php 	$wannaGoTo ='index.html'; $wannaExit = true;
 				}
 				//Checks whether user profile is active
-				if(!$profileRow['active']){
+				elseif(!$profileRow['active']){
 					?>
 					<div class="top-alert-container">
 						<div class="alert alert-warning alert-error top-alert fade in">
 							<a href="#" class="close" data-dismiss="alert">&times;</a>
-							<strong>Opppsss!</strong> El perfil solicitado no está activo.
+							<strong>Opppsss!</strong> Profile is not active.
 						</div>
 					</div>						
 					<?php $wannaGoTo ='index.html';
 				}
 				//Checks whether user account is active
-				if(!$userRow['active']){
+				elseif(!$userRow['active']){
 					?>
 					<div class="top-alert-container">
 						<div class="alert alert-warning alert-error top-alert fade in">
 							<a href="#" class="close" data-dismiss="alert">&times;</a>
-							<strong>Opppsss!</strong> La cuenta de usuario no está activada.
+							<strong>Opppsss!</strong> User account is not active.
 						</div>
 					</div>						
 					<?php $wannaGoTo ='index.html'; 
@@ -174,27 +182,27 @@
 									<div class='modal-content panel-warning'>
 										<div class='modal-header panel-heading'>
 											<button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-											<h4 class='modal-title'>Debe cambiar la contraseña antes de continuar</h4>
+											<h4 class='modal-title'>You must change your password before continuing</h4>
 										</div>
 										<div class='well encapsulated'>
 											<?php include $_SERVER['DOCUMENT_ROOT'] . '/common/passwdRestrictionsES.txt' ?>
 										</div>
 										<div class='modal-body encapsulated'>
 											<div class='form-group'>
-												<label for='newPassword' class='control-label'>Nueva contraseña</label>
+												<label for='newPassword' class='control-label'>New password</label>
 												<div class='center-block'>
-													<input type='password' class='form-control' name='newPassword' id='newPassword' placeholder='' required data-toggle='tooltip' title='Introduce la nueva contraseña' autocapitalize='off'>
+													<input type='password' class='form-control' name='newPassword' id='newPassword' placeholder='' required data-toggle='tooltip' title='Enter new password' autocapitalize='off'>
 												</div>
 											</div>
 											<div class='form-group'>
-												<label for='confirmNewPassword' class='control-label'>Repita contraseña</label>
+												<label for='confirmNewPassword' class='control-label'>Confirm password</label>
 												<div class='center-block'>
-													<input type='password' class='form-control' name='confirmNewPassword' id='confirmNewPassword' placeholder='' required data-toggle='tooltip' title='Confirme la nueva contraseña' autocapitalize='off'>
+													<input type='password' class='form-control' name='confirmNewPassword' id='confirmNewPassword' placeholder='' required data-toggle='tooltip' title='Confirm password' autocapitalize='off'>
 												</div>
 											</div>
 										</div>
 										<div class='modal-footer'>
-											<button type='submit' class='btn btn-primary'>Cambiar</button>
+											<button type='submit' class='btn btn-primary'>Change</button>
 										</div>
 									</div>
 								</form><!-- id='changePasswordForm'  -->
@@ -210,7 +218,7 @@
 								<div class="top-alert-container">
 									<div class="alert alert-danger alert-error top-alert fade in">
 										<a href="#" class="close" data-dismiss="alert">&times;</a>
-										<strong>Error!</strong> No se pudo actualizar la fecha de última conexión.
+										<strong>Error!</strong> Could not update last connection date.
 									</div>
 								</div>								
 								<?php $wannaGoTo ='index.html'; 
@@ -237,7 +245,7 @@
 				<div class="top-alert-container">
 					<div class="alert alert-warning alert-error top-alert fade in">
 						<a href="#" class="close" data-dismiss="alert">&times;</a>
-						<strong>Opppsss!</strong> Ha olvidado rellenar alguno de los campos.
+						<strong>Opppsss!</strong> Missed field.
 					</div>
 				</div>				
 				<?php $wannaGoTo ='index.html'; 
