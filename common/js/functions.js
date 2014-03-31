@@ -42,13 +42,14 @@ function checkDashedNumbers(e){
 
 
 /* Checks whether an input string corresponds to a VALID date in format YYYY-MM-DD
+ * PRE: yankieDate is NOT empty (must be checked in the function that calls this one)
  * Entry (yankieDate): Input string where must be a date in format YYYY-MM-DD
  * Called from "upload.php"
  */
 function checkYankieDate(yankieDate){
 	var dateValue = document.getElementById(yankieDate).value;	
 	var pattern = new RegExp('((19|20)[0-9]{2})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])');
-	
+	/*
 	if(pattern.test(dateValue)){
 		//Input string matches pattern
 		return true;
@@ -56,6 +57,19 @@ function checkYankieDate(yankieDate){
 	else{
 		//alert('La fecha '+dateValue+' NO es correcta.'+month);
 		alert('Error: Date format is wrong.')
+	}
+	*/
+	if (dateValue.length > 0){
+		if(pattern.test(dateValue)){
+			//Input string matches pattern
+			return true;
+		}
+		else{
+			//alert('La fecha '+dateValue+' NO es correcta.'+month);
+			//MEJOR QUITAR MENSAJES DE ERROR EN FUNCIONES INTERNAS. QUE LOS ERRORES LOS DEVUELVAN LAS FUNCIONES MAS CERCANAS AL USUARIO
+			//alert('Error: Date format is wrong.')
+			return false;
+		}
 	}
 }
 
@@ -137,6 +151,7 @@ function equalPassword() {
 
 
 /* Calculates a future date adding X years to the input date, given in format YYYY-MM-DD
+ * PRE: givenDate is NOT empty (must be checked in the function that calls this one)
  * Entry (givenDate): Input given date in format 'YYYY-MM-DD'
  * Entry (years): Integer which indicates the number of years to be added
  * Exit (resultDate): String that represents Date in format "YYYY-MM-DD"
@@ -162,7 +177,8 @@ function jsAddYearsToDate(givenDate, numYears){
 		return inDate.replace(oldYear,resultYear);
 	}
 	else{
-		alert('Error adding years to given date.');
+		//alert('Error adding years to given date.');
+		return false;
 	}
 }
 
@@ -171,57 +187,7 @@ function jsAddYearsToDate(givenDate, numYears){
 /* Checks whether a DNI or NIE is valid or not
  * Called from "upload.php"
  */
-function jsCheckDNI_NIE_ES(){
-	dni_nie = document.formu.blanknie.value;
-	dniRegExp = /^\d{8}[A-Z]$/;
-	nieRegExp = /^[XYZ]\d{7}[A-Z]$/;
-	
-	if(dniRegExp.test(dni_nie) == true){
-		//alert('Es DNI');
-		//Extracting letter
-		noLetterDNI = dni_nie.substr(0, dni_nie.length-1);
-		dniLetter = dni_nie.substr(dni_nie.length-1,1);
-		noLetterDNI = noLetterDNI % 23;
-		letterValue = 'TRWAGMYFPDXBNJZSQVHLCKET';
-		letterValue = letterValue.substring(noLetterDNI,noLetterDNI+1);
-		if(letterValue != dniLetter){
-			alert('Revise su DNI. La letra no coincide con el número introducido.')
-			document.formu.blanknie.select();
-			document.formu.blanknie.focus();
-		}
-		else{
-			//Correct DNI
-			//return true;
-			alert('Es 1');
-		}
-	}
-	else{
-		if(nieRegExp.test(dni_nie) == true){
-			//alert('Es NIE');
-			controlLetter = 'TRWAGMYFPDXBNJZSQVHLCKE';
-			dniAux = dni_nie;
-			dniAux = dniAux.replace('X', '0');
-			dniAux = dniAux.replace('Y', '1');
-			dniAux = dniAux.replace('Z', '2');
-			controlLetterPos = dniAux.substr(0, dniAux.length-1) % 23;
-			if(dni_nie.charAt(8) == controlLetter.charAt(controlLetterPos)){
-				//Correct NIE
-				return true;
-			}
-			else{
-				alert('Revise su NIE. La letra no coincide con el número introducido.')
-				document.formu.blanknie.select();
-				document.formu.blanknie.focus();
-			}
-		}
-		else{
-			//alert('Mal');
-			alert('Revise su DNI o NIE: Formato incorrecto.')
-			document.formu.blanknie.select();
-			document.formu.blanknie.focus();
-		}
-	}
-}
+/*
 function jsCheckDNI_NIE(){
 	dni_nie = document.formu.blanknie.value;
 	dniRegExp = /^\d{8}[A-Z]$/;
@@ -238,8 +204,11 @@ function jsCheckDNI_NIE(){
 		if(letterValue != dniLetter){
 			//alert('Revise su DNI. La letra no coincide con el número introducido.')
 			alert('Error: Check your DNI. Letter does not match the number.')
+			/*
 			document.formu.blanknie.select();
 			document.formu.blanknie.focus();
+			return false;
+			* /
 		}
 		else{
 			//Correct DNI
@@ -262,18 +231,91 @@ function jsCheckDNI_NIE(){
 			else{
 				//alert('Revise su NIE. La letra no coincide con el número introducido.')
 				alert('Error: Check your NIE. Letter does not match the number.')
+				/*
 				document.formu.blanknie.select();
 				document.formu.blanknie.focus();
+				return false;
+				* /
 			}
 		}
 		else{
 			//alert('Revise su DNI o NIE: Formato incorrecto.')
 			alert('Error: Check your DNI/NIE. Wrong format.')
+			/*
 			document.formu.blanknie.select();
 			document.formu.blanknie.focus();
+			return false;
+			* /
 		}
 	}
 }
+*/
+var busy = 0;
+function jsCheckDNI_NIE(){
+	if(busy) return;
+	busy = 1;
+	
+	var dni_nie = document.formu.blanknie.value;
+	
+	//if(dni_nie.value == ""){
+	if(dni_nie.value == null){
+		alert('Error: DNI/NIE cannot be empty.');
+		document.formu.blanknie.select();
+		document.formu.blanknie.focus();
+		setTimeout('busy = 0', 1);
+	}
+	else{
+		dniRegExp = /^\d{8}[A-Z]$/;
+		nieRegExp = /^[XYZ]\d{7}[A-Z]$/;
+		if(dniRegExp.test(dni_nie) == true){
+			//DNI case. Extracting letter
+			noLetterDNI = dni_nie.substr(0, dni_nie.length-1);
+			dniLetter = dni_nie.substr(dni_nie.length-1,1);
+			noLetterDNI = noLetterDNI % 23;
+			letterValue = 'TRWAGMYFPDXBNJZSQVHLCKET';
+			letterValue = letterValue.substring(noLetterDNI,noLetterDNI+1);
+			if(letterValue != dniLetter){
+				alert('Error: Check your DNI. Letter does not match the number.')
+				document.formu.blanknie.select();
+				document.formu.blanknie.focus();
+				setTimeout('busy = 0', 1);
+			}
+			else{
+				//Correct DNI. Everything's OK. Don't need to return anything
+				busy = 0;
+			}
+		}
+		else{
+			if(nieRegExp.test(dni_nie) == true){
+				//NIE case. Replacing first letter by proper number
+				controlLetter = 'TRWAGMYFPDXBNJZSQVHLCKE';
+				dniAux = dni_nie;
+				dniAux = dniAux.replace('X', '0');
+				dniAux = dniAux.replace('Y', '1');
+				dniAux = dniAux.replace('Z', '2');
+				controlLetterPos = dniAux.substr(0, dniAux.length-1) % 23;
+				if(dni_nie.charAt(8) == controlLetter.charAt(controlLetterPos)){
+					//Correct NIE. Everything's OK. Don't need to return anything
+					busy = 0;
+				}
+				else{
+					alert('Error: Check your NIE. Letter does not match the number.')
+					document.formu.blanknie.select();
+					document.formu.blanknie.focus();
+					setTimeout('busy = 0', 1);
+				}
+			}
+			else{
+				//Neither DNI nor NIE. Wrongly written
+				alert('Error: Check your DNI/NIE. Wrong format.')
+				document.formu.blanknie.select();
+				document.formu.blanknie.focus();
+				setTimeout('busy = 0', 1);
+			}
+		}
+	}
+}
+
 
 
 
@@ -305,6 +347,7 @@ function jsCompareWithCurDate(prevDate){
  * Entry (legalAge): Integer used to know the minimum legal age
  * Exit (): Bool
  */
+/*
 function jsIsAdult(birthDate, legalAge){
 	var inDate = document.getElementById(birthDate).value;
 	//alert('entro '+inDate+' '+legalAge);
@@ -318,9 +361,74 @@ function jsIsAdult(birthDate, legalAge){
 	else{
 		alert('Error: Your birthdate indicates you are not an adult.')
 		//document.formu.blanknie.focus();
-		document.getElementById(birthDate).focus;
+		//document.getElementById(birthDate).focus;
 	}
 }
+*/
+var busy = 0;
+function jsIsAdult(birthDate, legalAge){
+	if(busy) return;
+	busy = 1;
+	
+	var inDate = document.getElementById(birthDate).value;
+	//if(inDate.value == ""){
+	//if(inDate.value == "undefined"){
+	//if(inDate.value == null){
+	//if(inDate == null){
+	if(inDate == ""){
+		alert('Error: Birthdate is empty.');
+		//document.getElementById(birthDate).focus;
+		//document.getElementById(birthDate).select;
+		//inDate.focus();
+		//inDate.select();
+		//birthdate.focus();
+		//birthdate.select();
+		//document.getElementById(inDate).focus;
+		//document.getElementById(inDate).select;
+		document.formu.blankbirthdate.select();
+		document.formu.blankbirthdate.focus();
+		setTimeout('busy = 0', 1);
+	}
+	else{
+		if(checkYankieDate(inDate)){
+			var resultDate = jsAddYearsToDate(birthDate, legalAge);
+			if(jsCompareWithCurDate(resultDate)){
+				//everything's OK. Don't need to return anything
+				busy = 0;
+			}
+			else{
+				alert('Error: Your birthdate indicates you are not an adult.');
+				document.formu.blankbirthdate.select();
+				document.formu.blankbirthdate.focus();
+				setTimeout('busy = 0', 1);
+			}
+		}
+		else{
+			alert('Error: Check your birthdate. Wrong format.');
+			document.formu.blankbirthdate.select();
+			document.formu.blankbirthdate.focus();
+			setTimeout('busy = 0', 1);
+		}
+	}
+	
+	/*
+	else{
+		alert('Valor: '+inDate+'\nLongitud: '+inDate.length);
+		//var resultDate = jsAddYearsToDate(birthDate, legalAge);
+		if(jsCompareWithCurDate(resultDate)){
+			//everything's OK. Don't need to return anything
+			busy = 0;
+		}
+		else{
+			alert('Error: Your birthdate indicates you are not an adult.');
+			document.getElementById(birthDate).focus;
+			document.getElementById(birthDate).select;
+			setTimeout('busy = 0', 1);
+		}
+	}
+	*/
+}
+
 
 
 
@@ -329,30 +437,39 @@ function jsIsAdult(birthDate, legalAge){
  * Exit: Boolean that confirms if date is correct and older than current or not
  */
 /*
-function isPreviousDate($prevDate){
-	$auxDateArray = explode('-', $prevDate);
-	$auxDateMonth = $auxDateArray[1];
-	$auxDateYear = $auxDateArray[0];
-	$auxDateDay = $auxDateArray[2];
-	
-	//Converting common dates to UNIX date to be compared each other
-	$current = strtotime(date('Y-m-d'));
-	$initDate = strtotime($prevDate);
-	
-	if((!checkdate($auxDateMonth, $auxDateDay, $auxDateYear)) || ($initDate > $current)){
-		return false;
-	}
-	else{
-		return true;
-	}
-}
-*/
 function jsIsPreviousDate(prevDate){
 	//alert(prevDate);
 	var pDate = document.getElementById(prevDate).value;
 	alert(pDate);
 	//Calls to jsCompareWithCurDate function
 }
+*/
+var busy = 0;
+function jsIsPreviousDate(prevDate){
+	if(busy) return;
+	busy = 1;
+	
+	var pDate = document.getElementById(prevDate).value;
+	
+	//if(pDate.value == ""){
+	if(pDate.value == null){
+		//do nothing
+		busy = 0;
+	}
+	else{
+		if(checkYankieDate(pDate) && jsCompareWithCurDate(pDate)){
+			//everything's OK. Don't need to return anything
+			busy = 0;
+		}
+		else{
+			alert('Error: Selected date must be a past date.');
+			document.getElementById(prevDate).focus;
+			document.getElementById(prevDate).select;
+			setTimeout('busy = 0', 1);
+		}
+	}
+}
+
 
 
 

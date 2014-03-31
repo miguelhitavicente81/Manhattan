@@ -618,8 +618,9 @@ Los campos que poseen * son obligatorios.
 				<div class="col-sm-10">
 					<!-- <input class="form-control" type='text' name='blanknie' maxlength="9" placeholder="[8 digs.]+[LETRA] ó [LETRA]+[7 digs.]+[LETRA]" onkeyup="this.value=this.value.toUpperCase();" onblur="jsCheckDNI_NIE_ES();" required/> -->
 					<input class="form-control" type='text' name='blanknie' maxlength="9" placeholder="[8 digs.]+[LETRA] ó [LETRA]+[7 digs.]+[LETRA]" onkeyup="this.value=this.value.toUpperCase();" onblur="jsCheckDNI_NIE();" required/>
+					<!-- <input class="form-control" type='text' name='blanknie' maxlength="9" placeholder="[8 digs.]+[LETRA] ó [LETRA]+[7 digs.]+[LETRA]" onblur="jsCheckDNI_NIE();" required/> -->
 				</div>
-			</div>		
+			</div>
 
 			<div class="form-group"> <!-- Nacionalidad -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="add_nat">Nacionalidad: * </label> 
@@ -756,8 +757,8 @@ Los campos que poseen * son obligatorios.
 						<option value="E">E</option>
 						<option value="BTP">BTP</option>
 					</select>				
-				<input class="form-control form-inline" type="date" name="blankdrivingdate" placeholder="aaaa-mm-dd" >
-				<!-- <input class='form-control form-inline' type='date' name='blankdrivingdate' id='blankdrivingdate' placeholder='aaaa-mm-dd' onblur="jsIsPreviousDate(this.id)" required/> -->
+				<!-- <input class="form-control form-inline" type="date" name="blankdrivingdate" placeholder="aaaa-mm-dd" > -->
+				<input class='form-control form-inline' type='date' name='blankdrivingdate' id='blankdrivingdate' placeholder='aaaa-mm-dd' onblur="jsIsPreviousDate(this.id)">
 				</div>				
 			</div>
 			
