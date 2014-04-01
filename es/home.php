@@ -187,13 +187,14 @@
 					<div class="bs-docs-section">
 
 						<?php 
-
+							//Conditional block for 'Administrador' or 'SuperAdmin' profiles
 							if(($userRow['profile'] == 'Administrador') || ($userRow['profile'] == 'SuperAdmin')){
+								/*
 								if((getDBrowsnumber('cvitaes') == 0) || ($pendingCVs == 0)){
-									echo "<h1 class='page-header'>Noticias <br><small>No existen CVs por clasificar</small></h1>";
+									echo "<h1 class='page-header'>Noticias <br><small>No existen CVs por validar</small></h1>";
 								}
 								else{
-									echo "<h1 class='page-header'>Noticias <br><small>Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por clasificar</small></h1>";
+									echo "<h1 class='page-header'>Noticias <br><small>Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por validar</small></h1>";
 								}
 
 								if(suggestPassword(date('Y-m-d'), $userRow['passExpiration'], $days)){
@@ -202,7 +203,27 @@
 									echo "<h4 class='text-danger'>&nbsp;Su contraseña caduca en " . $days . " días. <a href=./home/personalData.php>Cambiar</a><span class='label label-danger notice-label pull-left'>Aviso</span></h4>";
 									echo "</div>";
 								}
+								*/
+								//echo "<h1 class='page-header'>Noticias <br></h1>";
+								echo "<h1 class='page-header'>Noticias <br></h1>";
+								echo "<div class='clearfix'>";
+								if((getDBrowsnumber('cvitaes') == 0) || ($pendingCVs == 0)){
+									echo "<h1 class='page-header'><small>No existen CVs por validar</small></h1>";
+								}
+								else{
+									//echo "<h1 class='page-header'><small>Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por validar</small></h1>";
+									//echo "<small>Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por validar</small>";
+									echo "<h2><small>Existen <a href=./home/pendingCVs.php>" . $pendingCVs . " </a> CVs por validar </small></h2><br>";
+								}
+
+								if(suggestPassword(date('Y-m-d'), $userRow['passExpiration'], $days)){
+									//echo "<h1 class='page-header'>Noticias <br></h1>";
+									//echo "<div class='clearfix'>";
+									echo "<h4 class='text-danger'>&nbsp;Su contraseña caduca en " . $days . " días. <a href=./home/personalData.php>Cambiar</a><span class='label label-danger notice-label pull-left'>Aviso</span></h4>";
+									echo "</div>";
+								}
 							}
+							//Conditional block for 'Lector' profile
 							elseif($userRow['profile'] == 'Lector'){
 								if(suggestPassword(date('Y-m-d'), $userRow['passExpiration'], $days)){
 									echo "<h1 class='page-header'>Noticias <br></h1>";
@@ -211,12 +232,22 @@
 									echo "</div>";
 								}
 								else{
-									echo "<h1 class='page-header'>Noticias <br><small></small></h1>";
+									//echo "<h1 class='page-header'>Noticias <br><small></small></h1>";
+									echo "<h1 class='page-header'>Noticias <br></h1>";
+									echo "<div class='clearfix'>";
 								}
 							}
+							//Conditional block for any other profile (which in fact is only 'Candidato')
 							else{
 								echo "<h1 class='page-header'>Introduce tu CV <br><small>" . $userRow['login'] . "</small></h1>";
 								include 'upload.php';
+							}
+							//if($userRow['profile'] != 'Candidato'){
+							if(($userRow['employee'] == '1') && (file_exists($_SERVER['DOCUMENT_ROOT'].'/broadcasting.txt'))){
+								echo "<br><h4 class='text-danger'><span class='label label-warning notice-label pull-left'>Información importante</span></h4><br>";
+								echo "<h4 class='text-warning'>";
+								include '../broadcasting.txt';
+								echo "</h4>";
 							}
 						?>
 					</div> <!-- bs-docs-section -->

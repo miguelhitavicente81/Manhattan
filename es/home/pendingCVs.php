@@ -711,7 +711,7 @@
 										<div class="col-sm-10 input-group">
 											<!-- <input class="form-control" type='text' name='eCCVsalary' maxlength='7' value="< ?php echo html_entity_decode($editedCVRow['salary']) ?>"> -->
 											<input class="form-control" type='text' name='eCCVsalary' maxlength='7' value="<?php echo html_entity_decode($editedCVRow['salary']) ?>" onkeypress="return checkOnlyNumbers(event)">
-											<span class="input-group-addon">€uros/año</span>
+											<span class="input-group-addon">€ neto/año</span>
 										</div>
 									</div>										
 
@@ -794,7 +794,7 @@
 
 				<div class="col-md-9 scrollable" role="main"> 
 					<div class="bs-docs-section">
-						<h2 class="page-header">CVs pendientes de clasificar</h2>
+						<h2 class="page-header">CVs pendientes de validar</h2>
 
 					<?php 
 

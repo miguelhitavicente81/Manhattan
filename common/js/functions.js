@@ -33,11 +33,46 @@ function checkMassFileExtension(fileId){
  * Called from "pendingCVs.php" (and also in "upload.php", although in this last file is inherently written)
  */ 
 function checkDashedNumbers(e){
-	tecla = e.which || e.keyCode;
-	patron = /[0-9\\-]/;
-	te = String.fromCharCode(tecla);
+	var tecla = e.which || e.keyCode;
+	var patron = /[0-9\\-]/;
+	var te = String.fromCharCode(tecla);
 	return (patron.test(te) || tecla == 9 || tecla == 8);
 }
+
+
+
+/* Checks whether an input string corresponds to a VALID date in format YYYY-MM-DD
+ * PRE: yankieDate is NOT empty (must be checked in the function that calls this one)
+ * Entry (yankieDate): Input string where must be a date in format YYYY-MM-DD
+ * Called from "upload.php"
+ */
+function checkYankieDate(yankieDate){
+	var dateValue = document.getElementById(yankieDate).value;	
+	var pattern = new RegExp('((19|20)[0-9]{2})-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])');
+	/*
+	if(pattern.test(dateValue)){
+		//Input string matches pattern
+		return true;
+	}
+	else{
+		//alert('La fecha '+dateValue+' NO es correcta.'+month);
+		alert('Error: Date format is wrong.')
+	}
+	*/
+	if (dateValue.length > 0){
+		if(pattern.test(dateValue)){
+			//Input string matches pattern
+			return true;
+		}
+		else{
+			//alert('La fecha '+dateValue+' NO es correcta.'+month);
+			//MEJOR QUITAR MENSAJES DE ERROR EN FUNCIONES INTERNAS. QUE LOS ERRORES LOS DEVUELVAN LAS FUNCIONES MAS CERCANAS AL USUARIO
+			//alert('Error: Date format is wrong.')
+			return false;
+		}
+	}
+}
+
 
 
 
@@ -45,9 +80,9 @@ function checkDashedNumbers(e){
  * Called from "pendingCVs.php" (also in "upload.php", but in this php is inherently written)
  */
 function checkOnlyNumbers(e){
-	tecla = e.which || e.keyCode;
-	patron = /\d/; // Solo acepta números
-	te = String.fromCharCode(tecla);
+	var tecla = e.which || e.keyCode;
+	var patron = /\d/; // Solo acepta números
+	var te = String.fromCharCode(tecla);
 	return (patron.test(te) || tecla == 9 || tecla == 8);
 }
 
@@ -112,6 +147,329 @@ function equalPassword() {
 		return false;
 	}
 }
+
+
+
+/* Calculates a future date adding X years to the input date, given in format YYYY-MM-DD
+ * PRE: givenDate is NOT empty (must be checked in the function that calls this one)
+ * Entry (givenDate): Input given date in format 'YYYY-MM-DD'
+ * Entry (years): Integer which indicates the number of years to be added
+ * Exit (resultDate): String that represents Date in format "YYYY-MM-DD"
+ * Called from internal "jsIsAdult" JS function
+ */
+function jsAddYearsToDate(givenDate, numYears){
+	//var inDate = document.getElementById(givenDate).value;
+	//alert('espero...'+inDate+' '+years);
+	
+	//Checks whether the YYYY-MM-DD date format is correct
+	if(checkYankieDate(givenDate)){
+		//alert('yankie OK');
+		//substring del año
+		//sumar 18
+		//replace del nuevo año por el viejo
+		var inDate = document.getElementById(givenDate).value;
+		//alert('el este es '+inDate);
+		var oldYear = inDate.substring(0,4);
+		var resultYear = parseInt(oldYear)+parseInt(numYears);
+		//alert(resultYear);
+		//var resultDate = inDate.replace(oldYear,resultYear);
+		//alert(resultDate);
+		return inDate.replace(oldYear,resultYear);
+	}
+	else{
+		//alert('Error adding years to given date.');
+		return false;
+	}
+}
+
+
+
+/* Checks whether a DNI or NIE is valid or not
+ * Called from "upload.php"
+ */
+/*
+function jsCheckDNI_NIE(){
+	dni_nie = document.formu.blanknie.value;
+	dniRegExp = /^\d{8}[A-Z]$/;
+	nieRegExp = /^[XYZ]\d{7}[A-Z]$/;
+	
+	if(dniRegExp.test(dni_nie) == true){
+		//alert('Es DNI');
+		//Extracting letter
+		noLetterDNI = dni_nie.substr(0, dni_nie.length-1);
+		dniLetter = dni_nie.substr(dni_nie.length-1,1);
+		noLetterDNI = noLetterDNI % 23;
+		letterValue = 'TRWAGMYFPDXBNJZSQVHLCKET';
+		letterValue = letterValue.substring(noLetterDNI,noLetterDNI+1);
+		if(letterValue != dniLetter){
+			//alert('Revise su DNI. La letra no coincide con el número introducido.')
+			alert('Error: Check your DNI. Letter does not match the number.')
+			/*
+			document.formu.blanknie.select();
+			document.formu.blanknie.focus();
+			return false;
+			* /
+		}
+		else{
+			//Correct DNI
+			return true;
+		}
+	}
+	else{
+		if(nieRegExp.test(dni_nie) == true){
+			//alert('Es NIE');
+			controlLetter = 'TRWAGMYFPDXBNJZSQVHLCKE';
+			dniAux = dni_nie;
+			dniAux = dniAux.replace('X', '0');
+			dniAux = dniAux.replace('Y', '1');
+			dniAux = dniAux.replace('Z', '2');
+			controlLetterPos = dniAux.substr(0, dniAux.length-1) % 23;
+			if(dni_nie.charAt(8) == controlLetter.charAt(controlLetterPos)){
+				//Correct NIE
+				return true;
+			}
+			else{
+				//alert('Revise su NIE. La letra no coincide con el número introducido.')
+				alert('Error: Check your NIE. Letter does not match the number.')
+				/*
+				document.formu.blanknie.select();
+				document.formu.blanknie.focus();
+				return false;
+				* /
+			}
+		}
+		else{
+			//alert('Revise su DNI o NIE: Formato incorrecto.')
+			alert('Error: Check your DNI/NIE. Wrong format.')
+			/*
+			document.formu.blanknie.select();
+			document.formu.blanknie.focus();
+			return false;
+			* /
+		}
+	}
+}
+*/
+var busy = 0;
+function jsCheckDNI_NIE(){
+	if(busy) return;
+	busy = 1;
+	
+	var dni_nie = document.formu.blanknie.value;
+	
+	//if(dni_nie.value == ""){
+	if(dni_nie.value == null){
+		alert('Error: DNI/NIE cannot be empty.');
+		document.formu.blanknie.select();
+		document.formu.blanknie.focus();
+		setTimeout('busy = 0', 1);
+	}
+	else{
+		dniRegExp = /^\d{8}[A-Z]$/;
+		nieRegExp = /^[XYZ]\d{7}[A-Z]$/;
+		if(dniRegExp.test(dni_nie) == true){
+			//DNI case. Extracting letter
+			noLetterDNI = dni_nie.substr(0, dni_nie.length-1);
+			dniLetter = dni_nie.substr(dni_nie.length-1,1);
+			noLetterDNI = noLetterDNI % 23;
+			letterValue = 'TRWAGMYFPDXBNJZSQVHLCKET';
+			letterValue = letterValue.substring(noLetterDNI,noLetterDNI+1);
+			if(letterValue != dniLetter){
+				alert('Error: Check your DNI. Letter does not match the number.')
+				document.formu.blanknie.select();
+				document.formu.blanknie.focus();
+				setTimeout('busy = 0', 1);
+			}
+			else{
+				//Correct DNI. Everything's OK. Don't need to return anything
+				busy = 0;
+			}
+		}
+		else{
+			if(nieRegExp.test(dni_nie) == true){
+				//NIE case. Replacing first letter by proper number
+				controlLetter = 'TRWAGMYFPDXBNJZSQVHLCKE';
+				dniAux = dni_nie;
+				dniAux = dniAux.replace('X', '0');
+				dniAux = dniAux.replace('Y', '1');
+				dniAux = dniAux.replace('Z', '2');
+				controlLetterPos = dniAux.substr(0, dniAux.length-1) % 23;
+				if(dni_nie.charAt(8) == controlLetter.charAt(controlLetterPos)){
+					//Correct NIE. Everything's OK. Don't need to return anything
+					busy = 0;
+				}
+				else{
+					alert('Error: Check your NIE. Letter does not match the number.')
+					document.formu.blanknie.select();
+					document.formu.blanknie.focus();
+					setTimeout('busy = 0', 1);
+				}
+			}
+			else{
+				//Neither DNI nor NIE. Wrongly written
+				alert('Error: Check your DNI/NIE. Wrong format.')
+				document.formu.blanknie.select();
+				document.formu.blanknie.focus();
+				setTimeout('busy = 0', 1);
+			}
+		}
+	}
+}
+
+
+
+
+/* Compares an input given date with a current date
+ * Entry (prevDate): String that corresponds to Date in format YYYY-MM-DD
+ * Exit: Boolean that returns '1' if curDate is newer/older. '0' if not
+ */
+function jsCompareWithCurDate(prevDate){
+	var curDate = new Date();
+	var year = prevDate.substring(0,4);
+	var month = prevDate.substring(5,7)-1;
+	var day = prevDate.substring(8,10);
+	var isAdultDate = new Date(year, month, day);
+	//var remaining = isAdultDate - curDate;
+	var remaining = curDate - isAdultDate;
+	if(remaining > 0){
+		//adult
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
+
+
+/* Checks whether a person is adult or not, according input date. It doesn't matter date format
+ * Entry (birthDate): Input date that represents birthdate
+ * Entry (legalAge): Integer used to know the minimum legal age
+ * Exit (): Bool
+ */
+/*
+function jsIsAdult(birthDate, legalAge){
+	var inDate = document.getElementById(birthDate).value;
+	//alert('entro '+inDate+' '+legalAge);
+	var resultDate = jsAddYearsToDate(birthDate, legalAge);
+	//alert('La fecha adulta es: '+resultDate);
+	
+	//jsCompareWithCurDate(resultDate);
+	if(jsCompareWithCurDate(resultDate)){
+		return true;
+	}
+	else{
+		alert('Error: Your birthdate indicates you are not an adult.')
+		//document.formu.blanknie.focus();
+		//document.getElementById(birthDate).focus;
+	}
+}
+*/
+var busy = 0;
+function jsIsAdult(birthDate, legalAge){
+	if(busy) return;
+	busy = 1;
+	
+	var inDate = document.getElementById(birthDate).value;
+	//if(inDate.value == ""){
+	//if(inDate.value == "undefined"){
+	//if(inDate.value == null){
+	//if(inDate == null){
+	if(inDate == ""){
+		alert('Error: Birthdate is empty.');
+		//document.getElementById(birthDate).focus;
+		//document.getElementById(birthDate).select;
+		//inDate.focus();
+		//inDate.select();
+		//birthdate.focus();
+		//birthdate.select();
+		//document.getElementById(inDate).focus;
+		//document.getElementById(inDate).select;
+		document.formu.blankbirthdate.select();
+		document.formu.blankbirthdate.focus();
+		setTimeout('busy = 0', 1);
+	}
+	else{
+		if(checkYankieDate(inDate)){
+			var resultDate = jsAddYearsToDate(birthDate, legalAge);
+			if(jsCompareWithCurDate(resultDate)){
+				//everything's OK. Don't need to return anything
+				busy = 0;
+			}
+			else{
+				alert('Error: Your birthdate indicates you are not an adult.');
+				document.formu.blankbirthdate.select();
+				document.formu.blankbirthdate.focus();
+				setTimeout('busy = 0', 1);
+			}
+		}
+		else{
+			alert('Error: Check your birthdate. Wrong format.');
+			document.formu.blankbirthdate.select();
+			document.formu.blankbirthdate.focus();
+			setTimeout('busy = 0', 1);
+		}
+	}
+	
+	/*
+	else{
+		alert('Valor: '+inDate+'\nLongitud: '+inDate.length);
+		//var resultDate = jsAddYearsToDate(birthDate, legalAge);
+		if(jsCompareWithCurDate(resultDate)){
+			//everything's OK. Don't need to return anything
+			busy = 0;
+		}
+		else{
+			alert('Error: Your birthdate indicates you are not an adult.');
+			document.getElementById(birthDate).focus;
+			document.getElementById(birthDate).select;
+			setTimeout('busy = 0', 1);
+		}
+	}
+	*/
+}
+
+
+
+
+/* Checks whether a given input date is well-formatted and is if it is also older than current date
+ * Entry (prevDate): Date in format YYYY-MM-DD
+ * Exit: Boolean that confirms if date is correct and older than current or not
+ */
+/*
+function jsIsPreviousDate(prevDate){
+	//alert(prevDate);
+	var pDate = document.getElementById(prevDate).value;
+	alert(pDate);
+	//Calls to jsCompareWithCurDate function
+}
+*/
+var busy = 0;
+function jsIsPreviousDate(prevDate){
+	if(busy) return;
+	busy = 1;
+	
+	var pDate = document.getElementById(prevDate).value;
+	
+	//if(pDate.value == ""){
+	if(pDate.value == null){
+		//do nothing
+		busy = 0;
+	}
+	else{
+		if(checkYankieDate(pDate) && jsCompareWithCurDate(pDate)){
+			//everything's OK. Don't need to return anything
+			busy = 0;
+		}
+		else{
+			alert('Error: Selected date must be a past date.');
+			document.getElementById(prevDate).focus;
+			document.getElementById(prevDate).select;
+			setTimeout('busy = 0', 1);
+		}
+	}
+}
+
 
 
 
@@ -227,6 +585,20 @@ function confirmPendingCVDeletion(id) {
  */
 function confirmCheckedCVDeletion(id) {
 	return confirm('Are you sure you want to delete this CV and its assigned user?');
+}
+
+
+
+/* Double-checks sending of Candidate's CV submit
+ * Called from "upload.php"
+ */
+function confirmFormSendES(){
+	/*
+	if(confirm('¿Ha confirmado que todos sus datos están correctamente introducidos?')){
+		document.formu.submit();
+	}
+	*/
+	return confirm('¿Confirma que ha revisado todos sus datos y que desea enviar el formulario?');
 }
 
 

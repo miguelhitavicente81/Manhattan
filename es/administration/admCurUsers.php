@@ -236,7 +236,7 @@
 										executeDBquery("UPDATE `profiles` SET `numUsers`='".$profileUsers."' WHERE `name`='".$_POST['newUProfile']."'");
 										?>
 										<script type="text/javascript">
-											alert('Usuario <?php echo $newUser; ?> creado con éxito. Su contraseña por defecto es: <?php echo $initialPass; ?>');
+											alert('Usuario <?php echo $newUser; ?> creado con éxito. \nSu contraseña por defecto es: <?php echo $initialPass; ?>');
 											window.location.href='admCurUsers.php';
 										</script>
 										<?php
