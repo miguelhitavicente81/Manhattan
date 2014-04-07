@@ -46,7 +46,7 @@
 
 			<div class="form-group">
 				<div class='input-group date' id='datetimePicker'>
-					<input type='text' class='form-control' name='datetimePicker' placeholder="Fecha de nacimiento" />
+					<input type='text' class='form-control' name='datetimePicker' placeholder="Fecha de nacimiento"/>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 				</div>		
 			</div> 
@@ -105,14 +105,17 @@
 	<!-- <script src="common/js/docs.min.js"></script> -->
 
 	<script>
-		$(function () {
-			$('#datetimePicker').datetimepicker({
-				pickTime: false
-			});
-		});
+
 	</script>
 
 	<script>
+		$(function () {
+			$('#datetimePicker').datetimepicker({
+				pickTime: false,
+				language: "es"
+			});
+		});
+
 		$(document).ready(function() {
 			$('#LoginForm').bootstrapValidator({
 				message: 'Este valor no es válido',
