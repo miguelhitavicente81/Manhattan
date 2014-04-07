@@ -38,11 +38,20 @@
 			<h2 class="form-signin-heading ">Acceso</h2>
 			<!-- <input type="text" class="form-control inputPhone" name="logPhone" placeholder="Teléfono (### ### ###)" pattern='\d{3}\ \d{3} \d{3}' required autofocus data-toggle="tooltip" title="Introduce el teléfono de acceso con el que te has registrado" autocapitalize="off"> -->
 			<div class="form-group">
-				<input type="login" class="form-control" name="username" placeholder="Nombre de Usuario" required autofocus data-toggle="tooltip" title="Introduce el nombre de usuario con el que te has registrado" autocapitalize="off">
+				<input type="login" class="form-control" name="username" placeholder="Usuario" required autofocus data-toggle="tooltip" title="Introduce el nombre de usuario con el que te has registrado" autocapitalize="off">
 			</div>
 			<div class="form-group">
 				<input type="password" class="form-control" name="logpasswd" placeholder="Contraseña" required data-toggle="tooltip" title="Introduce la contraseña que has recibido también en tu correo" autocapitalize="off">
 			</div>
+
+			<div class="form-group">
+				<div class='input-group date' id='datetimePicker'>
+					<input type='text' class='form-control' name='datetimePicker' placeholder="Fecha de nacimiento" />
+					<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				</div>		
+			</div> 
+
+			</br>
 
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
 		</form>
@@ -82,6 +91,10 @@
 
 	<!-- Let's get pre-send validation on form -->
 	<script type="text/javascript" src="common/js/bootstrapValidator.js"></script>
+
+	<!-- Datepicker -->
+	<script type="text/javascript" src="common/js/moment.js"></script>
+	<script type="text/javascript" src="common/js/bootstrap-datetimepicker.js"></script>
 	
 	<!-- Do you wanna use tooltips or validation instead of? -->
 	<!-- <script src="common/js/application.js"></script> -->
@@ -92,9 +105,17 @@
 	<!-- <script src="common/js/docs.min.js"></script> -->
 
 	<script>
+		$(function () {
+			$('#datetimePicker').datetimepicker({
+				pickTime: false
+			});
+		});
+	</script>
+
+	<script>
 		$(document).ready(function() {
 			$('#LoginForm').bootstrapValidator({
-				message: 'This value is not valid',
+				message: 'Este valor no es válido',
 				feedbackIcons: {
 					valid: 'glyphicon glyphicon-ok',
 					invalid: 'glyphicon glyphicon-remove',
@@ -102,37 +123,59 @@
 				},
 				fields: {
 					username: {
-						message: 'The username is not valid',
+						message: 'El Nombre de Usuario no es válido',
 						validators: {
 							notEmpty: {
-								message: 'The username is required and cannot be empty'
+								message: 'El nombre de usuario es un dato requerido y no puede estar vacío'
 							},
 							stringLength: {
-								min: 6,
-								max: 30,
-								message: 'The username must be more than 6 and less than 30 characters long'
+								min: 4,
+								max: 9, 
+								message: 'El nombre de usuario debe 4 o más caracteres y menos de 9'
 							},
 							regexp: {
 								regexp: /^[a-zA-Z0-9_]+$/,
-								message: 'The username can only consist of alphabetical, number and underscore'
+								message: 'El nombre de usuario sólo puede contener letras, números y \'_\''
 							}
 						}
 					},
 					logpasswd: {
 						validators: {
 							notEmpty: {
-								message: 'The password is required and cannot be empty'
+								message: 'La contraseña es un dato requerido y no puede estar vacía'
 							},
 							stringLength: {
 								min: 6,
-								max: 30,
-								message: 'The password must be more than 6 and less than 30 characters long'
+								max: 16,
+								message: 'La contraseña debe 4 o más caracteres y menos de 16'
 							},
+						}
+					},
+					datetimePicker: {
+						validators: {
+							notEmpty: {
+								message: 'La fecha es un campo requerido y no puede estar vacía'
+							},
+							date: {
+								format: 'DD/MM/YYYY'
+							}
 						}
 					}
 				}
 			});
-		});
+
+
+			$('#datetimePicker').on('dp.change dp.show', function(e) {
+					// Validate the date when user change it
+					$('#LoginForm')
+					// Get the bootstrapValidator instance
+					.data('bootstrapValidator')
+					// Mark the field as not validated, so it'll be re-validated when the user change date
+					.updateStatus('datetimePicker', 'NOT_VALIDATED', null)
+					// Validate the field
+					.validateField('datetimePicker');
+				});
+			});
 	</script>
 
 
