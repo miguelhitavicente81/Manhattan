@@ -14,6 +14,7 @@
 @import url(docs.css);
 @import url(flags.css);
 @import url(bootstrap-tagsinput.css);
+@import url(bootstrapValidator.css);
 
 
 /* Fonts family imports
@@ -269,6 +270,12 @@ body {
 	font-weight: 700;
 }
 
+
+/* Forms style for pre-validations
+-------------------------------------------------- */
+.bootstrap-validator-form > .form-group {
+	margin-bottom: 0px;
+}
 
 
 
