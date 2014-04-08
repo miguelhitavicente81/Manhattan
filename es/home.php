@@ -285,5 +285,12 @@
 	<script src="../common/js/application.js"></script>
 	<script src="../common/js/docs.min.js"></script>
 
+	<!-- Let's get pre-send validation on form -->
+	<script src="../common/js/bootstrapValidator.js"></script>
+
+	<!-- Datepicker -->
+	<script type="text/javascript" src="../common/js/moment.js"></script>
+	<script type="text/javascript" src="../common/js/bootstrap-datetimepicker.js"></script>
+
 </body>
 </html>

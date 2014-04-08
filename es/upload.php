@@ -606,12 +606,17 @@ Los campos que poseen * son obligatorios.
 
 			<div class="form-group"> <!-- Fecha de Nacimiento -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blankbirthdate">Fecha de Nacimiento: * </label> 
-				<div class="col-sm-10">
-					<!-- <input class="form-control" type='date' name='blankbirthdate' id='blankbirthdate' autocomplete="off" placeholder="aaaa-mm-dd" onblur="checkDDMMYYYY(this.id)" required/> -->
-					<!-- <input class="form-control" type='date' name='blankbirthdate' id='blankbirthdate' autocomplete="off" placeholder="aaaa-mm-dd" onblur="checkYYYY-MM-DD(this.id)" required/> -->
-					<input class="form-control" type='date' name='blankbirthdate' id='blankbirthdate' autocomplete="off" placeholder="aaaa-mm-dd" onblur="jsIsAdult(this.id, 18)" required/>
+				<div class="col-sm-10"> 
+					<div class="input-group date" id='blankbirthdate'>
+						<!-- <input class="form-control" type='date' name='blankbirthdate' id='blankbirthdate' autocomplete="off" placeholder="aaaa-mm-dd" onblur="checkDDMMYYYY(this.id)" required/> -->
+						<!-- <input class="form-control" type='date' name='blankbirthdate' id='blankbirthdate' autocomplete="off" placeholder="aaaa-mm-dd" onblur="checkYYYY-MM-DD(this.id)" required/> -->
+						<!-- <input class="form-control" type='date' name='blankbirthdate' id='blankbirthdate' autocomplete="off" placeholder="aaaa-mm-dd" onblur="jsIsAdult(this.id, 18)" required/> -->
+						<input type='text' class='form-control' name='blankbirthdate' placeholder="Fecha de nacimiento" onblur="jsIsAdult(this.id, 18)" required/>
+						<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+					</div>
 				</div>
 			</div>		
+
 
 			<div class="form-group"> <!-- DNI/NIE -->
 				<label id="uploadFormLabel" class="control-label col-sm-2" for="blanknie">DNI/NIE: * </label>
@@ -692,7 +697,7 @@ Los campos que poseen * son obligatorios.
 					<input class="form-control form-inline" type="text" name="blankaddrdoor" size="2" maxlength="4" placeholder="Puerta" onkeyup="this.value=this.value.toUpperCase();">
 					<br><br>
 					
-					<select class="form-control form-inline pull-right" name="blankaddrpostalcode" onchange="ajaxGetAddress(this.value)" style="margin-top:5px;">
+					<select class="form-control form-inline pull-right" name="blankaddrpostalcode" value="" onchange="ajaxGetAddress(this.value)" style="margin-top:5px;">
 						<option value="" selected>-- Código Postal --</option>
 						<?php 
 							//$cpCol = getDBDistCompleteColID('postalCode', 'postalCitiesES', 'postalCode');
@@ -947,5 +952,100 @@ Los campos que poseen * son obligatorios.
 	</div> <!-- Panel -->
 </form>
 
-</body>
+
+
+	<script>
+		$(function () {
+			$('#blankbirthdate').datetimepicker({
+				pickTime: false,
+				language: "es"
+			});
+		});
+
+		$(document).ready(function() {
+			$('#uploadForm').bootstrapValidator({
+				message: 'Este valor no es válido',
+				feedbackIcons: {
+					valid: 'glyphicon glyphicon-ok',
+					invalid: 'glyphicon glyphicon-remove',
+					validating: 'glyphicon glyphicon-refresh'
+				},
+				fields: {
+					blankname: {
+						message: 'El nombre no es válido',
+						validators: {
+							notEmpty: {
+								message: 'El nombre es un dato requerido y no puede estar vacío'
+							},
+							stringLength: {
+								min: 3,
+								max: 20, 
+								message: 'El nombre debe tener 3 o más caracteres y menos de 20'
+							},
+							regexp: {
+								regexp: /^[a-zA-Z\u00C0-\u017F ]+$/,
+								message: 'El nombre sólo puede contener letras y espacios'
+							}
+						}
+					},
+					blanksurname: {
+						message: 'El apellido no es válido',
+						validators: {
+							notEmpty: {
+								message: 'El apellido es un dato requerido y no puede estar vacío'
+							},
+							stringLength: {
+								min: 3,
+								max: 20, 
+								message: 'El apellido debe tener 3 o más caracteres y menos de 20'
+							},
+							regexp: {
+								regexp: /^[a-zA-Z\u00C0-\u017F ]+$/,
+								message: 'El apellido sólo puede contener letras y espacios'
+							}
+						}
+					},
+					blankbirthdate: {
+						validators: {
+							notEmpty: {
+								message: 'La fecha de nacimiento es un campo requerido y no puede estar vacía'
+							},
+							date: {
+								format: 'DD/MM/YYYY'
+							},
+							callback: {
+								message: '¡No eres mayor de edad!',
+								callback: function(value, validator) {
+									var m = new moment(value, 'DD/MM/YYYY', true);
+
+									// Verificamos que el formato de la fecha es correcto
+									if (!m.isValid()) {
+										return false;
+									}
+									// Verificamos que sea mayor de edad
+									var age = new moment(value, 'DD/MM/YYYY').fromNow();
+									var anos = moment.duration(moment()-m).asYears();
+									return (anos > 18);
+								}
+							}
+						}
+					}				
+				}
+			});
+
+
+			$('#blankbirthdate').on('dp.change dp.show', function(e) {
+					// Validate the date when user change it
+					$('#uploadForm')
+					// Get the bootstrapValidator instance
+					.data('bootstrapValidator')
+					// Mark the field as not validated, so it'll be re-validated when the user change date
+					.updateStatus('blankbirthdate', 'NOT_VALIDATED', null)
+					// Validate the field
+					.validateField('blankbirthdate');
+				});
+			});
+	</script>
+
+	</body>
 </html>
